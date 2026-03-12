@@ -1,29 +1,33 @@
 # Деплой TymMovie на Vercel
 
-## Подключение репозитория GitHub к Vercel
+Один проект: фронтенд (React) + serverless API (Neon + TMDB). Отдельный бэкенд не нужен.
 
-1. **Войдите на [vercel.com](https://vercel.com)** и авторизуйтесь через GitHub.
+## Подключение репозитория к Vercel
 
-2. **Add New Project** → **Import Git Repository** → выберите **Damodar1992/TymMovie** (или нажмите **Import** рядом с ним).
+1. Зайдите на [vercel.com](https://vercel.com) и войдите через GitHub.
 
-3. **Настройки проекта:**
-   - **Framework Preset:** Vite (должен определиться автоматически).
-   - **Root Directory:** нажмите **Edit** и укажите `frontend` (важно — в репозитории фронтенд лежит в папке `frontend`).
-   - **Build Command:** `npm run build` (по умолчанию).
-   - **Output Directory:** `dist` (по умолчанию).
-   - **Install Command:** `npm install` (по умолчанию).
+2. **Add New Project** → **Import Git Repository** → выберите **Damodar1992/TymMovie**.
 
-4. **Переменные окружения (Environment Variables):**
-   - Если бэкенд уже развёрнут на другом сервисе (Railway, Render и т.п.), добавьте:
-     - **Name:** `VITE_API_BASE_URL`
-     - **Value:** полный URL бэкенда, например `https://your-app.railway.app/api` (без слэша в конце).
-   - Если бэкенд пока не развёрнут, переменную можно не задавать — после деплоя бэкенда добавьте её в Vercel и сделайте **Redeploy**.
+3. **Настройки:**
+   - **Framework Preset:** Vite.
+   - **Root Directory:** укажите `frontend`.
+   - **Build Command:** `npm run build`.
+   - **Output Directory:** `dist`.
+   - **Install Command:** `npm install`.
 
-5. Нажмите **Deploy**. После сборки приложение будет доступно по ссылке вида `https://tym-movie-xxx.vercel.app`.
+4. **Переменные окружения (обязательно):**
+   - `DATABASE_URL` — строка подключения к Neon PostgreSQL (например: `postgresql://user:pass@host/db?sslmode=require`).
+   - `TMDB_API_KEY` — Bearer-токен The Movie Database (для подтягивания постеров и метаданных).
 
----
+5. Нажмите **Deploy**. После сборки приложение и API будут доступны на одном домене (например `https://xxx.vercel.app`).
 
-## Важно
+## Локальная разработка
 
-- На Vercel развёртывается только **фронтенд** (React). Бэкенд (NestJS + БД) нужно разворачивать отдельно (например, [Railway](https://railway.app), [Render](https://render.com), [Fly.io](https://fly.io)).
-- После деплоя бэкенда укажите его URL в `VITE_API_BASE_URL` в настройках проекта Vercel и пересоберите проект (Redeploy).
+- Установите зависимости: `cd frontend && npm install`.
+- Скопируйте `frontend/.env.example` в `frontend/.env` и заполните `DATABASE_URL` и `TMDB_API_KEY`.
+- Запуск: `npm run dev` в папке `frontend` — поднимаются **Vite** и локальный API-сервер (те же обработчики, что и на Vercel). Vercel для локальной разработки не нужен.
+- Только фронтенд: `npm run dev:only` (запросы к `/api` без запущенного API не сработают).
+
+## База данных
+
+Таблица `movies` должна существовать в Neon. Миграции из старого бэкенда можно выполнить вручную (SQL из миграций) или создать таблицу по той же схеме. Ключ и индексы: `id` (UUID), `title`, `title_normalized`, `original_title`, `imdb_id`, `poster_url`, `genres` (JSONB), `imdb_rating`, `inna_rating`, `bogdan_rating`, `user_avg_rating`, `status`, `watch_date`, `source_provider`, `source_payload`, `created_at`, `updated_at`.
