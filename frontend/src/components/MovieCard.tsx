@@ -9,14 +9,6 @@ interface MovieCardProps {
 export function MovieCard({ movie, onEdit }: MovieCardProps) {
   const deleteMutation = useDeleteMovieMutation();
 
-  const formatRating = (value: unknown): string => {
-    if (value === null || value === undefined) return '—';
-    const num =
-      typeof value === 'number' ? value : Number.parseFloat(String(value));
-    if (Number.isNaN(num)) return '—';
-    return num.toFixed(1);
-  };
-
   const renderStars = (value: unknown) => {
     if (value === null || value === undefined) return '—';
     const num =
