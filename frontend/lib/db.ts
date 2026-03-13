@@ -1,52 +1,56 @@
 import { neon } from '@neondatabase/serverless';
 
-/** Все операции с БД (list, getById, create, update, delete) идут через Neon PostgreSQL (DATABASE_URL). */
+/** All DB operations (list, getById, create, update, delete, duplicate checks) go to Neon PostgreSQL via VITE_DATABASE_URL. */
 function getSql() {
-  const url = process.env.DATABASE_URL;
-  if (!url) throw new Error('DATABASE_URL is not set');
+  const url = import.meta.env.VITE_DATABASE_URL as string | undefined;
+  if (!url) throw new Error('VITE_DATABASE_URL is not set');
   return neon(url);
 }
 
 const MOVIE_COLS =
-  'id, title, title_normalized, original_title, imdb_id, poster_url, genres, imdb_rating, inna_rating, bogdan_rating, user_avg_rating, status, watch_date, source_provider, source_payload, created_at, updated_at';
+  'id, content_type, title, title_normalized, original_title, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, status, watch_date, created_at, updated_at';
 
 export type MovieRow = {
   id: string;
+  content_type: string;
   title: string;
   title_normalized: string;
   original_title: string | null;
-  imdb_id: string | null;
+  tmdb_id: number | null;
   poster_url: string | null;
   genres: string[] | null;
-  imdb_rating: string | null;
+  tmdb_rating: string | null;
+  release_year: number | null;
   inna_rating: string | null;
   bogdan_rating: string | null;
   user_avg_rating: string | null;
   status: string;
-  watch_date: string | null;
-  source_provider: string | null;
-  source_payload: unknown;
+  watch_date: string | Date | null;
   created_at: Date;
   updated_at: Date;
 };
 
 function rowToMovie(r: MovieRow) {
+  const watchDateValue =
+    r.watch_date instanceof Date
+      ? r.watch_date.toISOString().slice(0, 10)
+      : r.watch_date;
   return {
     id: r.id,
+    contentType: r.content_type as 'MOVIE' | 'TV',
     title: r.title,
     titleNormalized: r.title_normalized,
     originalTitle: r.original_title,
-    imdbId: r.imdb_id,
+    tmdbId: r.tmdb_id,
     posterUrl: r.poster_url,
     genres: r.genres,
-    imdbRating: r.imdb_rating != null ? Number(r.imdb_rating) : null,
+    tmdbRating: r.tmdb_rating != null ? Number(r.tmdb_rating) : null,
+    releaseYear: r.release_year,
     innaRating: r.inna_rating != null ? Number(r.inna_rating) : null,
     bogdanRating: r.bogdan_rating != null ? Number(r.bogdan_rating) : null,
     userAvgRating: r.user_avg_rating != null ? Number(r.user_avg_rating) : null,
     status: r.status,
-    watchDate: r.watch_date,
-    sourceProvider: r.source_provider,
-    sourcePayload: r.source_payload,
+    watchDate: watchDateValue,
     createdAt: r.created_at,
     updatedAt: r.updated_at,
   };
@@ -56,77 +60,104 @@ export const db = {
   async list(params: {
     search?: string;
     status?: string;
+    contentType?: 'MOVIE' | 'TV';
     genres?: string[];
     sortBy?: string;
     sortOrder?: string;
     page?: number;
     limit?: number;
   }) {
-    const sql = getSql();
-    const page = params.page ?? 1;
-    const limit = Math.min(params.limit ?? 50, 100);
-    const offset = (page - 1) * limit;
-    const sortBy = params.sortBy === 'watch_date' ? 'watch_date' : params.sortBy === 'status' ? 'status' : 'user_avg_rating';
-    const order = params.sortOrder === 'asc' ? 'ASC' : 'DESC';
-
-    const conditions: string[] = [];
-    const values: unknown[] = [];
-    let idx = 1;
-
-    if (params.search?.trim()) {
-      conditions.push(`(LOWER(title) LIKE $${idx} OR LOWER(original_title) LIKE $${idx})`);
-      values.push(`%${params.search.trim().toLowerCase()}%`);
-      idx++;
-    }
-    if (params.status) {
-      conditions.push(`status = $${idx}`);
-      values.push(params.status);
-      idx++;
-    }
-    if (params.genres?.length) {
-      conditions.push(`genres ?| $${idx}`);
-      values.push(params.genres);
-      idx++;
-    }
-
-    const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
-    const countResult = await sql(
-      `SELECT COUNT(*)::int AS c FROM movies ${whereClause}`,
-      values,
-    );
-    const total = (countResult[0] as { c: number })?.c ?? 0;
-
-    const nullableOrder = sortBy === 'user_avg_rating' || sortBy === 'watch_date' ? 'NULLS LAST' : '';
-    const orderClause = `ORDER BY ${sortBy} ${order} ${nullableOrder}`;
-    const rows = await sql(
-      `SELECT ${MOVIE_COLS} FROM movies ${whereClause} ${orderClause} LIMIT $${idx} OFFSET $${idx + 1}`,
-      [...values, limit, offset],
-    );
-
-    // #region agent log
     try {
-      await fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'fdb080' },
-        body: JSON.stringify({
-          sessionId: 'fdb080',
-          runId: 'db-list-result',
-          hypothesisId: 'H4',
-          location: 'lib/db.ts:list:after-query',
-          message: 'DB list query result',
-          data: { total, rowsLength: Array.isArray(rows) ? rows.length : -1, rawFirstKey: rows?.[0] ? Object.keys(rows[0] as object)[0] : null },
-          timestamp: Date.now(),
-        }),
-      });
-    } catch (_) {}
-    // #endregion agent log
+      const sql = getSql();
+      const page = params.page ?? 1;
+      const limit = Math.min(params.limit ?? 50, 100);
+      const offset = (page - 1) * limit;
+      const sortBy = params.sortBy === 'watch_date' ? 'watch_date' : params.sortBy === 'status' ? 'status' : 'user_avg_rating';
+      const order = params.sortOrder === 'asc' ? 'ASC' : 'DESC';
 
-    return {
-      items: (rows as MovieRow[]).map(rowToMovie),
-      total,
-      page,
-      limit,
-    };
+      const conditions: string[] = [];
+      const values: unknown[] = [];
+      let idx = 1;
+
+      if (params.search?.trim()) {
+        conditions.push(`(LOWER(title) LIKE $${idx} OR LOWER(original_title) LIKE $${idx})`);
+        values.push(`%${params.search.trim().toLowerCase()}%`);
+        idx++;
+      }
+      if (params.status) {
+        conditions.push(`status = $${idx}`);
+        values.push(params.status);
+        idx++;
+      }
+      if (params.contentType) {
+        conditions.push(`content_type = $${idx}`);
+        values.push(params.contentType);
+        idx++;
+      }
+      if (params.genres?.length) {
+        conditions.push(`genres ?| $${idx}`);
+        values.push(params.genres);
+        idx++;
+      }
+
+      const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+      const countResult = await sql(
+        `SELECT COUNT(*)::int AS c FROM movies ${whereClause}`,
+        values,
+      );
+      const total = (countResult[0] as { c: number })?.c ?? 0;
+
+      const nullableOrder = sortBy === 'user_avg_rating' || sortBy === 'watch_date' ? 'NULLS LAST' : '';
+      const orderClause = `ORDER BY ${sortBy} ${order} ${nullableOrder}`;
+      const rows = await sql(
+        `SELECT ${MOVIE_COLS} FROM movies ${whereClause} ${orderClause} LIMIT $${idx} OFFSET $${idx + 1}`,
+        [...values, limit, offset],
+      );
+
+      // #region agent log
+      try {
+        await fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'fdb080' },
+          body: JSON.stringify({
+            sessionId: 'fdb080',
+            runId: 'db-list-result',
+            hypothesisId: 'H4',
+            location: 'lib/db.ts:list:after-query',
+            message: 'DB list query result',
+            data: { total, rowsLength: Array.isArray(rows) ? rows.length : -1, rawFirstKey: rows?.[0] ? Object.keys(rows[0] as object)[0] : null },
+            timestamp: Date.now(),
+          }),
+        });
+      } catch (_) {}
+      // #endregion agent log
+
+      return {
+        items: (rows as MovieRow[]).map(rowToMovie),
+        total,
+        page,
+        limit,
+      };
+    } catch (err) {
+      // #region agent log
+      try {
+        await fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'fdb080' },
+          body: JSON.stringify({
+            sessionId: 'fdb080',
+            runId: 'db-list-error',
+            hypothesisId: 'H1',
+            location: 'lib/db.ts:list:catch',
+            message: 'DB list failed',
+            data: { name: (err as Error).name, message: (err as Error).message },
+            timestamp: Date.now(),
+          }),
+        });
+      } catch (_) {}
+      // #endregion agent log
+      throw err;
+    }
   },
 
   async getById(id: string) {
@@ -137,6 +168,7 @@ export const db = {
   },
 
   async create(data: {
+    contentType: 'MOVIE' | 'TV';
     title: string;
     titleNormalized: string;
     status: string;
@@ -145,80 +177,42 @@ export const db = {
     bogdanRating: number | null;
     userAvgRating: number | null;
     originalTitle?: string | null;
-    imdbId?: string | null;
+    tmdbId?: number | null;
     posterUrl?: string | null;
     genres?: string[] | null;
-    imdbRating?: number | null;
-    sourceProvider?: string | null;
-    sourcePayload?: unknown;
+    tmdbRating?: number | null;
+    releaseYear?: number | null;
   }) {
-    // #region agent log
-    try {
-      await fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'fdb080' },
-        body: JSON.stringify({
-          sessionId: 'fdb080',
-          runId: 'db-create-start',
-          hypothesisId: 'H3',
-          location: 'lib/db.ts:create:entry',
-          message: 'db.create called',
-          data: { hasDatabaseUrl: !!process.env.DATABASE_URL, title: data.title },
-          timestamp: Date.now(),
-        }),
-      });
-    } catch (_) {}
-    // #endregion agent log
     const sql = getSql();
     const id = crypto.randomUUID();
-    try {
     await sql(
-      `INSERT INTO movies (id, title, title_normalized, original_title, imdb_id, poster_url, genres, imdb_rating, inna_rating, bogdan_rating, user_avg_rating, status, watch_date, source_provider, source_payload)
+      `INSERT INTO movies (id, content_type, title, title_normalized, original_title, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, status, watch_date)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)`,
       [
         id,
+        data.contentType,
         data.title,
         data.titleNormalized,
         data.originalTitle ?? null,
-        data.imdbId ?? null,
+        data.tmdbId ?? null,
         data.posterUrl ?? null,
         data.genres ? JSON.stringify(data.genres) : null,
-        data.imdbRating ?? null,
+        data.tmdbRating ?? null,
+        data.releaseYear ?? null,
         data.innaRating ?? null,
         data.bogdanRating ?? null,
         data.userAvgRating ?? null,
         data.status,
         data.watchDate,
-        data.sourceProvider ?? null,
-        data.sourcePayload != null ? JSON.stringify(data.sourcePayload) : null,
       ],
     );
-    } catch (e) {
-      // #region agent log
-      try {
-        await fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'fdb080' },
-          body: JSON.stringify({
-            sessionId: 'fdb080',
-            runId: 'db-create-error',
-            hypothesisId: 'H4',
-            location: 'lib/db.ts:create:catch',
-            message: 'INSERT failed',
-            data: { name: (e as Error).name, message: (e as Error).message },
-            timestamp: Date.now(),
-          }),
-        });
-      } catch (_) {}
-      // #endregion agent log
-      throw e;
-    }
     return db.getById(id) as Promise<ReturnType<typeof rowToMovie>>;
   },
 
   async update(
     id: string,
     data: Partial<{
+      contentType: 'MOVIE' | 'TV';
       title: string;
       titleNormalized: string;
       status: string;
@@ -227,12 +221,11 @@ export const db = {
       bogdanRating: number | null;
       userAvgRating: number | null;
       originalTitle: string | null;
-      imdbId: string | null;
+      tmdbId: number | null;
       posterUrl: string | null;
       genres: string[] | null;
-      imdbRating: number | null;
-      sourceProvider: string | null;
-      sourcePayload: unknown;
+      tmdbRating: number | null;
+      releaseYear: number | null;
     }>,
   ) {
     const sql = getSql();
@@ -244,6 +237,7 @@ export const db = {
       values.push(val);
       i++;
     };
+    if (data.contentType !== undefined) set('content_type', data.contentType);
     if (data.title !== undefined) set('title', data.title);
     if (data.titleNormalized !== undefined) set('title_normalized', data.titleNormalized);
     if (data.status !== undefined) set('status', data.status);
@@ -252,12 +246,11 @@ export const db = {
     if (data.bogdanRating !== undefined) set('bogdan_rating', data.bogdanRating);
     if (data.userAvgRating !== undefined) set('user_avg_rating', data.userAvgRating);
     if (data.originalTitle !== undefined) set('original_title', data.originalTitle);
-    if (data.imdbId !== undefined) set('imdb_id', data.imdbId);
+    if (data.tmdbId !== undefined) set('tmdb_id', data.tmdbId);
     if (data.posterUrl !== undefined) set('poster_url', data.posterUrl);
     if (data.genres !== undefined) set('genres', data.genres ? JSON.stringify(data.genres) : null);
-    if (data.imdbRating !== undefined) set('imdb_rating', data.imdbRating);
-    if (data.sourceProvider !== undefined) set('source_provider', data.sourceProvider);
-    if (data.sourcePayload !== undefined) set('source_payload', data.sourcePayload ? JSON.stringify(data.sourcePayload) : null);
+    if (data.tmdbRating !== undefined) set('tmdb_rating', data.tmdbRating);
+    if (data.releaseYear !== undefined) set('release_year', data.releaseYear);
     if (updates.length === 0) return db.getById(id);
     updates.push(`updated_at = NOW()`);
     values.push(id);
@@ -274,6 +267,21 @@ export const db = {
     const sql = getSql();
     const rows = await sql('SELECT id FROM movies WHERE title_normalized = $1 LIMIT 1', [titleNormalized]);
     return rows.length > 0;
+  },
+
+  async findDuplicate(params: { tmdbId?: number | null; contentType?: 'MOVIE' | 'TV'; titleNormalized: string }) {
+    const sql = getSql();
+    if (params.tmdbId != null && params.contentType) {
+      const rows = await sql(
+        'SELECT id FROM movies WHERE tmdb_id = $1 AND content_type = $2 LIMIT 1',
+        [params.tmdbId, params.contentType],
+      );
+      if (rows.length > 0) return true;
+    }
+    const rowsByTitle = await sql('SELECT id FROM movies WHERE title_normalized = $1 LIMIT 1', [
+      params.titleNormalized,
+    ]);
+    return rowsByTitle.length > 0;
   },
 };
 

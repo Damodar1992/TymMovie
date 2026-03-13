@@ -3,27 +3,19 @@ import type { MovieStatus } from '../api/movies';
 interface FiltersBarProps {
   status?: MovieStatus;
   onStatusChange: (status: MovieStatus | undefined) => void;
+  contentType?: 'MOVIE' | 'TV';
+  onContentTypeChange: (type: 'MOVIE' | 'TV' | undefined) => void;
+  availableGenres: string[];
   selectedGenres: string[];
   onGenresChange: (genres: string[]) => void;
 }
 
-const KNOWN_GENRES = [
-  'Action',
-  'Adventure',
-  'Animation',
-  'Comedy',
-  'Crime',
-  'Drama',
-  'Fantasy',
-  'Horror',
-  'Romance',
-  'Sci-Fi',
-  'Thriller',
-];
-
 export function FiltersBar({
   status,
   onStatusChange,
+  contentType,
+  onContentTypeChange,
+  availableGenres,
   selectedGenres,
   onGenresChange,
 }: FiltersBarProps) {
@@ -44,10 +36,26 @@ export function FiltersBar({
         </select>
       </label>
 
+      <label>
+        <span>Type</span>
+        <select
+          value={contentType ?? ''}
+          onChange={(e) => {
+            const val = e.target.value as '' | 'MOVIE' | 'TV';
+            onContentTypeChange(val === '' ? undefined : val);
+          }}
+        >
+          <option value="">All</option>
+          <option value="MOVIE">Movies</option>
+          <option value="TV">TV Series</option>
+        </select>
+      </label>
+
       <div className="genre-filter">
         <span>Filter by Genre</span>
         <div className="genre-chips">
-          {KNOWN_GENRES.map((genre) => {
+          {(availableGenres.length > 0 ? availableGenres : selectedGenres).map(
+            (genre) => {
             const active = selectedGenres.includes(genre);
             return (
               <button
@@ -76,6 +84,7 @@ export function FiltersBar({
         className="secondary-button"
         onClick={() => {
           onStatusChange(undefined);
+          onContentTypeChange(undefined);
           onGenresChange([]);
         }}
       >

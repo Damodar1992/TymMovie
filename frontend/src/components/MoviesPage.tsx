@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMoviesQuery } from '../api/movies';
 import type { Movie, MovieStatus, MoviesQueryParams } from '../api/movies';
 import { MovieGrid } from './MovieGrid';
@@ -12,6 +12,7 @@ export function MoviesPage() {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState<MovieStatus | undefined>();
   const [genres, setGenres] = useState<string[]>([]);
+  const [contentType, setContentType] = useState<'MOVIE' | 'TV' | undefined>();
   const [sortBy, setSortBy] =
     useState<MoviesQueryParams['sortBy']>('user_avg_rating');
   const [sortOrder, setSortOrder] =
@@ -23,6 +24,7 @@ export function MoviesPage() {
   const { data, isLoading, isError } = useMoviesQuery({
     search: search || undefined,
     status,
+    contentType,
     genres,
     sortBy,
     sortOrder,
@@ -30,10 +32,43 @@ export function MoviesPage() {
 
   const items = data?.items ?? [];
 
+  const availableGenres = Array.from(
+    new Set(
+      items
+        .flatMap((m) => m.genres ?? [])
+        .filter((g): g is string => typeof g === 'string' && g.trim().length),
+    ),
+  ).sort((a, b) => a.localeCompare(b));
+
+  useEffect(() => {
+    // #region agent log
+    fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Debug-Session-Id': 'fdb080',
+      },
+      body: JSON.stringify({
+        sessionId: 'fdb080',
+        runId: 'ui-movies-page',
+        hypothesisId: 'UI1',
+        location: 'MoviesPage.tsx:after-query',
+        message: 'MoviesPage render state',
+        data: {
+          isLoading,
+          isError,
+          itemsLength: items.length,
+        },
+        timestamp: Date.now(),
+      }),
+    }).catch(() => {});
+    // #endregion agent log
+  }, [isLoading, isError, items.length]);
+
   return (
     <div className="page">
       <header className="page-header">
-        <h1>Shared Movie Tracker</h1>
+        <h1>Shared Movie &amp; TV Tracker</h1>
         <button
           className="primary-button"
           type="button"
@@ -43,7 +78,7 @@ export function MoviesPage() {
             setIsFormOpen(true);
           }}
         >
-          Add Movie
+          Add Title
         </button>
       </header>
 
@@ -55,6 +90,9 @@ export function MoviesPage() {
         <FiltersBar
           status={status}
           onStatusChange={setStatus}
+          contentType={contentType}
+          onContentTypeChange={setContentType}
+          availableGenres={availableGenres}
           selectedGenres={genres}
           onGenresChange={setGenres}
         />
@@ -76,8 +114,8 @@ export function MoviesPage() {
         <EmptyState title="Loading movies..." description="Please wait." />
       ) : items.length === 0 ? (
         <EmptyState
-          title="No movies found"
-          description="Try adding a movie or adjusting your filters."
+          title="No titles found"
+          description="Try adding a title or adjusting your filters."
         />
       ) : (
         <MovieGrid

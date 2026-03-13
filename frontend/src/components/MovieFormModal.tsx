@@ -1,11 +1,13 @@
-import { useEffect, useState, type FormEvent } from 'react';
+import { useState, type FormEvent } from 'react';
+import { useCreateMovieMutation, useUpdateMovieMutation } from '../api/movies';
 import {
-  enrichMovieByTitle,
-  useCreateMovieMutation,
-  useUpdateMovieMutation,
-} from '../api/movies';
+  searchMulti,
+  getMovieDetails,
+  getTvDetails,
+  buildPosterUrl,
+  type TmdbSearchResult,
+} from '../../lib/tmdb';
 import type { Movie, MovieStatus } from '../api/movies';
-import { apiClient } from '../api/client';
 
 interface MovieFormModalProps {
   movieId: string | null;
@@ -52,63 +54,40 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
     formStateFromMovie(initialMovie),
   );
   const [metadataPreview, setMetadataPreview] = useState<{
+    contentType: 'MOVIE' | 'TV';
+    tmdbId: number;
+    title: string;
+    originalTitle: string | null;
+    releaseYear: number | null;
     posterUrl: string | null;
     genres: string[] | null;
-    imdbRating: number | null;
+    tmdbRating: number | null;
   } | null>(() =>
     initialMovie
       ? {
+          contentType: initialMovie.contentType,
+          tmdbId: initialMovie.tmdbId ?? 0,
+          title: initialMovie.title,
+          originalTitle: initialMovie.originalTitle,
+          releaseYear: initialMovie.releaseYear,
           posterUrl: initialMovie.posterUrl ?? null,
           genres: initialMovie.genres ?? null,
-          imdbRating:
-            initialMovie.imdbRating != null
-              ? Number(initialMovie.imdbRating)
+          tmdbRating:
+            initialMovie.tmdbRating != null
+              ? Number(initialMovie.tmdbRating)
               : null,
         }
       : null,
   );
   const [error, setError] = useState<string | null>(null);
+  const [tmdbResults, setTmdbResults] = useState<TmdbSearchResult[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
+  const [tmdbTypeFilter, setTmdbTypeFilter] = useState<'' | 'MOVIE' | 'TV'>(
+    '',
+  );
 
   const createMutation = useCreateMovieMutation();
   const updateMutation = useUpdateMovieMutation();
-
-  useEffect(() => {
-    if (movieId) {
-      setForm(formStateFromMovie(initialMovie));
-      setMetadataPreview(
-        initialMovie
-          ? {
-              posterUrl: initialMovie.posterUrl ?? null,
-              genres: initialMovie.genres ?? null,
-              imdbRating:
-                initialMovie.imdbRating != null
-                  ? Number(initialMovie.imdbRating)
-                  : null,
-            }
-          : null,
-      );
-      setError(null);
-      apiClient
-        .get<Movie>(`/movies/${movieId}`)
-        .then((res) => {
-          const movie = res.data;
-          if (!movie) {
-            setError('Movie not found.');
-            return;
-          }
-          setForm(formStateFromMovie(movie));
-          setMetadataPreview({
-            posterUrl: movie.posterUrl ?? null,
-            genres: movie.genres ?? null,
-            imdbRating:
-              movie.imdbRating != null ? Number(movie.imdbRating) : null,
-          });
-        })
-        .catch(() => {
-          setError('Failed to load movie for editing.');
-        });
-    }
-  }, [movieId]);
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -119,67 +98,91 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
     const bogdanRating =
       form.bogdanRating === '' ? null : Number.parseFloat(form.bogdanRating);
 
-    const payload: any = {
-      title: form.title,
-      status: form.status,
-      watchDate: form.status === 'WATCHED' ? form.watchDate || null : null,
-      innaRating,
-      bogdanRating,
-    };
-
-    if (metadataPreview) {
-      payload.posterUrl = metadataPreview.posterUrl;
-      payload.genres = metadataPreview.genres;
-      payload.imdbRating = metadataPreview.imdbRating;
-    }
-
     try {
       if (isEditing && movieId) {
-        await updateMutation.mutateAsync({ id: movieId, payload });
+        await updateMutation.mutateAsync({
+          id: movieId,
+          payload: {
+            status: form.status,
+            watchDate:
+              form.status === 'WATCHED' ? form.watchDate || null : null,
+            innaRating,
+            bogdanRating,
+          },
+        });
       } else {
-        await createMutation.mutateAsync(payload);
+        if (!metadataPreview) {
+          setError('Please fetch metadata from TMDb before saving.');
+          return;
+        }
+        await createMutation.mutateAsync({
+          contentType: metadataPreview.contentType,
+          title: metadataPreview.title || form.title,
+          originalTitle: metadataPreview.originalTitle,
+          tmdbId: metadataPreview.tmdbId,
+          posterUrl: metadataPreview.posterUrl,
+          genres: metadataPreview.genres,
+          tmdbRating: metadataPreview.tmdbRating,
+          releaseYear: metadataPreview.releaseYear,
+          status: form.status,
+          watchDate:
+            form.status === 'WATCHED' ? form.watchDate || null : null,
+          innaRating,
+          bogdanRating,
+        });
       }
       onClose();
-    } catch {
-      setError('Failed to save the movie. Please check the form and try again.');
+    } catch (e) {
+      if (e instanceof Error) {
+        setError(e.message);
+      } else {
+        setError(
+          'Failed to save the movie. Please check the form and try again.',
+        );
+      }
     }
   };
 
-  const handleEnrich = async () => {
+  const handleSearchTmdb = async () => {
     if (!form.title.trim()) return;
     try {
-      const enriched = await enrichMovieByTitle(form.title.trim());
-      // #region agent log
-      fetch(
-        'http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81',
-        {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Debug-Session-Id': 'fdb080',
-          },
-          body: JSON.stringify({
-            sessionId: 'fdb080',
-            runId: 'pre-fix',
-            hypothesisId: 'E_UI_1',
-            location: 'MovieFormModal.tsx:handleEnrich',
-            message: 'Enrich result in UI',
-            data: { title: form.title.trim(), enriched },
-            timestamp: Date.now(),
-          }),
-        },
-      ).catch(() => {});
-      // #endregion agent log
-
-      if (!enriched) {
+      setError(null);
+      setIsSearching(true);
+      const results = await searchMulti(form.title.trim());
+      setTmdbResults(results);
+      setTmdbTypeFilter('');
+      if (results.length === 0) {
         setError('No metadata found for this title.');
-        return;
       }
+    } catch {
+      setError('Failed to load metadata from external API.');
+    } finally {
+      setIsSearching(false);
+    }
+  };
+
+  const handleSelectTmdb = async (result: TmdbSearchResult) => {
+    try {
+      setError(null);
+      const details =
+        result.contentType === 'MOVIE'
+          ? await getMovieDetails(result.tmdbId)
+          : await getTvDetails(result.tmdbId);
+      const posterUrl = await buildPosterUrl(details.posterPath, 'w342');
       setMetadataPreview({
-        posterUrl: enriched.posterUrl,
-        genres: enriched.genres,
-        imdbRating: enriched.imdbRating,
+        contentType: details.contentType,
+        tmdbId: details.tmdbId,
+        title: details.title,
+        originalTitle: details.originalTitle,
+        releaseYear: details.releaseYear,
+        posterUrl,
+        genres: details.genres,
+        tmdbRating: details.tmdbRating,
       });
+      setForm((prev) => ({
+        ...prev,
+        title: details.title || prev.title,
+      }));
     } catch {
       setError('Failed to load metadata from external API.');
     }
@@ -189,7 +192,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
     <div className="modal-backdrop" role="dialog" aria-modal="true">
       <div className="modal">
         <header className="modal-header">
-          <h2>{isEditing ? 'Edit Movie' : 'Add Movie'}</h2>
+          <h2>{isEditing ? 'Edit Entry' : 'Add Title'}</h2>
           <button
             type="button"
             className="icon-button"
@@ -202,7 +205,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
         <form className="modal-body" onSubmit={handleSubmit}>
           {error && <div className="error-banner">{error}</div>}
           <label>
-            <span>Movie Title</span>
+            <span>Title</span>
             <input
               type="text"
               required
@@ -216,17 +219,69 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
           <button
             type="button"
             className="secondary-button"
-            onClick={handleEnrich}
-            disabled={!form.title.trim()}
+            onClick={handleSearchTmdb}
+            disabled={!form.title.trim() || isSearching}
           >
-            Refresh Metadata
+            {isSearching ? 'Searching…' : 'Search in TMDb'}
           </button>
+
+          {tmdbResults.length > 0 && (
+            <div className="tmdb-results">
+              <p>Select a match from TMDb:</p>
+              <div className="tmdb-results-filter">
+                <label>
+                  <span>Filter by type</span>
+                  <select
+                    value={tmdbTypeFilter}
+                    onChange={(e) =>
+                      setTmdbTypeFilter(
+                        e.target.value as '' | 'MOVIE' | 'TV',
+                      )
+                    }
+                  >
+                    <option value="">All</option>
+                    <option value="MOVIE">Movies</option>
+                    <option value="TV">TV Series</option>
+                  </select>
+                </label>
+              </div>
+              <ul className="tmdb-results-list">
+                {tmdbResults
+                  .filter((r) =>
+                    tmdbTypeFilter ? r.contentType === tmdbTypeFilter : true,
+                  )
+                  .map((r) => (
+                    <li key={`${r.contentType}-${r.tmdbId}`}>
+                      <button
+                        type="button"
+                        className="link-button"
+                        onClick={() => handleSelectTmdb(r)}
+                      >
+                        {r.title}
+                        {r.year ? ` (${r.year})` : ''} —{' '}
+                        {r.contentType === 'MOVIE' ? 'Movie' : 'TV Series'}
+                      </button>
+                    </li>
+                  ))}
+              </ul>
+            </div>
+          )}
 
           {metadataPreview && (
             <div className="metadata-preview">
               <div>
-                <strong>IMDb Rating:</strong>{' '}
-                {metadataPreview.imdbRating ?? '—'}
+                <strong>Type:</strong>{' '}
+                {metadataPreview.contentType === 'MOVIE'
+                  ? 'Movie'
+                  : 'TV Series'}
+              </div>
+              <div>
+                <strong>Release year:</strong>{' '}
+                {metadataPreview.releaseYear ?? '—'}
+              </div>
+              <div>
+                <strong>TMDb Rating:</strong>{' '}
+                {metadataPreview.tmdbRating ?? '—'}
               </div>
               <div>
                 <strong>Genres:</strong>{' '}
@@ -306,7 +361,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
               className="primary-button"
               disabled={createMutation.isPending || updateMutation.isPending}
             >
-              {isEditing ? 'Save Changes' : 'Save Movie'}
+              {isEditing ? 'Save Changes' : 'Save Entry'}
             </button>
           </footer>
         </form>

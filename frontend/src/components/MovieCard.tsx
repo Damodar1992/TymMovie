@@ -17,9 +17,27 @@ export function MovieCard({ movie, onEdit }: MovieCardProps) {
     return num.toFixed(1);
   };
 
+  const renderStars = (value: unknown) => {
+    if (value === null || value === undefined) return '—';
+    const num =
+      typeof value === 'number' ? value : Number.parseFloat(String(value));
+    if (Number.isNaN(num)) return '—';
+    const clamped = Math.max(0, Math.min(10, num));
+    const stars = Math.round(clamped / 2); // 0–5
+    const empty = 5 - stars;
+    return (
+      <span className="stars" title={`${clamped.toFixed(1)}/10`}>
+        {'★'.repeat(stars)}
+        {'☆'.repeat(empty)}
+      </span>
+    );
+  };
+
   const handleDelete = () => {
     if (
-      window.confirm('Are you sure you want to delete this movie from the list?')
+      window.confirm(
+        'Are you sure you want to delete this title from the list?',
+      )
     ) {
       deleteMutation.mutate(movie.id);
     }
@@ -48,8 +66,14 @@ export function MovieCard({ movie, onEdit }: MovieCardProps) {
           <p className="movie-original-title">{movie.originalTitle}</p>
         )}
         <div className="movie-meta">
-          {movie.imdbRating !== null && (
-            <span className="badge">IMDb {formatRating(movie.imdbRating)}</span>
+          <span className="badge">
+            {movie.contentType === 'MOVIE' ? 'Movie' : 'TV Series'}
+          </span>
+          {movie.releaseYear != null && (
+            <span className="badge">Year {movie.releaseYear}</span>
+          )}
+          {movie.tmdbRating !== null && (
+            <span className="badge">TMDb {formatRating(movie.tmdbRating)}</span>
           )}
           {movie.userAvgRating !== null && (
             <span className="badge accent">
@@ -75,11 +99,11 @@ export function MovieCard({ movie, onEdit }: MovieCardProps) {
           </div>
           <div>
             <dt>Inna&apos;s Rating</dt>
-            <dd>{formatRating(movie.innaRating)}</dd>
+            <dd>{renderStars(movie.innaRating)}</dd>
           </div>
           <div>
             <dt>Bogdan&apos;s Rating</dt>
-            <dd>{formatRating(movie.bogdanRating)}</dd>
+            <dd>{renderStars(movie.bogdanRating)}</dd>
           </div>
         </dl>
         <div className="card-actions">
