@@ -56,21 +56,6 @@ export function useMoviesQuery(params: MoviesQueryParams) {
         const total = result.total;
         return { items, total };
       } catch (err) {
-        // #region agent log
-        fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'fdb080' },
-          body: JSON.stringify({
-            sessionId: 'fdb080',
-            runId: 'list-error',
-            hypothesisId: 'H2',
-            location: 'movies.ts:useMoviesQuery:catch',
-            message: 'useMoviesQuery failed',
-            data: { name: (err as Error).name, message: (err as Error).message },
-            timestamp: Date.now(),
-          }),
-        }).catch(() => {});
-        // #endregion agent log
         throw err;
       }
     },
@@ -103,7 +88,6 @@ export function useCreateMovieMutation() {
         const duplicate = await db.findDuplicate({
           tmdbId: payload.tmdbId,
           contentType: payload.contentType,
-          titleNormalized,
         });
         if (duplicate) {
           throw new Error(
@@ -127,24 +111,6 @@ export function useCreateMovieMutation() {
           releaseYear: payload.releaseYear,
         });
       } catch (err) {
-        // #region agent log
-        fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'X-Debug-Session-Id': 'fdb080',
-          },
-          body: JSON.stringify({
-            sessionId: 'fdb080',
-            runId: 'create-error',
-            hypothesisId: 'H3',
-            location: 'movies.ts:useCreateMovieMutation:catch',
-            message: 'Create movie failed',
-            data: { name: (err as Error).name, message: (err as Error).message },
-            timestamp: Date.now(),
-          }),
-        }).catch(() => {});
-        // #endregion agent log
         throw err;
       }
     },

@@ -30,10 +30,17 @@ export type MovieRow = {
   updated_at: Date;
 };
 
+function dateToYYYYMMDD(d: Date): string {
+  const y = d.getFullYear();
+  const m = String(d.getMonth() + 1).padStart(2, '0');
+  const day = String(d.getDate()).padStart(2, '0');
+  return `${y}-${m}-${day}`;
+}
+
 function rowToMovie(r: MovieRow) {
   const watchDateValue =
     r.watch_date instanceof Date
-      ? r.watch_date.toISOString().slice(0, 10)
+      ? dateToYYYYMMDD(r.watch_date)
       : r.watch_date;
   return {
     id: r.id,
@@ -122,24 +129,6 @@ export const db = {
         [...values, limit, offset],
       );
 
-      // #region agent log
-      try {
-        await fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'fdb080' },
-          body: JSON.stringify({
-            sessionId: 'fdb080',
-            runId: 'db-list-result',
-            hypothesisId: 'H4',
-            location: 'lib/db.ts:list:after-query',
-            message: 'DB list query result',
-            data: { total, rowsLength: Array.isArray(rows) ? rows.length : -1, rawFirstKey: rows?.[0] ? Object.keys(rows[0] as object)[0] : null },
-            timestamp: Date.now(),
-          }),
-        });
-      } catch (_) {}
-      // #endregion agent log
-
       return {
         items: (rows as MovieRow[]).map(rowToMovie),
         total,
@@ -147,23 +136,6 @@ export const db = {
         limit,
       };
     } catch (err) {
-      // #region agent log
-      try {
-        await fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'X-Debug-Session-Id': 'fdb080' },
-          body: JSON.stringify({
-            sessionId: 'fdb080',
-            runId: 'db-list-error',
-            hypothesisId: 'H1',
-            location: 'lib/db.ts:list:catch',
-            message: 'DB list failed',
-            data: { name: (err as Error).name, message: (err as Error).message },
-            timestamp: Date.now(),
-          }),
-        });
-      } catch (_) {}
-      // #endregion agent log
       throw err;
     }
   },
@@ -277,19 +249,14 @@ export const db = {
     return rows.length > 0;
   },
 
-  async findDuplicate(params: { tmdbId?: number | null; contentType?: 'MOVIE' | 'TV'; titleNormalized: string }) {
+  async findDuplicate(params: { tmdbId?: number | null; contentType?: 'MOVIE' | 'TV' }) {
     const sql = getSql();
-    if (params.tmdbId != null && params.contentType) {
-      const rows = await sql(
-        'SELECT id FROM movies WHERE tmdb_id = $1 AND content_type = $2 LIMIT 1',
-        [params.tmdbId, params.contentType],
-      );
-      if (rows.length > 0) return true;
-    }
-    const rowsByTitle = await sql('SELECT id FROM movies WHERE title_normalized = $1 LIMIT 1', [
-      params.titleNormalized,
-    ]);
-    return rowsByTitle.length > 0;
+    if (params.tmdbId == null || !params.contentType) return false;
+    const rows = await sql(
+      'SELECT id FROM movies WHERE tmdb_id = $1 AND content_type = $2 LIMIT 1',
+      [params.tmdbId, params.contentType],
+    );
+    return rows.length > 0;
   },
 };
 

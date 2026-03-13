@@ -639,6 +639,55 @@ p {
   color: var(--text);
 }
 
+.search-lang-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.search-lang-label {
+  font-size: 13px;
+  color: var(--text);
+}
+
+.search-lang-buttons {
+  display: flex;
+  gap: 6px;
+}
+
+.search-lang-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.search-lang-btn:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.search-lang-btn-active {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+  box-shadow: 0 0 0 1px var(--accent-border);
+}
+
+.search-lang-flag {
+  display: block;
+  line-height: 0;
+}
+
+.search-lang-flag svg {
+  display: block;
+  border-radius: 2px;
+}
+
 .metadata-preview {
   font-size: 13px;
   padding: 8px 10px;

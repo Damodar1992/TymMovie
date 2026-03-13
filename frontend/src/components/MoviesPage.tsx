@@ -43,30 +43,6 @@ export function MoviesPage() {
     ),
   ).sort((a, b) => a.localeCompare(b));
 
-  useEffect(() => {
-    // #region agent log
-    fetch('http://127.0.0.1:7776/ingest/68334f32-6090-42f2-83a6-f33868bdea81', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Debug-Session-Id': 'fdb080',
-      },
-      body: JSON.stringify({
-        sessionId: 'fdb080',
-        runId: 'ui-movies-page',
-        hypothesisId: 'UI1',
-        location: 'MoviesPage.tsx:after-query',
-        message: 'MoviesPage render state',
-        data: {
-          isLoading,
-          isError,
-          itemsLength: items.length,
-        },
-        timestamp: Date.now(),
-      }),
-    }).catch(() => {});
-    // #endregion agent log
-  }, [isLoading, isError, items.length]);
 
   return (
     <div className="page">

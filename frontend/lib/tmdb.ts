@@ -56,13 +56,16 @@ export async function loadImageConfig(): Promise<string> {
   return imageBaseUrl!;
 }
 
-export async function searchMulti(query: string): Promise<TmdbSearchResult[]> {
+export async function searchMulti(
+  query: string,
+  language: string = 'uk-UA',
+): Promise<TmdbSearchResult[]> {
   const trimmed = query.trim();
   if (!trimmed) return [];
   const params = new URLSearchParams({
     query: trimmed,
     include_adult: 'false',
-    language: 'en-US',
+    language,
     page: '1',
   });
   const res = await authFetch(`/search/multi?${params.toString()}`);
