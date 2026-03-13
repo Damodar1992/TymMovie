@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useMoviesQuery } from '../api/movies';
 import type { Movie, MovieStatus, MoviesQueryParams } from '../api/movies';
 import { MovieGrid } from './MovieGrid';
