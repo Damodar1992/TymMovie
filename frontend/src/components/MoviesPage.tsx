@@ -77,7 +77,7 @@ export function MoviesPage() {
           className="app-logo"
         />
         <button
-          className="primary-button"
+          className="icon-button"
           type="button"
           onClick={() => {
             setEditingMovieId(null);
@@ -85,7 +85,14 @@ export function MoviesPage() {
             setIsFormOpen(true);
           }}
         >
-          Add Title
+          <span>Add</span>
+          <span aria-hidden="true">
+            <img
+              src="/add_movie_icon.svg"
+              alt=""
+              style={{ width: 28, height: 28, display: 'block' }}
+            />
+          </span>
         </button>
       </header>
 
@@ -103,6 +110,9 @@ export function MoviesPage() {
           selectedGenres={genres}
           onGenresChange={setGenres}
         />
+      </section>
+
+      <section className="controls-row">
         <SortControl
           sortBy={sortBy}
           sortOrder={sortOrder}

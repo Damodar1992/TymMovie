@@ -132,6 +132,10 @@ p {
 .danger-button,
 .icon-button,
 .chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
   font-family: var(--sans);
   border-radius: 999px;
   border: 1px solid transparent;
@@ -148,16 +152,68 @@ p {
 }
 
 .secondary-button {
+  background: var(--bg);
+  color: var(--accent);
   border-color: var(--border);
+  border-radius: 6px;
+  padding: 0;
+  overflow: hidden;
+  font-weight: 500;
+}
+
+.secondary-button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  height: 36px;
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.secondary-button-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  height: 36px;
 }
 
 .danger-button {
-  background: #b91c1c;
-  color: white;
+  background: var(--bg);
+  color: #f97373;
+  border-color: var(--border);
+  border-radius: 6px;
+  padding: 0;
+  overflow: hidden;
+  box-shadow: 0 2px 4px rgba(15, 23, 42, 0.18);
+  font-weight: 500;
+}
+
+.danger-button-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 10px;
+  height: 36px;
+  background: rgba(248, 113, 113, 0.15);
+  color: #ffffff;
+}
+
+.danger-button-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 14px;
+  height: 36px;
+  color: #f97373;
 }
 
 .icon-button {
-  padding: 4px 8px;
+  padding: 6px 12px;
+  background: rgba(99, 102, 241, 0.12);
+  color: var(--accent);
+  border-color: rgba(99, 102, 241, 0.3);
 }
 
 .search-input {
@@ -221,6 +277,8 @@ p {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  flex: 1;
+  width: 100%;
 }
 
 .movie-title {
@@ -265,11 +323,10 @@ p {
 }
 
 .movie-details {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 4px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
   font-size: 12px;
-  margin-top: auto; /* фиксируем блок статусов/рейтингов в одном месте внутри карточки */
 }
 
 .movie-details dt {
@@ -285,9 +342,14 @@ p {
   color: #fbbf24; /* amber-300 */
 }
 
-.movie-status-row,
-.movie-ratings-row {
+.movie-status-row {
   display: contents;
+}
+
+.movie-ratings-row {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
 }
 
 .movie-status-row .status-tag {
@@ -300,22 +362,61 @@ p {
   font-size: 12px;
 }
 
+.movie-status-row .status-tag-watched {
+  background: rgba(34, 197, 94, 0.15);
+  border-color: rgb(34, 197, 94);
+  color: rgb(22, 163, 74);
+}
+
+.movie-status-row .status-tag-planned {
+  background: rgba(249, 115, 22, 0.12);
+  border-color: rgb(249, 115, 22);
+  color: rgb(194, 65, 12);
+}
+
 .status-tag-label {
   font-weight: 500;
 }
 
-.card-actions {
-  margin-top: 8px;
+.movie-ratings-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--muted-foreground);
+}
+
+.movie-ratings-values {
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  align-items: center;
+}
+
+.rating-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 12px;
+}
+
+.rating-label {
+  font-weight: 500;
+}
+
+.card-actions {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-start;
   gap: 8px;
+}
+
+.card-actions .danger-button {
+  margin-left: auto;
 }
 
 .filters-bar {
   display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  align-items: center;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .filters-bar label span,
@@ -336,6 +437,26 @@ p {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.filters-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.filters-row-primary {
+  justify-content: flex-start;
+}
+
+.filters-row-genres {
+  justify-content: space-between;
+  align-items: center;
+}
+
+.filters-row-genres .genre-filter {
+  flex: 1;
 }
 
 .filter-label {
@@ -366,6 +487,13 @@ p {
   display: flex;
   flex-direction: column;
   gap: 4px;
+}
+
+.genre-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
 }
 
 .genre-chips {
@@ -553,7 +681,6 @@ p {
   .movie-status-row,
   .movie-ratings-row {
     display: flex;
-    justify-content: space-between;
     gap: 8px;
   }
 
@@ -565,5 +692,14 @@ p {
   .movie-status-row dd,
   .movie-ratings-row dd {
     margin: 0;
+  }
+
+  .movie-ratings-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .movie-ratings-values {
+    gap: 6px 10px;
   }
 }
