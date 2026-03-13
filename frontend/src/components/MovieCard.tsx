@@ -67,21 +67,8 @@ export function MovieCard({ movie, onEdit }: MovieCardProps) {
             <p className="movie-original-title">{movie.originalTitle}</p>
           )}
           <div className="movie-meta">
-            <span className="badge">
-              {movie.contentType === 'MOVIE' ? 'Movie' : 'TV Series'}
-            </span>
             {movie.releaseYear != null && (
-              <span className="badge">Year {movie.releaseYear}</span>
-            )}
-            {movie.tmdbRating !== null && (
-              <span className="badge">
-                TMDb {formatRating(movie.tmdbRating)}
-              </span>
-            )}
-            {movie.userAvgRating !== null && (
-              <span className="badge accent">
-                Avg {formatRating(movie.userAvgRating)}
-              </span>
+              <span className="movie-year">{movie.releaseYear}</span>
             )}
           </div>
           <div className="genres">
@@ -108,10 +95,20 @@ export function MovieCard({ movie, onEdit }: MovieCardProps) {
               </span>
             </span>
           </div>
-          {movie.innaRating != null || movie.bogdanRating != null ? (
+          {movie.tmdbRating != null ||
+          movie.innaRating != null ||
+          movie.bogdanRating != null ? (
             <div className="movie-ratings-row">
               <div className="movie-ratings-title">Ratings</div>
               <div className="movie-ratings-values">
+                {movie.tmdbRating != null && (
+                  <span className="rating-item">
+                    <span className="rating-label">TMDb</span>
+                    <span className="rating-stars">
+                      {renderStars(movie.tmdbRating)}
+                    </span>
+                  </span>
+                )}
                 {movie.innaRating != null && (
                   <span className="rating-item">
                     <span className="rating-label">Inna</span>

@@ -14,7 +14,7 @@ export function MoviesPage() {
   const [genres, setGenres] = useState<string[]>([]);
   const [contentType, setContentType] = useState<'MOVIE' | 'TV' | undefined>();
   const [sortBy, setSortBy] =
-    useState<MoviesQueryParams['sortBy']>('user_avg_rating');
+    useState<MoviesQueryParams['sortBy']>('watch_date');
   const [sortOrder, setSortOrder] =
     useState<MoviesQueryParams['sortOrder']>('desc');
   const [isFormOpen, setIsFormOpen] = useState(false);

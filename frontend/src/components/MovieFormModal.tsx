@@ -213,17 +213,22 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
               onChange={(e) =>
                 setForm((prev) => ({ ...prev, title: e.target.value }))
               }
+              readOnly={isEditing}
+              aria-readonly={isEditing}
+              className={isEditing ? 'input-readonly' : undefined}
             />
           </label>
 
-          <button
-            type="button"
-            className="secondary-button"
-            onClick={handleSearchTmdb}
-            disabled={!form.title.trim() || isSearching}
-          >
-            {isSearching ? 'Searching…' : 'Search in TMDb'}
-          </button>
+          {!isEditing && (
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={handleSearchTmdb}
+              disabled={!form.title.trim() || isSearching}
+            >
+              {isSearching ? 'Searching…' : 'Search in TMDb'}
+            </button>
+          )}
 
           {tmdbResults.length > 0 && (
             <div className="tmdb-results">

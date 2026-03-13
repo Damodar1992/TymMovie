@@ -295,6 +295,12 @@ p {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
+  align-items: center;
+}
+
+.movie-year {
+  font-size: 13px;
+  color: var(--text);
 }
 
 .badge {
@@ -406,11 +412,49 @@ p {
   margin-top: auto;
   display: flex;
   justify-content: flex-start;
-  gap: 8px;
+  gap: 6px;
 }
 
 .card-actions .danger-button {
   margin-left: auto;
+}
+
+/* Compact Edit/Delete in cards */
+.card-actions .secondary-button,
+.card-actions .danger-button {
+  align-items: center;
+  gap: 0;
+}
+
+.card-actions .secondary-button-icon,
+.card-actions .danger-button-icon {
+  flex-shrink: 0;
+  padding: 0 4px 0 6px;
+  height: 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.card-actions .secondary-button-icon svg,
+.card-actions .danger-button-icon svg {
+  width: 14px;
+  height: 14px;
+  display: block;
+  flex-shrink: 0;
+}
+
+.card-actions .secondary-button-label,
+.card-actions .danger-button-label {
+  flex: 1;
+  padding: 0 8px 0 4px;
+  min-height: 28px;
+  height: 28px;
+  font-size: 13px;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .filters-bar {
@@ -448,6 +492,11 @@ p {
 
 .filters-row-primary {
   justify-content: flex-start;
+  width: 100%;
+}
+
+.filters-row-primary .icon-button {
+  margin-left: auto;
 }
 
 .filters-row-genres {
@@ -582,6 +631,12 @@ p {
   padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
+}
+
+.modal-body input.input-readonly {
+  background: var(--code-bg);
+  cursor: default;
+  color: var(--text);
 }
 
 .metadata-preview {

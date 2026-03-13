@@ -85,13 +85,29 @@ export function FiltersBar({
             </button>
           </div>
         </div>
+
+        <button
+          type="button"
+          className="icon-button"
+          onClick={() => {
+            onStatusChange(undefined);
+            onContentTypeChange(undefined);
+            onGenresChange([]);
+          }}
+          aria-label="Clear filters"
+        >
+          <img
+            src="/delete_filter.svg"
+            alt=""
+            style={{ width: 20, height: 20, display: 'block' }}
+          />
+        </button>
       </div>
 
       <div className="filters-row filters-row-genres">
         <div className="genre-filter">
           <span>Filter by Genre</span>
-          <div className="genre-row">
-            <div className="genre-chips">
+          <div className="genre-chips">
               {(availableGenres.length > 0 ? availableGenres : selectedGenres).map(
                 (genre) => {
                 const active = selectedGenres.includes(genre);
@@ -114,23 +130,6 @@ export function FiltersBar({
                   </button>
                 );
               })}
-            </div>
-            <button
-              type="button"
-              className="icon-button"
-              onClick={() => {
-                onStatusChange(undefined);
-                onContentTypeChange(undefined);
-                onGenresChange([]);
-              }}
-              aria-label="Clear filters"
-            >
-              <img
-                src="/delete_filter.svg"
-                alt=""
-                style={{ width: 20, height: 20, display: 'block' }}
-              />
-            </button>
           </div>
         </div>
       </div>
