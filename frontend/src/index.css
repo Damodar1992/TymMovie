@@ -708,12 +708,15 @@ p {
 @media (max-width: 640px) {
   .movie-card {
     flex-direction: row;
+    align-items: stretch;
   }
 
   .poster-wrapper {
     width: 40%;
     max-width: 130px;
     flex-shrink: 0;
+    aspect-ratio: unset;
+    min-height: 0;
   }
 
   .movie-content {
