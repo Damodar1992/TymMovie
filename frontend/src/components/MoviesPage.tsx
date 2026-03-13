@@ -36,7 +36,10 @@ export function MoviesPage() {
     new Set(
       items
         .flatMap((m) => m.genres ?? [])
-        .filter((g): g is string => typeof g === 'string' && g.trim().length),
+        .filter(
+          (g): g is string =>
+            typeof g === 'string' && g.trim().length > 0,
+        ),
     ),
   ).sort((a, b) => a.localeCompare(b));
 
