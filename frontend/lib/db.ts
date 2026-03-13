@@ -72,7 +72,12 @@ export const db = {
       const page = params.page ?? 1;
       const limit = Math.min(params.limit ?? 50, 100);
       const offset = (page - 1) * limit;
-      const sortBy = params.sortBy === 'watch_date' ? 'watch_date' : params.sortBy === 'status' ? 'status' : 'user_avg_rating';
+      const sortBy =
+        params.sortBy === 'watch_date'
+          ? 'watch_date'
+          : params.sortBy === 'created_at'
+            ? 'created_at'
+            : 'user_avg_rating';
       const order = params.sortOrder === 'asc' ? 'ASC' : 'DESC';
 
       const conditions: string[] = [];
@@ -107,7 +112,10 @@ export const db = {
       );
       const total = (countResult[0] as { c: number })?.c ?? 0;
 
-      const nullableOrder = sortBy === 'user_avg_rating' || sortBy === 'watch_date' ? 'NULLS LAST' : '';
+      const nullableOrder =
+        sortBy === 'user_avg_rating' || sortBy === 'watch_date'
+          ? 'NULLS LAST'
+          : '';
       const orderClause = `ORDER BY ${sortBy} ${order} ${nullableOrder}`;
       const rows = await sql(
         `SELECT ${MOVIE_COLS} FROM movies ${whereClause} ${orderClause} LIMIT $${idx} OFFSET $${idx + 1}`,

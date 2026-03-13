@@ -114,6 +114,11 @@ p {
   gap: 12px;
 }
 
+.app-logo {
+  height: 32px;
+  width: auto;
+}
+
 .controls-row {
   display: flex;
   flex-wrap: wrap;
@@ -264,6 +269,7 @@ p {
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 4px 12px;
   font-size: 12px;
+  margin-top: auto; /* фиксируем блок статусов/рейтингов в одном месте внутри карточки */
 }
 
 .movie-details dt {
@@ -277,6 +283,25 @@ p {
 .stars {
   font-size: 14px;
   color: #fbbf24; /* amber-300 */
+}
+
+.movie-status-row,
+.movie-ratings-row {
+  display: contents;
+}
+
+.movie-status-row .status-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  font-size: 12px;
+}
+
+.status-tag-label {
+  font-weight: 500;
 }
 
 .card-actions {
@@ -305,6 +330,36 @@ p {
   padding: 6px 10px;
   border-radius: 999px;
   border: 1px solid var(--border);
+}
+
+.filter-toggle-group {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.filter-label {
+  font-size: 12px;
+}
+
+.toggle-group {
+  display: inline-flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.toggle-chip {
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+}
+
+.toggle-chip-active {
+  background: var(--accent-bg);
+  border-color: var(--accent-border);
 }
 
 .genre-filter {
@@ -465,4 +520,50 @@ p {
   display: flex;
   justify-content: flex-end;
   gap: 8px;
+}
+
+@media (max-width: 640px) {
+  .movie-card {
+    flex-direction: row;
+  }
+
+  .poster-wrapper {
+    width: 40%;
+    max-width: 130px;
+    flex-shrink: 0;
+  }
+
+  .movie-content {
+    padding: 8px 10px;
+    gap: 6px;
+  }
+
+  .movie-main-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+
+  .movie-details {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .movie-status-row,
+  .movie-ratings-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .movie-status-row dt,
+  .movie-ratings-row dt {
+    font-weight: 500;
+  }
+
+  .movie-status-row dd,
+  .movie-ratings-row dd {
+    margin: 0;
+  }
 }

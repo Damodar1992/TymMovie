@@ -30,7 +30,7 @@ export interface MoviesQueryParams {
   search?: string;
   status?: MovieStatus;
   genres?: string[];
-  sortBy?: 'watch_date' | 'status' | 'user_avg_rating';
+  sortBy?: 'user_avg_rating' | 'watch_date' | 'created_at';
   sortOrder?: 'asc' | 'desc';
   contentType?: 'MOVIE' | 'TV';
 }

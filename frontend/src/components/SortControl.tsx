@@ -25,9 +25,9 @@ export function SortControl({
             )
           }
         >
-          <option value="user_avg_rating">Average Rating</option>
+          <option value="user_avg_rating">Rating</option>
           <option value="watch_date">Watch Date</option>
-          <option value="status">Status</option>
+          <option value="created_at">Created Date</option>
         </select>
       </label>
       <label>

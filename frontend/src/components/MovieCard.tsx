@@ -61,49 +61,61 @@ export function MovieCard({ movie, onEdit }: MovieCardProps) {
         )}
       </div>
       <div className="movie-content">
-        <h2 className="movie-title">{movie.title}</h2>
-        {movie.originalTitle && movie.originalTitle !== movie.title && (
-          <p className="movie-original-title">{movie.originalTitle}</p>
-        )}
-        <div className="movie-meta">
-          <span className="badge">
-            {movie.contentType === 'MOVIE' ? 'Movie' : 'TV Series'}
-          </span>
-          {movie.releaseYear != null && (
-            <span className="badge">Year {movie.releaseYear}</span>
+        <div className="movie-main-info">
+          <h2 className="movie-title">{movie.title}</h2>
+          {movie.originalTitle && movie.originalTitle !== movie.title && (
+            <p className="movie-original-title">{movie.originalTitle}</p>
           )}
-          {movie.tmdbRating !== null && (
-            <span className="badge">TMDb {formatRating(movie.tmdbRating)}</span>
-          )}
-          {movie.userAvgRating !== null && (
-            <span className="badge accent">
-              Avg {formatRating(movie.userAvgRating)}
+          <div className="movie-meta">
+            <span className="badge">
+              {movie.contentType === 'MOVIE' ? 'Movie' : 'TV Series'}
             </span>
-          )}
-        </div>
-        <div className="genres">
-          {movie.genres?.map((g) => (
-            <span key={g} className="genre-tag">
-              {g}
-            </span>
-          ))}
+            {movie.releaseYear != null && (
+              <span className="badge">Year {movie.releaseYear}</span>
+            )}
+            {movie.tmdbRating !== null && (
+              <span className="badge">
+                TMDb {formatRating(movie.tmdbRating)}
+              </span>
+            )}
+            {movie.userAvgRating !== null && (
+              <span className="badge accent">
+                Avg {formatRating(movie.userAvgRating)}
+              </span>
+            )}
+          </div>
+          <div className="genres">
+            {movie.genres?.map((g) => (
+              <span key={g} className="genre-tag">
+                {g}
+              </span>
+            ))}
+          </div>
         </div>
         <dl className="movie-details">
-          <div>
-            <dt>Status</dt>
-            <dd>{movie.status === 'WATCHED' ? 'Watched' : 'Want to Watch'}</dd>
+          <div className="movie-status-row">
+            <span className="status-tag">
+              <span className="status-tag-label">Status:</span>
+              <span className="status-tag-value">
+                {movie.status === 'WATCHED' ? 'Watched' : 'Want to Watch'}
+              </span>
+            </span>
+            <span className="status-tag">
+              <span className="status-tag-label">Watch Date:</span>
+              <span className="status-tag-value">
+                {movie.watchDate ?? '—'}
+              </span>
+            </span>
           </div>
-          <div>
-            <dt>Watch Date</dt>
-            <dd>{movie.watchDate ?? '—'}</dd>
-          </div>
-          <div>
-            <dt>Inna&apos;s Rating</dt>
-            <dd>{renderStars(movie.innaRating)}</dd>
-          </div>
-          <div>
-            <dt>Bogdan&apos;s Rating</dt>
-            <dd>{renderStars(movie.bogdanRating)}</dd>
+          <div className="movie-ratings-row">
+            <div>
+              <dt>Inna&apos;s Rating</dt>
+              <dd>{renderStars(movie.innaRating)}</dd>
+            </div>
+            <div>
+              <dt>Bogdan&apos;s Rating</dt>
+              <dd>{renderStars(movie.bogdanRating)}</dd>
+            </div>
           </div>
         </dl>
         <div className="card-actions">

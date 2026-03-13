@@ -71,7 +71,11 @@ export function MoviesPage() {
   return (
     <div className="page">
       <header className="page-header">
-        <h1>Shared Movie &amp; TV Tracker</h1>
+        <img
+          src="/logo 2.png"
+          alt="TymMovies"
+          className="app-logo"
+        />
         <button
           className="primary-button"
           type="button"
