@@ -33,6 +33,7 @@ export interface MoviesQueryParams {
   sortBy?: 'user_avg_rating' | 'watch_date' | 'created_at';
   sortOrder?: 'asc' | 'desc';
   contentType?: 'MOVIE' | 'TV';
+  page?: number;
 }
 
 export interface EnrichedMetadata {
@@ -44,6 +45,8 @@ export function useMoviesQuery(params: MoviesQueryParams) {
     queryKey: ['movies', params],
     queryFn: async () => {
       try {
+        const page = params.page ?? 1;
+        const limit = 50;
         const result = await db.list({
           search: params.search,
           status: params.status,
@@ -51,10 +54,13 @@ export function useMoviesQuery(params: MoviesQueryParams) {
           genres: params.genres,
           sortBy: params.sortBy,
           sortOrder: params.sortOrder,
+          page,
+          limit,
         });
         const items = result.items as Movie[];
         const total = result.total;
-        return { items, total };
+        const totalPages = Math.ceil(total / limit) || 1;
+        return { items, total, page, limit, totalPages };
       } catch (err) {
         throw err;
       }

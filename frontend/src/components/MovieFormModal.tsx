@@ -206,73 +206,75 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
           </button>
         </header>
         <form className="modal-body" onSubmit={handleSubmit}>
-          {error && <div className="error-banner">{error}</div>}
-          <label>
-            <span>Title</span>
-            <input
-              type="text"
-              required
-              value={form.title}
-              onChange={(e) =>
-                setForm((prev) => ({ ...prev, title: e.target.value }))
-              }
-              readOnly={isEditing}
-              aria-readonly={isEditing}
-              className={isEditing ? 'input-readonly' : undefined}
-            />
-          </label>
+          <div className="modal-body-top">
+            {error && <div className="error-banner">{error}</div>}
+            <label>
+              <span>Title</span>
+              <input
+                type="text"
+                required
+                value={form.title}
+                onChange={(e) =>
+                  setForm((prev) => ({ ...prev, title: e.target.value }))
+                }
+                readOnly={isEditing}
+                aria-readonly={isEditing}
+                className={isEditing ? 'input-readonly' : undefined}
+              />
+            </label>
 
-          {!isEditing && (
-            <div className="search-lang-row">
-              <span className="search-lang-label">Search by:</span>
-              <div className="search-lang-buttons">
-                <button
-                  type="button"
-                  className={`search-lang-btn ${searchLanguage === 'uk-UA' ? 'search-lang-btn-active' : ''}`}
-                  onClick={() => setSearchLanguage('uk-UA')}
-                  aria-pressed={searchLanguage === 'uk-UA'}
-                  aria-label="Search by Ukrainian title"
-                  title="Ukraine (Ukrainian)"
-                >
-                  <span className="search-lang-flag" aria-hidden>
-                    <svg viewBox="0 0 24 16" width="28" height="19" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="24" height="8" fill="#0057B7" />
-                      <rect y="8" width="24" height="8" fill="#FFD700" />
-                    </svg>
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className={`search-lang-btn ${searchLanguage === 'en-US' ? 'search-lang-btn-active' : ''}`}
-                  onClick={() => setSearchLanguage('en-US')}
-                  aria-pressed={searchLanguage === 'en-US'}
-                  aria-label="Search by British/English title"
-                  title="Britain (English)"
-                >
-                  <span className="search-lang-flag" aria-hidden>
-                    <svg viewBox="0 0 60 30" width="28" height="14" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="60" height="30" fill="#012169" />
-                      <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" strokeWidth="6" />
-                      <path d="M0 0 L60 30 M60 0 L0 30" stroke="#C8102E" strokeWidth="4" />
-                      <path d="M30 0 V30 M0 15 H60" stroke="#fff" strokeWidth="10" />
-                      <path d="M30 0 V30 M0 15 H60" stroke="#C8102E" strokeWidth="6" />
-                    </svg>
-                  </span>
-                </button>
+            {!isEditing && (
+              <div className="search-lang-row">
+                <span className="search-lang-label">Search by:</span>
+                <div className="search-lang-buttons">
+                  <button
+                    type="button"
+                    className={`search-lang-btn ${searchLanguage === 'uk-UA' ? 'search-lang-btn-active' : ''}`}
+                    onClick={() => setSearchLanguage('uk-UA')}
+                    aria-pressed={searchLanguage === 'uk-UA'}
+                    aria-label="Search by Ukrainian title"
+                    title="Ukraine (Ukrainian)"
+                  >
+                    <span className="search-lang-flag" aria-hidden>
+                      <svg viewBox="0 0 24 16" width="28" height="19" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="24" height="8" fill="#0057B7" />
+                        <rect y="8" width="24" height="8" fill="#FFD700" />
+                      </svg>
+                    </span>
+                  </button>
+                  <button
+                    type="button"
+                    className={`search-lang-btn ${searchLanguage === 'en-US' ? 'search-lang-btn-active' : ''}`}
+                    onClick={() => setSearchLanguage('en-US')}
+                    aria-pressed={searchLanguage === 'en-US'}
+                    aria-label="Search by British/English title"
+                    title="Britain (English)"
+                  >
+                    <span className="search-lang-flag" aria-hidden>
+                      <svg viewBox="0 0 60 30" width="28" height="14" xmlns="http://www.w3.org/2000/svg">
+                        <rect width="60" height="30" fill="#012169" />
+                        <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" strokeWidth="6" />
+                        <path d="M0 0 L60 30 M60 0 L0 30" stroke="#C8102E" strokeWidth="4" />
+                        <path d="M30 0 V30 M0 15 H60" stroke="#fff" strokeWidth="10" />
+                        <path d="M30 0 V30 M0 15 H60" stroke="#C8102E" strokeWidth="6" />
+                      </svg>
+                    </span>
+                  </button>
+                </div>
               </div>
-            </div>
-          )}
+            )}
 
-          {!isEditing && (
-            <button
-              type="button"
-              className="secondary-button"
-              onClick={handleSearchTmdb}
-              disabled={!form.title.trim() || isSearching}
-            >
-              {isSearching ? 'Searching…' : 'Search in TMDb'}
-            </button>
-          )}
+            {!isEditing && (
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={handleSearchTmdb}
+                disabled={!form.title.trim() || isSearching}
+              >
+                {isSearching ? 'Searching…' : 'Search in TMDb'}
+              </button>
+            )}
+          </div>
 
           {tmdbResults.length > 0 && (
             <div className="tmdb-results">
@@ -339,22 +341,37 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
             </div>
           )}
 
-          <label>
-            <span>Status</span>
-            <select
-              value={form.status}
-              onChange={(e) =>
-                setForm((prev) => ({
-                  ...prev,
-                  status: e.target.value as MovieStatus,
-                }))
-              }
-              required
+          <div className="form-field">
+            <span className="form-field-label">Status</span>
+            <div
+              className="status-toggle"
+              role="group"
+              aria-label="Status"
             >
-              <option value="WATCHED">Watched</option>
-              <option value="WANT_TO_WATCH">Want to Watch</option>
-            </select>
-          </label>
+              <button
+                type="button"
+                className={`status-toggle-btn ${form.status === 'WATCHED' ? 'status-toggle-btn-active' : ''}`}
+                onClick={() =>
+                  setForm((prev) => ({ ...prev, status: 'WATCHED' }))
+                }
+                aria-pressed={form.status === 'WATCHED'}
+                aria-label="Watched"
+              >
+                Watched
+              </button>
+              <button
+                type="button"
+                className={`status-toggle-btn ${form.status === 'WANT_TO_WATCH' ? 'status-toggle-btn-active' : ''}`}
+                onClick={() =>
+                  setForm((prev) => ({ ...prev, status: 'WANT_TO_WATCH' }))
+                }
+                aria-pressed={form.status === 'WANT_TO_WATCH'}
+                aria-label="Want to Watch"
+              >
+                Want to Watch
+              </button>
+            </div>
+          </div>
 
           <label>
             <span>Watch Date</span>
@@ -370,7 +387,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
 
           <div className="ratings-row">
             <label>
-              <span>Inna&apos;s Rating (0–10, step 0.5)</span>
+              <span>Inna Rating</span>
               <input
                 type="number"
                 min={0}
@@ -383,7 +400,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
               />
             </label>
             <label>
-              <span>Bogdan&apos;s Rating (0–10, step 0.5)</span>
+              <span>Bohdan Rating</span>
               <input
                 type="number"
                 min={0}

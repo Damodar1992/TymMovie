@@ -7,6 +7,17 @@ interface SortControlProps {
   onSortOrderChange: (value: MoviesQueryParams['sortOrder']) => void;
 }
 
+const SORT_BY_OPTIONS: { value: MoviesQueryParams['sortBy']; label: string }[] = [
+  { value: 'created_at', label: 'Created Date' },
+  { value: 'watch_date', label: 'Watch Date' },
+  { value: 'user_avg_rating', label: 'Rating' },
+];
+
+const SORT_ORDER_OPTIONS: { value: MoviesQueryParams['sortOrder']; label: string }[] = [
+  { value: 'desc', label: 'Descending' },
+  { value: 'asc', label: 'Ascending' },
+];
+
 export function SortControl({
   sortBy,
   sortOrder,
@@ -14,36 +25,39 @@ export function SortControl({
   onSortOrderChange,
 }: SortControlProps) {
   return (
-    <div className="sort-control">
-      <label>
-        <span>Sort by</span>
-        <select
-          value={sortBy}
-          onChange={(e) =>
-            onSortByChange(
-              e.target.value as NonNullable<MoviesQueryParams['sortBy']>,
-            )
-          }
-        >
-          <option value="user_avg_rating">Rating</option>
-          <option value="watch_date">Watch Date</option>
-          <option value="created_at">Created Date</option>
-        </select>
-      </label>
-      <label>
-        <span>Order</span>
-        <select
-          value={sortOrder}
-          onChange={(e) =>
-            onSortOrderChange(
-              e.target.value as NonNullable<MoviesQueryParams['sortOrder']>,
-            )
-          }
-        >
-          <option value="desc">Descending</option>
-          <option value="asc">Ascending</option>
-        </select>
-      </label>
+    <div className="sort-control filters-row">
+      <div className="filter-toggle-group">
+        <span className="filter-label">Sort by</span>
+        <div className="toggle-group" role="group" aria-label="Sort by">
+          {SORT_BY_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              type="button"
+              className={sortBy === opt.value ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
+              onClick={() => onSortByChange(opt.value)}
+              aria-pressed={sortBy === opt.value}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </div>
+      <div className="filter-toggle-group">
+        <span className="filter-label">Order</span>
+        <div className="toggle-group" role="group" aria-label="Order">
+          {SORT_ORDER_OPTIONS.map((opt) => (
+            <button
+              key={opt.value}
+              type="button"
+              className={sortOrder === opt.value ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
+              onClick={() => onSortOrderChange(opt.value)}
+              aria-pressed={sortOrder === opt.value}
+            >
+              {opt.label}
+            </button>
+          ))}
+        </div>
+      </div>
     </div>
   );
 }

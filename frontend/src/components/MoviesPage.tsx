@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useMoviesQuery } from '../api/movies';
 import type { Movie, MovieStatus, MoviesQueryParams } from '../api/movies';
 import { MovieGrid } from './MovieGrid';
@@ -8,18 +8,25 @@ import { SortControl } from './SortControl';
 import { SearchInput } from './SearchInput';
 import { EmptyState } from './EmptyState';
 
+const PAGE_SIZE = 50;
+
 export function MoviesPage() {
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState<MovieStatus | undefined>();
   const [genres, setGenres] = useState<string[]>([]);
   const [contentType, setContentType] = useState<'MOVIE' | 'TV' | undefined>();
   const [sortBy, setSortBy] =
-    useState<MoviesQueryParams['sortBy']>('watch_date');
+    useState<MoviesQueryParams['sortBy']>('created_at');
   const [sortOrder, setSortOrder] =
     useState<MoviesQueryParams['sortOrder']>('desc');
+  const [page, setPage] = useState(1);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingMovieId, setEditingMovieId] = useState<string | null>(null);
   const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
+
+  useEffect(() => {
+    setPage(1);
+  }, [search, status, contentType, genres, sortBy, sortOrder]);
 
   const { data, isLoading, isError } = useMoviesQuery({
     search: search || undefined,
@@ -28,9 +35,15 @@ export function MoviesPage() {
     genres,
     sortBy,
     sortOrder,
+    page,
   });
 
   const items = data?.items ?? [];
+  const total = data?.total ?? 0;
+  const totalPages = data?.totalPages ?? 1;
+  const currentPage = data?.page ?? 1;
+  const from = total === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
+  const to = Math.min(currentPage * PAGE_SIZE, total);
 
   const availableGenres = Array.from(
     new Set(
@@ -60,15 +73,16 @@ export function MoviesPage() {
             setEditingMovie(null);
             setIsFormOpen(true);
           }}
+          aria-label="Add movie"
         >
           <span>Add</span>
-          <span aria-hidden="true">
-            <img
-              src="/add_movie_icon.svg"
-              alt=""
-              style={{ width: 28, height: 28, display: 'block' }}
-            />
-          </span>
+          <img
+            src="/add_movie_icon.svg"
+            alt=""
+            width={28}
+            height={28}
+            style={{ display: 'block' }}
+          />
         </button>
       </header>
 
@@ -111,14 +125,46 @@ export function MoviesPage() {
           description="Try adding a title or adjusting your filters."
         />
       ) : (
-        <MovieGrid
-          movies={items}
-          onEdit={(movie) => {
-            setEditingMovieId(movie.id);
-            setEditingMovie(movie);
-            setIsFormOpen(true);
-          }}
-        />
+        <>
+          <MovieGrid
+            movies={items}
+            onEdit={(movie) => {
+              setEditingMovieId(movie.id);
+              setEditingMovie(movie);
+              setIsFormOpen(true);
+            }}
+          />
+          {total > PAGE_SIZE && (
+            <section className="pagination-row" aria-label="Pagination">
+              <span className="pagination-info">
+                {from}–{to} of {total}
+              </span>
+              <div className="pagination-controls">
+                <button
+                  type="button"
+                  className="secondary-button"
+                  disabled={currentPage <= 1}
+                  onClick={() => setPage((p) => Math.max(1, p - 1))}
+                  aria-label="Previous page"
+                >
+                  Previous
+                </button>
+                <span className="pagination-pages" aria-live="polite">
+                  Page {currentPage} of {totalPages}
+                </span>
+                <button
+                  type="button"
+                  className="secondary-button"
+                  disabled={currentPage >= totalPages}
+                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                  aria-label="Next page"
+                >
+                  Next
+                </button>
+              </div>
+            </section>
+          )}
+        </>
       )}
 
       {isFormOpen && (

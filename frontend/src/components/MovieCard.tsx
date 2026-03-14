@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { Movie } from '../api/movies';
 import { useDeleteMovieMutation } from '../api/movies';
 
@@ -6,21 +7,62 @@ interface MovieCardProps {
   onEdit: (movie: Movie) => void;
 }
 
+const STAR_PATH =
+  'M5,0.5 L6.2,4 L10,4 L7.2,6 L8.2,9.5 L5,7.5 L1.8,9.5 L2.8,6 L0,4 L3.8,4 Z';
+
+function StarRatingSvg({
+  ratingOutOf5,
+  clipId,
+}: {
+  ratingOutOf5: number;
+  clipId: string;
+}) {
+  const w = Math.max(0, Math.min(5, ratingOutOf5)) * 10;
+  return (
+    <svg
+      className="star-rating-svg"
+      viewBox="0 0 50 10"
+      preserveAspectRatio="xMidYMid meet"
+      aria-hidden
+    >
+      <defs>
+        <path id={`${clipId}-shape`} d={STAR_PATH} />
+        <clipPath id={clipId}>
+          <rect x={0} y={0} width={w} height={10} />
+        </clipPath>
+      </defs>
+      <g fill="none" stroke="currentColor" strokeWidth="0.35" strokeLinejoin="round">
+        {[0, 1, 2, 3, 4].map((i) => (
+          <use key={i} href={`#${clipId}-shape`} x={i * 10} y={0} />
+        ))}
+      </g>
+      <g fill="currentColor" clipPath={`url(#${clipId})`}>
+        {[0, 1, 2, 3, 4].map((i) => (
+          <use href={`#${clipId}-shape`} x={i * 10} y={0} />
+        ))}
+      </g>
+    </svg>
+  );
+}
+
 export function MovieCard({ movie, onEdit }: MovieCardProps) {
   const deleteMutation = useDeleteMovieMutation();
+  const starClipId = useId();
 
-  const renderStars = (value: unknown) => {
+  const renderStars = (value: unknown, suffix: string) => {
     if (value === null || value === undefined) return '—';
     const num =
       typeof value === 'number' ? value : Number.parseFloat(String(value));
     if (Number.isNaN(num)) return '—';
     const clamped = Math.max(0, Math.min(10, num));
-    const stars = Math.round(clamped / 2); // 0–5
-    const empty = 5 - stars;
+    const starsOutOf5 = clamped / 2;
+
     return (
       <span className="stars" title={`${clamped.toFixed(1)}/10`}>
-        {'★'.repeat(stars)}
-        {'☆'.repeat(empty)}
+        <StarRatingSvg
+          ratingOutOf5={starsOutOf5}
+          clipId={`star-clip-${starClipId}-${suffix}`}
+        />
       </span>
     );
   };
@@ -87,35 +129,56 @@ export function MovieCard({ movie, onEdit }: MovieCardProps) {
               </span>
             </span>
           </div>
-          {movie.tmdbRating != null ||
-          movie.innaRating != null ||
-          movie.bogdanRating != null ? (
-            <div className="movie-ratings-row">
-              <div className="movie-ratings-title">Ratings</div>
-              <div className="movie-ratings-values">
-                {movie.tmdbRating != null && (
-                  <span className="rating-item">
-                    <span className="rating-label">TMDb</span>
-                    <span className="rating-stars">
-                      {renderStars(movie.tmdbRating)}
+          {(() => {
+            const tymRating =
+              movie.innaRating != null && movie.bogdanRating != null
+                ? movie.userAvgRating ?? null
+                : null;
+            const hasAnyRating =
+              movie.tmdbRating != null ||
+              movie.innaRating != null ||
+              movie.bogdanRating != null ||
+              tymRating != null;
+            return hasAnyRating ? (
+              <div className="movie-ratings-row">
+                <div className="movie-ratings-title">Ratings</div>
+                <div className="movie-ratings-values">
+                  {movie.tmdbRating != null && (
+                    <span className="rating-item">
+                      <span className="rating-label">TMDb</span>
+                      <span className="rating-stars">
+                        {renderStars(movie.tmdbRating, 'tmdb')}
+                      </span>
                     </span>
-                  </span>
-                )}
-                {movie.innaRating != null && (
-                  <span className="rating-item">
-                    <span className="rating-label">Inna</span>
-                    <span className="rating-stars">{renderStars(movie.innaRating)}</span>
-                  </span>
-                )}
-                {movie.bogdanRating != null && (
-                  <span className="rating-item">
-                    <span className="rating-label">Bohdan</span>
-                    <span className="rating-stars">{renderStars(movie.bogdanRating)}</span>
-                  </span>
-                )}
+                  )}
+                  {movie.innaRating != null && (
+                    <span className="rating-item">
+                      <span className="rating-label">Inna</span>
+                      <span className="rating-stars">
+                        {renderStars(movie.innaRating, 'inna')}
+                      </span>
+                    </span>
+                  )}
+                  {movie.bogdanRating != null && (
+                    <span className="rating-item">
+                      <span className="rating-label">Bohdan</span>
+                      <span className="rating-stars">
+                        {renderStars(movie.bogdanRating, 'bohdan')}
+                      </span>
+                    </span>
+                  )}
+                  {tymRating != null && (
+                    <span className="rating-item">
+                      <span className="rating-label">Tym</span>
+                      <span className="rating-stars">
+                        {renderStars(tymRating, 'tym')}
+                      </span>
+                    </span>
+                  )}
+                </div>
               </div>
-            </div>
-          ) : null}
+            ) : null;
+          })()}
         </dl>
         <div className="card-actions">
           <button

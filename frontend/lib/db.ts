@@ -77,7 +77,7 @@ export const db = {
     try {
       const sql = getSql();
       const page = params.page ?? 1;
-      const limit = Math.min(params.limit ?? 50, 100);
+      const limit = Math.min(params.limit ?? 50, 50);
       const offset = (page - 1) * limit;
       const sortBy =
         params.sortBy === 'watch_date'

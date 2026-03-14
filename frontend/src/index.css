@@ -127,6 +127,40 @@ p {
   justify-content: space-between;
 }
 
+.pagination-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 0 0;
+  margin-top: 8px;
+  border-top: 1px solid var(--border);
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: var(--text-m);
+}
+
+.pagination-controls {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.pagination-controls .secondary-button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.pagination-pages {
+  font-size: 14px;
+  color: var(--text-m);
+  min-width: 6ch;
+  text-align: center;
+}
+
 .primary-button,
 .secondary-button,
 .danger-button,
@@ -344,8 +378,15 @@ p {
 }
 
 .stars {
-  font-size: 14px;
+  display: inline-flex;
+  align-items: center;
   color: #fbbf24; /* amber-300 */
+}
+
+.star-rating-svg {
+  display: block;
+  width: 5.5em;
+  height: 1.1em;
 }
 
 .movie-status-row {
@@ -565,7 +606,7 @@ p {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
-  align-items: flex-end;
+  align-items: flex-start;
 }
 
 .empty-state {
@@ -619,6 +660,17 @@ p {
   overflow-y: auto;
 }
 
+.modal-body-top {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 4px;
+}
+
 .modal-body label span {
   display: block;
   font-size: 13px;
@@ -637,6 +689,49 @@ p {
   background: var(--code-bg);
   cursor: default;
   color: var(--text);
+}
+
+.modal-body .form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.modal-body .form-field-label {
+  font-size: 13px;
+  display: block;
+}
+
+.status-toggle {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.status-toggle-btn {
+  flex: 1;
+  min-width: 120px;
+  padding: 8px 16px;
+  font-size: 14px;
+  font-family: var(--sans);
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text);
+  cursor: pointer;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.status-toggle-btn:hover {
+  border-color: var(--accent-border);
+  background: var(--accent-bg);
+}
+
+.status-toggle-btn-active {
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  color: var(--accent);
+  font-weight: 500;
 }
 
 .search-lang-row {
