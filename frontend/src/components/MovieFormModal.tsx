@@ -88,6 +88,10 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
   const [searchLanguage, setSearchLanguage] = useState<'uk-UA' | 'en-US'>(
     'uk-UA',
   );
+  /** Title from the search result when user selected it (in search language); used for title_ua when search was Ukrainian */
+  const [selectedResultTitle, setSelectedResultTitle] = useState<string | null>(
+    null,
+  );
 
   const createMutation = useCreateMovieMutation();
   const updateMutation = useUpdateMovieMutation();
@@ -118,14 +122,15 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
           setError('Please fetch metadata from TMDb before saving.');
           return;
         }
+        const titleUaValue =
+          searchLanguage === 'uk-UA'
+            ? selectedResultTitle?.trim() ?? null
+            : null;
         await createMutation.mutateAsync({
           contentType: metadataPreview.contentType,
           title: metadataPreview.title || form.title,
           originalTitle: metadataPreview.originalTitle,
-          titleUa:
-            searchLanguage === 'uk-UA'
-              ? metadataPreview.title ?? null
-              : null,
+          titleUa: titleUaValue,
           tmdbId: metadataPreview.tmdbId,
           posterUrl: metadataPreview.posterUrl,
           genres: metadataPreview.genres,
@@ -175,6 +180,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
         result.contentType === 'MOVIE'
           ? await getMovieDetails(result.tmdbId)
           : await getTvDetails(result.tmdbId);
+      setSelectedResultTitle(result.title);
       const posterUrl = await buildPosterUrl(details.posterPath, 'w342');
       setMetadataPreview({
         contentType: details.contentType,
