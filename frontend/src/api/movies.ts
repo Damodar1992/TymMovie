@@ -13,6 +13,7 @@ export interface Movie {
   id: string;
   contentType: 'MOVIE' | 'TV';
   title: string;
+  titleUa: string | null;
   originalTitle: string | null;
   tmdbId: number | null;
   posterUrl: string | null;
@@ -75,6 +76,7 @@ export function useCreateMovieMutation() {
       contentType: 'MOVIE' | 'TV';
       title: string;
       originalTitle: string | null;
+      titleUa?: string | null;
       tmdbId: number | null;
       posterUrl: string | null;
       genres: string[] | null;
@@ -110,6 +112,7 @@ export function useCreateMovieMutation() {
           bogdanRating: payload.bogdanRating,
           userAvgRating,
           originalTitle: payload.originalTitle,
+          titleUa: payload.titleUa ?? null,
           tmdbId: payload.tmdbId,
           posterUrl: payload.posterUrl,
           genres: payload.genres,

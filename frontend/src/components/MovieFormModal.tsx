@@ -122,6 +122,10 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
           contentType: metadataPreview.contentType,
           title: metadataPreview.title || form.title,
           originalTitle: metadataPreview.originalTitle,
+          titleUa:
+            searchLanguage === 'uk-UA'
+              ? metadataPreview.title ?? null
+              : null,
           tmdbId: metadataPreview.tmdbId,
           posterUrl: metadataPreview.posterUrl,
           genres: metadataPreview.genres,

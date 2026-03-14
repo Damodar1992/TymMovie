@@ -2,8 +2,11 @@ import { useId } from 'react';
 import type { Movie } from '../api/movies';
 import { useDeleteMovieMutation } from '../api/movies';
 
+type TitleLang = 'en' | 'ua';
+
 interface MovieCardProps {
   movie: Movie;
+  titleLang: TitleLang;
   onEdit: (movie: Movie) => void;
 }
 
@@ -45,9 +48,13 @@ function StarRatingSvg({
   );
 }
 
-export function MovieCard({ movie, onEdit }: MovieCardProps) {
+export function MovieCard({ movie, titleLang, onEdit }: MovieCardProps) {
   const deleteMutation = useDeleteMovieMutation();
   const starClipId = useId();
+  const displayTitle =
+    titleLang === 'ua' && movie.titleUa?.trim()
+      ? movie.titleUa
+      : movie.title;
 
   const renderStars = (value: unknown, suffix: string) => {
     if (value === null || value === undefined) return '—';
@@ -83,7 +90,7 @@ export function MovieCard({ movie, onEdit }: MovieCardProps) {
         {movie.posterUrl ? (
           <img
             src={movie.posterUrl}
-            alt={movie.title}
+            alt={displayTitle}
             loading="lazy"
             onError={(e) => {
               (e.currentTarget as HTMLImageElement).src =
@@ -96,14 +103,26 @@ export function MovieCard({ movie, onEdit }: MovieCardProps) {
       </div>
       <div className="movie-content">
         <div className="movie-main-info">
-          <h2 className="movie-title">{movie.title}</h2>
-          {movie.originalTitle && movie.originalTitle !== movie.title && (
+          <h2 className="movie-title">{displayTitle}</h2>
+          {movie.originalTitle && movie.originalTitle !== displayTitle && (
             <p className="movie-original-title">{movie.originalTitle}</p>
           )}
           <div className="movie-meta">
             {movie.releaseYear != null && (
               <span className="movie-year">{movie.releaseYear}</span>
             )}
+            {movie.innaRating != null &&
+              movie.bogdanRating != null &&
+              movie.userAvgRating != null && (
+                <>
+                  {movie.releaseYear != null && (
+                    <span className="movie-meta-sep"> · </span>
+                  )}
+                  <span className="movie-avg-rating" title="Tym (average of Inna & Bohdan)">
+                    Tym {movie.userAvgRating.toFixed(1)}
+                  </span>
+                </>
+              )}
           </div>
           <div className="genres">
             {movie.genres?.map((g) => (
@@ -129,56 +148,39 @@ export function MovieCard({ movie, onEdit }: MovieCardProps) {
               </span>
             </span>
           </div>
-          {(() => {
-            const tymRating =
-              movie.innaRating != null && movie.bogdanRating != null
-                ? movie.userAvgRating ?? null
-                : null;
-            const hasAnyRating =
-              movie.tmdbRating != null ||
-              movie.innaRating != null ||
-              movie.bogdanRating != null ||
-              tymRating != null;
-            return hasAnyRating ? (
-              <div className="movie-ratings-row">
-                <div className="movie-ratings-title">Ratings</div>
-                <div className="movie-ratings-values">
-                  {movie.tmdbRating != null && (
-                    <span className="rating-item">
-                      <span className="rating-label">TMDb</span>
-                      <span className="rating-stars">
-                        {renderStars(movie.tmdbRating, 'tmdb')}
-                      </span>
+          {(movie.tmdbRating != null ||
+            movie.innaRating != null ||
+            movie.bogdanRating != null) ? (
+            <div className="movie-ratings-row">
+              <div className="movie-ratings-title">Ratings</div>
+              <div className="movie-ratings-values">
+                {movie.tmdbRating != null && (
+                  <span className="rating-item">
+                    <span className="rating-label">TMDb</span>
+                    <span className="rating-stars">
+                      {renderStars(movie.tmdbRating, 'tmdb')}
                     </span>
-                  )}
-                  {movie.innaRating != null && (
-                    <span className="rating-item">
-                      <span className="rating-label">Inna</span>
-                      <span className="rating-stars">
-                        {renderStars(movie.innaRating, 'inna')}
-                      </span>
+                  </span>
+                )}
+                {movie.innaRating != null && (
+                  <span className="rating-item">
+                    <span className="rating-label">Inna</span>
+                    <span className="rating-stars">
+                      {renderStars(movie.innaRating, 'inna')}
                     </span>
-                  )}
-                  {movie.bogdanRating != null && (
-                    <span className="rating-item">
-                      <span className="rating-label">Bohdan</span>
-                      <span className="rating-stars">
-                        {renderStars(movie.bogdanRating, 'bohdan')}
-                      </span>
+                  </span>
+                )}
+                {movie.bogdanRating != null && (
+                  <span className="rating-item">
+                    <span className="rating-label">Bohdan</span>
+                    <span className="rating-stars">
+                      {renderStars(movie.bogdanRating, 'bohdan')}
                     </span>
-                  )}
-                  {tymRating != null && (
-                    <span className="rating-item">
-                      <span className="rating-label">Tym</span>
-                      <span className="rating-stars">
-                        {renderStars(tymRating, 'tym')}
-                      </span>
-                    </span>
-                  )}
-                </div>
+                  </span>
+                )}
               </div>
-            ) : null;
-          })()}
+            </div>
+          ) : null}
         </dl>
         <div className="card-actions">
           <button

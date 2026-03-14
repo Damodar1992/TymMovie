@@ -5,6 +5,7 @@ CREATE TABLE IF NOT EXISTS movies (
   title VARCHAR(255) NOT NULL,
   title_normalized VARCHAR(255) NOT NULL,
   original_title VARCHAR(255) NULL,
+  title_ua VARCHAR(255) NULL,
   tmdb_id INTEGER NULL,
   poster_url TEXT NULL,
   genres JSONB NULL,
@@ -26,3 +27,6 @@ CREATE INDEX IF NOT EXISTS idx_movies_title_normalized ON movies(title_normalize
 CREATE INDEX IF NOT EXISTS idx_movies_genres ON movies USING GIN(genres);
 CREATE INDEX IF NOT EXISTS idx_movies_tmdb_id ON movies(tmdb_id);
 CREATE INDEX IF NOT EXISTS idx_movies_content_type ON movies(content_type);
+
+-- If the table already existed without title_ua, run this in Neon SQL Editor:
+-- ALTER TABLE movies ADD COLUMN IF NOT EXISTS title_ua VARCHAR(255) NULL;

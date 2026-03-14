@@ -8,7 +8,7 @@ function getSql() {
 }
 
 const MOVIE_COLS =
-  'id, content_type, title, title_normalized, original_title, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, status, watch_date, created_at, updated_at';
+  'id, content_type, title, title_normalized, original_title, title_ua, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, status, watch_date, created_at, updated_at';
 
 export type MovieRow = {
   id: string;
@@ -16,6 +16,7 @@ export type MovieRow = {
   title: string;
   title_normalized: string;
   original_title: string | null;
+  title_ua: string | null;
   tmdb_id: number | null;
   poster_url: string | null;
   genres: string[] | null;
@@ -48,6 +49,7 @@ function rowToMovie(r: MovieRow) {
     title: r.title,
     titleNormalized: r.title_normalized,
     originalTitle: r.original_title,
+    titleUa: r.title_ua,
     tmdbId: r.tmdb_id,
     posterUrl: r.poster_url,
     genres: r.genres,
@@ -157,6 +159,7 @@ export const db = {
     bogdanRating: number | null;
     userAvgRating: number | null;
     originalTitle?: string | null;
+    titleUa?: string | null;
     tmdbId?: number | null;
     posterUrl?: string | null;
     genres?: string[] | null;
@@ -166,14 +169,15 @@ export const db = {
     const sql = getSql();
     const id = crypto.randomUUID();
     await sql(
-      `INSERT INTO movies (id, content_type, title, title_normalized, original_title, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, status, watch_date)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15)`,
+      `INSERT INTO movies (id, content_type, title, title_normalized, original_title, title_ua, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, status, watch_date)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`,
       [
         id,
         data.contentType,
         data.title,
         data.titleNormalized,
         data.originalTitle ?? null,
+        data.titleUa ?? null,
         data.tmdbId ?? null,
         data.posterUrl ?? null,
         data.genres ? JSON.stringify(data.genres) : null,
@@ -201,6 +205,7 @@ export const db = {
       bogdanRating: number | null;
       userAvgRating: number | null;
       originalTitle: string | null;
+      titleUa: string | null;
       tmdbId: number | null;
       posterUrl: string | null;
       genres: string[] | null;
@@ -226,6 +231,7 @@ export const db = {
     if (data.bogdanRating !== undefined) set('bogdan_rating', data.bogdanRating);
     if (data.userAvgRating !== undefined) set('user_avg_rating', data.userAvgRating);
     if (data.originalTitle !== undefined) set('original_title', data.originalTitle);
+    if (data.titleUa !== undefined) set('title_ua', data.titleUa);
     if (data.tmdbId !== undefined) set('tmdb_id', data.tmdbId);
     if (data.posterUrl !== undefined) set('poster_url', data.posterUrl);
     if (data.genres !== undefined) set('genres', data.genres ? JSON.stringify(data.genres) : null);
