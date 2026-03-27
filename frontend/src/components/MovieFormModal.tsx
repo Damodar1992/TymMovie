@@ -311,6 +311,11 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
                   .filter((r) =>
                     tmdbTypeFilter ? r.contentType === tmdbTypeFilter : true,
                   )
+                  .sort((a, b) => {
+                    const ay = a.year ?? -Infinity;
+                    const by = b.year ?? -Infinity;
+                    return by - ay;
+                  })
                   .map((r) => (
                     <li key={`${r.contentType}-${r.tmdbId}`}>
                       <button

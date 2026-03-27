@@ -94,7 +94,9 @@ export const db = {
       let idx = 1;
 
       if (params.search?.trim()) {
-        conditions.push(`(LOWER(title) LIKE $${idx} OR LOWER(original_title) LIKE $${idx})`);
+        conditions.push(
+          `(LOWER(title) LIKE $${idx} OR LOWER(original_title) LIKE $${idx} OR LOWER(COALESCE(title_ua, '')) LIKE $${idx})`,
+        );
         values.push(`%${params.search.trim().toLowerCase()}%`);
         idx++;
       }
