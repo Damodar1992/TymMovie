@@ -1,6 +1,7 @@
 import { useId } from 'react';
 import type { Movie } from '../api/movies';
 import { useDeleteMovieMutation } from '../api/movies';
+import { useAuth } from '../auth/AuthContext';
 
 type TitleLang = 'en' | 'ua';
 
@@ -49,6 +50,7 @@ function StarRatingSvg({
 }
 
 export function MovieCard({ movie, titleLang, onEdit }: MovieCardProps) {
+  const { isReadOnly } = useAuth();
   const deleteMutation = useDeleteMovieMutation();
   const starClipId = useId();
   const displayTitle =
@@ -75,6 +77,7 @@ export function MovieCard({ movie, titleLang, onEdit }: MovieCardProps) {
   };
 
   const handleDelete = () => {
+    if (isReadOnly) return;
     if (
       window.confirm(
         'Are you sure you want to delete this title from the list?',
@@ -182,71 +185,73 @@ export function MovieCard({ movie, titleLang, onEdit }: MovieCardProps) {
             </div>
           ) : null}
         </dl>
-        <div className="card-actions">
-          <button
-            type="button"
-            className="secondary-button"
-            onClick={() => onEdit(movie)}
-          >
-            <span aria-hidden="true" className="secondary-button-icon">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M4 11.5L4.5 9L10.5 3L13 5.5L7 11.5L4.5 11.5Z"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </span>
-            <span className="secondary-button-label">Edit</span>
-          </button>
-          <button
-            type="button"
-            className="danger-button"
-            onClick={handleDelete}
-            disabled={deleteMutation.isPending}
-          >
-            <span aria-hidden="true" className="danger-button-icon">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <rect
-                  x="5"
-                  y="4"
-                  width="6"
-                  height="9"
-                  rx="1"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                />
-                <path
-                  d="M4 4H12"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                />
-                <path
-                  d="M6 4L6.4 2.8C6.55 2.35 6.96 2 7.44 2H8.56C9.04 2 9.45 2.35 9.6 2.8L10 4"
-                  stroke="currentColor"
-                  strokeWidth="1.2"
-                  strokeLinecap="round"
-                />
-              </svg>
-            </span>
-            <span className="danger-button-label">Delete</span>
-          </button>
-        </div>
+        {!isReadOnly && (
+          <div className="card-actions">
+            <button
+              type="button"
+              className="secondary-button"
+              onClick={() => onEdit(movie)}
+            >
+              <span aria-hidden="true" className="secondary-button-icon">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M4 11.5L4.5 9L10.5 3L13 5.5L7 11.5L4.5 11.5Z"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
+              <span className="secondary-button-label">Edit</span>
+            </button>
+            <button
+              type="button"
+              className="danger-button"
+              onClick={handleDelete}
+              disabled={deleteMutation.isPending}
+            >
+              <span aria-hidden="true" className="danger-button-icon">
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 16 16"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <rect
+                    x="5"
+                    y="4"
+                    width="6"
+                    height="9"
+                    rx="1"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                  />
+                  <path
+                    d="M4 4H12"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                  />
+                  <path
+                    d="M6 4L6.4 2.8C6.55 2.35 6.96 2 7.44 2H8.56C9.04 2 9.45 2.35 9.6 2.8L10 4"
+                    stroke="currentColor"
+                    strokeWidth="1.2"
+                    strokeLinecap="round"
+                  />
+                </svg>
+              </span>
+              <span className="danger-button-label">Delete</span>
+            </button>
+          </div>
+        )}
       </div>
     </article>
   );

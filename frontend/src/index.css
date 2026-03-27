@@ -965,6 +965,12 @@ p {
   border-radius: 2px;
 }
 
+.header-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
 .metadata-preview {
   font-size: 13px;
   padding: 8px 10px;
@@ -1086,4 +1092,62 @@ p {
   .movie-ratings-values {
     gap: 6px 10px;
   }
+}
+
+.auth-page {
+  min-height: 100svh;
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+  background: var(--bg);
+}
+
+.auth-card {
+  width: 100%;
+  max-width: 420px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  box-shadow: var(--shadow);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.auth-logo {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  display: block;
+}
+
+.auth-subtitle {
+  font-size: 14px;
+  color: var(--text);
+}
+
+.auth-field span {
+  display: block;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+
+.auth-field input {
+  width: 100%;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--text-h);
+}
+
+.auth-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.auth-guest-btn {
+  padding: 8px 16px;
 }

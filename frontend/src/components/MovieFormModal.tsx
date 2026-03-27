@@ -8,6 +8,7 @@ import {
   type TmdbSearchResult,
 } from '../../lib/tmdb';
 import type { Movie, MovieStatus } from '../api/movies';
+import { useAuth } from '../auth/AuthContext';
 
 interface MovieFormModalProps {
   movieId: string | null;
@@ -49,6 +50,7 @@ function formStateFromMovie(m: Movie | null): FormState {
 }
 
 export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModalProps) {
+  const { isReadOnly } = useAuth();
   const isEditing = Boolean(movieId);
   const [form, setForm] = useState<FormState>(() =>
     formStateFromMovie(initialMovie),
@@ -99,6 +101,10 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
+    if (isReadOnly) {
+      setError('Read-only mode: saving is disabled.');
+      return;
+    }
 
     const innaRating =
       form.innaRating === '' ? null : Number.parseFloat(form.innaRating);
@@ -440,7 +446,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
             <button
               type="submit"
               className="primary-button"
-              disabled={createMutation.isPending || updateMutation.isPending}
+              disabled={isReadOnly || createMutation.isPending || updateMutation.isPending}
             >
               {isEditing ? 'Save Changes' : 'Save Entry'}
             </button>

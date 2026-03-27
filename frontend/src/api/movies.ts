@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { db, computeUserAvgRating, normalizeTitle } from '../../lib/db';
+import { AUTH_STORAGE_KEY } from '../auth/AuthContext';
 import {
   searchMulti,
   getMovieDetails,
@@ -39,6 +40,14 @@ export interface MoviesQueryParams {
 
 export interface EnrichedMetadata {
   tmdb: TmdbDetails;
+}
+
+function isReadOnlyMode(): boolean {
+  try {
+    return localStorage.getItem(AUTH_STORAGE_KEY) === 'guest';
+  } catch {
+    return false;
+  }
 }
 
 export function useMoviesQuery(params: MoviesQueryParams) {
@@ -87,6 +96,9 @@ export function useCreateMovieMutation() {
       innaRating: number | null;
       bogdanRating: number | null;
     }) => {
+      if (isReadOnlyMode()) {
+        throw new Error('Read-only mode: create is disabled.');
+      }
       try {
         const userAvgRating = computeUserAvgRating(
           payload.innaRating,
@@ -133,6 +145,9 @@ export function useUpdateMovieMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (params: { id: string; payload: unknown }) => {
+      if (isReadOnlyMode()) {
+        throw new Error('Read-only mode: update is disabled.');
+      }
       const p = params.payload as {
         status: MovieStatus;
         watchDate: string | null;
@@ -159,6 +174,9 @@ export function useDeleteMovieMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
+      if (isReadOnlyMode()) {
+        throw new Error('Read-only mode: delete is disabled.');
+      }
       await db.delete(id);
       return null;
     },

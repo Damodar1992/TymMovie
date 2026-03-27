@@ -8,6 +8,7 @@ import { FiltersBar } from './FiltersBar';
 import { SortControl } from './SortControl';
 import { SearchInput } from './SearchInput';
 import { EmptyState } from './EmptyState';
+import { useAuth } from '../auth/AuthContext';
 
 const PAGE_SIZE = 50;
 const VIEW_STORAGE_KEY = 'tym-movies-view';
@@ -37,6 +38,7 @@ function getStoredTitleLang(): TitleLang {
 }
 
 export function MoviesPage() {
+  const { isReadOnly, logout } = useAuth();
   const [search, setSearch] = useState('');
   const [status, setStatus] = useState<MovieStatus | undefined>();
   const [genres, setGenres] = useState<string[]>([]);
@@ -93,25 +95,37 @@ export function MoviesPage() {
           alt="TymMovies"
           className="app-logo"
         />
-        <button
-          className="icon-button"
-          type="button"
-          onClick={() => {
-            setEditingMovieId(null);
-            setEditingMovie(null);
-            setIsFormOpen(true);
-          }}
-          aria-label="Add movie"
-        >
-          <span>Add</span>
-          <img
-            src="/add_movie_icon.svg"
-            alt=""
-            width={28}
-            height={28}
-            style={{ display: 'block' }}
-          />
-        </button>
+        <div className="header-actions">
+          {!isReadOnly && (
+            <button
+              className="icon-button"
+              type="button"
+              onClick={() => {
+                setEditingMovieId(null);
+                setEditingMovie(null);
+                setIsFormOpen(true);
+              }}
+              aria-label="Add movie"
+            >
+              <span>Add</span>
+              <img
+                src="/add_movie_icon.svg"
+                alt=""
+                width={28}
+                height={28}
+                style={{ display: 'block' }}
+              />
+            </button>
+          )}
+          <button
+            className="chip"
+            type="button"
+            onClick={logout}
+            aria-label="Logout"
+          >
+            Logout
+          </button>
+        </div>
       </header>
 
       <section className="controls-row">
@@ -246,6 +260,7 @@ export function MoviesPage() {
               movies={items}
               titleLang={titleLang}
               onEdit={(movie) => {
+                if (isReadOnly) return;
                 setEditingMovieId(movie.id);
                 setEditingMovie(movie);
                 setIsFormOpen(true);
@@ -256,6 +271,7 @@ export function MoviesPage() {
               movies={items}
               titleLang={titleLang}
               onEdit={(movie) => {
+                if (isReadOnly) return;
                 setEditingMovieId(movie.id);
                 setEditingMovie(movie);
                 setIsFormOpen(true);
@@ -295,7 +311,7 @@ export function MoviesPage() {
         </>
       )}
 
-      {isFormOpen && (
+      {!isReadOnly && isFormOpen && (
         <MovieFormModal
           movieId={editingMovieId}
           initialMovie={editingMovie}

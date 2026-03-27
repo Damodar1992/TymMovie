@@ -1,8 +1,11 @@
 import './App.css';
 import { MoviesPage } from './components/MoviesPage';
+import { LoginPage } from './components/LoginPage';
+import { useAuth } from './auth/AuthContext';
 
 function App() {
-  return <MoviesPage />;
+  const { mode } = useAuth();
+  return mode ? <MoviesPage /> : <LoginPage />;
 }
 
 export default App;
