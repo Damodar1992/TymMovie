@@ -101,10 +101,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (isReadOnly) {
-      setError('Read-only mode: saving is disabled.');
-      return;
-    }
+    if (isReadOnly) return;
 
     const innaRating =
       form.innaRating === '' ? null : Number.parseFloat(form.innaRating);

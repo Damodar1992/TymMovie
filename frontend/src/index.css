@@ -127,6 +127,11 @@ p {
   justify-content: space-between;
 }
 
+.controls-row.controls-row-compact {
+  gap: 8px;
+  justify-content: flex-start;
+}
+
 .pagination-row {
   display: flex;
   flex-wrap: wrap;
@@ -1041,6 +1046,62 @@ p {
   .movie-card {
     flex-direction: row;
     align-items: stretch;
+  }
+
+  /* Mobile modal bottom-sheet (<=640px) */
+  .modal-backdrop {
+    align-items: flex-end;
+    padding: 0;
+  }
+
+  .modal {
+    max-width: none;
+    width: 100%;
+    border-radius: 16px 16px 0 0;
+    overflow: hidden;
+  }
+
+  .modal-header {
+    padding: 10px 12px;
+  }
+
+  .modal-body {
+    padding: 10px 12px 12px;
+    max-height: calc(100vh - 96px);
+  }
+
+  .modal-footer {
+    margin-top: 4px;
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+
+  .modal-body-top {
+    padding-bottom: 6px;
+  }
+
+  /* TMDb results density inside bottom-sheet */
+  .tmdb-results {
+    font-size: 12px;
+  }
+
+  .tmdb-results-filter span {
+    font-size: 11px;
+  }
+
+  .tmdb-results-filter select {
+    font-size: 12px;
+    padding: 4px 8px;
+  }
+
+  .tmdb-results-list {
+    margin-top: 2px;
+    max-height: 220px;
+    overflow-y: auto;
+    padding-left: 14px;
+  }
+
+  .tmdb-results-list li + li {
+    margin-top: 3px;
   }
 
   .poster-wrapper {

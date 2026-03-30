@@ -144,48 +144,7 @@ export function MoviesPage() {
         />
       </section>
 
-      <section className="controls-row">
-        <SortControl
-          sortBy={sortBy}
-          sortOrder={sortOrder}
-          onSortByChange={setSortBy}
-          onSortOrderChange={setSortOrder}
-        />
-        <div className="filter-toggle-group">
-          <span className="filter-label">View</span>
-          <div className="toggle-group" role="group" aria-label="View mode">
-            <button
-              type="button"
-              className={viewMode === 'cards' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
-              onClick={() => {
-                setViewMode('cards');
-                try {
-                  localStorage.setItem(VIEW_STORAGE_KEY, 'cards');
-                } catch {
-                  /* ignore */
-                }
-              }}
-              aria-pressed={viewMode === 'cards'}
-            >
-              Cards
-            </button>
-            <button
-              type="button"
-              className={viewMode === 'table' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
-              onClick={() => {
-                setViewMode('table');
-                try {
-                  localStorage.setItem(VIEW_STORAGE_KEY, 'table');
-                } catch {
-                  /* ignore */
-                }
-              }}
-              aria-pressed={viewMode === 'table'}
-            >
-              Table
-            </button>
-          </div>
-        </div>
+      <section className="controls-row controls-row-compact">
         <div className="filter-toggle-group">
           <span className="filter-label">Title</span>
           <div className="toggle-group" role="group" aria-label="Title language">
@@ -238,6 +197,63 @@ export function MoviesPage() {
             </button>
           </div>
         </div>
+        <div className="filter-toggle-group">
+          <span className="filter-label">View</span>
+          <div className="toggle-group" role="group" aria-label="View mode">
+            <button
+              type="button"
+              className={viewMode === 'cards' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
+              onClick={() => {
+                setViewMode('cards');
+                try {
+                  localStorage.setItem(VIEW_STORAGE_KEY, 'cards');
+                } catch {
+                  /* ignore */
+                }
+              }}
+              aria-pressed={viewMode === 'cards'}
+              aria-label="Cards view"
+              style={{ width: 54, height: 24, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <img
+                src="/grid.svg"
+                alt=""
+                width={18}
+                height={18}
+                style={{ display: 'block' }}
+              />
+            </button>
+            <button
+              type="button"
+              className={viewMode === 'table' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
+              onClick={() => {
+                setViewMode('table');
+                try {
+                  localStorage.setItem(VIEW_STORAGE_KEY, 'table');
+                } catch {
+                  /* ignore */
+                }
+              }}
+              aria-pressed={viewMode === 'table'}
+              aria-label="Table view"
+              style={{ width: 51, height: 24, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+            >
+              <img
+                src="/list.svg"
+                alt=""
+                width={18}
+                height={18}
+                style={{ display: 'block' }}
+              />
+            </button>
+          </div>
+        </div>
+        <SortControl
+          sortBy={sortBy}
+          sortOrder={sortOrder}
+          onSortByChange={setSortBy}
+          onSortOrderChange={setSortOrder}
+        />
       </section>
 
       {isError && (
