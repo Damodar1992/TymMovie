@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { useMoviesQuery } from '../api/movies';
-import type { Movie, MovieStatus, MoviesQueryParams } from '../api/movies';
+import type { Movie } from '../api/movies';
 import { MovieGrid } from './MovieGrid';
 import { MovieTable } from './MovieTable';
 import { MovieFormModal } from './MovieFormModal';
@@ -9,54 +9,35 @@ import { SortControl } from './SortControl';
 import { SearchInput } from './SearchInput';
 import { EmptyState } from './EmptyState';
 import { useAuth } from '../auth/AuthContext';
+import { useMoviesFilters } from '../state/MoviesFiltersContext';
 
 const PAGE_SIZE = 50;
-const VIEW_STORAGE_KEY = 'tym-movies-view';
-const TITLE_LANG_STORAGE_KEY = 'tym-movies-title-lang';
-
-type ViewMode = 'cards' | 'table';
-type TitleLang = 'en' | 'ua';
-
-function getStoredViewMode(): ViewMode {
-  try {
-    const stored = localStorage.getItem(VIEW_STORAGE_KEY);
-    if (stored === 'cards' || stored === 'table') return stored;
-  } catch {
-    /* ignore */
-  }
-  return 'cards';
-}
-
-function getStoredTitleLang(): TitleLang {
-  try {
-    const stored = localStorage.getItem(TITLE_LANG_STORAGE_KEY);
-    if (stored === 'en' || stored === 'ua') return stored;
-  } catch {
-    /* ignore */
-  }
-  return 'en';
-}
 
 export function MoviesPage() {
   const { isReadOnly, logout } = useAuth();
-  const [search, setSearch] = useState('');
-  const [status, setStatus] = useState<MovieStatus | undefined>();
-  const [genres, setGenres] = useState<string[]>([]);
-  const [contentType, setContentType] = useState<'MOVIE' | 'TV' | undefined>();
-  const [sortBy, setSortBy] =
-    useState<MoviesQueryParams['sortBy']>('created_at');
-  const [sortOrder, setSortOrder] =
-    useState<MoviesQueryParams['sortOrder']>('desc');
-  const [viewMode, setViewMode] = useState<ViewMode>(getStoredViewMode);
-  const [titleLang, setTitleLang] = useState<TitleLang>(getStoredTitleLang);
-  const [page, setPage] = useState(1);
+  const {
+    search,
+    setSearch,
+    status,
+    setStatus,
+    contentType,
+    setContentType,
+    genres,
+    setGenres,
+    sortBy,
+    setSortBy,
+    sortOrder,
+    setSortOrder,
+    viewMode,
+    setViewMode,
+    titleLang,
+    setTitleLang,
+    page,
+    setPage,
+  } = useMoviesFilters();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingMovieId, setEditingMovieId] = useState<string | null>(null);
   const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
-
-  useEffect(() => {
-    setPage(1);
-  }, [search, status, contentType, genres, sortBy, sortOrder]);
 
   const { data, isLoading, isError } = useMoviesQuery({
     search: search || undefined,
@@ -151,14 +132,7 @@ export function MoviesPage() {
             <button
               type="button"
               className={`search-lang-btn ${titleLang === 'en' ? 'search-lang-btn-active' : ''}`}
-              onClick={() => {
-                setTitleLang('en');
-                try {
-                  localStorage.setItem(TITLE_LANG_STORAGE_KEY, 'en');
-                } catch {
-                  /* ignore */
-                }
-              }}
+              onClick={() => setTitleLang('en')}
               aria-pressed={titleLang === 'en'}
               aria-label="Show title in English"
               title="English"
@@ -176,14 +150,7 @@ export function MoviesPage() {
             <button
               type="button"
               className={`search-lang-btn ${titleLang === 'ua' ? 'search-lang-btn-active' : ''}`}
-              onClick={() => {
-                setTitleLang('ua');
-                try {
-                  localStorage.setItem(TITLE_LANG_STORAGE_KEY, 'ua');
-                } catch {
-                  /* ignore */
-                }
-              }}
+              onClick={() => setTitleLang('ua')}
               aria-pressed={titleLang === 'ua'}
               aria-label="Show title in Ukrainian"
               title="Ukrainian"
@@ -203,14 +170,7 @@ export function MoviesPage() {
             <button
               type="button"
               className={viewMode === 'cards' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
-              onClick={() => {
-                setViewMode('cards');
-                try {
-                  localStorage.setItem(VIEW_STORAGE_KEY, 'cards');
-                } catch {
-                  /* ignore */
-                }
-              }}
+              onClick={() => setViewMode('cards')}
               aria-pressed={viewMode === 'cards'}
               aria-label="Cards view"
               style={{ width: 54, height: 24, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -226,14 +186,7 @@ export function MoviesPage() {
             <button
               type="button"
               className={viewMode === 'table' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
-              onClick={() => {
-                setViewMode('table');
-                try {
-                  localStorage.setItem(VIEW_STORAGE_KEY, 'table');
-                } catch {
-                  /* ignore */
-                }
-              }}
+              onClick={() => setViewMode('table')}
               aria-pressed={viewMode === 'table'}
               aria-label="Table view"
               style={{ width: 51, height: 24, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
@@ -341,4 +294,3 @@ export function MoviesPage() {
     </div>
   );
 }
-
