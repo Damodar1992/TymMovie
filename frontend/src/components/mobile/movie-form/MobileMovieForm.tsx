@@ -31,6 +31,7 @@ interface FormState {
   watchDate: string;
   innaRating: string;
   bogdanRating: string;
+  comment: string;
 }
 
 interface MetadataPreview {
@@ -52,6 +53,7 @@ function initialFormState(m: Movie | null): FormState {
       watchDate: '',
       innaRating: '',
       bogdanRating: '',
+      comment: '',
     };
   }
   return {
@@ -66,6 +68,7 @@ function initialFormState(m: Movie | null): FormState {
       m.bogdanRating !== null && m.bogdanRating !== undefined
         ? String(m.bogdanRating)
         : '',
+    comment: m.comment ?? '',
   };
 }
 
@@ -125,6 +128,7 @@ export function MobileMovieForm({
       form.innaRating === '' ? null : Number.parseFloat(form.innaRating);
     const bogdanRating =
       form.bogdanRating === '' ? null : Number.parseFloat(form.bogdanRating);
+    const comment = form.comment.trim() ? form.comment.trim() : null;
 
     try {
       if (isEditing && movieId) {
@@ -136,6 +140,7 @@ export function MobileMovieForm({
               form.status === 'WATCHED' ? form.watchDate || null : null,
             innaRating,
             bogdanRating,
+            comment,
           },
         });
       } else {
@@ -162,6 +167,7 @@ export function MobileMovieForm({
             form.status === 'WATCHED' ? form.watchDate || null : null,
           innaRating,
           bogdanRating,
+          comment,
         });
       }
       onClose();
@@ -560,6 +566,23 @@ export function MobileMovieForm({
                     />
                   </div>
                 </div>
+                {isEditing ? (
+                  <div className="fv-field">
+                    <span className="fv-field-label">Notes</span>
+                    <textarea
+                      className="fv-textarea"
+                      placeholder="Add a personal note about this title"
+                      value={form.comment}
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          comment: e.target.value,
+                        }))
+                      }
+                      rows={4}
+                    />
+                  </div>
+                ) : null}
               </FilterSectionCard>
 
               <div className="fv-cta-wrap">

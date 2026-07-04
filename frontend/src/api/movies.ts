@@ -24,6 +24,7 @@ export interface Movie {
   innaRating: number | null;
   bogdanRating: number | null;
   userAvgRating: number | null;
+  comment: string | null;
   status: MovieStatus;
   watchDate: string | null;
 }
@@ -95,6 +96,7 @@ export function useCreateMovieMutation() {
       watchDate: string | null;
       innaRating: number | null;
       bogdanRating: number | null;
+      comment?: string | null;
     }) => {
       if (isReadOnlyMode()) {
         throw new Error('Read-only mode: create is disabled.');
@@ -130,6 +132,7 @@ export function useCreateMovieMutation() {
           genres: payload.genres,
           tmdbRating: payload.tmdbRating,
           releaseYear: payload.releaseYear,
+          comment: payload.comment ?? null,
         });
       } catch (err) {
         throw err;
@@ -153,6 +156,7 @@ export function useUpdateMovieMutation() {
         watchDate: string | null;
         innaRating: number | null;
         bogdanRating: number | null;
+        comment?: string | null;
       };
       const userAvgRating = computeUserAvgRating(p.innaRating, p.bogdanRating);
       await db.update(params.id, {
@@ -161,6 +165,7 @@ export function useUpdateMovieMutation() {
         innaRating: p.innaRating,
         bogdanRating: p.bogdanRating,
         userAvgRating,
+        comment: p.comment,
       });
       return null;
     },

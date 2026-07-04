@@ -8,7 +8,25 @@ function getSql() {
 }
 
 const MOVIE_COLS =
-  'id, content_type, title, title_normalized, original_title, title_ua, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, status, watch_date, created_at, updated_at';
+  'id, content_type, title, title_normalized, original_title, title_ua, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, comment_text, status, watch_date, created_at, updated_at';
+
+let ensureMoviesSchemaPromise: Promise<void> | null = null;
+
+async function ensureMoviesSchema() {
+  if (!ensureMoviesSchemaPromise) {
+    const sql = getSql();
+    ensureMoviesSchemaPromise = (async () => {
+      await sql(
+        'ALTER TABLE movies ADD COLUMN IF NOT EXISTS comment_text TEXT NULL',
+      );
+    })().catch((err) => {
+      ensureMoviesSchemaPromise = null;
+      throw err;
+    });
+  }
+
+  await ensureMoviesSchemaPromise;
+}
 
 export type MovieRow = {
   id: string;
@@ -25,6 +43,7 @@ export type MovieRow = {
   inna_rating: string | null;
   bogdan_rating: string | null;
   user_avg_rating: string | null;
+  comment_text: string | null;
   status: string;
   watch_date: string | Date | null;
   created_at: Date;
@@ -58,6 +77,7 @@ function rowToMovie(r: MovieRow) {
     innaRating: r.inna_rating != null ? Number(r.inna_rating) : null,
     bogdanRating: r.bogdan_rating != null ? Number(r.bogdan_rating) : null,
     userAvgRating: r.user_avg_rating != null ? Number(r.user_avg_rating) : null,
+    comment: r.comment_text,
     status: r.status,
     watchDate: watchDateValue,
     createdAt: r.created_at,
@@ -77,6 +97,7 @@ export const db = {
     limit?: number;
   }) {
     try {
+      await ensureMoviesSchema();
       const sql = getSql();
       const page = params.page ?? 1;
       const limit = Math.min(params.limit ?? 50, 50);
@@ -145,6 +166,7 @@ export const db = {
   },
 
   async getById(id: string) {
+    await ensureMoviesSchema();
     const sql = getSql();
     const rows = await sql(`SELECT ${MOVIE_COLS} FROM movies WHERE id = $1`, [id]);
     const row = rows[0] as MovieRow | undefined;
@@ -167,12 +189,14 @@ export const db = {
     genres?: string[] | null;
     tmdbRating?: number | null;
     releaseYear?: number | null;
+    comment?: string | null;
   }) {
+    await ensureMoviesSchema();
     const sql = getSql();
     const id = crypto.randomUUID();
     await sql(
-      `INSERT INTO movies (id, content_type, title, title_normalized, original_title, title_ua, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, status, watch_date)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16)`,
+      `INSERT INTO movies (id, content_type, title, title_normalized, original_title, title_ua, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, comment_text, status, watch_date)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17)`,
       [
         id,
         data.contentType,
@@ -188,6 +212,7 @@ export const db = {
         data.innaRating ?? null,
         data.bogdanRating ?? null,
         data.userAvgRating ?? null,
+        data.comment ?? null,
         data.status,
         data.watchDate,
       ],
@@ -213,8 +238,10 @@ export const db = {
       genres: string[] | null;
       tmdbRating: number | null;
       releaseYear: number | null;
+      comment: string | null;
     }>,
   ) {
+    await ensureMoviesSchema();
     const sql = getSql();
     const updates: string[] = [];
     const values: unknown[] = [];
@@ -239,6 +266,7 @@ export const db = {
     if (data.genres !== undefined) set('genres', data.genres ? JSON.stringify(data.genres) : null);
     if (data.tmdbRating !== undefined) set('tmdb_rating', data.tmdbRating);
     if (data.releaseYear !== undefined) set('release_year', data.releaseYear);
+    if (data.comment !== undefined) set('comment_text', data.comment);
     if (updates.length === 0) return db.getById(id);
     updates.push(`updated_at = NOW()`);
     values.push(id);
@@ -247,17 +275,20 @@ export const db = {
   },
 
   async delete(id: string) {
+    await ensureMoviesSchema();
     const sql = getSql();
     await sql('DELETE FROM movies WHERE id = $1', [id]);
   },
 
   async findByTitleNormalized(titleNormalized: string) {
+    await ensureMoviesSchema();
     const sql = getSql();
     const rows = await sql('SELECT id FROM movies WHERE title_normalized = $1 LIMIT 1', [titleNormalized]);
     return rows.length > 0;
   },
 
   async findDuplicate(params: { tmdbId?: number | null; contentType?: 'MOVIE' | 'TV' }) {
+    await ensureMoviesSchema();
     const sql = getSql();
     if (params.tmdbId == null || !params.contentType) return false;
     const rows = await sql(

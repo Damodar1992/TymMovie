@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS movies (
   inna_rating NUMERIC(3,1) NULL,
   bogdan_rating NUMERIC(3,1) NULL,
   user_avg_rating NUMERIC(3,1) NULL,
+  comment_text TEXT NULL,
   status VARCHAR(32) NOT NULL,
   watch_date DATE NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),
@@ -30,3 +31,4 @@ CREATE INDEX IF NOT EXISTS idx_movies_content_type ON movies(content_type);
 
 -- If the table already existed without title_ua, run this in Neon SQL Editor:
 -- ALTER TABLE movies ADD COLUMN IF NOT EXISTS title_ua VARCHAR(255) NULL;
+-- ALTER TABLE movies ADD COLUMN IF NOT EXISTS comment_text TEXT NULL;

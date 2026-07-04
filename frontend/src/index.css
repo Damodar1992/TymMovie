@@ -1646,6 +1646,7 @@ p {
   --m-text: #c7d1db;
   --m-heading: #dee4ea;
   --m-accent: var(--accent, #aa3bff);
+  --mobile-menu-offset: calc(68px + env(safe-area-inset-bottom, 0px));
 
   display: flex;
   flex-direction: column;
@@ -1999,6 +2000,12 @@ p {
   border-top: 1px solid var(--component-shadow);
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
   font-family: inherit;
+}
+
+.mobile-shell:has(.mobile-sheet-root) .menu {
+  opacity: 0;
+  transform: translateY(110%);
+  pointer-events: none;
 }
 
 .menu__item {
@@ -2550,7 +2557,7 @@ p {
 /* Apply CTA */
 .fv-cta-wrap {
   position: sticky;
-  bottom: 0;
+  bottom: var(--mobile-menu-offset, 0px);
   z-index: 4;
   margin: 8px -14px 0;
   padding: 12px 16px calc(env(safe-area-inset-bottom, 0px) + 14px);
@@ -2633,6 +2640,8 @@ p {
    ========================= */
 
 .mobile-sheet-root {
+  --mobile-sheet-cta-space: calc(92px + env(safe-area-inset-bottom, 0px));
+
   position: fixed;
   inset: 0;
   z-index: 60;
@@ -2652,8 +2661,20 @@ p {
   padding-bottom: 0;
 }
 
+.mobile-sheet-root .filters-v2::after {
+  content: '';
+  display: block;
+  min-height: var(--mobile-sheet-cta-space);
+  flex-shrink: 0;
+}
+
 .mobile-sheet-root .filters-v2 > * {
   flex-shrink: 0;
+}
+
+.mobile-sheet-root .fv-cta-wrap {
+  bottom: 0;
+  margin-top: 0;
 }
 
 .mobile-sheet-backdrop {
@@ -2729,6 +2750,12 @@ p {
 .fv-textarea:disabled {
   opacity: 0.55;
   cursor: not-allowed;
+}
+
+.fv-textarea {
+  min-height: 104px;
+  line-height: 1.45;
+  resize: vertical;
 }
 
 .fv-input[type='date']::-webkit-calendar-picker-indicator {
