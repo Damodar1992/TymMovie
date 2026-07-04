@@ -1985,11 +1985,10 @@ p {
 }
 
 .menu {
-  position: sticky;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
   z-index: 11;
+  width: 100%;
+  flex-shrink: 0;
   display: flex;
   align-items: stretch;
   justify-content: space-around;
@@ -2000,12 +1999,6 @@ p {
   border-top: 1px solid var(--component-shadow);
   box-shadow: 0 -8px 24px rgba(0, 0, 0, 0.35);
   font-family: inherit;
-}
-
-.mobile-shell:has(.mobile-sheet-root) .menu {
-  opacity: 0;
-  transform: translateY(110%);
-  pointer-events: none;
 }
 
 .menu__item {
@@ -2640,10 +2633,9 @@ p {
    ========================= */
 
 .mobile-sheet-root {
-  --mobile-sheet-cta-space: calc(92px + env(safe-area-inset-bottom, 0px));
-
+  --mobile-sheet-cta-space: 92px;
   position: fixed;
-  inset: 0;
+  inset: 0 0 var(--mobile-menu-offset, 0px) 0;
   z-index: 60;
   display: flex;
   flex-direction: column;
@@ -2679,7 +2671,7 @@ p {
 
 .mobile-sheet-backdrop {
   position: fixed;
-  inset: 0;
+  inset: 0 0 var(--mobile-menu-offset, 0px) 0;
   z-index: 55;
   background: rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(6px);
