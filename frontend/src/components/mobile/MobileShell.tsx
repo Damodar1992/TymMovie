@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Film, SlidersHorizontal, User } from 'lucide-react';
 import { useAuth } from '../../auth/AuthContext';
 import { useMoviesFilters } from '../../state/MoviesFiltersContext';
@@ -70,6 +70,7 @@ export function MobileShell() {
   const [tab, setTabState] = useState<MobileTab>(readTab);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formInstance, setFormInstance] = useState(0);
+  const shellRef = useRef<HTMLDivElement>(null);
 
   const setTab = (t: MobileTab) => {
     setTabState(t);
@@ -87,6 +88,21 @@ export function MobileShell() {
     return () => root.classList.remove('root-mobile-full');
   }, []);
 
+  useEffect(() => {
+    const shell = shellRef.current;
+    const menu = shell?.querySelector<HTMLElement>('.menu');
+    if (!shell || !menu) return;
+
+    const update = () => {
+      shell.style.setProperty('--mobile-menu-offset', `${menu.offsetHeight}px`);
+    };
+
+    update();
+    const observer = new ResizeObserver(update);
+    observer.observe(menu);
+    return () => observer.disconnect();
+  }, []);
+
   const activeFiltersCount =
     (status !== undefined ? 1 : 0) +
     (contentType !== undefined ? 1 : 0) +
@@ -99,12 +115,12 @@ export function MobileShell() {
   };
 
   return (
-    <div className="mobile-shell">
+    <div className="mobile-shell" ref={shellRef}>
       {tab !== 'filters' ? (
         <header className="mobile-header">
           {tab === 'movies' ? (
             <img
-              src="/logo 2.png"
+              src="/tymmovies-horizontal-logo.svg"
               alt="TymMovies"
               className="mobile-header-logo"
             />

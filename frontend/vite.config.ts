@@ -12,7 +12,7 @@ export default defineConfig({
         'favicon.ico',
         'favicon.svg',
         'apple-touch-icon-180x180.png',
-        'tymmovies_logo_clean.svg',
+        'tymmovies-horizontal-logo.svg',
       ],
       manifest: {
         name: 'TymMovies',

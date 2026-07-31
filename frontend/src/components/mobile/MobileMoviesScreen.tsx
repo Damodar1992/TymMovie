@@ -1,14 +1,12 @@
-import { useState } from 'react';
-import { useMoviesQuery } from '../../api/movies';
-import type { Movie } from '../../api/movies';
+import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useMoviesInfiniteQuery, type Movie } from '../../api/movies';
 import { useAuth } from '../../auth/AuthContext';
 import { useMoviesFilters } from '../../state/MoviesFiltersContext';
+import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
 import { MovieCard } from '../MovieCard';
 import { MobileMovieForm } from './movie-form/MobileMovieForm';
 import { SearchInput } from '../SearchInput';
 import { EmptyState } from '../EmptyState';
-
-const PAGE_SIZE = 50;
 
 export function MobileMoviesScreen() {
   const { isReadOnly } = useAuth();
@@ -21,29 +19,48 @@ export function MobileMoviesScreen() {
     sortBy,
     sortOrder,
     titleLang,
-    page,
-    setPage,
   } = useMoviesFilters();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingMovieId, setEditingMovieId] = useState<string | null>(null);
   const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
+  const [scrollRoot, setScrollRoot] = useState<Element | null>(null);
 
-  const { data, isLoading, isError } = useMoviesQuery({
+  useEffect(() => {
+    setScrollRoot(document.querySelector('.mobile-content'));
+  }, []);
+
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useMoviesInfiniteQuery({
     search: search || undefined,
     status,
     contentType,
     genres,
     sortBy,
     sortOrder,
-    page,
   });
 
-  const items = data?.items ?? [];
-  const total = data?.total ?? 0;
-  const totalPages = data?.totalPages ?? 1;
-  const currentPage = data?.page ?? 1;
-  const hasMore = currentPage < totalPages;
+  const items = useMemo(
+    () => data?.pages.flatMap((page) => page.items) ?? [],
+    [data],
+  );
+  const total = data?.pages[0]?.total ?? 0;
+
+  const loadMore = useCallback(() => {
+    if (!hasNextPage || isFetchingNextPage) return;
+    void fetchNextPage();
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  const sentinelRef = useInfiniteScroll(loadMore, {
+    enabled: Boolean(hasNextPage) && items.length > 0 && scrollRoot != null,
+    root: scrollRoot,
+  });
 
   return (
     <div className="mobile-screen mobile-screen-movies">
@@ -80,19 +97,16 @@ export function MobileMoviesScreen() {
             ))}
           </div>
 
-          <div className="mobile-pagination">
-            <span className="pagination-info">
-              {items.length} of {total}
-            </span>
-            {hasMore && total > PAGE_SIZE ? (
-              <button
-                type="button"
-                className="secondary-button"
-                onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-              >
-                Load next page
-              </button>
-            ) : null}
+          <div
+            ref={sentinelRef}
+            className="infinite-scroll-sentinel"
+            aria-hidden
+          />
+
+          <div className="infinite-scroll-status" aria-live="polite">
+            {isFetchingNextPage
+              ? 'Loading more…'
+              : `${items.length} of ${total}`}
           </div>
         </>
       )}

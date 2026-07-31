@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useMoviesQuery } from '../api/movies';
+import { useCallback, useMemo, useState } from 'react';
+import { useMoviesInfiniteQuery } from '../api/movies';
 import type { Movie } from '../api/movies';
 import { MovieGrid } from './MovieGrid';
 import { MovieTable } from './MovieTable';
@@ -10,8 +10,7 @@ import { SearchInput } from './SearchInput';
 import { EmptyState } from './EmptyState';
 import { useAuth } from '../auth/AuthContext';
 import { useMoviesFilters } from '../state/MoviesFiltersContext';
-
-const PAGE_SIZE = 50;
+import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 
 export function MoviesPage() {
   const { isReadOnly, logout } = useAuth();
@@ -32,29 +31,41 @@ export function MoviesPage() {
     setViewMode,
     titleLang,
     setTitleLang,
-    page,
-    setPage,
   } = useMoviesFilters();
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingMovieId, setEditingMovieId] = useState<string | null>(null);
   const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
 
-  const { data, isLoading, isError } = useMoviesQuery({
+  const {
+    data,
+    isLoading,
+    isError,
+    isFetchingNextPage,
+    hasNextPage,
+    fetchNextPage,
+  } = useMoviesInfiniteQuery({
     search: search || undefined,
     status,
     contentType,
     genres,
     sortBy,
     sortOrder,
-    page,
   });
 
-  const items = data?.items ?? [];
-  const total = data?.total ?? 0;
-  const totalPages = data?.totalPages ?? 1;
-  const currentPage = data?.page ?? 1;
-  const from = total === 0 ? 0 : (currentPage - 1) * PAGE_SIZE + 1;
-  const to = Math.min(currentPage * PAGE_SIZE, total);
+  const items = useMemo(
+    () => data?.pages.flatMap((page) => page.items) ?? [],
+    [data],
+  );
+  const total = data?.pages[0]?.total ?? 0;
+
+  const loadMore = useCallback(() => {
+    if (!hasNextPage || isFetchingNextPage) return;
+    void fetchNextPage();
+  }, [fetchNextPage, hasNextPage, isFetchingNextPage]);
+
+  const sentinelRef = useInfiniteScroll(loadMore, {
+    enabled: Boolean(hasNextPage) && items.length > 0,
+  });
 
   const availableGenres = Array.from(
     new Set(
@@ -67,12 +78,11 @@ export function MoviesPage() {
     ),
   ).sort((a, b) => a.localeCompare(b));
 
-
   return (
     <div className="page">
       <header className="page-header">
         <img
-          src="/logo 2.png"
+          src="/tymmovies-horizontal-logo.svg"
           alt="TymMovies"
           className="app-logo"
         />
@@ -247,36 +257,18 @@ export function MoviesPage() {
               }}
             />
           )}
-          {total > PAGE_SIZE && (
-            <section className="pagination-row" aria-label="Pagination">
-              <span className="pagination-info">
-                {from}–{to} of {total}
-              </span>
-              <div className="pagination-controls">
-                <button
-                  type="button"
-                  className="secondary-button"
-                  disabled={currentPage <= 1}
-                  onClick={() => setPage((p) => Math.max(1, p - 1))}
-                  aria-label="Previous page"
-                >
-                  Previous
-                </button>
-                <span className="pagination-pages" aria-live="polite">
-                  Page {currentPage} of {totalPages}
-                </span>
-                <button
-                  type="button"
-                  className="secondary-button"
-                  disabled={currentPage >= totalPages}
-                  onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                  aria-label="Next page"
-                >
-                  Next
-                </button>
-              </div>
-            </section>
-          )}
+
+          <div
+            ref={sentinelRef}
+            className="infinite-scroll-sentinel"
+            aria-hidden
+          />
+
+          <div className="infinite-scroll-status" aria-live="polite">
+            {isFetchingNextPage
+              ? 'Loading more…'
+              : `${items.length} of ${total}`}
+          </div>
         </>
       )}
 

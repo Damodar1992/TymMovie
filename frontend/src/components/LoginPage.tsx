@@ -92,7 +92,7 @@ export function LoginPage() {
           />
           <div className="auth-form-stack">
             <div className="auth-login-brand">
-              <img src="/logo 2.png" alt="TymMovies" className="auth-logo-compact" />
+              <img src="/tymmovies-horizontal-logo.svg" alt="TymMovies" className="auth-logo-compact" />
               <h1 className="auth-login-title">Sign in</h1>
               <p className="auth-subtitle">Sign in as admin or continue as guest.</p>
             </div>

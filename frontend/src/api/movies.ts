@@ -1,4 +1,9 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
+import {
+  useInfiniteQuery,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from '@tanstack/react-query';
 import { db, computeUserAvgRating, normalizeTitle } from '../../lib/db';
 import { AUTH_STORAGE_KEY } from '../auth/AuthContext';
 import {
@@ -7,6 +12,8 @@ import {
   getTvDetails,
   type TmdbDetails,
 } from '../../lib/tmdb';
+
+export const MOVIES_PAGE_SIZE = 50;
 
 export type MovieStatus = 'WATCHED' | 'WANT_TO_WATCH';
 
@@ -39,6 +46,14 @@ export interface MoviesQueryParams {
   page?: number;
 }
 
+export type MoviesPageResult = {
+  items: Movie[];
+  total: number;
+  page: number;
+  limit: number;
+  totalPages: number;
+};
+
 export interface EnrichedMetadata {
   tmdb: TmdbDetails;
 }
@@ -51,31 +66,43 @@ function isReadOnlyMode(): boolean {
   }
 }
 
+async function fetchMoviesPage(
+  params: MoviesQueryParams,
+  page: number,
+): Promise<MoviesPageResult> {
+  const limit = MOVIES_PAGE_SIZE;
+  const result = await db.list({
+    search: params.search,
+    status: params.status,
+    contentType: params.contentType,
+    genres: params.genres,
+    sortBy: params.sortBy,
+    sortOrder: params.sortOrder,
+    page,
+    limit,
+  });
+  const items = result.items as Movie[];
+  const total = result.total;
+  const totalPages = Math.ceil(total / limit) || 1;
+  return { items, total, page, limit, totalPages };
+}
+
 export function useMoviesQuery(params: MoviesQueryParams) {
   return useQuery({
     queryKey: ['movies', params],
-    queryFn: async () => {
-      try {
-        const page = params.page ?? 1;
-        const limit = 50;
-        const result = await db.list({
-          search: params.search,
-          status: params.status,
-          contentType: params.contentType,
-          genres: params.genres,
-          sortBy: params.sortBy,
-          sortOrder: params.sortOrder,
-          page,
-          limit,
-        });
-        const items = result.items as Movie[];
-        const total = result.total;
-        const totalPages = Math.ceil(total / limit) || 1;
-        return { items, total, page, limit, totalPages };
-      } catch (err) {
-        throw err;
-      }
-    },
+    queryFn: () => fetchMoviesPage(params, params.page ?? 1),
+  });
+}
+
+export function useMoviesInfiniteQuery(
+  params: Omit<MoviesQueryParams, 'page'>,
+) {
+  return useInfiniteQuery({
+    queryKey: ['movies', 'infinite', params],
+    queryFn: ({ pageParam }) => fetchMoviesPage(params, pageParam),
+    initialPageParam: 1,
+    getNextPageParam: (lastPage) =>
+      lastPage.page < lastPage.totalPages ? lastPage.page + 1 : undefined,
   });
 }
 

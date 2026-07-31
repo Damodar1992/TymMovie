@@ -2,7 +2,6 @@ import {
   createContext,
   useCallback,
   useContext,
-  useEffect,
   useMemo,
   useState,
   type Dispatch,
@@ -54,8 +53,6 @@ export type MoviesFiltersContextValue = {
   setViewMode: (v: ViewMode) => void;
   titleLang: TitleLang;
   setTitleLang: (v: TitleLang) => void;
-  page: number;
-  setPage: Dispatch<SetStateAction<number>>;
   clearAll: () => void;
 };
 
@@ -74,11 +71,6 @@ export function MoviesFiltersProvider({ children }: { children: ReactNode }) {
     useState<MoviesQueryParams['sortOrder']>('desc');
   const [viewModeState, setViewModeState] = useState<ViewMode>(readView);
   const [titleLangState, setTitleLangState] = useState<TitleLang>(readTitleLang);
-  const [page, setPage] = useState(1);
-
-  useEffect(() => {
-    setPage(1);
-  }, [search, status, contentType, genres, sortBy, sortOrder]);
 
   const setViewMode = useCallback((v: ViewMode) => {
     setViewModeState(v);
@@ -122,8 +114,6 @@ export function MoviesFiltersProvider({ children }: { children: ReactNode }) {
       setViewMode,
       titleLang: titleLangState,
       setTitleLang,
-      page,
-      setPage,
       clearAll,
     }),
     [
@@ -137,7 +127,6 @@ export function MoviesFiltersProvider({ children }: { children: ReactNode }) {
       setViewMode,
       titleLangState,
       setTitleLang,
-      page,
       clearAll,
     ],
   );
