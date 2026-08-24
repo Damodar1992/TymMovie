@@ -1,9 +1,9 @@
 import {
   useCallback,
+  useEffect,
   useRef,
   useState,
   type FormEvent,
-  type RefCallback,
 } from 'react';
 import { useAuth } from '../../auth/AuthContext';
 
@@ -12,24 +12,30 @@ function shouldSkipVideo(): boolean {
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return true;
   const connection = (
     navigator as Navigator & {
-      connection?: { saveData?: boolean };
+      connection?: { saveData?: boolean; effectiveType?: string };
     }
   ).connection;
   if (connection?.saveData) return true;
+  if (
+    connection?.effectiveType === 'slow-2g' ||
+    connection?.effectiveType === '2g'
+  ) {
+    return true;
+  }
   return false;
 }
 
-function tryPlay(el: HTMLVideoElement) {
+function prepareVideo(el: HTMLVideoElement) {
   el.muted = true;
   el.defaultMuted = true;
+  el.volume = 0;
   el.playsInline = true;
-  const play = () => {
-    el.muted = true;
-    void el.play().catch(() => {});
-  };
-  play();
-  el.addEventListener('canplay', play, { once: true });
-  el.addEventListener('loadeddata', play, { once: true });
+  el.autoplay = true;
+  el.loop = true;
+  el.setAttribute('muted', '');
+  el.setAttribute('playsinline', '');
+  el.setAttribute('webkit-playsinline', '');
+  el.setAttribute('autoplay', '');
 }
 
 export function MobileLoginPage() {
@@ -39,15 +45,86 @@ export function MobileLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [pending, setPending] = useState(false);
-  const skipVideo = shouldSkipVideo();
-  const videoBoundRef = useRef<HTMLVideoElement | null>(null);
+  const [skipVideo] = useState(shouldSkipVideo);
+  const [videoPlaying, setVideoPlaying] = useState(false);
+  const [useFallback, setUseFallback] = useState(skipVideo);
+  const videoRef = useRef<HTMLVideoElement | null>(null);
+  const failTimerRef = useRef<number | null>(null);
 
-  const videoRef = useCallback<RefCallback<HTMLVideoElement>>((el) => {
-    if (videoBoundRef.current === el) return;
-    videoBoundRef.current = el;
+  const attemptPlay = useCallback(async () => {
+    const el = videoRef.current;
+    if (!el || useFallback) return false;
+    prepareVideo(el);
+    try {
+      await el.play();
+      setVideoPlaying(true);
+      return true;
+    } catch {
+      setVideoPlaying(false);
+      return false;
+    }
+  }, [useFallback]);
+
+  useEffect(() => {
+    if (skipVideo) return;
+    const el = videoRef.current;
     if (!el) return;
-    tryPlay(el);
-  }, []);
+
+    prepareVideo(el);
+
+    const onPlaying = () => {
+      setVideoPlaying(true);
+      if (failTimerRef.current != null) {
+        window.clearTimeout(failTimerRef.current);
+        failTimerRef.current = null;
+      }
+    };
+    const onPause = () => {
+      if (!el.ended && document.visibilityState === 'visible') {
+        void attemptPlay();
+      }
+    };
+    const onVisibility = () => {
+      if (document.visibilityState === 'visible') void attemptPlay();
+    };
+    const onPageShow = () => void attemptPlay();
+    const unlock = () => {
+      void attemptPlay();
+    };
+
+    el.addEventListener('playing', onPlaying);
+    el.addEventListener('pause', onPause);
+    el.addEventListener('loadeddata', unlock);
+    el.addEventListener('canplay', unlock);
+    document.addEventListener('visibilitychange', onVisibility);
+    window.addEventListener('pageshow', onPageShow);
+    window.addEventListener('touchstart', unlock, { once: true, passive: true });
+    window.addEventListener('click', unlock, { once: true });
+
+    void attemptPlay();
+    // If autoplay never starts, fall back to poster/beams.
+    failTimerRef.current = window.setTimeout(() => {
+      const node = videoRef.current;
+      if (!node || node.paused || node.readyState < 2) {
+        setUseFallback(true);
+        setVideoPlaying(false);
+      }
+    }, 3500);
+
+    return () => {
+      el.removeEventListener('playing', onPlaying);
+      el.removeEventListener('pause', onPause);
+      el.removeEventListener('loadeddata', unlock);
+      el.removeEventListener('canplay', unlock);
+      document.removeEventListener('visibilitychange', onVisibility);
+      window.removeEventListener('pageshow', onPageShow);
+      window.removeEventListener('touchstart', unlock);
+      window.removeEventListener('click', unlock);
+      if (failTimerRef.current != null) {
+        window.clearTimeout(failTimerRef.current);
+      }
+    };
+  }, [attemptPlay, skipVideo]);
 
   const canSubmit = loginValue.trim().length > 0 && passwordValue.length > 0;
 
@@ -66,38 +143,38 @@ export function MobileLoginPage() {
         setError('Wrong login or password.');
         setPending(false);
       }
-      // On success, AuthProvider remounts the app — leave pending true until unmount.
     }, 180);
   };
 
   return (
-    <div className={`mlogin${skipVideo ? ' is-fallback' : ''}`}>
-      {!skipVideo ? (
+    <div className={`mlogin${useFallback ? ' is-fallback' : ''}`}>
+      <img
+        className="mlogin-poster-base"
+        src="/spotlight-poster.jpg"
+        alt=""
+        draggable={false}
+        aria-hidden
+      />
+
+      {!useFallback ? (
         <video
           ref={videoRef}
-          className="mlogin-video"
-          autoPlay
+          className={`mlogin-video${videoPlaying ? ' is-playing' : ''}`}
+          src="/spotlight-theater.mp4"
+          poster="/spotlight-poster.jpg"
           muted
           loop
           playsInline
+          autoPlay
           preload="auto"
-          poster="/spotlight-poster.jpg"
           aria-hidden="true"
-        >
-          <source src="/spotlight-theater.mp4" type="video/mp4" />
-        </video>
+        />
       ) : (
         <div className="mlogin-fallback" aria-hidden>
           <div className="mlogin-beam mlogin-beam-a" />
           <div className="mlogin-beam mlogin-beam-b" />
           <div className="mlogin-dust" />
           <div className="mlogin-halo" />
-          <img
-            className="mlogin-poster"
-            src="/spotlight-poster.jpg"
-            alt=""
-            draggable={false}
-          />
         </div>
       )}
 
