@@ -1,54 +1,15 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="300" viewBox="0 0 1200 300" fill="none" role="img" aria-labelledby="title desc">
-  <title id="title">TymMovies horizontal logo</title>
-  <desc id="desc">A dark blue movie app symbol with a blue-violet play outline, motion lines, a white-blue play triangle, a gold star, and the TymMovies wordmark.</desc>
+<svg xmlns="http://www.w3.org/2000/svg" width="420" height="76" viewBox="0 0 420 76" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">TymMovies logo</title>
+  <desc id="desc">Primary lockup: film-strip play mark with TymMovies wordmark.</desc>
   <defs>
-    <linearGradient id="badge" x1="38" y1="28" x2="272" y2="272" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#102A57"/>
-      <stop offset="1" stop-color="#07162F"/>
+    <linearGradient id="markGrad" x1="8" y1="6" x2="70" y2="72" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B06BFF"/>
+      <stop offset="1" stop-color="#6B3AD6"/>
     </linearGradient>
-    <linearGradient id="outline" x1="75" y1="71" x2="239" y2="229" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#14A7FF"/>
-      <stop offset=".53" stop-color="#4776F2"/>
-      <stop offset="1" stop-color="#8A4DFF"/>
-    </linearGradient>
-    <linearGradient id="play" x1="126" y1="105" x2="204" y2="191" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFFFFF"/>
-      <stop offset="1" stop-color="#72D8FF"/>
-    </linearGradient>
-    <linearGradient id="word" x1="335" y1="82" x2="1085" y2="231" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#20AEFF"/>
-      <stop offset=".48" stop-color="#3F82F5"/>
-      <stop offset="1" stop-color="#7761F0"/>
-    </linearGradient>
-    <filter id="softGlow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="5" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
   </defs>
-
-  <!-- Transparent canvas; only the compact symbol has a dark background. -->
-  <rect x="30" y="30" width="240" height="240" rx="58" fill="url(#badge)"/>
-  <rect x="31.5" y="31.5" width="237" height="237" rx="56.5" stroke="#1F5EA5" stroke-opacity=".45" stroke-width="3"/>
-
-  <!-- Motion lines -->
-  <path d="M63 112H99" stroke="#54D4FF" stroke-width="10" stroke-linecap="round"/>
-  <path d="M52 143H91" stroke="#2BBEFF" stroke-width="10" stroke-linecap="round"/>
-  <path d="M65 174H101" stroke="#3B9EFF" stroke-width="10" stroke-linecap="round"/>
-
-  <!-- Play enclosure -->
-  <path d="M108 78C91 68 70 81 70 101V199C70 219 91 232 108 222L230 163C251 153 251 147 230 137L108 78Z"
-        stroke="url(#outline)" stroke-width="13" stroke-linejoin="round" filter="url(#softGlow)"/>
-
-  <!-- Inner play -->
-  <path d="M128 112C128 104 137 99 144 103L202 139C210 144 210 156 202 161L144 197C137 201 128 196 128 188V112Z"
-        fill="url(#play)"/>
-
-  <!-- Gold star -->
-  <path d="M221 68L228 84L245 86L232 98L236 115L221 106L206 115L210 98L197 86L214 84L221 68Z"
-        fill="#FFC94A" stroke="#FFE49A" stroke-width="3" stroke-linejoin="round"/>
-
-  <!-- Wordmark -->
-  <text x="325" y="187" fill="url(#word)" font-family="Inter, Montserrat, Arial, sans-serif"
-        font-size="112" font-weight="800" letter-spacing="-5">TymMovies</text>
+  <rect width="76" height="76" rx="22" fill="url(#markGrad)"/>
+  <rect x="19" y="21" width="8" height="34" rx="4" fill="#fff" fill-opacity=".92"/>
+  <path d="M35 22.5L59.5 38L35 53.5V22.5Z" fill="#fff" fill-opacity=".92"/>
+  <text x="96" y="48" fill="#fff" font-family="Instrument Sans, system-ui, sans-serif" font-size="34" font-weight="700" letter-spacing="-1.2">Tym</text>
+  <text x="168" y="48" fill="#fff" fill-opacity=".62" font-family="Instrument Sans, system-ui, sans-serif" font-size="34" font-weight="400" letter-spacing="-1.2">Movies</text>
 </svg>

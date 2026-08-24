@@ -80,9 +80,14 @@ export function FiltersBar({
             onClick={(e) => e.stopPropagation()}
           >
             <div className="modal-header filters-panel-header">
-              <h2 className="filters-panel-title" id={titleId}>
-                Filters
-              </h2>
+              <div className="filters-panel-heading">
+                <h2 className="filters-panel-title" id={titleId}>
+                  Filters
+                </h2>
+                <span className="filters-panel-summary">
+                  {activeCount > 0 ? `${activeCount} active` : 'All titles'}
+                </span>
+              </div>
               <button
                 type="button"
                 className="icon-button filters-panel-close"
@@ -94,74 +99,83 @@ export function FiltersBar({
             </div>
 
             <div className="modal-body filters-panel-body">
-              <section className="filters-panel-section" aria-label="Status">
-                <span className="filter-label">Status</span>
-                <div className="toggle-group">
-                  <button
-                    type="button"
-                    className={!status ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
-                    onClick={() => onStatusChange(undefined)}
-                  >
-                    All
-                  </button>
-                  <button
-                    type="button"
-                    className={
-                      status === 'WATCHED' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
-                    }
-                    onClick={() => onStatusChange('WATCHED')}
-                  >
-                    Watched
-                  </button>
-                  <button
-                    type="button"
-                    className={
-                      status === 'WANT_TO_WATCH'
-                        ? 'toggle-chip toggle-chip-active'
-                        : 'toggle-chip'
-                    }
-                    onClick={() => onStatusChange('WANT_TO_WATCH')}
-                  >
-                    Planned
-                  </button>
-                </div>
-              </section>
+              <div className="filters-panel-primary-grid">
+                <section className="filters-panel-section" aria-label="Status">
+                  <span className="filter-label">Status</span>
+                  <div className="toggle-group">
+                    <button
+                      type="button"
+                      className={!status ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
+                      onClick={() => onStatusChange(undefined)}
+                    >
+                      All
+                    </button>
+                    <button
+                      type="button"
+                      className={
+                        status === 'WATCHED' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
+                      }
+                      onClick={() => onStatusChange('WATCHED')}
+                    >
+                      Watched
+                    </button>
+                    <button
+                      type="button"
+                      className={
+                        status === 'WANT_TO_WATCH'
+                          ? 'toggle-chip toggle-chip-active'
+                          : 'toggle-chip'
+                      }
+                      onClick={() => onStatusChange('WANT_TO_WATCH')}
+                    >
+                      Planned
+                    </button>
+                  </div>
+                </section>
 
-              <section className="filters-panel-section" aria-label="Type">
-                <span className="filter-label">Type</span>
-                <div className="toggle-group">
-                  <button
-                    type="button"
-                    className={
-                      !contentType ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
-                    }
-                    onClick={() => onContentTypeChange(undefined)}
-                  >
-                    All
-                  </button>
-                  <button
-                    type="button"
-                    className={
-                      contentType === 'MOVIE' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
-                    }
-                    onClick={() => onContentTypeChange('MOVIE')}
-                  >
-                    Movies
-                  </button>
-                  <button
-                    type="button"
-                    className={
-                      contentType === 'TV' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
-                    }
-                    onClick={() => onContentTypeChange('TV')}
-                  >
-                    TV Series
-                  </button>
-                </div>
-              </section>
+                <section className="filters-panel-section" aria-label="Type">
+                  <span className="filter-label">Type</span>
+                  <div className="toggle-group">
+                    <button
+                      type="button"
+                      className={
+                        !contentType ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
+                      }
+                      onClick={() => onContentTypeChange(undefined)}
+                    >
+                      All
+                    </button>
+                    <button
+                      type="button"
+                      className={
+                        contentType === 'MOVIE' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
+                      }
+                      onClick={() => onContentTypeChange('MOVIE')}
+                    >
+                      Movies
+                    </button>
+                    <button
+                      type="button"
+                      className={
+                        contentType === 'TV' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
+                      }
+                      onClick={() => onContentTypeChange('TV')}
+                    >
+                      TV Series
+                    </button>
+                  </div>
+                </section>
+              </div>
 
               <section className="filters-panel-section" aria-label="Genres">
-                <span className="filter-label">Genre</span>
+                <div className="filters-panel-section-heading">
+                  <span className="filter-label">Genres</span>
+                  {selectedGenres.length > 0 ? (
+                    <span className="filters-panel-selection-count">
+                      {selectedGenres.length} selected
+                    </span>
+                  ) : null}
+                </div>
                 <div className="genre-chips filters-panel-genre-chips">
                   {genreList.map((genre) => {
                     const active = selectedGenres.includes(genre);
@@ -190,7 +204,12 @@ export function FiltersBar({
             </div>
 
             <div className="modal-footer filters-panel-footer">
-              <button type="button" className="secondary-button" onClick={clearAll}>
+              <button
+                type="button"
+                className="secondary-button"
+                onClick={clearAll}
+                disabled={activeCount === 0}
+              >
                 Clear all
               </button>
               <button type="button" className="primary-button" onClick={() => setOpen(false)}>

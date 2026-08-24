@@ -278,7 +278,7 @@ export function MobileMovieForm({
             </header>
 
             <form
-              className="filters-v2"
+              className="filters-v2 mobile-movie-form"
               onSubmit={handleSubmit}
               style={{ paddingTop: 8 }}
             >
@@ -317,7 +317,7 @@ export function MobileMovieForm({
                           aria-label="Search in Ukrainian"
                           title="Ukrainian"
                         >
-                          <UkraineFlag />
+                          UA
                         </button>
                         <button
                           type="button"
@@ -327,7 +327,7 @@ export function MobileMovieForm({
                           aria-label="Search in English"
                           title="English"
                         >
-                          <UkFlag />
+                          EN
                         </button>
                       </div>
                     </div>
@@ -633,35 +633,4 @@ function ratingsSummary(inna: string, bohdan: string) {
   if (inna) parts.push(`I ${inna}`);
   if (bohdan) parts.push(`B ${bohdan}`);
   return parts.join(' · ');
-}
-
-function UkraineFlag() {
-  return (
-    <svg
-      viewBox="0 0 24 16"
-      width="28"
-      height="19"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect width="24" height="8" fill="#0057B7" />
-      <rect y="8" width="24" height="8" fill="#FFD700" />
-    </svg>
-  );
-}
-
-function UkFlag() {
-  return (
-    <svg
-      viewBox="0 0 60 30"
-      width="28"
-      height="14"
-      xmlns="http://www.w3.org/2000/svg"
-    >
-      <rect width="60" height="30" fill="#012169" />
-      <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" strokeWidth="6" />
-      <path d="M0 0 L60 30 M60 0 L0 30" stroke="#C8102E" strokeWidth="4" />
-      <path d="M30 0 V30 M0 15 H60" stroke="#fff" strokeWidth="10" />
-      <path d="M30 0 V30 M0 15 H60" stroke="#C8102E" strokeWidth="6" />
-    </svg>
-  );
 }

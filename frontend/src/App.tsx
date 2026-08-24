@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import { AnimatePresence, motion } from 'framer-motion';
 import './App.css';
 import { MoviesPage } from './components/MoviesPage';
 import { LoginPage } from './components/LoginPage';
@@ -21,9 +22,25 @@ function App() {
     return () => root.classList.remove('root-login-full');
   }, [mode]);
 
-  if (!mode) return <LoginPage />;
-  if (isMobile) return <MobileApp />;
-  return <MoviesPage />;
+  return (
+    <>
+      <AnimatePresence>
+        {!mode ? (
+          <motion.div
+            key="login"
+            className="app-login-layer"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.24, ease: 'easeOut' }}
+          >
+            <LoginPage />
+          </motion.div>
+        ) : null}
+      </AnimatePresence>
+
+      {mode ? (isMobile ? <MobileApp /> : <MoviesPage />) : null}
+    </>
+  );
 }
 
 export default App;

@@ -7,9 +7,10 @@ interface MovieGridProps {
   movies: Movie[];
   titleLang: TitleLang;
   onEdit: (movie: Movie) => void;
+  onSelect?: (movie: Movie) => void;
 }
 
-export function MovieGrid({ movies, titleLang, onEdit }: MovieGridProps) {
+export function MovieGrid({ movies, titleLang, onEdit, onSelect }: MovieGridProps) {
   return (
     <div className="movie-grid">
       {movies.map((movie) => (
@@ -18,6 +19,7 @@ export function MovieGrid({ movies, titleLang, onEdit }: MovieGridProps) {
           movie={movie}
           titleLang={titleLang}
           onEdit={onEdit}
+          onSelect={onSelect}
         />
       ))}
     </div>

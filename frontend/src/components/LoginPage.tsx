@@ -1,5 +1,7 @@
 import { useState, type FormEvent, type InputHTMLAttributes, type MouseEvent } from 'react';
 import { useAuth } from '../auth/AuthContext';
+import { useIsMobileLayout } from '../hooks/useIsMobileLayout';
+import { MobileLoginPage } from './mobile/MobileLoginPage';
 
 const LOGIN_HERO_SRC = '/login-hero.jpg';
 
@@ -50,7 +52,7 @@ function AuthGlowInput({ label, placeholder, ...rest }: AuthGlowInputProps) {
   );
 }
 
-export function LoginPage() {
+function DesktopLoginPage() {
   const { login, loginAsGuest } = useAuth();
   const [loginValue, setLoginValue] = useState('');
   const [passwordValue, setPasswordValue] = useState('');
@@ -71,7 +73,7 @@ export function LoginPage() {
     e.preventDefault();
     const ok = login(loginValue.trim(), passwordValue);
     if (!ok) {
-      setError('Неверный логин или пароль.');
+      setError('Wrong login or password.');
     }
   };
 
@@ -92,7 +94,18 @@ export function LoginPage() {
           />
           <div className="auth-form-stack">
             <div className="auth-login-brand">
-              <img src="/tymmovies-horizontal-logo.svg" alt="TymMovies" className="auth-logo-compact" />
+              <div className="auth-brand-lockup" aria-label="TymMovies">
+                <img
+                  src="/tymmovies-mark.svg"
+                  alt=""
+                  className="auth-logo-mark"
+                  width={54}
+                  height={54}
+                />
+                <div className="auth-brand-name">
+                  Tym<span>Movies</span>
+                </div>
+              </div>
               <h1 className="auth-login-title">Sign in</h1>
               <p className="auth-subtitle">Sign in as admin or continue as guest.</p>
             </div>
@@ -153,4 +166,10 @@ export function LoginPage() {
       </div>
     </div>
   );
+}
+
+export function LoginPage() {
+  const isMobile = useIsMobileLayout();
+  if (isMobile) return <MobileLoginPage />;
+  return <DesktopLoginPage />;
 }

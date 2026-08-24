@@ -32,8 +32,9 @@ export function MovieTable({ movies, titleLang, onEdit }: MovieTableProps) {
         <thead>
           <tr>
             <th scope="col">Title</th>
-            <th scope="col">Year</th>
+            <th scope="col">Genres</th>
             <th scope="col">Status</th>
+            <th scope="col">Ratings</th>
             <th scope="col">Tym</th>
             {!isReadOnly && <th scope="col">Actions</th>}
           </tr>
@@ -53,16 +54,12 @@ export function MovieTable({ movies, titleLang, onEdit }: MovieTableProps) {
             return (
               <tr key={movie.id}>
                 <td data-label="Title">
-                  <span className="movie-table-title">{displayTitle}</span>
-                  {movie.originalTitle &&
-                    movie.originalTitle !== displayTitle && (
-                      <span className="movie-table-original">
-                        {' '}
-                        ({movie.originalTitle})
-                      </span>
-                    )}
+                  <span className="movie-table-title-cell">
+                    {movie.posterUrl ? <img src={movie.posterUrl} alt="" /> : <span className="movie-table-poster-fallback" />}
+                    <span><span className="movie-table-title">{displayTitle}</span><span className="movie-table-original">{movie.releaseYear ?? '—'}</span></span>
+                  </span>
                 </td>
-                <td data-label="Year">{movie.releaseYear ?? '—'}</td>
+                <td data-label="Genres" className="movie-table-genres">{movie.genres?.join(' · ') ?? '—'}</td>
                 <td data-label="Status">
                   <span
                     className={
@@ -76,7 +73,12 @@ export function MovieTable({ movies, titleLang, onEdit }: MovieTableProps) {
                       : 'Planned'}
                   </span>
                 </td>
-                <td data-label="Tym">{tymRating != null ? tymRating.toFixed(1) : '—'}</td>
+                <td data-label="Ratings" className="movie-table-ratings">
+                  {movie.tmdbRating != null ? <span>T {movie.tmdbRating.toFixed(1)}</span> : null}
+                  {movie.innaRating != null ? <span>I {movie.innaRating.toFixed(1)}</span> : null}
+                  {movie.bogdanRating != null ? <span>B {movie.bogdanRating.toFixed(1)}</span> : null}
+                </td>
+                <td data-label="Tym"><span className={`movie-table-tym ${tymRating != null && tymRating >= 7 ? 'is-high' : tymRating != null && tymRating < 5 ? 'is-low' : ''}`}>{tymRating != null ? tymRating.toFixed(1) : '—'}</span></td>
                 {!isReadOnly && (
                   <td data-label="Actions" className="movie-table-cell-actions">
                     <div className="movie-table-actions">

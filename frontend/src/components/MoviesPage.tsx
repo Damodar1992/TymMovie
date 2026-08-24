@@ -8,6 +8,7 @@ import { FiltersBar } from './FiltersBar';
 import { SortControl } from './SortControl';
 import { SearchInput } from './SearchInput';
 import { EmptyState } from './EmptyState';
+import { MovieDetailsDrawer } from './MovieDetailsDrawer';
 import { useAuth } from '../auth/AuthContext';
 import { useMoviesFilters } from '../state/MoviesFiltersContext';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
@@ -35,6 +36,7 @@ export function MoviesPage() {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingMovieId, setEditingMovieId] = useState<string | null>(null);
   const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
+  const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
 
   const {
     data,
@@ -80,34 +82,30 @@ export function MoviesPage() {
 
   return (
     <div className="page">
-      <header className="page-header">
-        <img
-          src="/tymmovies-horizontal-logo.svg"
-          alt="TymMovies"
-          className="app-logo"
-        />
-        <div className="header-actions">
-          {!isReadOnly && (
-            <button
-              className="icon-button"
-              type="button"
-              onClick={() => {
-                setEditingMovieId(null);
-                setEditingMovie(null);
-                setIsFormOpen(true);
-              }}
-              aria-label="Add movie"
-            >
-              <span>Add</span>
-              <img
-                src="/add_movie_icon.svg"
-                alt=""
-                width={28}
-                height={28}
-                style={{ display: 'block' }}
-              />
-            </button>
-          )}
+      <header className="page-header desktop-topbar">
+        <div className="desktop-brand">
+          <img
+            src="/tymmovies-mark.svg"
+            alt=""
+            className="app-logo-mark"
+            width={34}
+            height={34}
+          />
+          <div className="desktop-brand-copy">
+            <div className="desktop-brand-name" aria-label="TymMovies">
+              Tym<span>Movies</span>
+            </div>
+            <span>Shared watchlist</span>
+          </div>
+        </div>
+        <div className="desktop-search-wrap">
+          <SearchInput value={search} onChange={setSearch} />
+          <kbd>⌘K</kbd>
+        </div>
+        <div className="header-actions desktop-header-actions">
+          <div className="desktop-members" aria-label="Three members">
+            <span>I</span><span>B</span><span>Y</span>
+          </div>
           <button
             className="chip"
             type="button"
@@ -119,71 +117,59 @@ export function MoviesPage() {
         </div>
       </header>
 
-      <section className="controls-row">
-        <SearchInput value={search} onChange={setSearch} />
-      </section>
-
-      <section className="controls-row">
-        <FiltersBar
-          status={status}
-          onStatusChange={setStatus}
-          contentType={contentType}
-          onContentTypeChange={setContentType}
-          availableGenres={availableGenres}
-          selectedGenres={genres}
-          onGenresChange={setGenres}
-        />
-      </section>
-
-      <section className="controls-row controls-row-compact">
-        <div className="filter-toggle-group">
+      <section className="desktop-catalog-toolbar">
+        <div className="desktop-toolbar-heading">
+          <div>
+            <h1>Movies</h1>
+            <p>{total} titles · {items.filter((movie) => movie.status === 'WATCHED').length} watched · 3 members</p>
+          </div>
+          {!isReadOnly && (
+            <button
+              className="desktop-add-movie"
+              type="button"
+              onClick={() => {
+                setEditingMovieId(null);
+                setEditingMovie(null);
+                setIsFormOpen(true);
+              }}
+            >
+              + Add movie
+            </button>
+          )}
+        </div>
+        <div className="desktop-toolbar-controls controls-row-compact">
+          <div className="filter-toggle-group">
           <span className="filter-label">Title</span>
-          <div className="toggle-group" role="group" aria-label="Title language">
+          <div className="segmented-toggle" role="group" aria-label="Title language">
             <button
               type="button"
-              className={`search-lang-btn ${titleLang === 'en' ? 'search-lang-btn-active' : ''}`}
+              className="segmented-toggle-option"
               onClick={() => setTitleLang('en')}
               aria-pressed={titleLang === 'en'}
               aria-label="Show title in English"
-              title="English"
             >
-              <span className="search-lang-flag" aria-hidden>
-                <svg viewBox="0 0 60 30" width="28" height="14" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="60" height="30" fill="#012169" />
-                  <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" strokeWidth="6" />
-                  <path d="M0 0 L60 30 M60 0 L0 30" stroke="#C8102E" strokeWidth="4" />
-                  <path d="M30 0 V30 M0 15 H60" stroke="#fff" strokeWidth="10" />
-                  <path d="M30 0 V30 M0 15 H60" stroke="#C8102E" strokeWidth="6" />
-                </svg>
-              </span>
+              EN
             </button>
             <button
               type="button"
-              className={`search-lang-btn ${titleLang === 'ua' ? 'search-lang-btn-active' : ''}`}
+              className="segmented-toggle-option"
               onClick={() => setTitleLang('ua')}
               aria-pressed={titleLang === 'ua'}
               aria-label="Show title in Ukrainian"
-              title="Ukrainian"
             >
-              <span className="search-lang-flag" aria-hidden>
-                <svg viewBox="0 0 24 16" width="28" height="19" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="24" height="8" fill="#0057B7" />
-                  <rect y="8" width="24" height="8" fill="#FFD700" />
-                </svg>
-              </span>
+              UA
             </button>
           </div>
         </div>
-        <div className="filter-toggle-group">
+          <div className="filter-toggle-group">
           <span className="filter-label">View</span>
           <div className="toggle-group" role="group" aria-label="View mode">
             <button
               type="button"
-              className={viewMode === 'cards' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
+              className={viewMode === 'cards' ? 'toggle-chip toggle-chip-active view-mode-option' : 'toggle-chip view-mode-option'}
               onClick={() => setViewMode('cards')}
               aria-pressed={viewMode === 'cards'}
               aria-label="Cards view"
-              style={{ width: 54, height: 24, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
               <img
                 src="/grid.svg"
@@ -195,11 +181,10 @@ export function MoviesPage() {
             </button>
             <button
               type="button"
-              className={viewMode === 'table' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
+              className={viewMode === 'table' ? 'toggle-chip toggle-chip-active view-mode-option' : 'toggle-chip view-mode-option'}
               onClick={() => setViewMode('table')}
               aria-pressed={viewMode === 'table'}
               aria-label="Table view"
-              style={{ width: 51, height: 24, padding: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
             >
               <img
                 src="/list.svg"
@@ -211,12 +196,24 @@ export function MoviesPage() {
             </button>
           </div>
         </div>
-        <SortControl
-          sortBy={sortBy}
-          sortOrder={sortOrder}
-          onSortByChange={setSortBy}
-          onSortOrderChange={setSortOrder}
-        />
+          <SortControl
+            sortBy={sortBy}
+            sortOrder={sortOrder}
+            onSortByChange={setSortBy}
+            onSortOrderChange={setSortOrder}
+          />
+        </div>
+        <div className="desktop-status-row">
+          <FiltersBar
+            status={status}
+            onStatusChange={setStatus}
+            contentType={contentType}
+            onContentTypeChange={setContentType}
+            availableGenres={availableGenres}
+            selectedGenres={genres}
+            onGenresChange={setGenres}
+          />
+        </div>
       </section>
 
       {isError && (
@@ -244,6 +241,7 @@ export function MoviesPage() {
                 setEditingMovie(movie);
                 setIsFormOpen(true);
               }}
+              onSelect={setSelectedMovie}
             />
           ) : (
             <MovieTable
@@ -281,6 +279,13 @@ export function MoviesPage() {
             setEditingMovieId(null);
             setEditingMovie(null);
           }}
+        />
+      )}
+      {selectedMovie && (
+        <MovieDetailsDrawer
+          movie={selectedMovie}
+          titleLang={titleLang}
+          onClose={() => setSelectedMovie(null)}
         />
       )}
     </div>

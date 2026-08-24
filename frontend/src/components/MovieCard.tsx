@@ -1,7 +1,4 @@
-import { useId } from 'react';
 import type { Movie } from '../api/movies';
-import { useDeleteMovieMutation } from '../api/movies';
-import { useAuth } from '../auth/AuthContext';
 
 type TitleLang = 'en' | 'ua';
 
@@ -9,251 +6,79 @@ interface MovieCardProps {
   movie: Movie;
   titleLang: TitleLang;
   onEdit: (movie: Movie) => void;
+  onSelect?: (movie: Movie) => void;
 }
 
-const STAR_PATH =
-  'M5,0.5 L6.2,4 L10,4 L7.2,6 L8.2,9.5 L5,7.5 L1.8,9.5 L2.8,6 L0,4 L3.8,4 Z';
+function displayTitle(movie: Movie, titleLang: TitleLang) {
+  return titleLang === 'ua' && movie.titleUa?.trim() ? movie.titleUa : movie.title;
+}
 
-function StarRatingSvg({
-  ratingOutOf5,
-  clipId,
-}: {
-  ratingOutOf5: number;
-  clipId: string;
-}) {
-  const w = Math.max(0, Math.min(5, ratingOutOf5)) * 10;
+function watchDateLabel(date: string | null) {
+  if (!date) return null;
+  const [, month, day] = date.split('-');
+  return month && day ? `${day}.${month}` : date;
+}
+
+function RatingChip({ label, value, tone }: { label: string; value: number | null; tone: string }) {
+  if (value == null) return null;
   return (
-    <svg
-      className="star-rating-svg"
-      viewBox="0 0 50 10"
-      preserveAspectRatio="xMidYMid meet"
-      aria-hidden
-    >
-      <defs>
-        <path id={`${clipId}-shape`} d={STAR_PATH} />
-        <clipPath id={clipId}>
-          <rect x={0} y={0} width={w} height={10} />
-        </clipPath>
-      </defs>
-      <g fill="none" stroke="currentColor" strokeWidth="0.35" strokeLinejoin="round">
-        {[0, 1, 2, 3, 4].map((i) => (
-          <use key={i} href={`#${clipId}-shape`} x={i * 10} y={0} />
-        ))}
-      </g>
-      <g fill="currentColor" clipPath={`url(#${clipId})`}>
-        {[0, 1, 2, 3, 4].map((i) => (
-          <use href={`#${clipId}-shape`} x={i * 10} y={0} />
-        ))}
-      </g>
-    </svg>
+    <span className="movie-rating-chip">
+      <span className={`movie-rating-avatar movie-rating-avatar-${tone}`}>{label}</span>
+      <strong>{value.toFixed(1)}</strong>
+    </span>
   );
 }
 
-export function MovieCard({ movie, titleLang, onEdit }: MovieCardProps) {
-  const { isReadOnly } = useAuth();
-  const deleteMutation = useDeleteMovieMutation();
-  const starClipId = useId();
-  const displayTitle =
-    titleLang === 'ua' && movie.titleUa?.trim()
-      ? movie.titleUa
-      : movie.title;
-
-  const renderStars = (value: unknown, suffix: string) => {
-    if (value === null || value === undefined) return '—';
-    const num =
-      typeof value === 'number' ? value : Number.parseFloat(String(value));
-    if (Number.isNaN(num)) return '—';
-    const clamped = Math.max(0, Math.min(10, num));
-    const starsOutOf5 = clamped / 2;
-
-    return (
-      <span className="stars" title={`${clamped.toFixed(1)}/10`}>
-        <StarRatingSvg
-          ratingOutOf5={starsOutOf5}
-          clipId={`star-clip-${starClipId}-${suffix}`}
-        />
-      </span>
-    );
-  };
-
-  const handleDelete = () => {
-    if (isReadOnly) return;
-    if (
-      window.confirm(
-        'Are you sure you want to delete this title from the list?',
-      )
-    ) {
-      deleteMutation.mutate(movie.id);
-    }
-  };
+export function MovieCard({ movie, titleLang, onEdit, onSelect }: MovieCardProps) {
+  const title = displayTitle(movie, titleLang);
+  const dateLabel = watchDateLabel(movie.watchDate);
+  const statusClass = movie.status === 'WATCHED' ? 'is-watched' : 'is-planned';
 
   return (
-    <article className="movie-card">
-      <div className="poster-wrapper">
-        {movie.posterUrl ? (
-          <img
-            src={movie.posterUrl}
-            alt={displayTitle}
-            loading="lazy"
-            onError={(e) => {
-              (e.currentTarget as HTMLImageElement).src =
-                'https://via.placeholder.com/300x450?text=No+Poster';
-            }}
-          />
-        ) : (
-          <div className="poster-fallback">No poster</div>
-        )}
+    <article className="movie-card movie-card-v2" onClick={() => onSelect?.(movie)}>
+      <div className="movie-poster-art" aria-hidden={!movie.posterUrl}>
+        {movie.posterUrl ? <img src={movie.posterUrl} alt={title} loading="lazy" /> : null}
+        {!movie.posterUrl ? (
+          <div className="movie-poster-fallback">
+            <span>{title}</span>
+            <small>poster</small>
+          </div>
+        ) : null}
+        {movie.userAvgRating != null ? <span className="movie-score-badge">{movie.userAvgRating.toFixed(1)}</span> : null}
       </div>
-      <div className="movie-content">
-        <div className="movie-main-info">
-          <h2 className="movie-title">{displayTitle}</h2>
-          {movie.originalTitle && movie.originalTitle !== displayTitle && (
-            <p className="movie-original-title">{movie.originalTitle}</p>
-          )}
-          <div className="movie-meta">
-            {movie.releaseYear != null && (
-              <span className="movie-year">{movie.releaseYear}</span>
-            )}
-            {movie.innaRating != null &&
-              movie.bogdanRating != null &&
-              movie.userAvgRating != null && (
-                <>
-                  {movie.releaseYear != null && (
-                    <span className="movie-meta-sep"> · </span>
-                  )}
-                  <span className="movie-avg-rating" title="Tym (average of Inna & Bohdan)">
-                    Tym {movie.userAvgRating.toFixed(1)}
-                  </span>
-                </>
-              )}
-          </div>
-          <div className="genres">
-            {movie.genres?.map((g) => (
-              <span key={g} className="genre-tag">
-                {g}
-              </span>
-            ))}
-          </div>
+
+      <div className="movie-card-body">
+        <div className="movie-card-title-row">
+          <h2 className="movie-card-title">{title}</h2>
+          <span className={`movie-status-dot ${statusClass}`} aria-label={movie.status === 'WATCHED' ? 'Watched' : 'Planned'} />
         </div>
-        <dl className="movie-details">
-          <div className="movie-status-row">
-            <span
-              className={
-                movie.status === 'WATCHED'
-                  ? 'status-tag status-tag-watched'
-                  : 'status-tag status-tag-planned'
-              }
-            >
-              <span className="status-tag-value">
-                {movie.status === 'WATCHED'
-                  ? `Watched${movie.watchDate ? ` · ${movie.watchDate}` : ''}`
-                  : 'Planned'}
-              </span>
-            </span>
+        <p className="movie-card-meta">
+          {movie.releaseYear ?? '—'}
+          {movie.userAvgRating != null ? ` · Tym ${movie.userAvgRating.toFixed(1)}` : ''}
+          {dateLabel ? ` · ◍ ${dateLabel}` : ''}
+        </p>
+        {movie.genres?.length ? <p className="movie-card-genres">{movie.genres.join(' · ')}</p> : null}
+        <div className="movie-card-bottom-row">
+          <div className="movie-rating-chips" aria-label="Ratings">
+            <RatingChip label="T" value={movie.tmdbRating} tone="tmdb" />
+            <RatingChip label="I" value={movie.innaRating} tone="inna" />
+            <RatingChip label="B" value={movie.bogdanRating} tone="bohdan" />
           </div>
-          {(movie.tmdbRating != null ||
-            movie.innaRating != null ||
-            movie.bogdanRating != null) ? (
-            <div className="movie-ratings-row">
-              <div className="movie-ratings-title">Ratings</div>
-              <div className="movie-ratings-values">
-                {movie.tmdbRating != null && (
-                  <span className="rating-item">
-                    <span className="rating-label">TMDb</span>
-                    <span className="rating-stars">
-                      {renderStars(movie.tmdbRating, 'tmdb')}
-                    </span>
-                  </span>
-                )}
-                {movie.innaRating != null && (
-                  <span className="rating-item">
-                    <span className="rating-label">Inna</span>
-                    <span className="rating-stars">
-                      {renderStars(movie.innaRating, 'inna')}
-                    </span>
-                  </span>
-                )}
-                {movie.bogdanRating != null && (
-                  <span className="rating-item">
-                    <span className="rating-label">Bohdan</span>
-                    <span className="rating-stars">
-                      {renderStars(movie.bogdanRating, 'bohdan')}
-                    </span>
-                  </span>
-                )}
-              </div>
-            </div>
-          ) : null}
-        </dl>
-        {!isReadOnly && (
-          <div className="card-actions">
-            <button
-              type="button"
-              className="secondary-button"
-              onClick={() => onEdit(movie)}
-            >
-              <span aria-hidden="true" className="secondary-button-icon">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M4 11.5L4.5 9L10.5 3L13 5.5L7 11.5L4.5 11.5Z"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </span>
-              <span className="secondary-button-label">Edit</span>
-            </button>
-            <button
-              type="button"
-              className="danger-button"
-              onClick={handleDelete}
-              disabled={deleteMutation.isPending}
-            >
-              <span aria-hidden="true" className="danger-button-icon">
-                <svg
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <rect
-                    x="5"
-                    y="4"
-                    width="6"
-                    height="9"
-                    rx="1"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                  />
-                  <path
-                    d="M4 4H12"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    strokeLinecap="round"
-                  />
-                  <path
-                    d="M6 4L6.4 2.8C6.55 2.35 6.96 2 7.44 2H8.56C9.04 2 9.45 2.35 9.6 2.8L10 4"
-                    stroke="currentColor"
-                    strokeWidth="1.2"
-                    strokeLinecap="round"
-                  />
-                </svg>
-              </span>
-              <span className="danger-button-label">Delete</span>
-            </button>
-          </div>
-        )}
+          <span className={`movie-status-pill ${statusClass}`}>
+            {movie.status === 'WATCHED' ? `Watched${dateLabel ? ` · ${dateLabel}` : ''}` : 'Planned'}
+          </span>
+        </div>
+        <button
+          type="button"
+          className="movie-card-edit"
+          onClick={(event) => {
+            event.stopPropagation();
+            onEdit(movie);
+          }}
+        >
+          Edit
+        </button>
       </div>
     </article>
   );
 }
-

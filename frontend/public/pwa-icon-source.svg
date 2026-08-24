@@ -1,55 +1,14 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024" fill="none" role="img" aria-labelledby="title desc">
   <title id="title">TymMovies app icon</title>
-  <desc id="desc">Dark blue rounded-square app icon with a blue-violet play outline, cyan motion lines, white-blue play triangle, and gold star.</desc>
+  <desc id="desc">Purple app icon with film-strip play mark for PWA and home screen.</desc>
   <defs>
-    <radialGradient id="background" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse"
-                    gradientTransform="translate(340 260) rotate(54) scale(900)">
-      <stop stop-color="#173D78"/>
-      <stop offset=".52" stop-color="#0B2854"/>
-      <stop offset="1" stop-color="#050E22"/>
+    <radialGradient id="bg" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(225 123) rotate(54) scale(1180)">
+      <stop stop-color="#C07AFF"/>
+      <stop offset=".55" stop-color="#6E3AD8"/>
+      <stop offset="1" stop-color="#3B1F8A"/>
     </radialGradient>
-    <linearGradient id="outline" x1="258" y1="254" x2="808" y2="761" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#17B7FF"/>
-      <stop offset=".5" stop-color="#437DF5"/>
-      <stop offset="1" stop-color="#9650FF"/>
-    </linearGradient>
-    <linearGradient id="play" x1="444" y1="374" x2="665" y2="650" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#FFFFFF"/>
-      <stop offset="1" stop-color="#6DD9FF"/>
-    </linearGradient>
-    <linearGradient id="motion" x1="140" y1="388" x2="310" y2="622" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#6AE6FF"/>
-      <stop offset="1" stop-color="#238EFF"/>
-    </linearGradient>
-    <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-      <feGaussianBlur stdDeviation="18" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <filter id="starGlow" x="-80%" y="-80%" width="260%" height="260%">
-      <feGaussianBlur stdDeviation="10" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
   </defs>
-
-  <rect width="1024" height="1024" rx="220" fill="url(#background)"/>
-  <rect x="12" y="12" width="1000" height="1000" rx="208" stroke="#2C65A8" stroke-opacity=".42" stroke-width="24"/>
-  <circle cx="512" cy="512" r="382" fill="#1877D6" fill-opacity=".045"/>
-
-  <!-- Motion lines -->
-  <path d="M160 390H307" stroke="url(#motion)" stroke-width="42" stroke-linecap="round"/>
-  <path d="M112 500H269" stroke="url(#motion)" stroke-width="42" stroke-linecap="round"/>
-  <path d="M160 610H307" stroke="url(#motion)" stroke-width="42" stroke-linecap="round"/>
-
-  <!-- Play enclosure -->
-  <path d="M330 258C274 225 204 266 204 331V693C204 758 274 799 330 766L798 540C864 508 864 492 798 460L330 258Z"
-        stroke="url(#outline)" stroke-width="54" stroke-linejoin="round" filter="url(#glow)"/>
-
-  <!-- Inner play -->
-  <path d="M432 368C432 339 464 321 489 337L701 469C731 488 731 532 701 551L489 683C464 699 432 681 432 652V368Z"
-        fill="url(#play)"/>
-
-  <!-- Gold star -->
-  <path d="M774 190L802 256L873 263L819 310L835 380L774 343L713 380L729 310L675 263L746 256L774 190Z"
-        fill="#FFC746" stroke="#FFE59B" stroke-width="12" stroke-linejoin="round" filter="url(#starGlow)"/>
+  <rect width="1024" height="1024" fill="url(#bg)"/>
+  <rect x="286" y="286" width="108" height="452" rx="54" fill="#fff"/>
+  <path d="M498 286L822 512L498 738V286Z" fill="#fff"/>
 </svg>

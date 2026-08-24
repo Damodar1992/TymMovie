@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="76" height="76" viewBox="0 0 76 76" fill="none" role="img" aria-labelledby="title desc">
+  <title id="title">TymMovies mark</title>
+  <desc id="desc">Play triangle cut against a film-strip bar on a purple rounded square.</desc>
+  <defs>
+    <linearGradient id="markGrad" x1="8" y1="6" x2="70" y2="72" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#B06BFF"/>
+      <stop offset="1" stop-color="#6B3AD6"/>
+    </linearGradient>
+  </defs>
+  <rect width="76" height="76" rx="22" fill="url(#markGrad)"/>
+  <rect x="19" y="21" width="8" height="34" rx="4" fill="#fff" fill-opacity=".92"/>
+  <path d="M35 22.5L59.5 38L35 53.5V22.5Z" fill="#fff" fill-opacity=".92"/>
+</svg>

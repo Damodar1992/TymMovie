@@ -9,7 +9,11 @@ import {
 
 export type AuthMode = 'admin' | 'guest' | null;
 
+/** Legacy key — still written for existing clients. */
 export const AUTH_STORAGE_KEY = 'tym-movies-auth-mode';
+const SESSION_KEY = 'tm.session';
+const GUEST_KEY = 'tm.guest';
+
 const ADMIN_LOGIN = 'TymAdmin';
 const ADMIN_PASSWORD = '19911992QWe';
 
@@ -25,6 +29,8 @@ const AuthContext = createContext<AuthContextValue | null>(null);
 
 function getStoredMode(): AuthMode {
   try {
+    if (localStorage.getItem(GUEST_KEY) === '1') return 'guest';
+    if (localStorage.getItem(SESSION_KEY)) return 'admin';
     const raw = localStorage.getItem(AUTH_STORAGE_KEY);
     if (raw === 'admin' || raw === 'guest') return raw;
   } catch {
@@ -33,39 +39,49 @@ function getStoredMode(): AuthMode {
   return null;
 }
 
+function writeSession(next: AuthMode) {
+  try {
+    if (next === 'admin') {
+      localStorage.setItem(SESSION_KEY, 'admin');
+      localStorage.removeItem(GUEST_KEY);
+      localStorage.setItem(AUTH_STORAGE_KEY, 'admin');
+      return;
+    }
+    if (next === 'guest') {
+      localStorage.setItem(GUEST_KEY, '1');
+      localStorage.removeItem(SESSION_KEY);
+      localStorage.setItem(AUTH_STORAGE_KEY, 'guest');
+      return;
+    }
+    localStorage.removeItem(SESSION_KEY);
+    localStorage.removeItem(GUEST_KEY);
+    localStorage.removeItem(AUTH_STORAGE_KEY);
+  } catch {
+    // ignore storage failures
+  }
+}
+
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [mode, setMode] = useState<AuthMode>(getStoredMode);
 
-  const persistMode = useCallback((next: AuthMode) => {
-    try {
-      if (next) localStorage.setItem(AUTH_STORAGE_KEY, next);
-      else localStorage.removeItem(AUTH_STORAGE_KEY);
-    } catch {
-      // ignore storage failures
+  const login = useCallback((loginValue: string, passwordValue: string) => {
+    if (loginValue === ADMIN_LOGIN && passwordValue === ADMIN_PASSWORD) {
+      setMode('admin');
+      writeSession('admin');
+      return true;
     }
+    return false;
   }, []);
-
-  const login = useCallback(
-    (loginValue: string, passwordValue: string) => {
-      if (loginValue === ADMIN_LOGIN && passwordValue === ADMIN_PASSWORD) {
-        setMode('admin');
-        persistMode('admin');
-        return true;
-      }
-      return false;
-    },
-    [persistMode],
-  );
 
   const loginAsGuest = useCallback(() => {
     setMode('guest');
-    persistMode('guest');
-  }, [persistMode]);
+    writeSession('guest');
+  }, []);
 
   const logout = useCallback(() => {
     setMode(null);
-    persistMode(null);
-  }, [persistMode]);
+    writeSession(null);
+  }, []);
 
   const value = useMemo<AuthContextValue>(
     () => ({

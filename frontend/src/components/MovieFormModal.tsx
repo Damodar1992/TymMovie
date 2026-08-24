@@ -206,7 +206,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
 
   return (
     <div className="modal-backdrop" role="dialog" aria-modal="true">
-      <div className="modal">
+      <div className={`modal movie-form-modal ${isEditing ? 'is-editing' : 'is-creating'}`}>
         <header className="modal-header">
           <h2>{isEditing ? 'Edit Entry' : 'Add Title'}</h2>
           <button
@@ -239,39 +239,24 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
             {!isEditing && (
               <div className="search-lang-row">
                 <span className="search-lang-label">Search by:</span>
-                <div className="search-lang-buttons">
+                <div className="segmented-toggle" role="group" aria-label="Search language">
                   <button
                     type="button"
-                    className={`search-lang-btn ${searchLanguage === 'uk-UA' ? 'search-lang-btn-active' : ''}`}
+                    className="segmented-toggle-option"
                     onClick={() => setSearchLanguage('uk-UA')}
                     aria-pressed={searchLanguage === 'uk-UA'}
                     aria-label="Search by Ukrainian title"
-                    title="Ukraine (Ukrainian)"
                   >
-                    <span className="search-lang-flag" aria-hidden>
-                      <svg viewBox="0 0 24 16" width="28" height="19" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="24" height="8" fill="#0057B7" />
-                        <rect y="8" width="24" height="8" fill="#FFD700" />
-                      </svg>
-                    </span>
+                    UA
                   </button>
                   <button
                     type="button"
-                    className={`search-lang-btn ${searchLanguage === 'en-US' ? 'search-lang-btn-active' : ''}`}
+                    className="segmented-toggle-option"
                     onClick={() => setSearchLanguage('en-US')}
                     aria-pressed={searchLanguage === 'en-US'}
                     aria-label="Search by British/English title"
-                    title="Britain (English)"
                   >
-                    <span className="search-lang-flag" aria-hidden>
-                      <svg viewBox="0 0 60 30" width="28" height="14" xmlns="http://www.w3.org/2000/svg">
-                        <rect width="60" height="30" fill="#012169" />
-                        <path d="M0 0 L60 30 M60 0 L0 30" stroke="#fff" strokeWidth="6" />
-                        <path d="M0 0 L60 30 M60 0 L0 30" stroke="#C8102E" strokeWidth="4" />
-                        <path d="M30 0 V30 M0 15 H60" stroke="#fff" strokeWidth="10" />
-                        <path d="M30 0 V30 M0 15 H60" stroke="#C8102E" strokeWidth="6" />
-                      </svg>
-                    </span>
+                    EN
                   </button>
                 </div>
               </div>
