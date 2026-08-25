@@ -93,6 +93,20 @@ export function MobileShell() {
   }, []);
 
   useEffect(() => {
+    const updateShellHeight = () => {
+      const height = window.screen.height;
+      shellRef.current?.style.setProperty(
+        '--mobile-shell-height',
+        `${height}px`,
+      );
+    };
+
+    updateShellHeight();
+    window.addEventListener('orientationchange', updateShellHeight);
+    return () => window.removeEventListener('orientationchange', updateShellHeight);
+  }, []);
+
+  useEffect(() => {
     const shell = shellRef.current;
     const menu = shell?.querySelector<HTMLElement>('.menu');
     if (!shell || !menu) return;
