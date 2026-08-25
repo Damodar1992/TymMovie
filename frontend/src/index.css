@@ -3242,6 +3242,11 @@ p {
 }
 .mobile-movie-tile-title-block h2 {
   margin: 0;
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px 7px;
+  border-radius: 7px;
+  background: rgb(8 9 12 / 88%);
   color: #fff;
   font: 700 16px/1.15 var(--sans);
   letter-spacing: -0.02em;
@@ -3249,7 +3254,7 @@ p {
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-shadow: 0 1px 10px rgb(0 0 0 / 45%);
+  text-shadow: none;
 }
 .mobile-movie-tile-title-block small {
   display: block;
