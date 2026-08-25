@@ -58,7 +58,7 @@ export function MobileFiltersScreen({ open, onApply }: MobileFiltersScreenProps)
   });
   const catalogItems = catalog?.items ?? [];
 
-  const { allGenres, popularGenres, genreCounts } = useMemo(() => {
+  const { allGenres, popularGenres } = useMemo(() => {
     const counts = new Map<string, number>();
     for (const m of catalogItems) {
       for (const g of m.genres ?? []) {
@@ -79,7 +79,6 @@ export function MobileFiltersScreen({ open, onApply }: MobileFiltersScreenProps)
     return {
       allGenres: all,
       popularGenres: popular,
-      genreCounts: Object.fromEntries(counts),
     };
   }, [catalogItems, genres]);
 
@@ -126,11 +125,7 @@ export function MobileFiltersScreen({ open, onApply }: MobileFiltersScreenProps)
             aria-modal="true"
             aria-label="Filters"
           >
-            <FiltersHeader
-              activeCount={activeCount}
-              onReset={clearAll}
-              onClose={onApply}
-            />
+            <FiltersHeader onClose={onApply} />
 
             <div className="filters-v2 mobile-filters-sheet-body">
               <FilterSectionCard
@@ -202,7 +197,6 @@ export function MobileFiltersScreen({ open, onApply }: MobileFiltersScreenProps)
                 <GenreCloud
                   genres={allGenres}
                   popular={popularGenres}
-                  counts={genreCounts}
                   selected={genres}
                   onToggle={(g) =>
                     genres.includes(g)

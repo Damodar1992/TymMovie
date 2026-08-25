@@ -4477,6 +4477,7 @@ p {
   min-height: 248px;
   overflow: hidden;
   isolation: isolate;
+  touch-action: none;
   background:
     radial-gradient(120% 90% at 50% 0%, #1a4550 0%, #121820 48%, #0b0c10 100%);
 }

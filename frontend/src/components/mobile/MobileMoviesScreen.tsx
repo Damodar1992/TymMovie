@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
+import { motion, useDragControls } from 'framer-motion';
 import { useDeleteMovieMutation, useMoviesInfiniteQuery, useUpdateMovieMutation, type Movie } from '../../api/movies';
 import { useAuth } from '../../auth/AuthContext';
 import { useMoviesFilters } from '../../state/MoviesFiltersContext';
@@ -90,9 +91,6 @@ export function MobileMoviesScreen() {
     [data],
   );
   const total = data?.pages[0]?.total ?? 0;
-  const watchedCount = items.filter((movie) => movie.status === 'WATCHED').length;
-  const plannedCount = items.filter((movie) => movie.status === 'WANT_TO_WATCH').length;
-
   const loadMore = useCallback(() => {
     if (!hasNextPage || isFetchingNextPage) return;
     void fetchNextPage();
@@ -111,9 +109,9 @@ export function MobileMoviesScreen() {
 
       <div className="mobile-movies-toolbar">
         <div className="mobile-status-chips" role="group" aria-label="Filter by status">
-          <button type="button" className={!status ? 'active' : ''} onClick={() => setStatus(undefined)}>All <span>{total}</span></button>
-          <button type="button" className={status === 'WANT_TO_WATCH' ? 'active' : ''} onClick={() => setStatus('WANT_TO_WATCH')}>Planned <span>{plannedCount}</span></button>
-          <button type="button" className={status === 'WATCHED' ? 'active' : ''} onClick={() => setStatus('WATCHED')}>Watched <span>{watchedCount}</span></button>
+          <button type="button" className={!status ? 'active' : ''} onClick={() => setStatus(undefined)}>All</button>
+          <button type="button" className={status === 'WANT_TO_WATCH' ? 'active' : ''} onClick={() => setStatus('WANT_TO_WATCH')}>Planned</button>
+          <button type="button" className={status === 'WATCHED' ? 'active' : ''} onClick={() => setStatus('WATCHED')}>Watched</button>
         </div>
 
         <div className="mobile-view-toggle" role="group" aria-label="View mode">
@@ -230,6 +228,7 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
   const [error, setError] = useState<string | null>(null);
   const updateMutation = useUpdateMovieMutation();
   const deleteMutation = useDeleteMovieMutation();
+  const dragControls = useDragControls();
   const isWatched = status === 'WATCHED';
   const shortDate = formatShortDate(watchDate || movie.watchDate);
   const genres = movie.genres?.filter(Boolean) ?? [];
@@ -310,14 +309,26 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
 
   return createPortal(
     <div className="mobile-detail-backdrop" role="presentation" onClick={onClose}>
-      <section
+      <motion.section
         className={`mobile-detail-sheet${isWatched && canEdit ? ' is-editing' : ''}${posterUrl ? ' has-cover' : ''}`}
         role="dialog"
         aria-modal="true"
         aria-label={title}
         onClick={(event) => event.stopPropagation()}
+        drag="y"
+        dragControls={dragControls}
+        dragListener={false}
+        dragConstraints={{ top: 0, bottom: 0 }}
+        dragElastic={0.18}
+        dragMomentum={false}
+        onDragEnd={(_, info) => {
+          if (info.offset.y > 72 || info.velocity.y > 500) onClose();
+        }}
       >
-        <header className="mobile-detail-cover">
+        <motion.header
+          className="mobile-detail-cover"
+          onPointerDown={(event) => dragControls.start(event)}
+        >
           {posterUrl ? (
             <img
               className="mobile-detail-cover-img"
@@ -349,7 +360,7 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
               </div>
             ) : null}
           </div>
-        </header>
+        </motion.header>
 
         <div className="mobile-detail-scroll">
           <div className="mobile-detail-scores">
@@ -468,9 +479,8 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
             </button>
           </div>
         )}
-      </section>
+      </motion.section>
     </div>,
     document.body,
   );
 }
-

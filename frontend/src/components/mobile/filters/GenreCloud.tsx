@@ -6,7 +6,6 @@ interface GenreCloudProps {
   genres: string[];
   selected: string[];
   popular?: string[];
-  counts?: Record<string, number>;
   onToggle: (genre: string) => void;
 }
 
@@ -14,7 +13,6 @@ export function GenreCloud({
   genres,
   selected,
   popular = [],
-  counts = {},
   onToggle,
 }: GenreCloudProps) {
   const [query, setQuery] = useState('');
@@ -60,7 +58,6 @@ export function GenreCloud({
                   <Chip
                     key={`p-${g}`}
                     label={g}
-                    count={counts[g]}
                     active={selected.includes(g)}
                     onClick={() => onToggle(g)}
                   />
@@ -81,7 +78,6 @@ export function GenreCloud({
                   <Chip
                     key={`a-${g}`}
                     label={g}
-                    count={counts[g]}
                     active={selected.includes(g)}
                     onClick={() => onToggle(g)}
                   />
@@ -97,12 +93,10 @@ export function GenreCloud({
 
 function Chip({
   label,
-  count,
   active,
   onClick,
 }: {
   label: string;
-  count?: number;
   active: boolean;
   onClick: () => void;
 }) {
@@ -116,9 +110,6 @@ function Chip({
       aria-pressed={active}
     >
       {label}
-      {count != null && count > 0 ? (
-        <span className="fv-chip-count">{count}</span>
-      ) : null}
     </motion.button>
   );
 }

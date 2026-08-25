@@ -132,7 +132,8 @@ export const db = {
         idx++;
       }
       if (params.genres?.length) {
-        conditions.push(`genres ?| $${idx}`);
+        // The JSONB overlap operator expects a PostgreSQL text array.
+        conditions.push(`genres ?| $${idx}::text[]`);
         values.push(params.genres);
         idx++;
       }
