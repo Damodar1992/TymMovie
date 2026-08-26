@@ -1,1 +1,7 @@
+# Normalize line endings: store text files as LF in the repo, let git
+# convert to the platform's native line ending on checkout. Fixes the
+# whole-file diffs that showed up whenever CRLF/LF disagreed with what
+# was previously committed.
+* text=auto eol=lf
+
 graphify-out/graph.json merge=graphify
