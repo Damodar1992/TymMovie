@@ -60,3 +60,23 @@ export function getCookies(req: ApiRequest): Record<string, string> {
   }
   return parseCookieHeader(req.headers.cookie);
 }
+
+/** Unwraps Error.cause chains (fetch/DB drivers love to bury the real
+ *  reason there) into one readable string for API error responses. */
+export function describeError(err: unknown, fallback: string): string {
+  if (!(err instanceof Error)) return fallback;
+  const parts: string[] = [err.message];
+  let cause: unknown = (err as { cause?: unknown }).cause;
+  let depth = 0;
+  while (cause && depth < 3) {
+    if (cause instanceof Error) {
+      parts.push(cause.message);
+      cause = (cause as { cause?: unknown }).cause;
+    } else {
+      parts.push(String(cause));
+      break;
+    }
+    depth++;
+  }
+  return parts.join(' -> ');
+}

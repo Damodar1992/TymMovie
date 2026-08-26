@@ -1,5 +1,5 @@
 import type { ApiRequest, ApiResponse } from '../_lib/types';
-import { readJsonBody } from '../_lib/types';
+import { readJsonBody, describeError } from '../_lib/types';
 import { requireAdmin, requireSession } from '../_lib/auth';
 import { db, computeUserAvgRating } from '../_lib/db';
 
@@ -61,6 +61,7 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
 
     res.status(405).json({ error: 'Method not allowed' });
   } catch (err) {
-    res.status(500).json({ error: err instanceof Error ? err.message : 'Internal error' });
+    console.error(err);
+    res.status(500).json({ error: describeError(err, 'Internal error') });
   }
 }

@@ -1,4 +1,5 @@
 import type { ApiRequest, ApiResponse } from '../_lib/types';
+import { describeError } from '../_lib/types';
 import { requireSession } from '../_lib/auth';
 import { getMovieDetails, getTvDetails } from '../_lib/tmdb';
 
@@ -22,6 +23,7 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     const details = type === 'MOVIE' ? await getMovieDetails(id) : await getTvDetails(id);
     res.status(200).json(details);
   } catch (err) {
-    res.status(502).json({ error: err instanceof Error ? err.message : 'TMDb request failed' });
+    console.error(err);
+    res.status(502).json({ error: describeError(err, 'TMDb request failed') });
   }
 }

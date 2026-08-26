@@ -1,6 +1,13 @@
 import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
+import { setDefaultResultOrder } from 'node:dns';
 import type { Plugin, ViteDevServer } from 'vite';
+
+// Some Windows/home-router setups advertise IPv6 without it actually being
+// routable, which makes Node's fetch (used by both our TMDb proxy and the
+// Neon driver) hang/fail while other tools that fall back to IPv4 work
+// fine. Prefer IPv4 for DNS resolution in this dev process only.
+setDefaultResultOrder('ipv4first');
 
 /**
  * Dev-only Vite plugin that serves frontend/api/* the same way Vercel does

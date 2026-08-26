@@ -1,4 +1,5 @@
 import type { ApiRequest, ApiResponse } from '../_lib/types';
+import { describeError } from '../_lib/types';
 import { requireSession } from '../_lib/auth';
 import { db } from '../_lib/db';
 
@@ -12,6 +13,7 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     const stats = await db.libraryStats();
     res.status(200).json(stats);
   } catch (err) {
-    res.status(500).json({ error: err instanceof Error ? err.message : 'Internal error' });
+    console.error(err);
+    res.status(500).json({ error: describeError(err, 'Internal error') });
   }
 }

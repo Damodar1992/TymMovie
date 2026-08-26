@@ -1,4 +1,5 @@
 import type { ApiRequest, ApiResponse } from '../_lib/types';
+import { describeError } from '../_lib/types';
 import { requireSession } from '../_lib/auth';
 import { searchMulti } from '../_lib/tmdb';
 
@@ -20,6 +21,7 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     const results = await searchMulti(q, language);
     res.status(200).json({ results });
   } catch (err) {
-    res.status(502).json({ error: err instanceof Error ? err.message : 'TMDb request failed' });
+    console.error(err);
+    res.status(502).json({ error: describeError(err, 'TMDb request failed') });
   }
 }
