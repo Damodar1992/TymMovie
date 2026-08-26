@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types';
-import { readJsonBody, describeError } from '../_lib/types';
-import { requireAdmin, requireSession } from '../_lib/auth';
-import { db, computeUserAvgRating } from '../_lib/db';
+import type { ApiRequest, ApiResponse } from '../_lib/types.js';
+import { readJsonBody, describeError } from '../_lib/types.js';
+import { requireAdmin, requireSession } from '../_lib/auth.js';
+import { db, computeUserAvgRating } from '../_lib/db.js';
 
 interface UpdateMovieBody {
   status?: string;

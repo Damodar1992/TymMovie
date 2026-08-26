@@ -1,6 +1,6 @@
 import { createHmac, timingSafeEqual } from 'node:crypto';
-import type { ApiRequest, ApiResponse } from './types';
-import { getCookies } from './types';
+import type { ApiRequest, ApiResponse } from './types.js';
+import { getCookies } from './types.js';
 
 export type SessionRole = 'admin' | 'guest';
 

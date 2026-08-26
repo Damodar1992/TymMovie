@@ -1,6 +1,6 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types';
-import { readJsonBody, describeError } from '../_lib/types';
-import { checkAdminCredentials, setSessionCookie } from '../_lib/auth';
+import type { ApiRequest, ApiResponse } from '../_lib/types.js';
+import { readJsonBody, describeError } from '../_lib/types.js';
+import { checkAdminCredentials, setSessionCookie } from '../_lib/auth.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'POST') {

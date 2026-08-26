@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types';
-import { describeError } from '../_lib/types';
-import { requireSession } from '../_lib/auth';
-import { db } from '../_lib/db';
+import type { ApiRequest, ApiResponse } from '../_lib/types.js';
+import { describeError } from '../_lib/types.js';
+import { requireSession } from '../_lib/auth.js';
+import { db } from '../_lib/db.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'GET') {

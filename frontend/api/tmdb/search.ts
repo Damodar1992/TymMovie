@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types';
-import { describeError } from '../_lib/types';
-import { requireSession } from '../_lib/auth';
-import { searchMulti } from '../_lib/tmdb';
+import type { ApiRequest, ApiResponse } from '../_lib/types.js';
+import { describeError } from '../_lib/types.js';
+import { requireSession } from '../_lib/auth.js';
+import { searchMulti } from '../_lib/tmdb.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'GET') {

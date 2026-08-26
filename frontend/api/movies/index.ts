@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types';
-import { readJsonBody, describeError } from '../_lib/types';
-import { requireAdmin, requireSession } from '../_lib/auth';
-import { db, normalizeTitle, computeUserAvgRating } from '../_lib/db';
+import type { ApiRequest, ApiResponse } from '../_lib/types.js';
+import { readJsonBody, describeError } from '../_lib/types.js';
+import { requireAdmin, requireSession } from '../_lib/auth.js';
+import { db, normalizeTitle, computeUserAvgRating } from '../_lib/db.js';
 
 function firstQueryValue(v: string | string[] | undefined): string | undefined {
   return Array.isArray(v) ? v[0] : v;
