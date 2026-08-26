@@ -54,19 +54,27 @@ export function getSession(req: ApiRequest): { role: SessionRole } | null {
   return verifySessionToken(cookies[COOKIE_NAME]);
 }
 
+// Browsers refuse to store a `Secure` cookie on a plain http:// origin, which
+// is exactly what local dev (`vite dev`, `vercel dev`) serves on. Vercel sets
+// VERCEL=1 on every real deployment (dev/preview/production), all of which
+// are HTTPS, so gate on that rather than NODE_ENV.
+const IS_HTTPS_DEPLOYMENT = process.env.VERCEL === '1';
+
 export function setSessionCookie(res: ApiResponse, role: SessionRole): void {
   const token = createSessionToken(role);
   const maxAge = SESSION_TTL_SECONDS;
+  const secure = IS_HTTPS_DEPLOYMENT ? '; Secure' : '';
   res.setHeader(
     'Set-Cookie',
-    `${COOKIE_NAME}=${token}; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=${maxAge}`,
+    `${COOKIE_NAME}=${token}; Path=/; HttpOnly${secure}; SameSite=Lax; Max-Age=${maxAge}`,
   );
 }
 
 export function clearSessionCookie(res: ApiResponse): void {
+  const secure = IS_HTTPS_DEPLOYMENT ? '; Secure' : '';
   res.setHeader(
     'Set-Cookie',
-    `${COOKIE_NAME}=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0`,
+    `${COOKIE_NAME}=; Path=/; HttpOnly${secure}; SameSite=Lax; Max-Age=0`,
   );
 }
 

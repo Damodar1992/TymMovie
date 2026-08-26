@@ -32,14 +32,14 @@
 
 - Установите зависимости: `cd frontend && npm install`.
 - Скопируйте `frontend/.env.example` в `frontend/.env` и заполните все переменные (см. выше).
-- Локально нужен Vercel CLI, чтобы serverless-функции из `frontend/api/` поднимались рядом с Vite:
+- Запускайте как обычно:
   ```bash
-  npm i -g vercel   # один раз
-  cd frontend && vercel dev
+  cd frontend && npm run dev
   ```
-  `vercel dev` сам подхватит `frontend/.env` для функций и будет проксировать `/api/*` на них.
-- Просто фронтенд без функций: `npm run dev` (запросы к `/api/*` работать не будут — экран логина
-  и данные не загрузятся, это ожидаемо при таком запуске).
+  Vercel CLI и аккаунт Vercel для этого не нужны. Dev-only плагин Vite (`frontend/dev-api-plugin.ts`)
+  сам поднимает `frontend/api/*` на том же порту, что и React-приложение, и подтягивает
+  `frontend/.env` в `process.env`. В сборку (`npm run build`) этот плагин не попадает — на проде
+  `api/*` продолжает собирать и обслуживать сам Vercel, используя ровно те же файлы обработчиков.
 
 ## База данных
 

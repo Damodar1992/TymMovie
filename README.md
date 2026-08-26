@@ -45,14 +45,18 @@ client-side JS.
    This runs each file in `frontend/migrations/` once (tracked in a `_migrations` table), so it's
    safe to run again after pulling new migrations.
 
-4. **Local dev** — this project needs the serverless functions running alongside Vite, so use the
-   [Vercel CLI](https://vercel.com/docs/cli) rather than plain `vite dev`:
+4. **Local dev** — just the usual:
    ```bash
-   npm i -g vercel   # once
-   cd frontend && vercel dev
+   cd frontend && npm run dev
    ```
-   `vercel dev` serves the React app and emulates `frontend/api/*` on the same port, and loads
-   `frontend/.env` for the functions' `process.env`.
+   A dev-only Vite plugin (`frontend/dev-api-plugin.ts`) serves `frontend/api/*` on the same port
+   as the React app and loads `frontend/.env` into `process.env`, so the API routes work locally
+   without the Vercel CLI or a Vercel account. It never runs during `npm run build` — Vercel builds
+   and serves `api/*` independently in production, using the exact same handler files.
+
+   Note: session cookies are only marked `Secure` when `process.env.VERCEL` is set (i.e. on an
+   actual Vercel deployment), since a `Secure` cookie is silently refused by the browser over plain
+   `http://localhost`.
 
 5. **Deploy**
    - Connect the repo to Vercel, set **Root Directory** to `frontend`.
