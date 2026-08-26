@@ -11,11 +11,17 @@ function DesktopLoginPage() {
   const [showPassword, setShowPassword] = useState(false);
   const [remember, setRemember] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const canSubmit = loginValue.trim().length > 0 && passwordValue.length > 0;
+  const [pending, setPending] = useState(false);
+  const canSubmit = loginValue.trim().length > 0 && passwordValue.length > 0 && !pending;
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
-    if (!login(loginValue.trim(), passwordValue)) setError('Wrong login or password.');
+    if (pending) return;
+    setPending(true);
+    setError(null);
+    const ok = await login(loginValue.trim(), passwordValue);
+    setPending(false);
+    if (!ok) setError('Wrong login or password.');
   };
 
   return (
@@ -56,7 +62,7 @@ function DesktopLoginPage() {
             <label className="desktop-auth-field"><span>Login</span><input type="text" placeholder="admin" value={loginValue} onChange={(event) => { setLoginValue(event.target.value); setError(null); }} autoComplete="username" /></label>
             <label className="desktop-auth-field"><span>Password</span><div className="desktop-auth-password-wrap"><input type={showPassword ? 'text' : 'password'} placeholder="••••••••" value={passwordValue} onChange={(event) => { setPasswordValue(event.target.value); setError(null); }} autoComplete="current-password" /><button type="button" onClick={() => setShowPassword((value) => !value)}>{showPassword ? 'hide' : 'show'}</button></div></label>
             <div className="desktop-auth-options"><label><input type="checkbox" checked={remember} onChange={(event) => setRemember(event.target.checked)} /><span>Keep me signed in</span></label><span className="desktop-auth-help">Need help?</span></div>
-            <button className="desktop-auth-submit" type="submit" disabled={!canSubmit}>Sign in</button>
+            <button className="desktop-auth-submit" type="submit" disabled={!canSubmit}>{pending ? 'Signing in\u2026' : 'Sign in'}</button>
             <div className="desktop-auth-divider"><span>or</span></div>
             <button type="button" className="desktop-auth-guest" onClick={loginAsGuest}>Continue as guest</button>
             <p className="desktop-auth-footnote">Guests can browse the list, but not rate or edit.</p>

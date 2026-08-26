@@ -1,5 +1,9 @@
 const TMDB_BASE = 'https://api.themoviedb.org/3';
 
+/** Detail lookups are only needed to read genres for filtering; cap them so
+ *  one search click can't fan out into dozens of TMDb requests. */
+const MAX_DETAIL_LOOKUPS = 12;
+
 export type TmdbContentType = 'MOVIE' | 'TV';
 
 export interface TmdbSearchResult {
@@ -23,37 +27,20 @@ export interface TmdbDetails {
   posterPath: string | null;
 }
 
-let imageBaseUrl: string | null = null;
-
-function getApiKey(): string | null {
-  const key = import.meta.env.VITE_TMDB_API_KEY as string | undefined;
-  return key?.trim() || null;
+function getApiKey(): string {
+  const key = process.env.TMDB_API_KEY;
+  if (!key) throw new Error('TMDB_API_KEY is not set on the server');
+  return key;
 }
 
 async function authFetch(path: string): Promise<Response> {
-  const apiKey = getApiKey();
-  if (!apiKey) throw new Error('TMDb API key is not configured');
   const url = `${TMDB_BASE}${path}`;
   return fetch(url, {
     headers: {
-      Authorization: `Bearer ${apiKey}`,
+      Authorization: `Bearer ${getApiKey()}`,
       accept: 'application/json',
     },
   });
-}
-
-export async function loadImageConfig(): Promise<string> {
-  if (imageBaseUrl) return imageBaseUrl;
-  const res = await authFetch('/configuration');
-  if (!res.ok) throw new Error('Failed to load TMDb configuration');
-  const data = (await res.json()) as {
-    images?: { secure_base_url?: string; base_url?: string };
-  };
-  imageBaseUrl =
-    data.images?.secure_base_url ??
-    data.images?.base_url ??
-    'https://image.tmdb.org/t/p/';
-  return imageBaseUrl!;
 }
 
 export async function searchMulti(
@@ -74,24 +61,18 @@ export async function searchMulti(
   const results = Array.isArray(data.results) ? data.results : [];
   const mapped = results
     .map((raw) => raw as Record<string, unknown>)
-    .filter(
-      (r) => r.media_type === 'movie' || r.media_type === 'tv',
-    )
+    .filter((r) => r.media_type === 'movie' || r.media_type === 'tv')
     .map((r) => {
       const isMovie = r.media_type === 'movie';
       const id = Number(r.id);
       const title = (isMovie ? (r.title as string) : (r.name as string)) ?? '';
       const date =
-        (isMovie ? (r.release_date as string) : (r.first_air_date as string)) ??
-        '';
+        (isMovie ? (r.release_date as string) : (r.first_air_date as string)) ?? '';
       const year =
-        typeof date === 'string' && date.length >= 4
-          ? Number(date.slice(0, 4))
-          : null;
+        typeof date === 'string' && date.length >= 4 ? Number(date.slice(0, 4)) : null;
       const posterPath = (r.poster_path as string | undefined) ?? null;
       const voteAvg = r.vote_average as number | undefined;
-      const rating =
-        typeof voteAvg === 'number' ? Math.round(voteAvg * 10) / 10 : null;
+      const rating = typeof voteAvg === 'number' ? Math.round(voteAvg * 10) / 10 : null;
       return {
         tmdbId: id,
         contentType: isMovie ? 'MOVIE' : 'TV',
@@ -102,10 +83,13 @@ export async function searchMulti(
         genres: null,
       } as TmdbSearchResult;
     });
-  // First, keep only entries where TMDb rating is present and > 0
-  const rated = mapped.filter((r) => r.tmdbRating != null && r.tmdbRating > 0);
 
-  // Then load details in parallel to populate genres and drop entries without genres
+  // Keep only entries with a real TMDb rating, most relevant first, capped
+  // before we spend a detail request on each one just to read its genres.
+  const rated = mapped
+    .filter((r) => r.tmdbRating != null && r.tmdbRating > 0)
+    .slice(0, MAX_DETAIL_LOOKUPS);
+
   const withGenres = await Promise.all(
     rated.map(async (r) => {
       try {
@@ -120,9 +104,7 @@ export async function searchMulti(
     }),
   );
 
-  return withGenres.filter(
-    (r) => Array.isArray(r.genres) && r.genres.length > 0,
-  );
+  return withGenres.filter((r) => Array.isArray(r.genres) && r.genres.length > 0);
 }
 
 export async function getMovieDetails(id: number): Promise<TmdbDetails> {
@@ -143,8 +125,7 @@ export async function getMovieDetails(id: number): Promise<TmdbDetails> {
       ? Number(releaseDate.slice(0, 4))
       : null;
   const voteAvg = d.vote_average;
-  const rating =
-    typeof voteAvg === 'number' ? Math.round(voteAvg * 10) / 10 : null;
+  const rating = typeof voteAvg === 'number' ? Math.round(voteAvg * 10) / 10 : null;
   const genres = Array.isArray(d.genres) ? d.genres.map((g) => g.name) : null;
   return {
     tmdbId: d.id,
@@ -176,8 +157,7 @@ export async function getTvDetails(id: number): Promise<TmdbDetails> {
       ? Number(firstAirDate.slice(0, 4))
       : null;
   const voteAvg = d.vote_average;
-  const rating =
-    typeof voteAvg === 'number' ? Math.round(voteAvg * 10) / 10 : null;
+  const rating = typeof voteAvg === 'number' ? Math.round(voteAvg * 10) / 10 : null;
   const genres = Array.isArray(d.genres) ? d.genres.map((g) => g.name) : null;
   return {
     tmdbId: d.id,
@@ -189,13 +169,4 @@ export async function getTvDetails(id: number): Promise<TmdbDetails> {
     genres,
     posterPath: d.poster_path ?? null,
   };
-}
-
-export async function buildPosterUrl(
-  posterPath: string | null,
-  size: 'w342' | 'w500' = 'w342',
-): Promise<string | null> {
-  if (!posterPath) return null;
-  const base = await loadImageConfig();
-  return `${base}${size}${posterPath}`;
 }

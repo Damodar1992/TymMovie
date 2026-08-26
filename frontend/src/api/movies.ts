@@ -4,14 +4,7 @@ import {
   useQuery,
   useQueryClient,
 } from '@tanstack/react-query';
-import { db, computeUserAvgRating, normalizeTitle } from '../../lib/db';
-import { AUTH_STORAGE_KEY } from '../auth/AuthContext';
-import {
-  searchMulti,
-  getMovieDetails,
-  getTvDetails,
-  type TmdbDetails,
-} from '../../lib/tmdb';
+import { apiClient } from './client';
 
 export const MOVIES_PAGE_SIZE = 50;
 
@@ -54,37 +47,25 @@ export type MoviesPageResult = {
   totalPages: number;
 };
 
-export interface EnrichedMetadata {
-  tmdb: TmdbDetails;
-}
-
-function isReadOnlyMode(): boolean {
-  try {
-    return localStorage.getItem(AUTH_STORAGE_KEY) === 'guest';
-  } catch {
-    return false;
-  }
-}
-
 async function fetchMoviesPage(
   params: MoviesQueryParams,
   page: number,
 ): Promise<MoviesPageResult> {
   const limit = MOVIES_PAGE_SIZE;
-  const result = await db.list({
-    search: params.search,
-    status: params.status,
-    contentType: params.contentType,
-    genres: params.genres,
-    sortBy: params.sortBy,
-    sortOrder: params.sortOrder,
-    page,
-    limit,
+  const { data } = await apiClient.get<{ items: Movie[]; total: number }>('/movies', {
+    params: {
+      search: params.search,
+      status: params.status,
+      contentType: params.contentType,
+      genres: params.genres?.length ? params.genres.join(',') : undefined,
+      sortBy: params.sortBy,
+      sortOrder: params.sortOrder,
+      page,
+    },
   });
-  const items = result.items as Movie[];
-  const total = result.total;
+  const total = data.total;
   const totalPages = Math.ceil(total / limit) || 1;
-  return { items, total, page, limit, totalPages };
+  return { items: data.items, total, page, limit, totalPages };
 }
 
 export function useMoviesQuery(params: MoviesQueryParams) {
@@ -94,9 +75,7 @@ export function useMoviesQuery(params: MoviesQueryParams) {
   });
 }
 
-export function useMoviesInfiniteQuery(
-  params: Omit<MoviesQueryParams, 'page'>,
-) {
+export function useMoviesInfiniteQuery(params: Omit<MoviesQueryParams, 'page'>) {
   return useInfiniteQuery({
     queryKey: ['movies', 'infinite', params],
     queryFn: ({ pageParam }) => fetchMoviesPage(params, pageParam),
@@ -120,10 +99,31 @@ export function useLibraryStatsQuery() {
   return useQuery({
     queryKey: ['movies', 'library-stats'],
     queryFn: async (): Promise<LibraryStats> => {
-      const stats = await db.libraryStats();
-      return { ...stats, members: LIBRARY_MEMBER_COUNT };
+      const { data } = await apiClient.get<{ total: number; watched: number; planned: number }>(
+        '/movies/stats',
+      );
+      return { ...data, members: LIBRARY_MEMBER_COUNT };
     },
   });
+}
+
+/** Distinct genres across the whole catalog (server-side), not just the
+ *  currently-loaded page — see api/movies/genres.ts. */
+export function useGenresQuery() {
+  return useQuery({
+    queryKey: ['movies', 'genres'],
+    queryFn: async (): Promise<string[]> => {
+      const { data } = await apiClient.get<{ genres: string[] }>('/movies/genres');
+      return data.genres;
+    },
+    staleTime: 5 * 60 * 1000,
+  });
+}
+
+function errorMessage(err: unknown, fallback: string): Error {
+  const maybeAxios = err as { response?: { data?: { error?: string } } };
+  const message = maybeAxios?.response?.data?.error;
+  return new Error(message || fallback);
 }
 
 export function useCreateMovieMutation() {
@@ -145,44 +145,10 @@ export function useCreateMovieMutation() {
       bogdanRating: number | null;
       comment?: string | null;
     }) => {
-      if (isReadOnlyMode()) {
-        throw new Error('Read-only mode: create is disabled.');
-      }
       try {
-        const userAvgRating = computeUserAvgRating(
-          payload.innaRating,
-          payload.bogdanRating,
-        );
-        const titleNormalized = normalizeTitle(payload.title);
-        const duplicate = await db.findDuplicate({
-          tmdbId: payload.tmdbId,
-          contentType: payload.contentType,
-        });
-        if (duplicate) {
-          throw new Error(
-            'An entry with the same TMDb id and type already exists.',
-          );
-        }
-        await db.create({
-          contentType: payload.contentType,
-          title: payload.title,
-          titleNormalized,
-          status: payload.status,
-          watchDate: payload.watchDate,
-          innaRating: payload.innaRating,
-          bogdanRating: payload.bogdanRating,
-          userAvgRating,
-          originalTitle: payload.originalTitle,
-          titleUa: payload.titleUa ?? null,
-          tmdbId: payload.tmdbId,
-          posterUrl: payload.posterUrl,
-          genres: payload.genres,
-          tmdbRating: payload.tmdbRating,
-          releaseYear: payload.releaseYear,
-          comment: payload.comment ?? null,
-        });
+        await apiClient.post('/movies', payload);
       } catch (err) {
-        throw err;
+        throw errorMessage(err, 'Failed to save the movie.');
       }
     },
     onSuccess: () => {
@@ -195,25 +161,11 @@ export function useUpdateMovieMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (params: { id: string; payload: unknown }) => {
-      if (isReadOnlyMode()) {
-        throw new Error('Read-only mode: update is disabled.');
+      try {
+        await apiClient.patch(`/movies/${params.id}`, params.payload);
+      } catch (err) {
+        throw errorMessage(err, 'Failed to update the movie.');
       }
-      const p = params.payload as {
-        status: MovieStatus;
-        watchDate: string | null;
-        innaRating: number | null;
-        bogdanRating: number | null;
-        comment?: string | null;
-      };
-      const userAvgRating = computeUserAvgRating(p.innaRating, p.bogdanRating);
-      await db.update(params.id, {
-        status: p.status,
-        watchDate: p.watchDate,
-        innaRating: p.innaRating,
-        bogdanRating: p.bogdanRating,
-        userAvgRating,
-        comment: p.comment,
-      });
       return null;
     },
     onSuccess: () => {
@@ -226,10 +178,11 @@ export function useDeleteMovieMutation() {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (id: string) => {
-      if (isReadOnlyMode()) {
-        throw new Error('Read-only mode: delete is disabled.');
+      try {
+        await apiClient.delete(`/movies/${id}`);
+      } catch (err) {
+        throw errorMessage(err, 'Failed to delete the movie.');
       }
-      await db.delete(id);
       return null;
     },
     onSuccess: () => {
@@ -237,15 +190,3 @@ export function useDeleteMovieMutation() {
     },
   });
 }
-
-export async function enrichMovieByTitle(title: string): Promise<EnrichedMetadata | null> {
-  const results = await searchMulti(title);
-  if (results.length === 0) return null;
-  const first = results[0];
-  const details: TmdbDetails =
-    first.contentType === 'MOVIE'
-      ? await getMovieDetails(first.tmdbId)
-      : await getTvDetails(first.tmdbId);
-  return { tmdb: details };
-}
-

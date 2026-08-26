@@ -1,32 +1,19 @@
 import { neon } from '@neondatabase/serverless';
 
-/** All DB operations (list, getById, create, update, delete, duplicate checks) go to Neon PostgreSQL via VITE_DATABASE_URL. */
+/**
+ * Server-side data layer. Runs only inside Vercel serverless functions —
+ * DATABASE_URL is a plain (non-VITE_) env var, so it never reaches the
+ * browser bundle. Schema changes live in /migrations as numbered SQL files
+ * (see scripts/migrate.mjs); this module assumes the schema is current.
+ */
 function getSql() {
-  const url = import.meta.env.VITE_DATABASE_URL as string | undefined;
-  if (!url) throw new Error('VITE_DATABASE_URL is not set');
+  const url = process.env.DATABASE_URL;
+  if (!url) throw new Error('DATABASE_URL is not set');
   return neon(url);
 }
 
 const MOVIE_COLS =
   'id, content_type, title, title_normalized, original_title, title_ua, tmdb_id, poster_url, genres, tmdb_rating, release_year, inna_rating, bogdan_rating, user_avg_rating, comment_text, status, watch_date, created_at, updated_at';
-
-let ensureMoviesSchemaPromise: Promise<void> | null = null;
-
-async function ensureMoviesSchema() {
-  if (!ensureMoviesSchemaPromise) {
-    const sql = getSql();
-    ensureMoviesSchemaPromise = (async () => {
-      await sql(
-        'ALTER TABLE movies ADD COLUMN IF NOT EXISTS comment_text TEXT NULL',
-      );
-    })().catch((err) => {
-      ensureMoviesSchemaPromise = null;
-      throw err;
-    });
-  }
-
-  await ensureMoviesSchemaPromise;
-}
 
 export type MovieRow = {
   id: string;
@@ -59,9 +46,7 @@ function dateToYYYYMMDD(d: Date): string {
 
 function rowToMovie(r: MovieRow) {
   const watchDateValue =
-    r.watch_date instanceof Date
-      ? dateToYYYYMMDD(r.watch_date)
-      : r.watch_date;
+    r.watch_date instanceof Date ? dateToYYYYMMDD(r.watch_date) : r.watch_date;
   return {
     id: r.id,
     contentType: r.content_type as 'MOVIE' | 'TV',
@@ -85,6 +70,19 @@ function rowToMovie(r: MovieRow) {
   };
 }
 
+export function normalizeTitle(title: string): string {
+  return title.trim().toLowerCase();
+}
+
+export function computeUserAvgRating(
+  inna: number | null,
+  bogdan: number | null,
+): number | null {
+  const ratings = [inna, bogdan].filter((r): r is number => r != null);
+  if (ratings.length === 0) return null;
+  return Math.round((ratings.reduce((a, b) => a + b, 0) / ratings.length) * 10) / 10;
+}
+
 export const db = {
   async list(params: {
     search?: string;
@@ -96,78 +94,66 @@ export const db = {
     page?: number;
     limit?: number;
   }) {
-    try {
-      await ensureMoviesSchema();
-      const sql = getSql();
-      const page = params.page ?? 1;
-      const limit = Math.min(params.limit ?? 50, 50);
-      const offset = (page - 1) * limit;
-      const sortBy =
-        params.sortBy === 'watch_date'
-          ? 'watch_date'
-          : params.sortBy === 'created_at'
-            ? 'created_at'
-            : 'user_avg_rating';
-      const order = params.sortOrder === 'asc' ? 'ASC' : 'DESC';
+    const sql = getSql();
+    const page = params.page ?? 1;
+    const limit = Math.min(params.limit ?? 50, 50);
+    const offset = (page - 1) * limit;
+    const sortBy =
+      params.sortBy === 'watch_date'
+        ? 'watch_date'
+        : params.sortBy === 'created_at'
+          ? 'created_at'
+          : 'user_avg_rating';
+    const order = params.sortOrder === 'asc' ? 'ASC' : 'DESC';
 
-      const conditions: string[] = [];
-      const values: unknown[] = [];
-      let idx = 1;
+    const conditions: string[] = [];
+    const values: unknown[] = [];
+    let idx = 1;
 
-      if (params.search?.trim()) {
-        conditions.push(
-          `(LOWER(title) LIKE $${idx} OR LOWER(original_title) LIKE $${idx} OR LOWER(COALESCE(title_ua, '')) LIKE $${idx})`,
-        );
-        values.push(`%${params.search.trim().toLowerCase()}%`);
-        idx++;
-      }
-      if (params.status) {
-        conditions.push(`status = $${idx}`);
-        values.push(params.status);
-        idx++;
-      }
-      if (params.contentType) {
-        conditions.push(`content_type = $${idx}`);
-        values.push(params.contentType);
-        idx++;
-      }
-      if (params.genres?.length) {
-        // The JSONB overlap operator expects a PostgreSQL text array.
-        conditions.push(`genres ?| $${idx}::text[]`);
-        values.push(params.genres);
-        idx++;
-      }
-
-      const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
-      const countResult = await sql(
-        `SELECT COUNT(*)::int AS c FROM movies ${whereClause}`,
-        values,
+    if (params.search?.trim()) {
+      conditions.push(
+        `(LOWER(title) LIKE $${idx} OR LOWER(original_title) LIKE $${idx} OR LOWER(COALESCE(title_ua, '')) LIKE $${idx})`,
       );
-      const total = (countResult[0] as { c: number })?.c ?? 0;
-
-      const nullableOrder =
-        sortBy === 'user_avg_rating' || sortBy === 'watch_date'
-          ? 'NULLS LAST'
-          : '';
-      const orderClause = `ORDER BY ${sortBy} ${order} ${nullableOrder}`;
-      const rows = await sql(
-        `SELECT ${MOVIE_COLS} FROM movies ${whereClause} ${orderClause} LIMIT $${idx} OFFSET $${idx + 1}`,
-        [...values, limit, offset],
-      );
-
-      return {
-        items: (rows as MovieRow[]).map(rowToMovie),
-        total,
-        page,
-        limit,
-      };
-    } catch (err) {
-      throw err;
+      values.push(`%${params.search.trim().toLowerCase()}%`);
+      idx++;
     }
+    if (params.status) {
+      conditions.push(`status = $${idx}`);
+      values.push(params.status);
+      idx++;
+    }
+    if (params.contentType) {
+      conditions.push(`content_type = $${idx}`);
+      values.push(params.contentType);
+      idx++;
+    }
+    if (params.genres?.length) {
+      conditions.push(`genres ?| $${idx}::text[]`);
+      values.push(params.genres);
+      idx++;
+    }
+
+    const whereClause = conditions.length ? `WHERE ${conditions.join(' AND ')}` : '';
+    const countResult = await sql(`SELECT COUNT(*)::int AS c FROM movies ${whereClause}`, values);
+    const total = (countResult[0] as { c: number })?.c ?? 0;
+
+    const nullableOrder =
+      sortBy === 'user_avg_rating' || sortBy === 'watch_date' ? 'NULLS LAST' : '';
+    const orderClause = `ORDER BY ${sortBy} ${order} ${nullableOrder}`;
+    const rows = await sql(
+      `SELECT ${MOVIE_COLS} FROM movies ${whereClause} ${orderClause} LIMIT $${idx} OFFSET $${idx + 1}`,
+      [...values, limit, offset],
+    );
+
+    return {
+      items: (rows as MovieRow[]).map(rowToMovie),
+      total,
+      page,
+      limit,
+    };
   },
 
   async getById(id: string) {
-    await ensureMoviesSchema();
     const sql = getSql();
     const rows = await sql(`SELECT ${MOVIE_COLS} FROM movies WHERE id = $1`, [id]);
     const row = rows[0] as MovieRow | undefined;
@@ -192,7 +178,6 @@ export const db = {
     releaseYear?: number | null;
     comment?: string | null;
   }) {
-    await ensureMoviesSchema();
     const sql = getSql();
     const id = crypto.randomUUID();
     await sql(
@@ -242,7 +227,6 @@ export const db = {
       comment: string | null;
     }>,
   ) {
-    await ensureMoviesSchema();
     const sql = getSql();
     const updates: string[] = [];
     const values: unknown[] = [];
@@ -264,7 +248,8 @@ export const db = {
     if (data.titleUa !== undefined) set('title_ua', data.titleUa);
     if (data.tmdbId !== undefined) set('tmdb_id', data.tmdbId);
     if (data.posterUrl !== undefined) set('poster_url', data.posterUrl);
-    if (data.genres !== undefined) set('genres', data.genres ? JSON.stringify(data.genres) : null);
+    if (data.genres !== undefined)
+      set('genres', data.genres ? JSON.stringify(data.genres) : null);
     if (data.tmdbRating !== undefined) set('tmdb_rating', data.tmdbRating);
     if (data.releaseYear !== undefined) set('release_year', data.releaseYear);
     if (data.comment !== undefined) set('comment_text', data.comment);
@@ -276,20 +261,11 @@ export const db = {
   },
 
   async delete(id: string) {
-    await ensureMoviesSchema();
     const sql = getSql();
     await sql('DELETE FROM movies WHERE id = $1', [id]);
   },
 
-  async findByTitleNormalized(titleNormalized: string) {
-    await ensureMoviesSchema();
-    const sql = getSql();
-    const rows = await sql('SELECT id FROM movies WHERE title_normalized = $1 LIMIT 1', [titleNormalized]);
-    return rows.length > 0;
-  },
-
   async findDuplicate(params: { tmdbId?: number | null; contentType?: 'MOVIE' | 'TV' }) {
-    await ensureMoviesSchema();
     const sql = getSql();
     if (params.tmdbId == null || !params.contentType) return false;
     const rows = await sql(
@@ -301,7 +277,6 @@ export const db = {
 
   /** Absolute catalog counts (ignores list filters). */
   async libraryStats() {
-    await ensureMoviesSchema();
     const sql = getSql();
     const rows = await sql(
       `SELECT
@@ -310,23 +285,27 @@ export const db = {
          COUNT(*) FILTER (WHERE status = 'WANT_TO_WATCH')::int AS planned
        FROM movies`,
     );
-    const row = rows[0] as
-      | { total: number; watched: number; planned: number }
-      | undefined;
+    const row = rows[0] as { total: number; watched: number; planned: number } | undefined;
     return {
       total: row?.total ?? 0,
       watched: row?.watched ?? 0,
       planned: row?.planned ?? 0,
     };
   },
+
+  /**
+   * Distinct genres across the WHOLE catalog (not just the currently loaded
+   * page) — used to populate the genre filter correctly regardless of how
+   * much of the catalog the client has scrolled through.
+   */
+  async listGenres(): Promise<string[]> {
+    const sql = getSql();
+    const rows = await sql(
+      `SELECT DISTINCT jsonb_array_elements_text(genres) AS genre
+       FROM movies
+       WHERE genres IS NOT NULL
+       ORDER BY genre`,
+    );
+    return (rows as { genre: string }[]).map((r) => r.genre);
+  },
 };
-
-export function normalizeTitle(title: string): string {
-  return title.trim().toLowerCase();
-}
-
-export function computeUserAvgRating(inna: number | null, bogdan: number | null): number | null {
-  const ratings = [inna, bogdan].filter((r): r is number => r != null);
-  if (ratings.length === 0) return null;
-  return Math.round((ratings.reduce((a, b) => a + b, 0) / ratings.length) * 10) / 10;
-}

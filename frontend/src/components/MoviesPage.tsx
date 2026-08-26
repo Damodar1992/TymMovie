@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useLibraryStatsQuery, useMoviesInfiniteQuery } from '../api/movies';
+import { useGenresQuery, useLibraryStatsQuery, useMoviesInfiniteQuery } from '../api/movies';
 import type { Movie } from '../api/movies';
 import { MovieGrid } from './MovieGrid';
 import { MovieFormModal } from './MovieFormModal';
@@ -51,6 +51,7 @@ export function MoviesPage() {
     sortOrder,
   });
   const { data: libraryStats } = useLibraryStatsQuery();
+  const { data: availableGenres = [] } = useGenresQuery();
 
   const items = useMemo(
     () => data?.pages.flatMap((page) => page.items) ?? [],
@@ -66,17 +67,6 @@ export function MoviesPage() {
   const sentinelRef = useInfiniteScroll(loadMore, {
     enabled: Boolean(hasNextPage) && items.length > 0,
   });
-
-  const availableGenres = Array.from(
-    new Set(
-      items
-        .flatMap((m) => m.genres ?? [])
-        .filter((g): g is string => {
-          if (typeof g !== 'string') return false;
-          return g.trim().length > 0;
-        }),
-    ),
-  ).sort((a, b) => a.localeCompare(b));
 
   return (
     <div className="page">

@@ -2,96 +2,84 @@ import {
   createContext,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
   type ReactNode,
 } from 'react';
+import { apiClient } from '../api/client';
 
 export type AuthMode = 'admin' | 'guest' | null;
 
-/** Legacy key — still written for existing clients. */
-export const AUTH_STORAGE_KEY = 'tym-movies-auth-mode';
-const SESSION_KEY = 'tm.session';
-const GUEST_KEY = 'tm.guest';
-
-const ADMIN_LOGIN = 'TymAdmin';
-const ADMIN_PASSWORD = '19911992QWe';
-
 type AuthContextValue = {
   mode: AuthMode;
+  /** True until the initial session check (GET /api/auth/session) resolves. */
+  isLoading: boolean;
   isReadOnly: boolean;
-  login: (login: string, password: string) => boolean;
-  loginAsGuest: () => void;
-  logout: () => void;
+  login: (login: string, password: string) => Promise<boolean>;
+  loginAsGuest: () => Promise<void>;
+  logout: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
-function getStoredMode(): AuthMode {
-  try {
-    if (localStorage.getItem(GUEST_KEY) === '1') return 'guest';
-    if (localStorage.getItem(SESSION_KEY)) return 'admin';
-    const raw = localStorage.getItem(AUTH_STORAGE_KEY);
-    if (raw === 'admin' || raw === 'guest') return raw;
-  } catch {
-    // ignore storage failures
-  }
-  return null;
-}
-
-function writeSession(next: AuthMode) {
-  try {
-    if (next === 'admin') {
-      localStorage.setItem(SESSION_KEY, 'admin');
-      localStorage.removeItem(GUEST_KEY);
-      localStorage.setItem(AUTH_STORAGE_KEY, 'admin');
-      return;
-    }
-    if (next === 'guest') {
-      localStorage.setItem(GUEST_KEY, '1');
-      localStorage.removeItem(SESSION_KEY);
-      localStorage.setItem(AUTH_STORAGE_KEY, 'guest');
-      return;
-    }
-    localStorage.removeItem(SESSION_KEY);
-    localStorage.removeItem(GUEST_KEY);
-    localStorage.removeItem(AUTH_STORAGE_KEY);
-  } catch {
-    // ignore storage failures
-  }
-}
-
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [mode, setMode] = useState<AuthMode>(getStoredMode);
+  const [mode, setMode] = useState<AuthMode>(null);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const login = useCallback((loginValue: string, passwordValue: string) => {
-    if (loginValue === ADMIN_LOGIN && passwordValue === ADMIN_PASSWORD) {
-      setMode('admin');
-      writeSession('admin');
+  useEffect(() => {
+    let cancelled = false;
+    (async () => {
+      try {
+        const { data } = await apiClient.get<{ mode: AuthMode }>('/auth/session');
+        if (!cancelled) setMode(data.mode);
+      } catch {
+        if (!cancelled) setMode(null);
+      } finally {
+        if (!cancelled) setIsLoading(false);
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const login = useCallback(async (loginValue: string, passwordValue: string) => {
+    try {
+      const { data } = await apiClient.post<{ mode: AuthMode }>('/auth/login', {
+        login: loginValue,
+        password: passwordValue,
+      });
+      setMode(data.mode);
       return true;
+    } catch {
+      return false;
     }
-    return false;
   }, []);
 
-  const loginAsGuest = useCallback(() => {
-    setMode('guest');
-    writeSession('guest');
+  const loginAsGuest = useCallback(async () => {
+    const { data } = await apiClient.post<{ mode: AuthMode }>('/auth/guest');
+    setMode(data.mode);
   }, []);
 
-  const logout = useCallback(() => {
-    setMode(null);
-    writeSession(null);
+  const logout = useCallback(async () => {
+    try {
+      await apiClient.post('/auth/logout');
+    } finally {
+      setMode(null);
+    }
   }, []);
 
   const value = useMemo<AuthContextValue>(
     () => ({
       mode,
+      isLoading,
       isReadOnly: mode === 'guest',
       login,
       loginAsGuest,
       logout,
     }),
-    [mode, login, loginAsGuest, logout],
+    [mode, isLoading, login, loginAsGuest, logout],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

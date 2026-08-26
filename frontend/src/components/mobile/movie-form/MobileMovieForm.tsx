@@ -13,7 +13,7 @@ import {
   getTvDetails,
   buildPosterUrl,
   type TmdbSearchResult,
-} from '../../../../lib/tmdb';
+} from '../../../api/tmdb';
 import { useAuth } from '../../../auth/AuthContext';
 import { FilterSectionCard } from '../filters/FilterSectionCard';
 import { SegmentedControl } from '../filters/SegmentedControl';

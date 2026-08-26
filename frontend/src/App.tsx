@@ -8,7 +8,7 @@ import { useAuth } from './auth/AuthContext';
 import { useIsMobileLayout } from './hooks/useIsMobileLayout';
 
 function App() {
-  const { mode } = useAuth();
+  const { mode, isLoading } = useAuth();
   const isMobile = useIsMobileLayout();
 
   useEffect(() => {
@@ -21,6 +21,12 @@ function App() {
     }
     return () => root.classList.remove('root-login-full');
   }, [mode]);
+
+  if (isLoading) {
+    // Avoid flashing the login screen while the initial
+    // GET /api/auth/session check is still in flight.
+    return null;
+  }
 
   return (
     <>

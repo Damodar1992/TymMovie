@@ -7,7 +7,7 @@ import {
   getTvDetails,
   buildPosterUrl,
   type TmdbSearchResult,
-} from '../../lib/tmdb';
+} from '../api/tmdb';
 import type { Movie, MovieStatus } from '../api/movies';
 import { useAuth } from '../auth/AuthContext';
 

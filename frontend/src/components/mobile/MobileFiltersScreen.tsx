@@ -7,7 +7,7 @@ import {
   Layers,
   Tv2,
 } from 'lucide-react';
-import { useMoviesQuery, type MovieStatus } from '../../api/movies';
+import { useGenresQuery, useMoviesQuery, type MovieStatus } from '../../api/movies';
 import { useMoviesFilters } from '../../state/MoviesFiltersContext';
 import { FiltersHeader } from './filters/FiltersHeader';
 import { FilterSectionCard } from './filters/FilterSectionCard';
@@ -57,6 +57,9 @@ export function MobileFiltersScreen({ open, onApply }: MobileFiltersScreenProps)
     page: 1,
   });
   const catalogItems = catalog?.items ?? [];
+  // Authoritative, whole-catalog genre list (fixes genres from movies
+  // outside this page-1 popularity sample being missing from the picker).
+  const { data: serverGenres = [] } = useGenresQuery();
 
   const { allGenres, popularGenres } = useMemo(() => {
     const counts = new Map<string, number>();
@@ -73,14 +76,14 @@ export function MobileFiltersScreen({ open, onApply }: MobileFiltersScreenProps)
       .map(([g]) => g);
 
     const popular = sortedByPopularity.slice(0, 6);
-    const all = Array.from(new Set([...sortedByPopularity, ...genres])).sort(
-      (a, b) => a.localeCompare(b),
-    );
+    const all = Array.from(
+      new Set([...sortedByPopularity, ...serverGenres, ...genres]),
+    ).sort((a, b) => a.localeCompare(b));
     return {
       allGenres: all,
       popularGenres: popular,
     };
-  }, [catalogItems, genres]);
+  }, [catalogItems, serverGenres, genres]);
 
   const activeCount =
     (status !== undefined ? 1 : 0) +

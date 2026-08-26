@@ -132,18 +132,16 @@ export function MobileLoginPage() {
     if (error) setError(null);
   };
 
-  const handleSubmit = (event: FormEvent) => {
+  const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     if (!canSubmit || pending) return;
     setPending(true);
     setError(null);
-    window.setTimeout(() => {
-      const ok = login(loginValue.trim(), passwordValue);
-      if (!ok) {
-        setError('Wrong login or password.');
-        setPending(false);
-      }
-    }, 180);
+    const ok = await login(loginValue.trim(), passwordValue);
+    if (!ok) {
+      setError('Wrong login or password.');
+      setPending(false);
+    }
   };
 
   return (

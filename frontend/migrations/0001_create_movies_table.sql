@@ -1,17 +1,9 @@
--- This file is a reference snapshot only. It is NOT run automatically and
--- may drift out of date — the source of truth is the numbered migrations in
--- frontend/migrations/, applied via `npm run migrate` (see README.md).
---
--- To set up a fresh database, just run `npm run migrate` — don't run this
--- file directly.
-
 CREATE TABLE IF NOT EXISTS movies (
   id UUID PRIMARY KEY,
   content_type VARCHAR(16) NOT NULL,
   title VARCHAR(255) NOT NULL,
   title_normalized VARCHAR(255) NOT NULL,
   original_title VARCHAR(255) NULL,
-  title_ua VARCHAR(255) NULL,
   tmdb_id INTEGER NULL,
   poster_url TEXT NULL,
   genres JSONB NULL,
@@ -20,7 +12,6 @@ CREATE TABLE IF NOT EXISTS movies (
   inna_rating NUMERIC(3,1) NULL,
   bogdan_rating NUMERIC(3,1) NULL,
   user_avg_rating NUMERIC(3,1) NULL,
-  comment_text TEXT NULL,
   status VARCHAR(32) NOT NULL,
   watch_date DATE NULL,
   created_at TIMESTAMP NOT NULL DEFAULT NOW(),

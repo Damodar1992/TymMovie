@@ -1,16 +1,27 @@
 ## TymMovie — Shared Movie & TV Tracker
 
-Single **frontend-only** project (React + Vite) that talks **directly from the browser** to:
-- **Neon PostgreSQL** (one `movies` table, see `frontend/schema.sql`)
+React (Vite) frontend backed by small Vercel serverless functions that talk to:
+- **Neon PostgreSQL** (one `movies` table, see `frontend/migrations/`)
 - **TMDb** (search, details, images)
 
-There is **no custom backend** and no serverless API layer — this is an intentional MVP architecture for personal/family use only.
+Personal/family project for tracking what to watch and rating what's been watched.
 
 ### Stack
 
 - **Frontend:** React, TypeScript, Vite, React Query
-- **DB:** Neon PostgreSQL (direct access via `@neondatabase/serverless`)
-- **Metadata:** TMDb multi-search + movie/TV details
+- **Backend:** Vercel serverless functions (`frontend/api/`) — no separate server to run/deploy
+- **DB:** Neon PostgreSQL, accessed only from the serverless functions via `DATABASE_URL`
+- **Metadata:** TMDb multi-search + movie/TV details, proxied through `/api/tmdb/*`
+- **Auth:** a single admin login/password plus a read-only "guest" mode, both backed by a signed, httpOnly session cookie checked server-side on every write
+
+### Why a backend now
+
+Earlier versions of this app queried Neon and TMDb directly from the browser using `VITE_`-prefixed
+env vars. That's simple, but it ships the database connection string and the TMDb API key inside the
+JS bundle — anyone who opens devtools on the deployed site can read them. The small API layer in
+`frontend/api/` exists specifically to keep those secrets server-side; the admin password is also now
+checked on the server (via a signed session cookie) instead of being a literal string compared in
+client-side JS.
 
 ### Setup
 
@@ -19,33 +30,46 @@ There is **no custom backend** and no serverless API layer — this is an intent
    cd frontend && npm install
    ```
 
-2. **Environment**
-   - Copy `frontend/.env.example` to `frontend/.env`
-   - Set:
-     - `VITE_DATABASE_URL` — Neon connection string (e.g. `postgresql://user:pass@host/db?sslmode=require`)
-     - `VITE_TMDB_API_KEY` — TMDb bearer token / API key
+2. **Environment** — copy `frontend/.env.example` to `frontend/.env` and fill in:
+   - `DATABASE_URL` — Neon connection string
+   - `TMDB_API_KEY` — TMDb bearer token
+   - `ADMIN_LOGIN` / `ADMIN_PASSWORD` — credentials for the admin login screen
+   - `AUTH_SECRET` — a long random string used to sign session cookies (e.g. `openssl rand -base64 32`)
 
-3. **Database**
-   - In Neon SQL Editor, run `frontend/schema.sql` to create the `movies` table and indexes exactly as required by the spec (supports movies + TV series in one table).
+   None of these are prefixed with `VITE_` — they're only read server-side, in `frontend/api/`.
 
-4. **Local dev** (React-only app on http://localhost:5173)
+3. **Database** — apply the schema with the migration runner:
    ```bash
-   cd frontend && npm run dev
+   cd frontend && npm run migrate
    ```
-   The app will connect directly from the browser to Neon and TMDb using the values from `.env`.
+   This runs each file in `frontend/migrations/` once (tracked in a `_migrations` table), so it's
+   safe to run again after pulling new migrations.
+
+4. **Local dev** — this project needs the serverless functions running alongside Vite, so use the
+   [Vercel CLI](https://vercel.com/docs/cli) rather than plain `vite dev`:
+   ```bash
+   npm i -g vercel   # once
+   cd frontend && vercel dev
+   ```
+   `vercel dev` serves the React app and emulates `frontend/api/*` on the same port, and loads
+   `frontend/.env` for the functions' `process.env`.
 
 5. **Deploy**
    - Connect the repo to Vercel, set **Root Directory** to `frontend`.
-   - Build command: `npm run build`, Output: `dist`.
-   - Add env vars: `VITE_DATABASE_URL`, `VITE_TMDB_API_KEY`.
-   - `frontend/vercel.json` rewrites all routes to `index.html` so the SPA works on refresh.
+   - Build command: `npm run build`, Output: `dist` (Vercel auto-detects and deploys `api/` alongside it).
+   - Add the env vars listed above in the Vercel project settings (Production and Preview).
+   - `frontend/vercel.json` rewrites non-API routes to `index.html` so the SPA works on refresh.
 
 ### Project layout
 
-- `frontend/`
-  - `src/` — React components, catalog page, hooks
-  - `lib/db.ts` — Neon access layer (list/create/update/delete, duplicate detection)
-  - `lib/tmdb.ts` — TMDb multi-search, details, image config, and URL builder
-  - `schema.sql` — DDL for the `movies` table and indexes
+- `frontend/api/` — Vercel serverless functions (the only code that touches `DATABASE_URL` / `TMDB_API_KEY`)
+  - `_lib/db.ts`, `_lib/tmdb.ts`, `_lib/auth.ts` — shared server-side logic
+  - `auth/`, `movies/`, `tmdb/` — HTTP route handlers
+- `frontend/migrations/` — numbered SQL migrations, applied via `npm run migrate`
+- `frontend/src/` — React components, catalog page, hooks
+- `frontend/src/api/` — client-side hooks/wrappers that call `frontend/api/*` over HTTP
 
-> **Security note:** Because the app talks to Neon and TMDb directly from the browser, credentials are visible to users. This is acceptable only for personal, family, or MVP usage — not for a public production deployment.
+> **Security note:** With the API layer in place, `DATABASE_URL`, `TMDB_API_KEY`, `ADMIN_PASSWORD`
+> and `AUTH_SECRET` never reach the browser. This is still a small, single-admin app meant for
+> personal/family use, not a general-purpose multi-tenant product — but it's no longer handing out
+> live database credentials to anyone who opens the network tab.
