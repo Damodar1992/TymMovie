@@ -1,4 +1,5 @@
 import type { ApiRequest, ApiResponse } from '../_lib/types';
+import { describeError } from '../_lib/types';
 import { getSession } from '../_lib/auth';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
@@ -6,6 +7,11 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     res.status(405).json({ error: 'Method not allowed' });
     return;
   }
-  const session = getSession(req);
-  res.status(200).json({ mode: session?.role ?? null });
+  try {
+    const session = getSession(req);
+    res.status(200).json({ mode: session?.role ?? null });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: describeError(err, 'Internal error') });
+  }
 }

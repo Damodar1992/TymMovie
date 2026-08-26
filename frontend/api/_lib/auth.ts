@@ -44,7 +44,14 @@ export function verifySessionToken(token: string | undefined): { role: SessionRo
   if (role !== 'admin' && role !== 'guest') return null;
   const expiresAt = Number(expiresAtRaw);
   if (!Number.isFinite(expiresAt) || expiresAt < Math.floor(Date.now() / 1000)) return null;
-  const expected = sign(`${role}.${expiresAtRaw}`);
+  let expected: string;
+  try {
+    expected = sign(`${role}.${expiresAtRaw}`);
+  } catch {
+    // AUTH_SECRET missing/misconfigured: treat as "not logged in" rather
+    // than crashing every request that merely checks for a session.
+    return null;
+  }
   if (!safeEqual(expected, signature)) return null;
   return { role };
 }

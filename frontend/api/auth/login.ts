@@ -1,5 +1,5 @@
 import type { ApiRequest, ApiResponse } from '../_lib/types';
-import { readJsonBody } from '../_lib/types';
+import { readJsonBody, describeError } from '../_lib/types';
 import { checkAdminCredentials, setSessionCookie } from '../_lib/auth';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
@@ -16,19 +16,16 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     return;
   }
 
-  let ok: boolean;
   try {
-    ok = checkAdminCredentials(login, password);
-  } catch {
-    res.status(500).json({ error: 'Server auth is not configured.' });
-    return;
+    const ok = checkAdminCredentials(login, password);
+    if (!ok) {
+      res.status(401).json({ error: 'Wrong login or password.' });
+      return;
+    }
+    setSessionCookie(res, 'admin');
+    res.status(200).json({ mode: 'admin' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: describeError(err, 'Server auth is not configured.') });
   }
-
-  if (!ok) {
-    res.status(401).json({ error: 'Wrong login or password.' });
-    return;
-  }
-
-  setSessionCookie(res, 'admin');
-  res.status(200).json({ mode: 'admin' });
 }
