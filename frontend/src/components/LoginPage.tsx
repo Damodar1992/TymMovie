@@ -43,15 +43,9 @@ function DesktopLoginPage() {
       </header>
       <main className="desktop-auth-layout">
         <section className="desktop-auth-hero" aria-label="About TymMovies">
-          <div className="desktop-auth-orbit" aria-hidden />
           <div className="desktop-auth-hero-copy">
             <h1>Everything you<br />meant to watch.</h1>
-            <p>One shared list for two people, with ratings that finally settle the argument.</p>
-            <div className="desktop-auth-stats">
-              <div><strong>13</strong><span>Titles in list</span></div>
-              <div><strong>5</strong><span>Watched together</span></div>
-              <div><strong>6.4</strong><span>Average Tym</span></div>
-            </div>
+            <p>A shared list for everyone, with ratings that finally settle the argument.</p>
           </div>
         </section>
         <section className="desktop-auth-form-area">

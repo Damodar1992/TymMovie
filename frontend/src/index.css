@@ -3111,8 +3111,8 @@ p {
   .desktop-header-actions .chip { background: rgb(255 255 255 / 5%); border-color: rgb(255 255 255 / 8%); color:#f5f5f7; }
 
   .desktop-catalog-toolbar { display: flex; flex-direction: column; gap: 18px; }
-  .desktop-toolbar-heading { width: 100%; display:flex; flex-wrap:wrap; align-items:flex-end; justify-content:space-between; gap: 16px 22px; }
-  .desktop-toolbar-heading h1 { margin: 0 0 5px; color:#fff; font-size: 36px; font-weight:700; letter-spacing:-.04em; }
+  .desktop-toolbar-heading { width: 100%; display:flex; flex-wrap:wrap; align-items:flex-start; justify-content:space-between; gap: 16px 22px; }
+  .desktop-toolbar-heading h1 { margin: 0; color:#fff; font-size: 36px; font-weight:700; letter-spacing:-.04em; line-height: 1; }
   .desktop-toolbar-heading p { margin: 0; color:#87909d; font: 12px var(--mono); }
   .desktop-status-tabs { display:flex; align-items:center; gap:8px; width: 100%; }
   .desktop-status-tabs .desktop-add-movie { margin-left: auto; }

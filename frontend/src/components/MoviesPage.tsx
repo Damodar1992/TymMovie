@@ -108,11 +108,6 @@ export function MoviesPage() {
         <div className="desktop-toolbar-heading">
           <div>
             <h1>Movies</h1>
-            <p>
-              {libraryStats
-                ? `${libraryStats.total} films · ${libraryStats.watched} watched · ${libraryStats.planned} planned`
-                : '—'}
-            </p>
           </div>
           <div className="desktop-toolbar-controls controls-row-compact">
             <div className="filter-toggle-group">
