@@ -1,4 +1,5 @@
-import { useState, type FormEvent } from 'react';
+import { useMemo, useState, type FormEvent } from 'react';
+import { Check, Search, Loader2 } from 'lucide-react';
 import { useCreateMovieMutation, useUpdateMovieMutation } from '../api/movies';
 import {
   searchMulti,
@@ -49,6 +50,10 @@ function formStateFromMovie(m: Movie | null): FormState {
   };
 }
 
+function thumbUrl(posterPath: string | null): string | null {
+  return posterPath ? `https://image.tmdb.org/t/p/w92${posterPath}` : null;
+}
+
 export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModalProps) {
   const { isReadOnly } = useAuth();
   const isEditing = Boolean(movieId);
@@ -84,19 +89,32 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
   const [error, setError] = useState<string | null>(null);
   const [tmdbResults, setTmdbResults] = useState<TmdbSearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [tmdbTypeFilter, setTmdbTypeFilter] = useState<'' | 'MOVIE' | 'TV'>(
-    '',
-  );
-  const [searchLanguage, setSearchLanguage] = useState<'uk-UA' | 'en-US'>(
-    'uk-UA',
-  );
-  /** Title from the search result when user selected it (in search language); used for title_ua when search was Ukrainian */
-  const [selectedResultTitle, setSelectedResultTitle] = useState<string | null>(
-    null,
-  );
+  const [tmdbTypeFilter, setTmdbTypeFilter] = useState<'' | 'MOVIE' | 'TV'>('');
+  const [searchLanguage, setSearchLanguage] = useState<'uk-UA' | 'en-US'>('uk-UA');
+  const [selectedResultTitle, setSelectedResultTitle] = useState<string | null>(null);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const createMutation = useCreateMovieMutation();
   const updateMutation = useUpdateMovieMutation();
+
+  const selectedKey = metadataPreview
+    ? `${metadataPreview.contentType}-${metadataPreview.tmdbId}`
+    : null;
+
+  const filteredResults = useMemo(
+    () =>
+      tmdbResults
+        .filter((r) => (tmdbTypeFilter ? r.contentType === tmdbTypeFilter : true))
+        .sort((a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity)),
+    [tmdbResults, tmdbTypeFilter],
+  );
+
+  const statusLabel = form.status === 'WATCHED' ? 'Watched' : 'Want to Watch';
+  const canSave =
+    !isReadOnly &&
+    !createMutation.isPending &&
+    !updateMutation.isPending &&
+    (isEditing || Boolean(metadataPreview));
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -114,8 +132,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
           id: movieId,
           payload: {
             status: form.status,
-            watchDate:
-              form.status === 'WATCHED' ? form.watchDate || null : null,
+            watchDate: form.status === 'WATCHED' ? form.watchDate || null : null,
             innaRating,
             bogdanRating,
           },
@@ -126,9 +143,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
           return;
         }
         const titleUaValue =
-          searchLanguage === 'uk-UA'
-            ? selectedResultTitle?.trim() ?? null
-            : null;
+          searchLanguage === 'uk-UA' ? selectedResultTitle?.trim() ?? null : null;
         await createMutation.mutateAsync({
           contentType: metadataPreview.contentType,
           title: metadataPreview.title || form.title,
@@ -140,20 +155,17 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
           tmdbRating: metadataPreview.tmdbRating,
           releaseYear: metadataPreview.releaseYear,
           status: form.status,
-          watchDate:
-            form.status === 'WATCHED' ? form.watchDate || null : null,
+          watchDate: form.status === 'WATCHED' ? form.watchDate || null : null,
           innaRating,
           bogdanRating,
         });
       }
       onClose();
-    } catch (e) {
-      if (e instanceof Error) {
-        setError(e.message);
+    } catch (err) {
+      if (err instanceof Error) {
+        setError(err.message);
       } else {
-        setError(
-          'Failed to save the movie. Please check the form and try again.',
-        );
+        setError('Failed to save the movie. Please check the form and try again.');
       }
     }
   };
@@ -163,6 +175,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
     try {
       setError(null);
       setIsSearching(true);
+      setHasSearched(true);
       const results = await searchMulti(form.title.trim(), searchLanguage);
       setTmdbResults(results);
       setTmdbTypeFilter('');
@@ -205,237 +218,279 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
   };
 
   return (
-    <div className="modal-backdrop" role="dialog" aria-modal="true">
-      <div className={`modal movie-form-modal ${isEditing ? 'is-editing' : 'is-creating'}`}>
-        <header className="modal-header">
-          <h2>{isEditing ? 'Edit Entry' : 'Add Title'}</h2>
+    <div className="movie-drawer-backdrop" onClick={onClose} role="presentation">
+      <aside
+        className={`movie-drawer movie-form-drawer ${isEditing ? 'is-editing' : 'is-creating'}`}
+        role="dialog"
+        aria-modal="true"
+        aria-label={isEditing ? 'Edit entry' : 'Add title'}
+        onClick={(event) => event.stopPropagation()}
+      >
+        <div className="movie-form-drawer-head">
+          <h2 className="movie-form-drawer-title">
+            {isEditing ? 'Edit entry' : 'Add title'}
+          </h2>
           <button
             type="button"
-            className="icon-button"
-            aria-label="Close"
+            className="movie-form-drawer-close"
             onClick={onClose}
+            aria-label="Close"
           >
             ×
           </button>
-        </header>
-        <form className="modal-body" onSubmit={handleSubmit}>
-          <div className="modal-body-top">
-            {error && <div className="error-banner">{error}</div>}
-            <label>
-              <span>Title</span>
+        </div>
+
+        <form className="movie-form-drawer-body" onSubmit={handleSubmit}>
+          <div className="movie-form-drawer-scroll">
+            {error ? <div className="mfd-error">{error}</div> : null}
+
+            <section className="mfd-card">
+              <div className="mfd-card-head">
+                <span>Title</span>
+                <b className={form.title.trim() ? 'is-ok' : ''}>
+                  {form.title.trim() ? 'Ready' : 'Required'}
+                </b>
+              </div>
               <input
+                className="mfd-input"
                 type="text"
                 required
+                placeholder="Enter movie or TV show title"
                 value={form.title}
                 onChange={(e) =>
                   setForm((prev) => ({ ...prev, title: e.target.value }))
                 }
                 readOnly={isEditing}
                 aria-readonly={isEditing}
-                className={isEditing ? 'input-readonly' : undefined}
               />
-            </label>
 
-            {!isEditing && (
-              <div className="search-lang-row">
-                <span className="search-lang-label">Search by:</span>
-                <div className="segmented-toggle" role="group" aria-label="Search language">
-                  <button
-                    type="button"
-                    className="segmented-toggle-option"
-                    onClick={() => setSearchLanguage('uk-UA')}
-                    aria-pressed={searchLanguage === 'uk-UA'}
-                    aria-label="Search by Ukrainian title"
-                  >
-                    UA
-                  </button>
-                  <button
-                    type="button"
-                    className="segmented-toggle-option"
-                    onClick={() => setSearchLanguage('en-US')}
-                    aria-pressed={searchLanguage === 'en-US'}
-                    aria-label="Search by British/English title"
-                  >
-                    EN
-                  </button>
-                </div>
-              </div>
-            )}
-
-            {!isEditing && (
-              <button
-                type="button"
-                className="secondary-button"
-                onClick={handleSearchTmdb}
-                disabled={!form.title.trim() || isSearching}
-              >
-                {isSearching ? 'Searching…' : 'Search in TMDb'}
-              </button>
-            )}
-          </div>
-
-          {tmdbResults.length > 0 && (
-            <div className="tmdb-results">
-              <p>Select a match from TMDb:</p>
-              <div className="tmdb-results-filter">
-                <label>
-                  <span>Filter by type</span>
-                  <select
-                    value={tmdbTypeFilter}
-                    onChange={(e) =>
-                      setTmdbTypeFilter(
-                        e.target.value as '' | 'MOVIE' | 'TV',
-                      )
-                    }
-                  >
-                    <option value="">All</option>
-                    <option value="MOVIE">Movies</option>
-                    <option value="TV">TV Series</option>
-                  </select>
-                </label>
-              </div>
-              <ul className="tmdb-results-list">
-                {tmdbResults
-                  .filter((r) =>
-                    tmdbTypeFilter ? r.contentType === tmdbTypeFilter : true,
-                  )
-                  .sort((a, b) => {
-                    const ay = a.year ?? -Infinity;
-                    const by = b.year ?? -Infinity;
-                    return by - ay;
-                  })
-                  .map((r) => (
-                    <li key={`${r.contentType}-${r.tmdbId}`}>
+              {!isEditing ? (
+                <div className="mfd-search-row">
+                  <div className="mfd-search-by">
+                    <span>Search by</span>
+                    <div className="mfd-pills" role="group" aria-label="Search language">
                       <button
                         type="button"
-                        className="link-button"
-                        onClick={() => handleSelectTmdb(r)}
+                        className={searchLanguage === 'uk-UA' ? 'is-active' : undefined}
+                        onClick={() => setSearchLanguage('uk-UA')}
+                        aria-pressed={searchLanguage === 'uk-UA'}
                       >
-                        {r.title}
-                        {r.year ? ` (${r.year})` : ''} —{' '}
-                        {r.contentType === 'MOVIE' ? 'Movie' : 'TV Series'}
+                        UA
                       </button>
-                    </li>
-                  ))}
-              </ul>
-            </div>
-          )}
+                      <button
+                        type="button"
+                        className={searchLanguage === 'en-US' ? 'is-active' : undefined}
+                        onClick={() => setSearchLanguage('en-US')}
+                        aria-pressed={searchLanguage === 'en-US'}
+                      >
+                        EN
+                      </button>
+                    </div>
+                  </div>
+                  <button
+                    type="button"
+                    className="mfd-search-btn"
+                    onClick={() => void handleSearchTmdb()}
+                    disabled={!form.title.trim() || isSearching}
+                  >
+                    {isSearching ? (
+                      <Loader2 size={16} className="mfd-spin" />
+                    ) : (
+                      <Search size={16} strokeWidth={2} />
+                    )}
+                    {isSearching ? 'Searching…' : 'Search in TMDb'}
+                  </button>
+                </div>
+              ) : null}
+            </section>
 
-          {metadataPreview && (
-            <div className="metadata-preview">
-              <div>
-                <strong>Type:</strong>{' '}
-                {metadataPreview.contentType === 'MOVIE'
-                  ? 'Movie'
-                  : 'TV Series'}
-              </div>
-              <div>
-                <strong>Release year:</strong>{' '}
-                {metadataPreview.releaseYear ?? '—'}
-              </div>
-              <div>
-                <strong>TMDb Rating:</strong>{' '}
-                {metadataPreview.tmdbRating ?? '—'}
-              </div>
-              <div>
-                <strong>Genres:</strong>{' '}
-                {metadataPreview.genres?.join(', ') ?? '—'}
-              </div>
-            </div>
-          )}
+            {!isEditing && hasSearched && tmdbResults.length > 0 ? (
+              <section className="mfd-card">
+                <div className="mfd-card-head">
+                  <span>Matches from TMDb</span>
+                  <b>{tmdbResults.length} found</b>
+                </div>
+                <div className="mfd-pills mfd-pills-filter" role="group" aria-label="Filter by type">
+                  <button
+                    type="button"
+                    className={tmdbTypeFilter === '' ? 'is-active' : undefined}
+                    onClick={() => setTmdbTypeFilter('')}
+                    aria-pressed={tmdbTypeFilter === ''}
+                  >
+                    All
+                  </button>
+                  <button
+                    type="button"
+                    className={tmdbTypeFilter === 'MOVIE' ? 'is-active' : undefined}
+                    onClick={() => setTmdbTypeFilter('MOVIE')}
+                    aria-pressed={tmdbTypeFilter === 'MOVIE'}
+                  >
+                    Movies
+                  </button>
+                  <button
+                    type="button"
+                    className={tmdbTypeFilter === 'TV' ? 'is-active' : undefined}
+                    onClick={() => setTmdbTypeFilter('TV')}
+                    aria-pressed={tmdbTypeFilter === 'TV'}
+                  >
+                    TV
+                  </button>
+                </div>
+                <ul className="mfd-matches">
+                  {filteredResults.map((r) => {
+                    const key = `${r.contentType}-${r.tmdbId}`;
+                    const selected = key === selectedKey;
+                    const poster = thumbUrl(r.posterPath);
+                    return (
+                      <li key={key}>
+                        <button
+                          type="button"
+                          className={`mfd-match${selected ? ' is-selected' : ''}`}
+                          onClick={() => void handleSelectTmdb(r)}
+                        >
+                          <span className={`mfd-match-poster tone-${r.contentType.toLowerCase()}`}>
+                            {poster ? <img src={poster} alt="" loading="lazy" /> : null}
+                          </span>
+                          <span className="mfd-match-copy">
+                            <strong>{r.title}</strong>
+                            <em>
+                              {r.year ?? '—'} · {r.contentType === 'MOVIE' ? 'Movie' : 'TV'}
+                            </em>
+                          </span>
+                          {selected ? (
+                            <Check className="mfd-match-check" size={18} strokeWidth={2.5} />
+                          ) : null}
+                        </button>
+                      </li>
+                    );
+                  })}
+                </ul>
+              </section>
+            ) : null}
 
-          <div className="form-field">
-            <span className="form-field-label">Status</span>
-            <div
-              className="status-toggle"
-              role="group"
-              aria-label="Status"
-            >
-              <button
-                type="button"
-                className={`status-toggle-btn ${form.status === 'WATCHED' ? 'status-toggle-btn-active' : ''}`}
-                onClick={() =>
-                  setForm((prev) => ({ ...prev, status: 'WATCHED' }))
-                }
-                aria-pressed={form.status === 'WATCHED'}
-                aria-label="Watched"
-              >
-                Watched
-              </button>
-              <button
-                type="button"
-                className={`status-toggle-btn ${form.status === 'WANT_TO_WATCH' ? 'status-toggle-btn-active' : ''}`}
-                onClick={() =>
-                  setForm((prev) => ({ ...prev, status: 'WANT_TO_WATCH' }))
-                }
-                aria-pressed={form.status === 'WANT_TO_WATCH'}
-                aria-label="Want to Watch"
-              >
-                Want to Watch
-              </button>
-            </div>
+            {metadataPreview ? (
+              <section className="mfd-card mfd-selected">
+                <div className="mfd-card-head">
+                  <span>{isEditing ? 'Details' : 'Selected match'}</span>
+                  <b>
+                    {metadataPreview.contentType === 'MOVIE' ? 'Movie' : 'TV Series'}
+                  </b>
+                </div>
+                <div className="mfd-selected-row">
+                  <div className="mfd-selected-poster">
+                    {metadataPreview.posterUrl ? (
+                      <img src={metadataPreview.posterUrl} alt="" />
+                    ) : (
+                      <span>No poster</span>
+                    )}
+                  </div>
+                  <div className="mfd-selected-meta">
+                    <p>{metadataPreview.title}</p>
+                    <span>
+                      {metadataPreview.releaseYear ?? '—'} · TMDb{' '}
+                      {metadataPreview.tmdbRating?.toFixed(1) ?? '—'}
+                    </span>
+                    <span>{metadataPreview.genres?.join(' · ') || '—'}</span>
+                  </div>
+                </div>
+              </section>
+            ) : null}
+
+            <section className="mfd-card">
+              <div className="mfd-card-head">
+                <span>Status</span>
+                <b>{statusLabel}</b>
+              </div>
+              <div className="mfd-status" role="group" aria-label="Status">
+                <button
+                  type="button"
+                  className={form.status === 'WATCHED' ? 'is-active' : undefined}
+                  onClick={() => setForm((prev) => ({ ...prev, status: 'WATCHED' }))}
+                  aria-pressed={form.status === 'WATCHED'}
+                >
+                  Watched
+                </button>
+                <button
+                  type="button"
+                  className={form.status === 'WANT_TO_WATCH' ? 'is-active' : undefined}
+                  onClick={() =>
+                    setForm((prev) => ({ ...prev, status: 'WANT_TO_WATCH' }))
+                  }
+                  aria-pressed={form.status === 'WANT_TO_WATCH'}
+                >
+                  Want to Watch
+                </button>
+              </div>
+
+              {form.status === 'WATCHED' ? (
+                <>
+                  <label className="mfd-field">
+                    <span>Watch date</span>
+                    <input
+                      className="mfd-input"
+                      type="date"
+                      value={form.watchDate}
+                      onChange={(e) =>
+                        setForm((prev) => ({ ...prev, watchDate: e.target.value }))
+                      }
+                    />
+                  </label>
+
+                  <div className="mfd-ratings">
+                    <label className="mfd-field">
+                      <span>Inna rating</span>
+                      <input
+                        className="mfd-input"
+                        type="number"
+                        min={0}
+                        max={10}
+                        step={0.5}
+                        placeholder="0-10"
+                        value={form.innaRating}
+                        onChange={(e) =>
+                          setForm((prev) => ({ ...prev, innaRating: e.target.value }))
+                        }
+                      />
+                    </label>
+                    <label className="mfd-field">
+                      <span>Bohdan rating</span>
+                      <input
+                        className="mfd-input"
+                        type="number"
+                        min={0}
+                        max={10}
+                        step={0.5}
+                        placeholder="0-10"
+                        value={form.bogdanRating}
+                        onChange={(e) =>
+                          setForm((prev) => ({ ...prev, bogdanRating: e.target.value }))
+                        }
+                      />
+                    </label>
+                  </div>
+                </>
+              ) : null}
+            </section>
           </div>
 
-          <label>
-            <span>Watch Date</span>
-            <input
-              type="date"
-              value={form.watchDate}
-              onChange={(e) =>
-                setForm((prev) => ({ ...prev, watchDate: e.target.value }))
-              }
-              disabled={form.status === 'WANT_TO_WATCH'}
-            />
-          </label>
-
-          <div className="ratings-row">
-            <label>
-              <span>Inna Rating</span>
-              <input
-                type="number"
-                min={0}
-                max={10}
-                step={0.5}
-                value={form.innaRating}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, innaRating: e.target.value }))
-                }
-              />
-            </label>
-            <label>
-              <span>Bohdan Rating</span>
-              <input
-                type="number"
-                min={0}
-                max={10}
-                step={0.5}
-                value={form.bogdanRating}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, bogdanRating: e.target.value }))
-                }
-              />
-            </label>
-          </div>
-
-          <footer className="modal-footer">
-            <button
-              type="button"
-              className="secondary-button"
-              onClick={onClose}
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              className="primary-button"
-              disabled={isReadOnly || createMutation.isPending || updateMutation.isPending}
-            >
-              {isEditing ? 'Save Changes' : 'Save Entry'}
-            </button>
+          <footer className="movie-form-drawer-footer">
+            <p className="mfd-footer-hint">
+              {isEditing
+                ? 'Update status, date, or ratings'
+                : 'Pick a TMDb match to link artwork'}
+            </p>
+            <div className="mfd-footer-actions">
+              <button type="button" className="mfd-btn-cancel" onClick={onClose}>
+                Cancel
+              </button>
+              <button type="submit" className="mfd-btn-save" disabled={!canSave}>
+                <Check size={16} strokeWidth={2.5} />
+                {isEditing ? 'Save changes' : 'Save entry'}
+              </button>
+            </div>
           </footer>
         </form>
-      </div>
+      </aside>
     </div>
   );
 }
-

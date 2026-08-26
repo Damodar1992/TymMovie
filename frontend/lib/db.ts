@@ -298,6 +298,27 @@ export const db = {
     );
     return rows.length > 0;
   },
+
+  /** Absolute catalog counts (ignores list filters). */
+  async libraryStats() {
+    await ensureMoviesSchema();
+    const sql = getSql();
+    const rows = await sql(
+      `SELECT
+         COUNT(*)::int AS total,
+         COUNT(*) FILTER (WHERE status = 'WATCHED')::int AS watched,
+         COUNT(*) FILTER (WHERE status = 'WANT_TO_WATCH')::int AS planned
+       FROM movies`,
+    );
+    const row = rows[0] as
+      | { total: number; watched: number; planned: number }
+      | undefined;
+    return {
+      total: row?.total ?? 0,
+      watched: row?.watched ?? 0,
+      planned: row?.planned ?? 0,
+    };
+  },
 };
 
 export function normalizeTitle(title: string): string {

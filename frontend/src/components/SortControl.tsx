@@ -8,14 +8,9 @@ interface SortControlProps {
 }
 
 const SORT_BY_OPTIONS: { value: MoviesQueryParams['sortBy']; label: string }[] = [
-  { value: 'created_at', label: 'Created Date' },
-  { value: 'watch_date', label: 'Watch Date' },
+  { value: 'created_at', label: 'Created' },
+  { value: 'watch_date', label: 'Watch date' },
   { value: 'user_avg_rating', label: 'Rating' },
-];
-
-const SORT_ORDER_OPTIONS: { value: MoviesQueryParams['sortOrder']; label: string }[] = [
-  { value: 'desc', label: 'Descending' },
-  { value: 'asc', label: 'Ascending' },
 ];
 
 export function SortControl({
@@ -44,19 +39,14 @@ export function SortControl({
       </div>
       <div className="filter-toggle-group">
         <span className="filter-label">Order</span>
-        <div className="toggle-group" role="group" aria-label="Order">
-          {SORT_ORDER_OPTIONS.map((opt) => (
-            <button
-              key={opt.value}
-              type="button"
-              className={sortOrder === opt.value ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
-              onClick={() => onSortOrderChange(opt.value)}
-              aria-pressed={sortOrder === opt.value}
-            >
-              {opt.label}
-            </button>
-          ))}
-        </div>
+        <button
+          type="button"
+          className="sort-order-toggle"
+          aria-label="Order"
+          onClick={() => onSortOrderChange(sortOrder === 'desc' ? 'asc' : 'desc')}
+        >
+          {sortOrder === 'desc' ? 'Descending ↓' : 'Ascending ↑'}
+        </button>
       </div>
     </div>
   );

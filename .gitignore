@@ -34,3 +34,7 @@ pnpm-debug.log*
 debug-*.log
 coverage
 .nyc_output
+
+# Graphify (commit graphify-out/ for shared map; keep local cost/cache out)
+graphify-out/cost.json
+graphify-out/cache/

@@ -106,6 +106,26 @@ export function useMoviesInfiniteQuery(
   });
 }
 
+/** Hardcoded household size — there is no users table in the schema. */
+export const LIBRARY_MEMBER_COUNT = 3;
+
+export type LibraryStats = {
+  total: number;
+  watched: number;
+  planned: number;
+  members: number;
+};
+
+export function useLibraryStatsQuery() {
+  return useQuery({
+    queryKey: ['movies', 'library-stats'],
+    queryFn: async (): Promise<LibraryStats> => {
+      const stats = await db.libraryStats();
+      return { ...stats, members: LIBRARY_MEMBER_COUNT };
+    },
+  });
+}
+
 export function useCreateMovieMutation() {
   const queryClient = useQueryClient();
   return useMutation({

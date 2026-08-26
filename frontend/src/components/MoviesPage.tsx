@@ -1,8 +1,7 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useMoviesInfiniteQuery } from '../api/movies';
+import { useLibraryStatsQuery, useMoviesInfiniteQuery } from '../api/movies';
 import type { Movie } from '../api/movies';
 import { MovieGrid } from './MovieGrid';
-import { MovieTable } from './MovieTable';
 import { MovieFormModal } from './MovieFormModal';
 import { FiltersBar } from './FiltersBar';
 import { SortControl } from './SortControl';
@@ -28,8 +27,6 @@ export function MoviesPage() {
     setSortBy,
     sortOrder,
     setSortOrder,
-    viewMode,
-    setViewMode,
     titleLang,
     setTitleLang,
   } = useMoviesFilters();
@@ -53,6 +50,7 @@ export function MoviesPage() {
     sortBy,
     sortOrder,
   });
+  const { data: libraryStats } = useLibraryStatsQuery();
 
   const items = useMemo(
     () => data?.pages.flatMap((page) => page.items) ?? [],
@@ -83,24 +81,23 @@ export function MoviesPage() {
   return (
     <div className="page">
       <header className="page-header desktop-topbar">
-        <div className="desktop-brand">
+        <div className="desktop-brand" aria-label="TymMovies">
           <img
             src="/tymmovies-mark.svg"
             alt=""
             className="app-logo-mark"
-            width={34}
-            height={34}
+            width={36}
+            height={36}
           />
           <div className="desktop-brand-copy">
-            <div className="desktop-brand-name" aria-label="TymMovies">
+            <div className="desktop-brand-name">
               Tym<span>Movies</span>
             </div>
-            <span>Shared watchlist</span>
+            <p>Shared watchlist</p>
           </div>
         </div>
         <div className="desktop-search-wrap">
           <SearchInput value={search} onChange={setSearch} />
-          <kbd>⌘K</kbd>
         </div>
         <div className="header-actions desktop-header-actions">
           <div className="desktop-members" aria-label="Three members">
@@ -121,8 +118,81 @@ export function MoviesPage() {
         <div className="desktop-toolbar-heading">
           <div>
             <h1>Movies</h1>
-            <p>{total} titles · {items.filter((movie) => movie.status === 'WATCHED').length} watched · 3 members</p>
+            <p>
+              {libraryStats
+                ? `${libraryStats.total} films · ${libraryStats.watched} watched · ${libraryStats.planned} planned`
+                : '—'}
+            </p>
           </div>
+          <div className="desktop-toolbar-controls controls-row-compact">
+            <div className="filter-toggle-group">
+              <span className="filter-label">Title</span>
+              <div className="segmented-toggle" role="group" aria-label="Title language">
+                <button
+                  type="button"
+                  className="segmented-toggle-option"
+                  onClick={() => setTitleLang('en')}
+                  aria-pressed={titleLang === 'en'}
+                  aria-label="Show title in English"
+                >
+                  EN
+                </button>
+                <button
+                  type="button"
+                  className="segmented-toggle-option"
+                  onClick={() => setTitleLang('ua')}
+                  aria-pressed={titleLang === 'ua'}
+                  aria-label="Show title in Ukrainian"
+                >
+                  UA
+                </button>
+              </div>
+            </div>
+            <SortControl
+              sortBy={sortBy}
+              sortOrder={sortOrder}
+              onSortByChange={setSortBy}
+              onSortOrderChange={setSortOrder}
+            />
+            <FiltersBar
+              status={status}
+              onStatusChange={setStatus}
+              contentType={contentType}
+              onContentTypeChange={setContentType}
+              availableGenres={availableGenres}
+              selectedGenres={genres}
+              onGenresChange={setGenres}
+            />
+          </div>
+        </div>
+        <div className="desktop-status-tabs" role="tablist" aria-label="Status">
+          <button
+            type="button"
+            role="tab"
+            aria-selected={!status}
+            className={!status ? 'is-active' : undefined}
+            onClick={() => setStatus(undefined)}
+          >
+            All <span>{libraryStats?.total ?? 0}</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={status === 'WANT_TO_WATCH'}
+            className={status === 'WANT_TO_WATCH' ? 'is-active' : undefined}
+            onClick={() => setStatus('WANT_TO_WATCH')}
+          >
+            Planned <span>{libraryStats?.planned ?? 0}</span>
+          </button>
+          <button
+            type="button"
+            role="tab"
+            aria-selected={status === 'WATCHED'}
+            className={status === 'WATCHED' ? 'is-active' : undefined}
+            onClick={() => setStatus('WATCHED')}
+          >
+            Watched <span>{libraryStats?.watched ?? 0}</span>
+          </button>
           {!isReadOnly && (
             <button
               className="desktop-add-movie"
@@ -136,83 +206,6 @@ export function MoviesPage() {
               + Add movie
             </button>
           )}
-        </div>
-        <div className="desktop-toolbar-controls controls-row-compact">
-          <div className="filter-toggle-group">
-          <span className="filter-label">Title</span>
-          <div className="segmented-toggle" role="group" aria-label="Title language">
-            <button
-              type="button"
-              className="segmented-toggle-option"
-              onClick={() => setTitleLang('en')}
-              aria-pressed={titleLang === 'en'}
-              aria-label="Show title in English"
-            >
-              EN
-            </button>
-            <button
-              type="button"
-              className="segmented-toggle-option"
-              onClick={() => setTitleLang('ua')}
-              aria-pressed={titleLang === 'ua'}
-              aria-label="Show title in Ukrainian"
-            >
-              UA
-            </button>
-          </div>
-        </div>
-          <div className="filter-toggle-group">
-          <span className="filter-label">View</span>
-          <div className="toggle-group" role="group" aria-label="View mode">
-            <button
-              type="button"
-              className={viewMode === 'cards' ? 'toggle-chip toggle-chip-active view-mode-option' : 'toggle-chip view-mode-option'}
-              onClick={() => setViewMode('cards')}
-              aria-pressed={viewMode === 'cards'}
-              aria-label="Cards view"
-            >
-              <img
-                src="/grid.svg"
-                alt=""
-                width={18}
-                height={18}
-                style={{ display: 'block' }}
-              />
-            </button>
-            <button
-              type="button"
-              className={viewMode === 'table' ? 'toggle-chip toggle-chip-active view-mode-option' : 'toggle-chip view-mode-option'}
-              onClick={() => setViewMode('table')}
-              aria-pressed={viewMode === 'table'}
-              aria-label="Table view"
-            >
-              <img
-                src="/list.svg"
-                alt=""
-                width={18}
-                height={18}
-                style={{ display: 'block' }}
-              />
-            </button>
-          </div>
-        </div>
-          <SortControl
-            sortBy={sortBy}
-            sortOrder={sortOrder}
-            onSortByChange={setSortBy}
-            onSortOrderChange={setSortOrder}
-          />
-        </div>
-        <div className="desktop-status-row">
-          <FiltersBar
-            status={status}
-            onStatusChange={setStatus}
-            contentType={contentType}
-            onContentTypeChange={setContentType}
-            availableGenres={availableGenres}
-            selectedGenres={genres}
-            onGenresChange={setGenres}
-          />
         </div>
       </section>
 
@@ -231,30 +224,17 @@ export function MoviesPage() {
         />
       ) : (
         <>
-          {viewMode === 'cards' ? (
-            <MovieGrid
-              movies={items}
-              titleLang={titleLang}
-              onEdit={(movie) => {
-                if (isReadOnly) return;
-                setEditingMovieId(movie.id);
-                setEditingMovie(movie);
-                setIsFormOpen(true);
-              }}
-              onSelect={setSelectedMovie}
-            />
-          ) : (
-            <MovieTable
-              movies={items}
-              titleLang={titleLang}
-              onEdit={(movie) => {
-                if (isReadOnly) return;
-                setEditingMovieId(movie.id);
-                setEditingMovie(movie);
-                setIsFormOpen(true);
-              }}
-            />
-          )}
+          <MovieGrid
+            movies={items}
+            titleLang={titleLang}
+            onEdit={(movie) => {
+              if (isReadOnly) return;
+              setEditingMovieId(movie.id);
+              setEditingMovie(movie);
+              setIsFormOpen(true);
+            }}
+            onSelect={setSelectedMovie}
+          />
 
           <div
             ref={sentinelRef}

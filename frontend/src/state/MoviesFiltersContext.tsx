@@ -10,21 +10,9 @@ import {
 } from 'react';
 import type { MovieStatus, MoviesQueryParams } from '../api/movies';
 
-export type ViewMode = 'cards' | 'table';
 export type TitleLang = 'en' | 'ua';
 
-const VIEW_STORAGE_KEY = 'tym-movies-view';
 const TITLE_LANG_STORAGE_KEY = 'tym-movies-title-lang';
-
-function readView(): ViewMode {
-  try {
-    const v = localStorage.getItem(VIEW_STORAGE_KEY);
-    if (v === 'cards' || v === 'table') return v;
-  } catch {
-    /* ignore */
-  }
-  return 'cards';
-}
 
 function readTitleLang(): TitleLang {
   try {
@@ -49,8 +37,6 @@ export type MoviesFiltersContextValue = {
   setSortBy: Dispatch<SetStateAction<MoviesQueryParams['sortBy']>>;
   sortOrder: MoviesQueryParams['sortOrder'];
   setSortOrder: Dispatch<SetStateAction<MoviesQueryParams['sortOrder']>>;
-  viewMode: ViewMode;
-  setViewMode: (v: ViewMode) => void;
   titleLang: TitleLang;
   setTitleLang: (v: TitleLang) => void;
   clearAll: () => void;
@@ -69,17 +55,7 @@ export function MoviesFiltersProvider({ children }: { children: ReactNode }) {
     useState<MoviesQueryParams['sortBy']>('created_at');
   const [sortOrder, setSortOrder] =
     useState<MoviesQueryParams['sortOrder']>('desc');
-  const [viewModeState, setViewModeState] = useState<ViewMode>(readView);
   const [titleLangState, setTitleLangState] = useState<TitleLang>(readTitleLang);
-
-  const setViewMode = useCallback((v: ViewMode) => {
-    setViewModeState(v);
-    try {
-      localStorage.setItem(VIEW_STORAGE_KEY, v);
-    } catch {
-      /* ignore */
-    }
-  }, []);
 
   const setTitleLang = useCallback((v: TitleLang) => {
     setTitleLangState(v);
@@ -110,8 +86,6 @@ export function MoviesFiltersProvider({ children }: { children: ReactNode }) {
       setSortBy,
       sortOrder,
       setSortOrder,
-      viewMode: viewModeState,
-      setViewMode,
       titleLang: titleLangState,
       setTitleLang,
       clearAll,
@@ -123,8 +97,6 @@ export function MoviesFiltersProvider({ children }: { children: ReactNode }) {
       genres,
       sortBy,
       sortOrder,
-      viewModeState,
-      setViewMode,
       titleLangState,
       setTitleLang,
       clearAll,

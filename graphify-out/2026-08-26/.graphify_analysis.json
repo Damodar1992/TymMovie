@@ -1,0 +1,506 @@
+{
+  "communities": {
+    "0": [
+      "eslint",
+      "eslint_js",
+      "eslint_plugin_react_hooks",
+      "eslint_plugin_react_refresh",
+      "frontend_package_devdependencies",
+      "frontend_package_devdependencies_eslint",
+      "frontend_package_devdependencies_eslint_js",
+      "frontend_package_devdependencies_eslint_plugin_react_hooks",
+      "frontend_package_devdependencies_eslint_plugin_react_refresh",
+      "frontend_package_devdependencies_globals",
+      "frontend_package_devdependencies_types_node",
+      "frontend_package_devdependencies_types_react",
+      "frontend_package_devdependencies_types_react_dom",
+      "frontend_package_devdependencies_typescript",
+      "frontend_package_devdependencies_typescript_eslint",
+      "frontend_package_devdependencies_vite",
+      "frontend_package_devdependencies_vite_plugin_pwa",
+      "frontend_package_devdependencies_vite_pwa_assets_generator",
+      "frontend_package_devdependencies_vitejs_plugin_react",
+      "globals",
+      "types_node",
+      "types_react",
+      "types_react_dom",
+      "typescript",
+      "typescript_eslint",
+      "vite",
+      "vite_plugin_pwa",
+      "vite_pwa_assets_generator",
+      "vitejs_plugin_react"
+    ],
+    "1": [
+      "frontend_src_api_movies_fetchmoviespage",
+      "frontend_src_api_movies_usemoviesinfinitequery",
+      "frontend_src_api_movies_usemoviesquery",
+      "frontend_src_components_emptystate",
+      "frontend_src_components_emptystate_emptystate",
+      "frontend_src_components_emptystate_emptystateprops",
+      "frontend_src_components_filtersbar",
+      "frontend_src_components_filtersbar_filtersbar",
+      "frontend_src_components_filtersbar_filtersbarprops",
+      "frontend_src_components_mobile_mobilefiltersscreen_mobilefiltersscreen",
+      "frontend_src_components_mobile_mobilemoviesscreen",
+      "frontend_src_components_mobile_mobilemoviesscreen_formatscore",
+      "frontend_src_components_mobile_mobilemoviesscreen_formatshortdate",
+      "frontend_src_components_mobile_mobilemoviesscreen_mobilelayout",
+      "frontend_src_components_mobile_mobilemoviesscreen_mobilemoviedetailsheet",
+      "frontend_src_components_mobile_mobilemoviesscreen_mobilemoviesscreen",
+      "frontend_src_components_mobile_mobilemoviesscreen_readmobilelayout",
+      "frontend_src_components_mobile_mobileprofilescreen",
+      "frontend_src_components_mobile_mobileprofilescreen_members",
+      "frontend_src_components_mobile_mobileprofilescreen_mobileprofilescreen",
+      "frontend_src_components_moviespage",
+      "frontend_src_components_moviespage_moviespage",
+      "frontend_src_components_searchinput",
+      "frontend_src_components_searchinput_searchinput",
+      "frontend_src_components_searchinput_searchinputprops",
+      "frontend_src_hooks_useinfinitescroll",
+      "frontend_src_hooks_useinfinitescroll_useinfinitescroll",
+      "frontend_src_hooks_useinfinitescroll_useinfinitescrolloptions",
+      "frontend_src_state_moviesfilterscontext_usemoviesfilters"
+    ],
+    "2": [
+      "frontend_src_app",
+      "frontend_src_app_app",
+      "frontend_src_auth_authcontext",
+      "frontend_src_auth_authcontext_auth_storage_key",
+      "frontend_src_auth_authcontext_authcontext",
+      "frontend_src_auth_authcontext_authcontextvalue",
+      "frontend_src_auth_authcontext_authmode",
+      "frontend_src_auth_authcontext_authprovider",
+      "frontend_src_auth_authcontext_getstoredmode",
+      "frontend_src_auth_authcontext_useauth",
+      "frontend_src_auth_authcontext_writesession",
+      "frontend_src_components_loginpage",
+      "frontend_src_components_loginpage_desktoploginpage",
+      "frontend_src_components_loginpage_loginpage",
+      "frontend_src_components_mobile_iosinstallhint",
+      "frontend_src_components_mobile_iosinstallhint_iosinstallhint",
+      "frontend_src_components_mobile_iosinstallhint_shouldshow",
+      "frontend_src_components_mobile_mobileloginpage",
+      "frontend_src_components_mobile_mobileloginpage_mobileloginpage",
+      "frontend_src_components_mobile_mobileloginpage_preparevideo",
+      "frontend_src_components_mobile_mobileloginpage_shouldskipvideo",
+      "frontend_src_hooks_useismobilelayout",
+      "frontend_src_hooks_useismobilelayout_evaluate",
+      "frontend_src_hooks_useismobilelayout_isiosdevice",
+      "frontend_src_hooks_useismobilelayout_isstandalonepwa",
+      "frontend_src_hooks_useismobilelayout_useismobilelayout",
+      "frontend_src_main",
+      "frontend_src_main_queryclient"
+    ],
+    "3": [
+      "axios",
+      "framer_motion",
+      "frontend_package",
+      "frontend_package_dependencies",
+      "frontend_package_dependencies_axios",
+      "frontend_package_dependencies_framer_motion",
+      "frontend_package_dependencies_lucide_react",
+      "frontend_package_dependencies_neondatabase_serverless",
+      "frontend_package_dependencies_react",
+      "frontend_package_dependencies_react_dom",
+      "frontend_package_dependencies_tanstack_react_query",
+      "frontend_package_dependencies_tanstack_react_query_devtools",
+      "frontend_package_name",
+      "frontend_package_private",
+      "frontend_package_scripts",
+      "frontend_package_scripts_build",
+      "frontend_package_scripts_dev",
+      "frontend_package_scripts_lint",
+      "frontend_package_scripts_preview",
+      "frontend_package_type",
+      "frontend_package_version",
+      "lucide_react",
+      "neondatabase_serverless",
+      "react",
+      "react_dom",
+      "tanstack_react_query",
+      "tanstack_react_query_devtools"
+    ],
+    "4": [
+      "frontend_tsconfig_app",
+      "frontend_tsconfig_app_compileroptions",
+      "frontend_tsconfig_app_compileroptions_allowimportingtsextensions",
+      "frontend_tsconfig_app_compileroptions_erasablesyntaxonly",
+      "frontend_tsconfig_app_compileroptions_jsx",
+      "frontend_tsconfig_app_compileroptions_lib",
+      "frontend_tsconfig_app_compileroptions_module",
+      "frontend_tsconfig_app_compileroptions_moduledetection",
+      "frontend_tsconfig_app_compileroptions_moduleresolution",
+      "frontend_tsconfig_app_compileroptions_noemit",
+      "frontend_tsconfig_app_compileroptions_nofallthroughcasesinswitch",
+      "frontend_tsconfig_app_compileroptions_nouncheckedsideeffectimports",
+      "frontend_tsconfig_app_compileroptions_nounusedlocals",
+      "frontend_tsconfig_app_compileroptions_nounusedparameters",
+      "frontend_tsconfig_app_compileroptions_skiplibcheck",
+      "frontend_tsconfig_app_compileroptions_strict",
+      "frontend_tsconfig_app_compileroptions_target",
+      "frontend_tsconfig_app_compileroptions_tsbuildinfofile",
+      "frontend_tsconfig_app_compileroptions_types",
+      "frontend_tsconfig_app_compileroptions_usedefineforclassfields",
+      "frontend_tsconfig_app_compileroptions_verbatimmodulesyntax",
+      "frontend_tsconfig_app_include",
+      "frontend_tsconfig_app_json_ref_es2023",
+      "ref_dom",
+      "ref_dom_iterable",
+      "ref_src",
+      "ref_vite_client"
+    ],
+    "5": [
+      "frontend_src_components_mobile_filters_applyfilterscta",
+      "frontend_src_components_mobile_filters_applyfilterscta_applyfilterscta",
+      "frontend_src_components_mobile_filters_applyfilterscta_applyfiltersctaprops",
+      "frontend_src_components_mobile_filters_filtersectioncard",
+      "frontend_src_components_mobile_filters_filtersectioncard_filtersectioncard",
+      "frontend_src_components_mobile_filters_filtersectioncard_filtersectioncardprops",
+      "frontend_src_components_mobile_filters_filtersheader",
+      "frontend_src_components_mobile_filters_filtersheader_filtersheader",
+      "frontend_src_components_mobile_filters_filtersheader_filtersheaderprops",
+      "frontend_src_components_mobile_filters_genrecloud",
+      "frontend_src_components_mobile_filters_genrecloud_chip",
+      "frontend_src_components_mobile_filters_genrecloud_genrecloud",
+      "frontend_src_components_mobile_filters_genrecloud_genrecloudprops",
+      "frontend_src_components_mobile_filters_iconlabelpill",
+      "frontend_src_components_mobile_filters_iconlabelpill_iconlabelpill",
+      "frontend_src_components_mobile_filters_iconlabelpill_iconlabelpillprops",
+      "frontend_src_components_mobile_filters_segmentedcontrol",
+      "frontend_src_components_mobile_filters_segmentedcontrol_segmentedcontrol",
+      "frontend_src_components_mobile_filters_segmentedcontrol_segmentedcontrolprops",
+      "frontend_src_components_mobile_filters_segmentedcontrol_segmentedoption",
+      "frontend_src_components_mobile_mobilefiltersscreen",
+      "frontend_src_components_mobile_mobilefiltersscreen_mobilefiltersscreenprops",
+      "frontend_src_components_mobile_mobilefiltersscreen_sortopt",
+      "frontend_src_components_mobile_mobilefiltersscreen_statusopt",
+      "frontend_src_components_mobile_mobilefiltersscreen_typeopt"
+    ],
+    "6": [
+      "frontend_lib_tmdb",
+      "frontend_lib_tmdb_authfetch",
+      "frontend_lib_tmdb_buildposterurl",
+      "frontend_lib_tmdb_getapikey",
+      "frontend_lib_tmdb_getmoviedetails",
+      "frontend_lib_tmdb_gettvdetails",
+      "frontend_lib_tmdb_loadimageconfig",
+      "frontend_lib_tmdb_searchmulti",
+      "frontend_lib_tmdb_tmdbcontenttype",
+      "frontend_lib_tmdb_tmdbsearchresult",
+      "frontend_src_api_movies_enrichmoviebytitle",
+      "frontend_src_api_movies_moviestatus",
+      "frontend_src_components_mobile_movie_form_mobilemovieform",
+      "frontend_src_components_mobile_movie_form_mobilemovieform_formstate",
+      "frontend_src_components_mobile_movie_form_mobilemovieform_initialformstate",
+      "frontend_src_components_mobile_movie_form_mobilemovieform_initialmetadata",
+      "frontend_src_components_mobile_movie_form_mobilemovieform_metadatapreview",
+      "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieform",
+      "frontend_src_components_mobile_movie_form_mobilemovieform_ratingssummary",
+      "frontend_src_components_mobile_movie_form_mobilemovieform_truncate",
+      "frontend_src_components_movieformmodal",
+      "frontend_src_components_movieformmodal_formstate",
+      "frontend_src_components_movieformmodal_formstatefrommovie",
+      "frontend_src_components_movieformmodal_movieformmodal"
+    ],
+    "7": [
+      "frontend_tsconfig_node",
+      "frontend_tsconfig_node_compileroptions",
+      "frontend_tsconfig_node_compileroptions_allowimportingtsextensions",
+      "frontend_tsconfig_node_compileroptions_erasablesyntaxonly",
+      "frontend_tsconfig_node_compileroptions_lib",
+      "frontend_tsconfig_node_compileroptions_module",
+      "frontend_tsconfig_node_compileroptions_moduledetection",
+      "frontend_tsconfig_node_compileroptions_moduleresolution",
+      "frontend_tsconfig_node_compileroptions_noemit",
+      "frontend_tsconfig_node_compileroptions_nofallthroughcasesinswitch",
+      "frontend_tsconfig_node_compileroptions_nouncheckedsideeffectimports",
+      "frontend_tsconfig_node_compileroptions_nounusedlocals",
+      "frontend_tsconfig_node_compileroptions_nounusedparameters",
+      "frontend_tsconfig_node_compileroptions_skiplibcheck",
+      "frontend_tsconfig_node_compileroptions_strict",
+      "frontend_tsconfig_node_compileroptions_target",
+      "frontend_tsconfig_node_compileroptions_tsbuildinfofile",
+      "frontend_tsconfig_node_compileroptions_types",
+      "frontend_tsconfig_node_compileroptions_verbatimmodulesyntax",
+      "frontend_tsconfig_node_include",
+      "frontend_tsconfig_node_json_ref_es2023",
+      "ref_node",
+      "ref_vite_config_ts"
+    ],
+    "8": [
+      "frontend_src_api_movies_movie",
+      "frontend_src_components_mobile_mobilemovietile",
+      "frontend_src_components_mobile_mobilemovietile_displaytitle",
+      "frontend_src_components_mobile_mobilemovietile_formatscore",
+      "frontend_src_components_mobile_mobilemovietile_mobilemovietile",
+      "frontend_src_components_mobile_mobilemovietile_mobilemovietileprops",
+      "frontend_src_components_mobile_mobilemovietile_tile_palettes",
+      "frontend_src_components_mobile_mobilemovietile_tilepalette",
+      "frontend_src_components_mobile_mobilemovietile_titlelang",
+      "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieformprops",
+      "frontend_src_components_moviecard",
+      "frontend_src_components_moviecard_displaytitle",
+      "frontend_src_components_moviecard_moviecard",
+      "frontend_src_components_moviecard_moviecardprops",
+      "frontend_src_components_moviecard_ratingchip",
+      "frontend_src_components_moviecard_titlelang",
+      "frontend_src_components_moviecard_watchdatelabel",
+      "frontend_src_components_movieformmodal_movieformmodalprops",
+      "frontend_src_components_moviegrid",
+      "frontend_src_components_moviegrid_moviegrid",
+      "frontend_src_components_moviegrid_moviegridprops",
+      "frontend_src_components_moviegrid_titlelang"
+    ],
+    "9": [
+      "frontend_lib_db",
+      "frontend_lib_db_computeuseravgrating",
+      "frontend_lib_db_datetoyyyymmdd",
+      "frontend_lib_db_db",
+      "frontend_lib_db_ensuremoviesschema",
+      "frontend_lib_db_getsql",
+      "frontend_lib_db_movierow",
+      "frontend_lib_db_normalizetitle",
+      "frontend_lib_db_rowtomovie",
+      "frontend_lib_tmdb_tmdbdetails",
+      "frontend_src_api_movies",
+      "frontend_src_api_movies_enrichedmetadata",
+      "frontend_src_api_movies_isreadonlymode",
+      "frontend_src_api_movies_movies_page_size",
+      "frontend_src_api_movies_moviespageresult",
+      "frontend_src_api_movies_usecreatemoviemutation",
+      "frontend_src_api_movies_usedeletemoviemutation",
+      "frontend_src_api_movies_useupdatemoviemutation",
+      "frontend_src_components_moviedetailsdrawer",
+      "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer"
+    ],
+    "10": [
+      "frontend_src_components_mobile_mobileapp",
+      "frontend_src_components_mobile_mobileapp_mobileapp",
+      "frontend_src_components_mobile_mobileshell",
+      "frontend_src_components_mobile_mobileshell_funnelicon",
+      "frontend_src_components_mobile_mobileshell_menuitems",
+      "frontend_src_components_mobile_mobileshell_mobileshell",
+      "frontend_src_components_mobile_mobileshell_mobiletab",
+      "frontend_src_components_mobile_mobileshell_readtab",
+      "frontend_src_components_mobile_mobileshell_taborder",
+      "frontend_src_components_ui_modern_mobile_menu",
+      "frontend_src_components_ui_modern_mobile_menu_iconcomponenttype",
+      "frontend_src_components_ui_modern_mobile_menu_interactivemenu",
+      "frontend_src_components_ui_modern_mobile_menu_interactivemenuitem",
+      "frontend_src_components_ui_modern_mobile_menu_interactivemenuprops"
+    ],
+    "11": [
+      "frontend_src_api_movies_moviesqueryparams",
+      "frontend_src_components_sortcontrol",
+      "frontend_src_components_sortcontrol_sort_by_options",
+      "frontend_src_components_sortcontrol_sort_order_options",
+      "frontend_src_components_sortcontrol_sortcontrol",
+      "frontend_src_components_sortcontrol_sortcontrolprops",
+      "frontend_src_state_moviesfilterscontext",
+      "frontend_src_state_moviesfilterscontext_moviesfilterscontext",
+      "frontend_src_state_moviesfilterscontext_moviesfilterscontextvalue",
+      "frontend_src_state_moviesfilterscontext_moviesfiltersprovider",
+      "frontend_src_state_moviesfilterscontext_readtitlelang",
+      "frontend_src_state_moviesfilterscontext_titlelang"
+    ],
+    "12": [
+      "frontend_src_components_mobile_filters_sortradiocard",
+      "frontend_src_components_mobile_filters_sortradiocard_sortradiocard",
+      "frontend_src_components_mobile_filters_sortradiocard_sortradiocardprops"
+    ],
+    "13": [
+      "frontend_tsconfig",
+      "frontend_tsconfig_files",
+      "frontend_tsconfig_references"
+    ],
+    "14": [
+      "frontend_src_api_client",
+      "frontend_src_api_client_apiclient"
+    ],
+    "15": [
+      "frontend_vercel",
+      "frontend_vercel_rewrites"
+    ],
+    "16": [
+      "frontend_eslint_config"
+    ],
+    "17": [
+      "frontend_pwa_assets_config"
+    ],
+    "18": [
+      "frontend_src_vite_env_d"
+    ],
+    "19": [
+      "frontend_vite_config"
+    ]
+  },
+  "cohesion": {
+    "0": 0.06896551724137931,
+    "1": 0.1330049261083744,
+    "2": 0.1455026455026455,
+    "3": 0.07407407407407407,
+    "4": 0.07407407407407407,
+    "5": 0.1,
+    "6": 0.213768115942029,
+    "7": 0.08695652173913043,
+    "8": 0.1341991341991342,
+    "9": 0.18421052631578946,
+    "10": 0.18681318681318682,
+    "11": 0.19696969696969696,
+    "12": 0.6666666666666666,
+    "13": 0.6666666666666666,
+    "14": 1.0,
+    "15": 1.0,
+    "16": 1.0,
+    "17": 1.0,
+    "18": 1.0,
+    "19": 1.0
+  },
+  "gods": [
+    {
+      "id": "frontend_src_auth_authcontext_useauth",
+      "label": "useAuth()",
+      "degree": 20
+    },
+    {
+      "id": "frontend_tsconfig_app_compileroptions",
+      "label": "compilerOptions",
+      "degree": 20
+    },
+    {
+      "id": "frontend_tsconfig_node_compileroptions",
+      "label": "compilerOptions",
+      "degree": 18
+    },
+    {
+      "id": "frontend_src_api_movies_movie",
+      "label": "Movie",
+      "degree": 14
+    },
+    {
+      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieform",
+      "label": "MobileMovieForm()",
+      "degree": 14
+    },
+    {
+      "id": "frontend_src_state_moviesfilterscontext_usemoviesfilters",
+      "label": "useMoviesFilters()",
+      "degree": 11
+    },
+    {
+      "id": "frontend_src_api_movies_useupdatemoviemutation",
+      "label": "useUpdateMovieMutation()",
+      "degree": 11
+    },
+    {
+      "id": "frontend_lib_tmdb_searchmulti",
+      "label": "searchMulti()",
+      "degree": 10
+    },
+    {
+      "id": "frontend_src_components_movieformmodal_movieformmodal",
+      "label": "MovieFormModal()",
+      "degree": 10
+    },
+    {
+      "id": "frontend_src_api_movies_moviestatus",
+      "label": "MovieStatus",
+      "degree": 9
+    }
+  ],
+  "surprises": [
+    {
+      "source": "FiltersBarProps",
+      "target": "MovieStatus",
+      "source_files": [
+        "frontend/src/components/FiltersBar.tsx",
+        "frontend/src/api/movies.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "bridges separate communities; peripheral node `FiltersBarProps` unexpectedly reaches hub `MovieStatus`"
+    },
+    {
+      "source": "FormState",
+      "target": "MovieStatus",
+      "source_files": [
+        "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
+        "frontend/src/api/movies.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `FormState` unexpectedly reaches hub `MovieStatus`"
+    },
+    {
+      "source": "FormState",
+      "target": "MovieStatus",
+      "source_files": [
+        "frontend/src/components/MovieFormModal.tsx",
+        "frontend/src/api/movies.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `FormState` unexpectedly reaches hub `MovieStatus`"
+    },
+    {
+      "source": "MobileMovieTileProps",
+      "target": "Movie",
+      "source_files": [
+        "frontend/src/components/mobile/MobileMovieTile.tsx",
+        "frontend/src/api/movies.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `MobileMovieTileProps` unexpectedly reaches hub `Movie`"
+    },
+    {
+      "source": "MobileMovieFormProps",
+      "target": "Movie",
+      "source_files": [
+        "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
+        "frontend/src/api/movies.ts"
+      ],
+      "confidence": "EXTRACTED",
+      "relation": "references",
+      "why": "peripheral node `MobileMovieFormProps` unexpectedly reaches hub `Movie`"
+    }
+  ],
+  "questions": [
+    {
+      "type": "bridge_node",
+      "question": "Why does `useAuth()` connect `Community 2` to `Community 1`, `Community 10`, `Community 6`?",
+      "why": "High betweenness centrality (0.028) - this node is a cross-community bridge."
+    },
+    {
+      "type": "bridge_node",
+      "question": "Why does `devDependencies` connect `Community 0` to `Community 3`?",
+      "why": "High betweenness centrality (0.026) - this node is a cross-community bridge."
+    },
+    {
+      "type": "isolated_nodes",
+      "question": "What connects `EmptyStateProps`, `MobileLayout`, `SearchInputProps` to the rest of the system?",
+      "why": "114 weakly-connected nodes found - possible documentation gaps or missing edges."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 0` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.06896551724137931 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 1` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.1330049261083744 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 2` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.1455026455026455 - nodes in this community are weakly interconnected."
+    },
+    {
+      "type": "low_cohesion",
+      "question": "Should `Community 3` be split into smaller, more focused modules?",
+      "why": "Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected."
+    }
+  ]
+}

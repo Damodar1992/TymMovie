@@ -1,6 +1,17 @@
 import { useState } from 'react';
 import { useDeleteMovieMutation, useUpdateMovieMutation, type Movie } from '../api/movies';
 
+/** Map 0–10 score → 0–5 stars (2 pts = 1 star), including fractional fills. */
+function starFillFractions(score: number): number[] {
+  const total = Math.min(5, Math.max(0, score / 2));
+  return Array.from({ length: 5 }, (_, index) => {
+    const remaining = total - index;
+    if (remaining >= 1) return 1;
+    if (remaining <= 0) return 0;
+    return remaining;
+  });
+}
+
 export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie; titleLang: 'en' | 'ua'; onClose: () => void }) {
   const title = titleLang === 'ua' && movie.titleUa?.trim() ? movie.titleUa : movie.title;
   const [status, setStatus] = useState(movie.status);
@@ -11,7 +22,14 @@ export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie
   const updateMutation = useUpdateMovieMutation();
   const deleteMutation = useDeleteMovieMutation();
   const date = movie.watchDate ? movie.watchDate.slice(5).split('-').reverse().join('.') : null;
-  const ratings = [['T', 'TMDb', movie.tmdbRating, 'tmdb'], ['I', 'Inna', movie.innaRating, 'inna'], ['B', 'Bohdan', movie.bogdanRating, 'bohdan']] as const;
+  const innaValue = innaRating === '' ? null : Number(innaRating);
+  const bohdanValue = bogdanRating === '' ? null : Number(bogdanRating);
+  const ratings = [
+    ['T', 'TMDb', movie.tmdbRating, 'tmdb'],
+    ['I', 'Inna', Number.isFinite(innaValue) ? innaValue : null, 'inna'],
+    ['B', 'Bohdan', Number.isFinite(bohdanValue) ? bohdanValue : null, 'bohdan'],
+  ] as const;
+  const visibleRatings = ratings.filter(([, , value]) => value != null);
   const isWatched = status === 'WATCHED';
 
   const markAsWatched = () => {
@@ -82,20 +100,32 @@ export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie
           </section>
         </div>
 
-        {!isWatched && (
+        {visibleRatings.length > 0 && (
           <>
             <h3>Ratings</h3>
             <div className="movie-drawer-ratings">
-              {ratings
-                .filter(([, , value]) => value != null)
-                .map(([initial, label, value, tone]) => (
+              {visibleRatings.map(([initial, label, value, tone]) => {
+                const score = value as number;
+                return (
                   <div key={label}>
                     <span className={tone}>{initial}</span>
                     <strong>{label}</strong>
-                    <i>★★★★★</i>
-                    <b>{value?.toFixed(1)}</b>
+                    <i className="drawer-rating-stars" aria-hidden>
+                      {starFillFractions(score).map((fill, index) => (
+                        <span
+                          key={index}
+                          className="drawer-rating-star"
+                          style={{ ['--star-fill' as string]: `${fill * 100}%` }}
+                        >
+                          <span className="drawer-rating-star-base">{'\u2605'}</span>
+                          <span className="drawer-rating-star-fill">{'\u2605'}</span>
+                        </span>
+                      ))}
+                    </i>
+                    <b>{score.toFixed(1)}</b>
                   </div>
-                ))}
+                );
+              })}
             </div>
           </>
         )}

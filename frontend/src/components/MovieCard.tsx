@@ -45,29 +45,25 @@ export function MovieCard({ movie, titleLang, onEdit, onSelect }: MovieCardProps
           </div>
         ) : null}
         {movie.userAvgRating != null ? <span className="movie-score-badge">{movie.userAvgRating.toFixed(1)}</span> : null}
+        <span className={`movie-status-dot ${statusClass}`} aria-label={movie.status === 'WATCHED' ? 'Watched' : 'Planned'} />
       </div>
 
       <div className="movie-card-body">
         <div className="movie-card-title-row">
           <h2 className="movie-card-title">{title}</h2>
-          <span className={`movie-status-dot ${statusClass}`} aria-label={movie.status === 'WATCHED' ? 'Watched' : 'Planned'} />
+          <span className={`movie-status-pill ${statusClass}`}>
+            {movie.status === 'WATCHED' ? `Watched${dateLabel ? ` · ${dateLabel}` : ''}` : 'Planned'}
+          </span>
         </div>
-        <p className="movie-card-meta">
-          {movie.releaseYear ?? '—'}
-          {movie.userAvgRating != null ? ` · Tym ${movie.userAvgRating.toFixed(1)}` : ''}
-          {dateLabel ? ` · ◍ ${dateLabel}` : ''}
-        </p>
-        {movie.genres?.length ? <p className="movie-card-genres">{movie.genres.join(' · ')}</p> : null}
-        <div className="movie-card-bottom-row">
+        <div className="movie-card-meta">
+          <span>{movie.releaseYear ?? '—'}</span>
           <div className="movie-rating-chips" aria-label="Ratings">
             <RatingChip label="T" value={movie.tmdbRating} tone="tmdb" />
             <RatingChip label="I" value={movie.innaRating} tone="inna" />
             <RatingChip label="B" value={movie.bogdanRating} tone="bohdan" />
           </div>
-          <span className={`movie-status-pill ${statusClass}`}>
-            {movie.status === 'WATCHED' ? `Watched${dateLabel ? ` · ${dateLabel}` : ''}` : 'Planned'}
-          </span>
         </div>
+        {movie.genres?.length ? <p className="movie-card-genres">{movie.genres.join(' · ')}</p> : null}
         <button
           type="button"
           className="movie-card-edit"

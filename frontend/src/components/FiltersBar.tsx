@@ -67,123 +67,103 @@ export function FiltersBar({
 
       {open ? (
         <div
-          className="modal-backdrop filters-panel-backdrop"
+          className="movie-drawer-backdrop filters-drawer-backdrop"
           onClick={() => setOpen(false)}
           role="presentation"
         >
-          <div
+          <aside
             id={panelId}
-            className="modal filters-panel"
+            className="movie-drawer filters-drawer"
             role="dialog"
             aria-modal="true"
             aria-labelledby={titleId}
             onClick={(e) => e.stopPropagation()}
           >
-            <div className="modal-header filters-panel-header">
-              <div className="filters-panel-heading">
-                <h2 className="filters-panel-title" id={titleId}>
-                  Filters
-                </h2>
-                <span className="filters-panel-summary">
-                  {activeCount > 0 ? `${activeCount} active` : 'All titles'}
-                </span>
-              </div>
-              <button
-                type="button"
-                className="icon-button filters-panel-close"
-                onClick={() => setOpen(false)}
-                aria-label="Close filters"
-              >
+            <div className="movie-drawer-top">
+              <span>Filters</span>
+              <button type="button" onClick={() => setOpen(false)} aria-label="Close filters">
                 ×
               </button>
             </div>
+            <h2 className="filters-drawer-title" id={titleId}>
+              Filters
+            </h2>
+            <p className="filters-drawer-summary">
+              {activeCount > 0 ? `${activeCount} active` : 'All titles'}
+            </p>
 
-            <div className="modal-body filters-panel-body">
-              <div className="filters-panel-primary-grid">
-                <section className="filters-panel-section" aria-label="Status">
-                  <span className="filter-label">Status</span>
-                  <div className="toggle-group">
-                    <button
-                      type="button"
-                      className={!status ? 'toggle-chip toggle-chip-active' : 'toggle-chip'}
-                      onClick={() => onStatusChange(undefined)}
-                    >
-                      All
-                    </button>
-                    <button
-                      type="button"
-                      className={
-                        status === 'WATCHED' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
-                      }
-                      onClick={() => onStatusChange('WATCHED')}
-                    >
-                      Watched
-                    </button>
-                    <button
-                      type="button"
-                      className={
-                        status === 'WANT_TO_WATCH'
-                          ? 'toggle-chip toggle-chip-active'
-                          : 'toggle-chip'
-                      }
-                      onClick={() => onStatusChange('WANT_TO_WATCH')}
-                    >
-                      Planned
-                    </button>
-                  </div>
-                </section>
-
-                <section className="filters-panel-section" aria-label="Type">
-                  <span className="filter-label">Type</span>
-                  <div className="toggle-group">
-                    <button
-                      type="button"
-                      className={
-                        !contentType ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
-                      }
-                      onClick={() => onContentTypeChange(undefined)}
-                    >
-                      All
-                    </button>
-                    <button
-                      type="button"
-                      className={
-                        contentType === 'MOVIE' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
-                      }
-                      onClick={() => onContentTypeChange('MOVIE')}
-                    >
-                      Movies
-                    </button>
-                    <button
-                      type="button"
-                      className={
-                        contentType === 'TV' ? 'toggle-chip toggle-chip-active' : 'toggle-chip'
-                      }
-                      onClick={() => onContentTypeChange('TV')}
-                    >
-                      TV Series
-                    </button>
-                  </div>
-                </section>
-              </div>
-
-              <section className="filters-panel-section" aria-label="Genres">
-                <div className="filters-panel-section-heading">
-                  <span className="filter-label">Genres</span>
-                  {selectedGenres.length > 0 ? (
-                    <span className="filters-panel-selection-count">
-                      {selectedGenres.length} selected
-                    </span>
-                  ) : null}
+            <div className="filters-drawer-scroll">
+              <section className="mfd-card" aria-label="Status">
+                <div className="mfd-card-head">
+                  <span>Status</span>
                 </div>
-                <div className="genre-chips filters-panel-genre-chips">
+                <div className="mfd-status" role="group">
+                  <button
+                    type="button"
+                    className={!status ? 'is-active' : undefined}
+                    onClick={() => onStatusChange(undefined)}
+                  >
+                    All
+                  </button>
+                  <button
+                    type="button"
+                    className={status === 'WATCHED' ? 'is-active' : undefined}
+                    onClick={() => onStatusChange('WATCHED')}
+                  >
+                    Watched
+                  </button>
+                  <button
+                    type="button"
+                    className={status === 'WANT_TO_WATCH' ? 'is-active' : undefined}
+                    onClick={() => onStatusChange('WANT_TO_WATCH')}
+                  >
+                    Planned
+                  </button>
+                </div>
+              </section>
+
+              <section className="mfd-card" aria-label="Type">
+                <div className="mfd-card-head">
+                  <span>Type</span>
+                </div>
+                <div className="mfd-status" role="group">
+                  <button
+                    type="button"
+                    className={!contentType ? 'is-active' : undefined}
+                    onClick={() => onContentTypeChange(undefined)}
+                  >
+                    All
+                  </button>
+                  <button
+                    type="button"
+                    className={contentType === 'MOVIE' ? 'is-active' : undefined}
+                    onClick={() => onContentTypeChange('MOVIE')}
+                  >
+                    Movies
+                  </button>
+                  <button
+                    type="button"
+                    className={contentType === 'TV' ? 'is-active' : undefined}
+                    onClick={() => onContentTypeChange('TV')}
+                  >
+                    TV Series
+                  </button>
+                </div>
+              </section>
+
+              <section className="mfd-card" aria-label="Genres">
+                <div className="mfd-card-head">
+                  <span>Genres</span>
+                  {selectedGenres.length > 0 ? <b>{selectedGenres.length} selected</b> : null}
+                </div>
+                <div className="filters-drawer-genres">
                   {genreList.map((genre) => {
                     const active = selectedGenres.includes(genre);
                     return (
                       <button
                         key={genre}
                         type="button"
-                        className={active ? 'chip chip-active' : 'chip'}
+                        className={active ? 'is-active' : undefined}
                         onClick={() => {
                           if (active) {
                             onGenresChange(selectedGenres.filter((g) => g !== genre));
@@ -198,25 +178,25 @@ export function FiltersBar({
                   })}
                 </div>
                 {genreList.length === 0 ? (
-                  <p className="filters-panel-empty-genres">No genres on this page yet.</p>
+                  <p className="filters-drawer-empty">No genres on this page yet.</p>
                 ) : null}
               </section>
             </div>
 
-            <div className="modal-footer filters-panel-footer">
+            <footer className="movie-form-drawer-footer">
               <button
                 type="button"
-                className="secondary-button"
+                className="mfd-btn-cancel"
                 onClick={clearAll}
                 disabled={activeCount === 0}
               >
                 Clear all
               </button>
-              <button type="button" className="primary-button" onClick={() => setOpen(false)}>
-                Done
+              <button type="button" className="mfd-btn-save" onClick={() => setOpen(false)}>
+                Filter
               </button>
-            </div>
-          </div>
+            </footer>
+          </aside>
         </div>
       ) : null}
     </div>
