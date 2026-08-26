@@ -9,6 +9,23 @@ import type { Plugin, ViteDevServer } from 'vite';
 // fine. Prefer IPv4 for DNS resolution in this dev process only.
 setDefaultResultOrder('ipv4first');
 
+// Opt-in escape hatch for corporate/antivirus setups that intercept TLS
+// with a locally-installed root CA Node doesn't trust (symptom:
+// UNABLE_TO_VERIFY_LEAF_SIGNATURE / "unable to verify the first
+// certificate"). The clean fix is `--use-system-ca` / NODE_USE_SYSTEM_CA=1
+// (Node 23.8+ / 24.6+), but that's version-gated and not everyone can
+// find/export the intercepting CA. Setting DEV_TLS_INSECURE=1 disables
+// certificate verification for this dev process ONLY — it has no effect
+// on the production build, since this plugin never runs there.
+if (process.env.DEV_TLS_INSECURE === '1') {
+  process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+  console.warn(
+    '[dev-api-plugin] DEV_TLS_INSECURE=1: TLS certificate verification is ' +
+      'DISABLED for this dev server. Local development only — never set ' +
+      'this in production.',
+  );
+}
+
 /**
  * Dev-only Vite plugin that serves frontend/api/* the same way Vercel does
  * in production, so `npm run dev` alone is enough for local development —
