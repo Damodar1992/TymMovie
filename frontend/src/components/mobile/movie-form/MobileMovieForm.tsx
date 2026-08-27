@@ -495,7 +495,7 @@ export function MobileMovieForm({
                   form.status !== 'WATCHED'
                     ? '—'
                     : form.watchDate
-                      ? form.watchDate
+                      ? form.watchDate.slice(5).split('-').reverse().join('.')
                       : 'Not set'
                 }
                 summaryHighlighted={
@@ -503,7 +503,7 @@ export function MobileMovieForm({
                 }
                 defaultOpen={form.status === 'WATCHED'}
               >
-                <div className="fv-field">
+                <div className="fv-field fv-field-date">
                   <input
                     className="fv-input"
                     type="date"

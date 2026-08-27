@@ -65,10 +65,40 @@
     flex: 1 1 auto;
     min-height: 0;
     max-height: none;
+    overflow-x: hidden;
     overflow-y: auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
     padding-bottom: calc(32px + env(safe-area-inset-bottom, 0px)) !important;
+  }
+
+  /* Native date controls have a large intrinsic min-width on iOS/Android
+     and otherwise spill past the padded card / viewport. */
+  .mobile-movie-form .fv-card,
+  .mobile-movie-form .fv-card-body,
+  .mobile-movie-form .fv-card-body-inner,
+  .mobile-movie-form .fv-field,
+  .mobile-detail-card {
+    min-width: 0;
+    max-width: 100%;
+  }
+
+  .mobile-movie-form .fv-input[type='date'],
+  .mobile-detail-card input[type='date'] {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    min-width: 0;
+    box-sizing: border-box;
+    height: auto;
+    min-height: 44px;
+    line-height: 1.25;
+    -webkit-appearance: none;
+    appearance: none;
+  }
+
+  .mobile-movie-form .fv-input[type='date']::-webkit-date-and-time-value {
+    text-align: left;
   }
 
   .mobile-filters-sheet-body {
