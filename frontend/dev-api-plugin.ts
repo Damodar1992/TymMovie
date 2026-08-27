@@ -112,8 +112,14 @@ const routes: {
   { methods: ['GET'], pattern: /^\/api\/movies\/genres$/, modulePath: '/api/movies/genres.ts' },
   {
     methods: ['GET', 'PATCH', 'DELETE'],
+    pattern: /^\/api\/movies\/item$/,
+    modulePath: '/api/movies/item.ts',
+  },
+  // Compat: same shape as the Vercel rewrite `/api/movies/:id` → item?id=
+  {
+    methods: ['GET', 'PATCH', 'DELETE'],
     pattern: /^\/api\/movies\/([^/]+)$/,
-    modulePath: '/api/movies/[id].ts',
+    modulePath: '/api/movies/item.ts',
     params: (m) => ({ id: decodeURIComponent(m[1]) }),
   },
   { methods: ['GET'], pattern: /^\/api\/tmdb\/search$/, modulePath: '/api/tmdb/search.ts' },

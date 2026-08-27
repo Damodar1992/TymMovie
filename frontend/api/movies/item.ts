@@ -3,6 +3,14 @@ import { readJsonBody, describeError } from '../_lib/types.js';
 import { requireAdmin, requireSession } from '../_lib/auth.js';
 import { db, computeUserAvgRating } from '../_lib/db.js';
 
+/**
+ * Per-movie GET/PATCH/DELETE on a static path.
+ *
+ * Vercel's Vite SPA setup + catch-all rewrite does not reliably mount
+ * nested dynamic files like `api/movies/[id].ts` — those requests fall
+ * through to `index.html`. A static `/api/movies/item` function avoids
+ * that; the client (and an optional vercel rewrite) pass `?id=`.
+ */
 interface UpdateMovieBody {
   status?: string;
   watchDate?: string | null;
@@ -11,8 +19,12 @@ interface UpdateMovieBody {
   comment?: string | null;
 }
 
+function firstQueryValue(v: string | string[] | undefined): string | undefined {
+  return Array.isArray(v) ? v[0] : v;
+}
+
 export default async function handler(req: ApiRequest, res: ApiResponse) {
-  const id = Array.isArray(req.query.id) ? req.query.id[0] : req.query.id;
+  const id = firstQueryValue(req.query.id);
   if (!id) {
     res.status(400).json({ error: 'Missing movie id.' });
     return;

@@ -162,7 +162,9 @@ export function useUpdateMovieMutation() {
   return useMutation({
     mutationFn: async (params: { id: string; payload: unknown }) => {
       try {
-        await apiClient.patch(`/movies/${params.id}`, params.payload);
+        await apiClient.patch('/movies/item', params.payload, {
+          params: { id: params.id },
+        });
       } catch (err) {
         throw errorMessage(err, 'Failed to update the movie.');
       }
@@ -179,7 +181,7 @@ export function useDeleteMovieMutation() {
   return useMutation({
     mutationFn: async (id: string) => {
       try {
-        await apiClient.delete(`/movies/${id}`);
+        await apiClient.delete('/movies/item', { params: { id } });
       } catch (err) {
         throw errorMessage(err, 'Failed to delete the movie.');
       }

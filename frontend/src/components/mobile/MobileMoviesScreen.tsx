@@ -253,6 +253,7 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
     if (!canEdit) return;
     setError(null);
     setStatus('WANT_TO_WATCH');
+    setWatchDate('');
     if (movie.status === 'WATCHED') {
       try {
         await updateMutation.mutateAsync({
@@ -265,7 +266,6 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
             comment: comment.trim() || null,
           },
         });
-        onClose();
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to update');
       }

@@ -21,7 +21,7 @@ export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie
   const [comment, setComment] = useState(movie.comment ?? '');
   const updateMutation = useUpdateMovieMutation();
   const deleteMutation = useDeleteMovieMutation();
-  const date = movie.watchDate ? movie.watchDate.slice(5).split('-').reverse().join('.') : null;
+  const date = watchDate ? watchDate.slice(5).split('-').reverse().join('.') : null;
   const innaValue = innaRating === '' ? null : Number(innaRating);
   const bohdanValue = bogdanRating === '' ? null : Number(bogdanRating);
   const ratings = [
@@ -38,6 +38,7 @@ export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie
 
   const markAsPlanned = async () => {
     setStatus('WANT_TO_WATCH');
+    setWatchDate('');
     if (movie.status === 'WATCHED') {
       await updateMutation.mutateAsync({
         id: movie.id,
@@ -49,7 +50,6 @@ export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie
           comment: comment.trim() || null,
         },
       });
-      onClose();
     }
   };
 
