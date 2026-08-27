@@ -93,12 +93,14 @@
     height: auto;
     min-height: 44px;
     line-height: 1.25;
+    text-align: center;
     -webkit-appearance: none;
     appearance: none;
   }
 
-  .mobile-movie-form .fv-input[type='date']::-webkit-date-and-time-value {
-    text-align: left;
+  .mobile-movie-form .fv-input[type='date']::-webkit-date-and-time-value,
+  .mobile-detail-card input[type='date']::-webkit-date-and-time-value {
+    text-align: center;
   }
 
   .mobile-filters-sheet-body {

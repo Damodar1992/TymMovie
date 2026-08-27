@@ -4246,12 +4246,17 @@ p {
   width: 100%;
   max-width: 100%;
   min-width: 0;
+  text-align: center;
 }
 
 .fv-field-date {
   min-width: 0;
   max-width: 100%;
   overflow: hidden;
+}
+
+.fv-input[type='date']::-webkit-date-and-time-value {
+  text-align: center;
 }
 
 .fv-input[type='date']::-webkit-calendar-picker-indicator {
