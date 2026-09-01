@@ -58,6 +58,7 @@ export default defineConfig({
         globIgnores: ['**/pwa-icon-source.png', '**/pwa-icon-source.svg'],
         maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         navigateFallback: '/index.html',
+        navigateFallbackDenylist: [/^\/api/],
         cleanupOutdatedCaches: true,
       },
       devOptions: {
