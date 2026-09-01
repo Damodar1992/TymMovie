@@ -23,7 +23,7 @@ createRoot(document.getElementById('root')!).render(
             <App />
           </MoviesFiltersProvider>
         </ActiveListProvider>
-        <ReactQueryDevtools initialIsOpen={false} />
+        {import.meta.env.DEV ? <ReactQueryDevtools initialIsOpen={false} /> : null}
       </AuthProvider>
     </QueryClientProvider>
   </StrictMode>,

@@ -5,6 +5,9 @@ import { devApiPlugin } from './dev-api-plugin';
 
 // https://vite.dev/config/
 export default defineConfig({
+  build: {
+    chunkSizeWarningLimit: 1200,
+  },
   plugins: [
     react(),
     devApiPlugin(),
@@ -51,8 +54,9 @@ export default defineConfig({
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,svg,png,jpg,jpeg,webp,ico,mp4}'],
-        maximumFileSizeToCacheInBytes: 5 * 1024 * 1024,
+        globPatterns: ['**/*.{js,css,html,svg,png,jpg,jpeg,webp,ico}'],
+        globIgnores: ['**/pwa-icon-source.png', '**/pwa-icon-source.svg'],
+        maximumFileSizeToCacheInBytes: 6 * 1024 * 1024,
         navigateFallback: '/index.html',
         cleanupOutdatedCaches: true,
       },
