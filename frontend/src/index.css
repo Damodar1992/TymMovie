@@ -1862,6 +1862,11 @@ p {
   z-index: 40;
 }
 
+.app-login-layer .desktop-auth {
+  min-height: 100%;
+  height: 100%;
+}
+
 /* =========================
    Mobile login (PWA В· option 1b)
    ========================= */
@@ -5808,8 +5813,6 @@ p {
 
 .movie-rating-chips-dynamic{display:flex;flex-wrap:wrap;gap:6px}
 .movie-rating-avatar-dynamic{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border-radius:50%;color:#14151a;font-weight:800;font-size:9px}
-
-.invite-shell-layout{display:grid;place-items:center;min-height:100dvh}
 
 /* Dynamic per-member ratings (mobile movie form) — stacks one row per
    member instead of the fixed two-column Inna/Bohdan grid. */

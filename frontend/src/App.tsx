@@ -20,13 +20,22 @@ function App() {
   useEffect(() => {
     const root = document.getElementById('root');
     if (!root) return;
-    if (!user) {
+    const isAuthShell = !user || inviteToken != null;
+    if (isAuthShell) {
       root.classList.add('root-login-full');
     } else {
       root.classList.remove('root-login-full');
     }
-    return () => root.classList.remove('root-login-full');
-  }, [user]);
+    if (inviteToken != null && isMobile) {
+      root.classList.add('root-mobile-full');
+    }
+    return () => {
+      root.classList.remove('root-login-full');
+      if (inviteToken != null) {
+        root.classList.remove('root-mobile-full');
+      }
+    };
+  }, [user, inviteToken, isMobile]);
 
   if (isLoading) {
     // Avoid flashing the login screen while the initial
@@ -37,7 +46,11 @@ function App() {
   // Public route, works whether the visitor is signed in or not — see
   // InvitePage and db-multi-user-architecture doc §4.
   if (inviteToken) {
-    return <InvitePage token={inviteToken} />;
+    return (
+      <div className="app-login-layer">
+        <InvitePage token={inviteToken} />
+      </div>
+    );
   }
 
   return (
