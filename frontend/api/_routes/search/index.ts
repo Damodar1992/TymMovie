@@ -26,6 +26,7 @@ export interface SearchResultDto {
   posterUrl: string | null;
   tmdbRating: number | null;
   genres: string[] | null;
+  trailerKey: string | null;
 }
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
@@ -57,6 +58,7 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
       posterUrl: m.posterUrl,
       tmdbRating: m.tmdbRating,
       genres: m.genres,
+      trailerKey: m.trailerKey,
     }));
 
     let results = localResults;
@@ -79,6 +81,7 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
           posterUrl: buildPosterUrl(r.posterPath, 'w342'),
           tmdbRating: r.tmdbRating,
           genres: r.genres,
+          trailerKey: r.trailerKey,
         }));
       results = [...localResults, ...externalMapped];
     }

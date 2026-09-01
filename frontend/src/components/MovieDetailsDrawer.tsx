@@ -9,6 +9,7 @@ import {
 import { useAuth } from '../auth/AuthContext';
 import { Avatar } from './Avatar';
 import { starFillFractions } from '../lib/ratingStars';
+import { youtubeTrailerUrl } from '../lib/trailer';
 
 export function MovieDetailsDrawer({
   movie,
@@ -111,7 +112,9 @@ export function MovieDetailsDrawer({
           <button type="button" onClick={onClose} aria-label="Close details">×</button>
         </div>
         <div className="movie-drawer-hero">
-          <div>{movie.posterUrl ? <img src={movie.posterUrl} alt="" /> : title}</div>
+          <div className="movie-drawer-hero-poster">
+            {movie.posterUrl ? <img src={movie.posterUrl} alt="" /> : title}
+          </div>
           <section>
             <h2>{title}</h2>
             <p>
@@ -120,9 +123,25 @@ export function MovieDetailsDrawer({
               {date ? ` · ◍ ${date}` : ''}
             </p>
             <p>{movie.genres?.join(' · ')}</p>
-            <b className={isWatched ? 'is-watched' : 'is-planned'}>
-              {isWatched ? `Watched${date ? ` · ${date}` : ''}` : 'Planned'}
-            </b>
+            <div className="movie-drawer-hero-meta">
+              <b className={isWatched ? 'is-watched' : 'is-planned'}>
+                {isWatched ? `Watched${date ? ` · ${date}` : ''}` : 'Planned'}
+              </b>
+              {movie.trailerKey ? (
+                <a
+                  className="movie-drawer-trailer"
+                  href={youtubeTrailerUrl(movie.trailerKey)}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Watch trailer"
+                >
+                  <span className="movie-drawer-action-icon" aria-hidden>
+                    ▶
+                  </span>
+                  Trailer
+                </a>
+              ) : null}
+            </div>
           </section>
         </div>
 
@@ -158,14 +177,27 @@ export function MovieDetailsDrawer({
 
         <div className="movie-drawer-actions">
           {isWatched ? (
-            <button type="button" onClick={() => void markAsPlanned()} disabled={updateMutation.isPending}>
-              Mark as planned
+            <button
+              type="button"
+              onClick={() => void markAsPlanned()}
+              disabled={updateMutation.isPending}
+              aria-label="Mark as planned"
+            >
+              Planned
             </button>
           ) : (
             <>
-              <button type="button" onClick={markAsWatched}>Mark as watched</button>
-              <button type="button" className="movie-drawer-delete" onClick={remove} disabled={deleteMutation.isPending}>
-                Delete entry
+              <button type="button" onClick={markAsWatched} aria-label="Mark as watched">
+                Watched
+              </button>
+              <button
+                type="button"
+                className="movie-drawer-delete"
+                onClick={remove}
+                disabled={deleteMutation.isPending}
+                aria-label="Delete entry"
+              >
+                Delete
               </button>
             </>
           )}
@@ -176,7 +208,6 @@ export function MovieDetailsDrawer({
             <section>
               <div>
                 <span>Watch date</span>
-                <b>{watchDate ? watchDate.slice(5).split('-').reverse().join('.') : '—'}</b>
               </div>
               <input type="date" value={watchDate} onChange={(event) => setWatchDate(event.target.value)} />
             </section>
@@ -206,7 +237,6 @@ export function MovieDetailsDrawer({
             <section>
               <div>
                 <span>Note</span>
-                <b>{comment.trim() ? 'Added' : 'Empty'}</b>
               </div>
               <textarea
                 placeholder="Add a personal note about this title"

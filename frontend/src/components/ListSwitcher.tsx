@@ -23,41 +23,63 @@ export function ListSwitcher({ onOpenSettings }: { onOpenSettings: () => void })
     <div className="list-switcher" ref={rootRef}>
       <button
         type="button"
-        className="list-switcher-trigger"
+        className={`list-switcher-trigger${open ? ' is-open' : ''}`}
         onClick={() => setOpen((v) => !v)}
         aria-expanded={open}
+        aria-haspopup="menu"
       >
-        <span className="list-switcher-name">{activeList.name}</span>
-        <span className="list-switcher-role">
-          {activeList.role === 'owner' ? 'Your list' : 'Shared with you'}
+        <span className="list-switcher-trigger-main">
+          <span className="list-switcher-name">{activeList.name}</span>
+          <span className="list-switcher-role">
+            {activeList.role === 'owner' ? 'Your list' : 'Shared with you'}
+          </span>
+        </span>
+        <span className="list-switcher-chevron" aria-hidden>
+          {open ? '▴' : '▾'}
         </span>
       </button>
       {open ? (
         <div className="list-switcher-menu" role="menu">
-          {lists.map((l) => (
+          <div className="list-switcher-menu-head">Lists</div>
+          <div className="list-switcher-menu-items">
+            {lists.map((l) => {
+              const isActive = l.id === activeList.id;
+              return (
+                <button
+                  key={l.id}
+                  type="button"
+                  role="menuitemradio"
+                  aria-checked={isActive}
+                  className={isActive ? 'is-active' : undefined}
+                  onClick={() => {
+                    setActiveListId(l.id);
+                    setOpen(false);
+                  }}
+                >
+                  <span className="list-switcher-item-label">{l.name}</span>
+                  <span className="list-switcher-item-meta">
+                    <span className={`list-switcher-role-pill is-${l.role}`}>
+                      {l.role === 'owner' ? 'Owner' : 'Member'}
+                    </span>
+                    {isActive ? <span className="list-switcher-check" aria-hidden>✓</span> : null}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <div className="list-switcher-menu-foot">
             <button
-              key={l.id}
               type="button"
-              className={l.id === activeList.id ? 'is-active' : undefined}
+              className="list-switcher-settings"
+              role="menuitem"
               onClick={() => {
-                setActiveListId(l.id);
                 setOpen(false);
+                onOpenSettings();
               }}
             >
-              <span>{l.name}</span>
-              <em>{l.role === 'owner' ? 'Owner' : 'Member'}</em>
+              List settings
             </button>
-          ))}
-          <button
-            type="button"
-            className="list-switcher-settings"
-            onClick={() => {
-              setOpen(false);
-              onOpenSettings();
-            }}
-          >
-            List settings…
-          </button>
+          </div>
         </div>
       ) : null}
     </div>

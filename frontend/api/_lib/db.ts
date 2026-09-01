@@ -398,7 +398,7 @@ export const invitesDb = {
 // ---------------------------------------------------------------------
 
 const MOVIE_COLS =
-  'id, content_type, title, title_normalized, original_title, title_ua, tmdb_id, poster_url, genres, tmdb_rating, release_year';
+  'id, content_type, title, title_normalized, original_title, title_ua, tmdb_id, poster_url, genres, tmdb_rating, release_year, trailer_key';
 
 export type MovieRow = {
   id: string;
@@ -412,6 +412,7 @@ export type MovieRow = {
   genres: string[] | null;
   tmdb_rating: string | null;
   release_year: number | null;
+  trailer_key: string | null;
 };
 
 export type MovieDto = {
@@ -426,6 +427,7 @@ export type MovieDto = {
   genres: string[] | null;
   tmdbRating: number | null;
   releaseYear: number | null;
+  trailerKey: string | null;
 };
 
 function rowToMovie(r: MovieRow): MovieDto {
@@ -441,6 +443,7 @@ function rowToMovie(r: MovieRow): MovieDto {
     genres: r.genres,
     tmdbRating: r.tmdb_rating != null ? Number(r.tmdb_rating) : null,
     releaseYear: r.release_year,
+    trailerKey: r.trailer_key,
   };
 }
 
@@ -491,12 +494,13 @@ export const catalogDb = {
     const sql = getSql();
     const title = details.title || details.originalTitle || 'Untitled';
     const rows = await sql(
-      `INSERT INTO movies (id, content_type, title, title_normalized, original_title, tmdb_id, poster_url, genres, tmdb_rating, release_year)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
+      `INSERT INTO movies (id, content_type, title, title_normalized, original_title, tmdb_id, poster_url, genres, tmdb_rating, release_year, trailer_key)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
        ON CONFLICT (tmdb_id, content_type) DO UPDATE SET
          tmdb_rating = EXCLUDED.tmdb_rating,
          poster_url = EXCLUDED.poster_url,
          genres = EXCLUDED.genres,
+         trailer_key = EXCLUDED.trailer_key,
          updated_at = NOW()
        RETURNING ${MOVIE_COLS}`,
       [
@@ -510,6 +514,7 @@ export const catalogDb = {
         details.genres ? JSON.stringify(details.genres) : null,
         details.tmdbRating,
         details.releaseYear,
+        details.trailerKey,
       ],
     );
     return rowToMovie(rows[0] as MovieRow);
@@ -538,6 +543,7 @@ export const catalogDb = {
       genres: null,
       tmdbRating: null,
       releaseYear: null,
+      trailerKey: null,
     };
   },
 
@@ -599,7 +605,7 @@ function rowToListMovie(r: ListMovieRow): Omit<ListMovieDto, 'ratings' | 'avgRat
 const LIST_MOVIE_SELECT = `
   lm.id AS list_movie_id, lm.status, lm.watch_date, lm.comment_text, lm.added_by,
   m.id, m.content_type, m.title, m.title_normalized, m.original_title, m.title_ua,
-  m.tmdb_id, m.poster_url, m.genres, m.tmdb_rating, m.release_year,
+  m.tmdb_id, m.poster_url, m.genres, m.tmdb_rating, m.release_year, m.trailer_key,
   (SELECT AVG(r.rating) FROM list_movie_ratings r WHERE r.list_movie_id = lm.id) AS avg_rating
 `;
 

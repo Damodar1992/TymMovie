@@ -1,9 +1,10 @@
 import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
-import { X } from 'lucide-react';
+import { Play, X } from 'lucide-react';
 import { motion, useDragControls } from 'framer-motion';
 import {
   useDeleteMovieMutation,
+  useLibraryStatsQuery,
   useMoviesInfiniteQuery,
   useUpdateMovieMutation,
   useSetRatingMutation,
@@ -22,6 +23,7 @@ import { MobileMovieForm } from './movie-form/MobileMovieForm';
 import { SearchInput } from '../SearchInput';
 import { EmptyState } from '../EmptyState';
 import { FormattedDatePicker } from '../FormattedDatePicker';
+import { youtubeTrailerUrl } from '../../lib/trailer';
 
 type MobileLayout = 'list' | 'grid';
 const MOBILE_LAYOUT_KEY = 'tym-movies-mobile-layout';
@@ -90,11 +92,28 @@ export function MobileMoviesScreen() {
     sortOrder,
   });
 
+  const { data: libraryStats } = useLibraryStatsQuery(listId);
+
   const items = useMemo(
     () => data?.pages.flatMap((page) => page.items) ?? [],
     [data],
   );
   const total = data?.pages[0]?.total ?? 0;
+
+  const openAddMovie = useCallback(() => {
+    setEditingMovieId(null);
+    setEditingMovie(null);
+    setIsFormOpen(true);
+  }, []);
+
+  const hasActiveFilters = Boolean(
+    search.trim() || status || contentType || genres.length > 0,
+  );
+  const isCatalogEmpty =
+    items.length === 0 &&
+    !hasActiveFilters &&
+    (libraryStats?.total ?? total) === 0;
+
   const loadMore = useCallback(() => {
     if (!hasNextPage || isFetchingNextPage) return;
     void fetchNextPage();
@@ -167,6 +186,14 @@ export function MobileMoviesScreen() {
 
       {isLoading ? (
         <EmptyState title="Loading…" description="Please wait." />
+      ) : isCatalogEmpty ? (
+        <EmptyState
+          variant="catalog"
+          eyebrow="Your list is empty"
+          title="Start with your first title."
+          description="Add a movie or series you want to watch — solo or together with people on this list."
+          action={canEdit ? { label: 'Add movie', onClick: openAddMovie } : undefined}
+        />
       ) : items.length === 0 ? (
         <EmptyState
           title="No titles found"
@@ -411,6 +438,18 @@ function MobileMovieDetailSheet({
                   <span key={genre}>{genre}</span>
                 ))}
               </div>
+            ) : null}
+            {movie.trailerKey ? (
+              <a
+                className="mobile-detail-trailer-btn"
+                href={youtubeTrailerUrl(movie.trailerKey)}
+                target="_blank"
+                rel="noreferrer"
+                onClick={(event) => event.stopPropagation()}
+              >
+                <Play size={14} strokeWidth={2.4} fill="currentColor" />
+                Trailer
+              </a>
             ) : null}
           </div>
         </motion.header>

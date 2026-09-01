@@ -43,6 +43,32 @@
       "source_location": "L12"
     },
     {
+      "id": "frontend_src_state_moviesfilterscontext_moviesfilterscontextvalue",
+      "label": "MoviesFiltersContextValue",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "moviesfilterscontextvalue",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L27"
+    },
+    {
+      "id": "frontend_src_state_moviesfilterscontext_titlelang",
+      "label": "TitleLang",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "titlelang",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L13"
+    },
+    {
       "id": "frontend_src_components_mobile_filters_sortradiocard_sortradiocardprops",
       "label": "SortRadioCardProps",
       "_callable": true,
@@ -79,7 +105,7 @@
       "file_type": "code",
       "norm_label": "tmdbdetails",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L19"
+      "source_location": "L20"
     },
     {
       "id": "frontend_api_lib_tmdb_tmdbsearchresult",
@@ -95,95 +121,17 @@
       "source_location": "L9"
     },
     {
-      "id": "frontend_src_api_lists_addmoviepayload",
-      "label": "AddMoviePayload",
+      "id": "frontend_api_lib_tmdb_tmdbvideo",
+      "label": "TmdbVideo",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
+      "community": 14,
+      "community_name": "tmdb.ts",
       "file_type": "code",
-      "norm_label": "addmoviepayload",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L286"
-    },
-    {
-      "id": "frontend_src_api_lists_invite",
-      "label": "Invite",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "invite",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L30"
-    },
-    {
-      "id": "frontend_src_api_lists_librarystats",
-      "label": "LibraryStats",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "librarystats",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L257"
-    },
-    {
-      "id": "frontend_src_api_lists_listmember",
-      "label": "ListMember",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "listmember",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L22"
-    },
-    {
-      "id": "frontend_src_api_lists_listrole",
-      "label": "ListRole",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "listrole",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L12"
-    },
-    {
-      "id": "frontend_src_api_lists_moviespageresult",
-      "label": "MoviesPageResult",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "moviespageresult",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L84"
-    },
-    {
-      "id": "frontend_src_api_lists_ratingentry",
-      "label": "RatingEntry",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "ratingentry",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L42"
+      "norm_label": "tmdbvideo",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L35"
     },
     {
       "id": "frontend_src_components_emptystate_emptystateprops",
@@ -192,11 +140,24 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "emptystateprops",
       "source_file": "frontend/src/components/EmptyState.tsx",
       "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemoviesscreen_mobilelayout",
+      "label": "MobileLayout",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "MobileMoviesScreen.tsx",
+      "file_type": "code",
+      "norm_label": "mobilelayout",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L28"
     },
     {
       "id": "frontend_src_components_searchinput_searchinputprops",
@@ -205,7 +166,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "searchinputprops",
       "source_file": "frontend/src/components/SearchInput.tsx",
@@ -218,7 +179,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "useinfinitescrolloptions",
       "source_file": "frontend/src/hooks/useInfiniteScroll.ts",
@@ -238,108 +199,95 @@
       "source_location": "L3"
     },
     {
-      "id": "frontend_src_components_mobile_mobileshell_mobiletab",
-      "label": "MobileTab",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "MobileShell.tsx",
-      "file_type": "code",
-      "norm_label": "mobiletab",
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "frontend_src_components_ui_modern_mobile_menu_iconcomponenttype",
-      "label": "IconComponentType",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "MobileShell.tsx",
-      "file_type": "code",
-      "norm_label": "iconcomponenttype",
-      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
-      "source_location": "L9"
-    },
-    {
-      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenuitem",
-      "label": "InteractiveMenuItem",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "MobileShell.tsx",
-      "file_type": "code",
-      "norm_label": "interactivemenuitem",
-      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
-      "source_location": "L11"
-    },
-    {
-      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenuprops",
-      "label": "InteractiveMenuProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "MobileShell.tsx",
-      "file_type": "code",
-      "norm_label": "interactivemenuprops",
-      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "frontend_src_api_lists_moviesqueryparams",
-      "label": "MoviesQueryParams",
+      "id": "frontend_src_api_search_searchcontenttype",
+      "label": "SearchContentType",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
+      "community_name": "MobileMovieForm.tsx",
       "file_type": "code",
-      "norm_label": "moviesqueryparams",
+      "norm_label": "searchcontenttype",
+      "source_file": "frontend/src/api/search.ts",
+      "source_location": "L6"
+    },
+    {
+      "id": "frontend_src_api_search_searchresult",
+      "label": "SearchResult",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "searchresult",
+      "source_file": "frontend/src/api/search.ts",
+      "source_location": "L8"
+    },
+    {
+      "id": "frontend_src_api_lists_addmoviepayload",
+      "label": "AddMoviePayload",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "addmoviepayload",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L73"
+      "source_location": "L289"
     },
     {
-      "id": "frontend_src_components_sortcontrol_sortcontrolprops",
-      "label": "SortControlProps",
+      "id": "frontend_src_api_lists_invite",
+      "label": "Invite",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
+      "community": 28,
+      "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "sortcontrolprops",
-      "source_file": "frontend/src/components/SortControl.tsx",
-      "source_location": "L3"
+      "norm_label": "invite",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L30"
     },
     {
-      "id": "frontend_src_state_moviesfilterscontext_moviesfilterscontextvalue",
-      "label": "MoviesFiltersContextValue",
+      "id": "frontend_src_api_lists_librarystats",
+      "label": "LibraryStats",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
+      "community": 28,
+      "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "moviesfilterscontextvalue",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L27"
+      "norm_label": "librarystats",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L260"
     },
     {
-      "id": "frontend_src_state_moviesfilterscontext_titlelang",
-      "label": "TitleLang",
+      "id": "frontend_src_api_lists_listmember",
+      "label": "ListMember",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
+      "community": 28,
+      "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "titlelang",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L13"
+      "norm_label": "listmember",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "frontend_src_api_lists_listrole",
+      "label": "ListRole",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "listrole",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L12"
     },
     {
       "id": "frontend_src_api_lists_listsummary",
@@ -348,11 +296,37 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 28,
-      "community_name": "ActiveListContext.tsx",
+      "community_name": "lists.ts",
       "file_type": "code",
       "norm_label": "listsummary",
       "source_file": "frontend/src/api/lists.ts",
       "source_location": "L14"
+    },
+    {
+      "id": "frontend_src_api_lists_moviespageresult",
+      "label": "MoviesPageResult",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "moviespageresult",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L87"
+    },
+    {
+      "id": "frontend_src_api_lists_ratingentry",
+      "label": "RatingEntry",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "ratingentry",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L42"
     },
     {
       "id": "frontend_src_state_activelistcontext_activelistcontextvalue",
@@ -361,11 +335,37 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 28,
-      "community_name": "ActiveListContext.tsx",
+      "community_name": "lists.ts",
       "file_type": "code",
       "norm_label": "activelistcontextvalue",
       "source_file": "frontend/src/state/ActiveListContext.tsx",
       "source_location": "L18"
+    },
+    {
+      "id": "frontend_src_api_lists_moviesqueryparams",
+      "label": "MoviesQueryParams",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 29,
+      "community_name": "SortControl.tsx",
+      "file_type": "code",
+      "norm_label": "moviesqueryparams",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L76"
+    },
+    {
+      "id": "frontend_src_components_sortcontrol_sortcontrolprops",
+      "label": "SortControlProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 29,
+      "community_name": "SortControl.tsx",
+      "file_type": "code",
+      "norm_label": "sortcontrolprops",
+      "source_file": "frontend/src/components/SortControl.tsx",
+      "source_location": "L3"
     },
     {
       "id": "frontend_src_api_lists_moviestatus",
@@ -373,7 +373,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 29,
+      "community": 30,
       "community_name": "MovieStatus",
       "file_type": "code",
       "norm_label": "moviestatus",
@@ -386,7 +386,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 29,
+      "community": 30,
       "community_name": "MovieStatus",
       "file_type": "code",
       "norm_label": "filtersbarprops",
@@ -399,12 +399,12 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 29,
+      "community": 30,
       "community_name": "MovieStatus",
       "file_type": "code",
       "norm_label": "formstate",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L28"
+      "source_location": "L29"
     },
     {
       "id": "frontend_src_components_movieformmodal_formstate",
@@ -412,12 +412,51 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 29,
+      "community": 30,
       "community_name": "MovieStatus",
       "file_type": "code",
       "norm_label": "formstate",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L23"
+      "source_location": "L24"
+    },
+    {
+      "id": "frontend_src_components_formatteddatepicker_formatteddatepickerprops",
+      "label": "FormattedDatePickerProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 31,
+      "community_name": "FormattedDatePicker.tsx",
+      "file_type": "code",
+      "norm_label": "formatteddatepickerprops",
+      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_components_ratingstars_ratingstarsprops",
+      "label": "RatingStarsProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 32,
+      "community_name": "RatingStars.tsx",
+      "file_type": "code",
+      "norm_label": "ratingstarsprops",
+      "source_file": "frontend/src/components/RatingStars.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_components_avatar_avatarprops",
+      "label": "AvatarProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 33,
+      "community_name": "MobileProfileScreen.tsx",
+      "file_type": "code",
+      "norm_label": "avatarprops",
+      "source_file": "frontend/src/components/Avatar.tsx",
+      "source_location": "L4"
     },
     {
       "id": "frontend_src_components_mobile_mobilebottomsheet_mobilebottomsheetprops",
@@ -425,7 +464,7 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 30,
+      "community": 33,
       "community_name": "MobileProfileScreen.tsx",
       "file_type": "code",
       "norm_label": "mobilebottomsheetprops",
@@ -438,12 +477,64 @@
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
-      "community": 30,
+      "community": 33,
       "community_name": "MobileProfileScreen.tsx",
       "file_type": "code",
       "norm_label": "mobileprofilescreenprops",
       "source_file": "frontend/src/components/mobile/MobileProfileScreen.tsx",
       "source_location": "L13"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobileshell_mobiletab",
+      "label": "MobileTab",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "MobileShell.tsx",
+      "file_type": "code",
+      "norm_label": "mobiletab",
+      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "frontend_src_components_ui_modern_mobile_menu_iconcomponenttype",
+      "label": "IconComponentType",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "MobileShell.tsx",
+      "file_type": "code",
+      "norm_label": "iconcomponenttype",
+      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenuitem",
+      "label": "InteractiveMenuItem",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "MobileShell.tsx",
+      "file_type": "code",
+      "norm_label": "interactivemenuitem",
+      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenuprops",
+      "label": "InteractiveMenuProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "MobileShell.tsx",
+      "file_type": "code",
+      "norm_label": "interactivemenuprops",
+      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
+      "source_location": "L16"
     },
     {
       "id": "frontend_src_components_mobile_filters_applyfilterscta_applyfiltersctaprops",
@@ -595,76 +686,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "movie",
       "source_file": "frontend/src/api/lists.ts",
       "source_location": "L53"
-    },
-    {
-      "id": "frontend_src_api_search_searchcontenttype",
-      "label": "SearchContentType",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "searchcontenttype",
-      "source_file": "frontend/src/api/search.ts",
-      "source_location": "L6"
-    },
-    {
-      "id": "frontend_src_api_search_searchresult",
-      "label": "SearchResult",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "searchresult",
-      "source_file": "frontend/src/api/search.ts",
-      "source_location": "L8"
-    },
-    {
-      "id": "frontend_src_components_avatar_avatarprops",
-      "label": "AvatarProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "avatarprops",
-      "source_file": "frontend/src/components/Avatar.tsx",
-      "source_location": "L4"
-    },
-    {
-      "id": "frontend_src_components_formatteddatepicker_formatteddatepickerprops",
-      "label": "FormattedDatePickerProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "formatteddatepickerprops",
-      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
-      "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobilemoviesscreen_mobilelayout",
-      "label": "MobileLayout",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilelayout",
-      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L26"
     },
     {
       "id": "frontend_src_components_mobile_mobilemovietile_mobilemovietileprops",
@@ -673,7 +699,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "mobilemovietileprops",
       "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
@@ -686,7 +712,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "titlelang",
       "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
@@ -699,11 +725,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "mobilemovieformprops",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L19"
+      "source_location": "L20"
     },
     {
       "id": "frontend_src_components_moviecard_moviecardprops",
@@ -712,7 +738,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "moviecardprops",
       "source_file": "frontend/src/components/MovieCard.tsx",
@@ -725,7 +751,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "titlelang",
       "source_file": "frontend/src/components/MovieCard.tsx",
@@ -738,11 +764,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "movieformmodalprops",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L15"
+      "source_location": "L16"
     },
     {
       "id": "frontend_src_components_moviegrid_moviegridprops",
@@ -751,7 +777,7 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "moviegridprops",
       "source_file": "frontend/src/components/MovieGrid.tsx",
@@ -764,24 +790,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "titlelang",
       "source_file": "frontend/src/components/MovieGrid.tsx",
       "source_location": "L4"
-    },
-    {
-      "id": "frontend_src_components_ratingstars_ratingstarsprops",
-      "label": "RatingStarsProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "ratingstarsprops",
-      "source_file": "frontend/src/components/RatingStars.tsx",
-      "source_location": "L3"
     },
     {
       "id": "frontend_api_lib_db_invitedto",
@@ -833,7 +846,7 @@
       "file_type": "code",
       "norm_label": "listmoviedto",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L562"
+      "source_location": "L568"
     },
     {
       "id": "frontend_api_lib_db_listmovierow",
@@ -846,7 +859,7 @@
       "file_type": "code",
       "norm_label": "listmovierow",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L572"
+      "source_location": "L578"
     },
     {
       "id": "frontend_api_lib_db_listrole",
@@ -872,7 +885,7 @@
       "file_type": "code",
       "norm_label": "moviedto",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L417"
+      "source_location": "L418"
     },
     {
       "id": "frontend_api_lib_db_movierow",
@@ -1152,7 +1165,7 @@
       "file_type": "code",
       "norm_label": "invitepage()",
       "source_file": "frontend/src/components/InvitePage.tsx",
-      "source_location": "L27"
+      "source_location": "L70"
     },
     {
       "id": "frontend_src_components_invitepage_inviteshell",
@@ -1164,7 +1177,7 @@
       "file_type": "code",
       "norm_label": "inviteshell()",
       "source_file": "frontend/src/components/InvitePage.tsx",
-      "source_location": "L7"
+      "source_location": "L8"
     },
     {
       "id": "frontend_src_components_loginpage_desktoploginpage",
@@ -1347,6 +1360,30 @@
       "source_location": "L45"
     },
     {
+      "id": "frontend_src_state_moviesfilterscontext_moviesfiltersprovider",
+      "label": "MoviesFiltersProvider()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "moviesfiltersprovider()",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L49"
+    },
+    {
+      "id": "frontend_src_state_moviesfilterscontext_readtitlelang",
+      "label": "readTitleLang()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "readtitlelang()",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L17"
+    },
+    {
       "id": "frontend_src_components_mobile_filters_sortradiocard_sortradiocard",
       "label": "SortRadioCard()",
       "_callable": true,
@@ -1368,19 +1405,7 @@
       "file_type": "code",
       "norm_label": "authfetch()",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L49"
-    },
-    {
-      "id": "frontend_api_lib_tmdb_buildposterurl",
-      "label": "buildPosterUrl()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 14,
-      "community_name": "tmdb.ts",
-      "file_type": "code",
-      "norm_label": "buildposterurl()",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L35"
+      "source_location": "L88"
     },
     {
       "id": "frontend_api_lib_tmdb_getapikey",
@@ -1392,7 +1417,7 @@
       "file_type": "code",
       "norm_label": "getapikey()",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L43"
+      "source_location": "L82"
     },
     {
       "id": "frontend_api_lib_tmdb_getmoviedetails",
@@ -1404,7 +1429,7 @@
       "file_type": "code",
       "norm_label": "getmoviedetails()",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L123"
+      "source_location": "L163"
     },
     {
       "id": "frontend_api_lib_tmdb_gettvdetails",
@@ -1416,7 +1441,19 @@
       "file_type": "code",
       "norm_label": "gettvdetails()",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L155"
+      "source_location": "L203"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_pickbesttrailerkey",
+      "label": "pickBestTrailerKey()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "pickbesttrailerkey()",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L49"
     },
     {
       "id": "frontend_api_lib_tmdb_searchmulti",
@@ -1428,7 +1465,7 @@
       "file_type": "code",
       "norm_label": "searchmulti()",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L59"
+      "source_location": "L98"
     },
     {
       "id": "frontend_scripts_check_vercel_function_count_countdeployableapifunctions",
@@ -1491,112 +1528,52 @@
       "source_location": "L92"
     },
     {
-      "id": "frontend_src_api_lists_usecreateinvitemutation",
-      "label": "useCreateInviteMutation()",
+      "id": "frontend_scripts_backfill_trailers_fetchtrailerkey",
+      "label": "fetchTrailerKey()",
       "_callable": true,
       "_origin": "ast",
       "community": 2,
-      "community_name": "lists.ts",
+      "community_name": "backfill-trailers.mjs",
       "file_type": "code",
-      "norm_label": "usecreateinvitemutation()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L187"
+      "norm_label": "fetchtrailerkey()",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L55"
     },
     {
-      "id": "frontend_src_api_lists_usecreatelistmutation",
-      "label": "useCreateListMutation()",
+      "id": "frontend_scripts_backfill_trailers_main",
+      "label": "main()",
       "_callable": true,
       "_origin": "ast",
       "community": 2,
-      "community_name": "lists.ts",
+      "community_name": "backfill-trailers.mjs",
       "file_type": "code",
-      "norm_label": "usecreatelistmutation()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L112"
+      "norm_label": "main()",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L71"
     },
     {
-      "id": "frontend_src_api_lists_usedeletelistmutation",
-      "label": "useDeleteListMutation()",
+      "id": "frontend_scripts_backfill_trailers_pickbesttrailerkey",
+      "label": "pickBestTrailerKey()",
       "_callable": true,
       "_origin": "ast",
       "community": 2,
-      "community_name": "lists.ts",
+      "community_name": "backfill-trailers.mjs",
       "file_type": "code",
-      "norm_label": "usedeletelistmutation()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L137"
+      "norm_label": "pickbesttrailerkey()",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L36"
     },
     {
-      "id": "frontend_src_api_lists_uselistinvitesquery",
-      "label": "useListInvitesQuery()",
+      "id": "frontend_scripts_backfill_trailers_sleep",
+      "label": "sleep()",
       "_callable": true,
       "_origin": "ast",
       "community": 2,
-      "community_name": "lists.ts",
+      "community_name": "backfill-trailers.mjs",
       "file_type": "code",
-      "norm_label": "uselistinvitesquery()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L174"
-    },
-    {
-      "id": "frontend_src_api_lists_useremovemembermutation",
-      "label": "useRemoveMemberMutation()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "useremovemembermutation()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L162"
-    },
-    {
-      "id": "frontend_src_api_lists_userenamelistmutation",
-      "label": "useRenameListMutation()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "userenamelistmutation()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L125"
-    },
-    {
-      "id": "frontend_src_api_lists_userevokeinvitemutation",
-      "label": "useRevokeInviteMutation()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "userevokeinvitemutation()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L200"
-    },
-    {
-      "id": "frontend_src_components_listsettingspanel_invitesharerow",
-      "label": "InviteShareRow()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "invitesharerow()",
-      "source_file": "frontend/src/components/ListSettingsPanel.tsx",
-      "source_location": "L17"
-    },
-    {
-      "id": "frontend_src_components_listsettingspanel_listsettingscontent",
-      "label": "ListSettingsContent()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 2,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "listsettingscontent()",
-      "source_file": "frontend/src/components/ListSettingsPanel.tsx",
-      "source_location": "L50"
+      "norm_label": "sleep()",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L30"
     },
     {
       "id": "frontend_scripts_migrate_main",
@@ -1712,11 +1689,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "usegenresquery()",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L272"
+      "source_location": "L275"
     },
     {
       "id": "frontend_src_api_lists_uselibrarystatsquery",
@@ -1724,11 +1701,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "uselibrarystatsquery()",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L259"
+      "source_location": "L262"
     },
     {
       "id": "frontend_src_api_lists_usemoviesinfinitequery",
@@ -1736,11 +1713,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "usemoviesinfinitequery()",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L246"
+      "source_location": "L249"
     },
     {
       "id": "frontend_src_components_emptystate_emptystate",
@@ -1748,11 +1725,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "emptystate()",
       "source_file": "frontend/src/components/EmptyState.tsx",
-      "source_location": "L6"
+      "source_location": "L12"
     },
     {
       "id": "frontend_src_components_listswitcher_listswitcher",
@@ -1760,7 +1737,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "listswitcher()",
       "source_file": "frontend/src/components/ListSwitcher.tsx",
@@ -1772,11 +1749,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "mobilemoviesscreen()",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L39"
+      "source_location": "L41"
     },
     {
       "id": "frontend_src_components_mobile_mobilemoviesscreen_readmobilelayout",
@@ -1784,11 +1761,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "readmobilelayout()",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L29"
+      "source_location": "L31"
     },
     {
       "id": "frontend_src_components_mobile_mobileprofilescreen_mobileprofilescreen",
@@ -1796,7 +1773,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "mobileprofilescreen()",
       "source_file": "frontend/src/components/mobile/MobileProfileScreen.tsx",
@@ -1808,7 +1785,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "moviespage()",
       "source_file": "frontend/src/components/MoviesPage.tsx",
@@ -1820,7 +1797,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "searchinput()",
       "source_file": "frontend/src/components/SearchInput.tsx",
@@ -1832,7 +1809,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "useinfinitescroll()",
       "source_file": "frontend/src/hooks/useInfiniteScroll.ts",
@@ -1844,7 +1821,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "useactivelistsync()",
       "source_file": "frontend/src/state/ActiveListContext.tsx",
@@ -1856,7 +1833,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "usemoviesfilters()",
       "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
@@ -1875,88 +1852,292 @@
       "source_location": "L7"
     },
     {
-      "id": "frontend_src_components_listsettingspanel_listsettingspanel",
-      "label": "ListSettingsPanel()",
+      "id": "frontend_scripts_debug_trailer_authfetch",
+      "label": "authFetch()",
       "_callable": true,
       "_origin": "ast",
       "community": 26,
-      "community_name": "MobileShell.tsx",
+      "community_name": "debug-trailer.mjs",
       "file_type": "code",
-      "norm_label": "listsettingspanel()",
-      "source_file": "frontend/src/components/ListSettingsPanel.tsx",
-      "source_location": "L181"
+      "norm_label": "authfetch()",
+      "source_file": "frontend/scripts/debug-trailer.mjs",
+      "source_location": "L23"
     },
     {
-      "id": "frontend_src_components_mobile_mobileshell_mobileshell",
-      "label": "MobileShell()",
+      "id": "frontend_scripts_debug_trailer_main",
+      "label": "main()",
       "_callable": true,
       "_origin": "ast",
       "community": 26,
-      "community_name": "MobileShell.tsx",
+      "community_name": "debug-trailer.mjs",
       "file_type": "code",
-      "norm_label": "mobileshell()",
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L30"
+      "norm_label": "main()",
+      "source_file": "frontend/scripts/debug-trailer.mjs",
+      "source_location": "L31"
     },
     {
-      "id": "frontend_src_components_mobile_mobileshell_readlegacysheet",
-      "label": "readLegacySheet()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "MobileShell.tsx",
-      "file_type": "code",
-      "norm_label": "readlegacysheet()",
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L20"
-    },
-    {
-      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenu",
-      "label": "InteractiveMenu()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "MobileShell.tsx",
-      "file_type": "code",
-      "norm_label": "interactivemenu()",
-      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
-      "source_location": "L26"
-    },
-    {
-      "id": "frontend_src_components_sortcontrol_sortcontrol",
-      "label": "SortControl()",
+      "id": "frontend_src_api_lists_errormessage",
+      "label": "errorMessage()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
+      "community_name": "MobileMovieForm.tsx",
       "file_type": "code",
-      "norm_label": "sortcontrol()",
-      "source_file": "frontend/src/components/SortControl.tsx",
-      "source_location": "L16"
+      "norm_label": "errormessage()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L95"
     },
     {
-      "id": "frontend_src_state_moviesfilterscontext_moviesfiltersprovider",
-      "label": "MoviesFiltersProvider()",
+      "id": "frontend_src_api_lists_usecreatemoviemutation",
+      "label": "useCreateMovieMutation()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
+      "community_name": "MobileMovieForm.tsx",
       "file_type": "code",
-      "norm_label": "moviesfiltersprovider()",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "norm_label": "usecreatemoviemutation()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L301"
+    },
+    {
+      "id": "frontend_src_api_lists_usedeletemoviemutation",
+      "label": "useDeleteMovieMutation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "usedeletemoviemutation()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L365"
+    },
+    {
+      "id": "frontend_src_api_lists_uselistmembersquery",
+      "label": "useListMembersQuery()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "uselistmembersquery()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L152"
+    },
+    {
+      "id": "frontend_src_api_lists_usesetratingmutation",
+      "label": "useSetRatingMutation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "usesetratingmutation()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L340"
+    },
+    {
+      "id": "frontend_src_api_lists_useupdatemoviemutation",
+      "label": "useUpdateMovieMutation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "useupdatemoviemutation()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L317"
+    },
+    {
+      "id": "frontend_src_api_search_search",
+      "label": "search()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "search()",
+      "source_file": "frontend/src/api/search.ts",
+      "source_location": "L22"
+    },
+    {
+      "id": "frontend_src_auth_authcontext_useauth",
+      "label": "useAuth()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "useauth()",
+      "source_file": "frontend/src/auth/AuthContext.tsx",
+      "source_location": "L83"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemoviesscreen_mobilemoviedetailsheet",
+      "label": "MobileMovieDetailSheet()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "mobilemoviedetailsheet()",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L276"
+    },
+    {
+      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_initialformstate",
+      "label": "initialFormState()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "initialformstate()",
+      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
+      "source_location": "L45"
+    },
+    {
+      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_initialmetadata",
+      "label": "initialMetadata()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "initialmetadata()",
+      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
+      "source_location": "L54"
+    },
+    {
+      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieform",
+      "label": "MobileMovieForm()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "mobilemovieform()",
+      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
+      "source_location": "L71"
+    },
+    {
+      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_ratingsfrommovie",
+      "label": "ratingsFromMovie()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "ratingsfrommovie()",
+      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
+      "source_location": "L36"
+    },
+    {
+      "id": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
+      "label": "MovieDetailsDrawer()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "moviedetailsdrawer()",
+      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
+      "source_location": "L14"
+    },
+    {
+      "id": "frontend_src_components_movieformmodal_formstatefrommovie",
+      "label": "formStateFromMovie()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "formstatefrommovie()",
+      "source_file": "frontend/src/components/MovieFormModal.tsx",
+      "source_location": "L40"
+    },
+    {
+      "id": "frontend_src_components_movieformmodal_movieformmodal",
+      "label": "MovieFormModal()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "movieformmodal()",
+      "source_file": "frontend/src/components/MovieFormModal.tsx",
       "source_location": "L49"
     },
     {
-      "id": "frontend_src_state_moviesfilterscontext_readtitlelang",
-      "label": "readTitleLang()",
+      "id": "frontend_src_components_movieformmodal_ratingsfrommovie",
+      "label": "ratingsFromMovie()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
+      "community_name": "MobileMovieForm.tsx",
       "file_type": "code",
-      "norm_label": "readtitlelang()",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L17"
+      "norm_label": "ratingsfrommovie()",
+      "source_file": "frontend/src/components/MovieFormModal.tsx",
+      "source_location": "L31"
+    },
+    {
+      "id": "frontend_src_lib_trailer_youtubetrailerurl",
+      "label": "youtubeTrailerUrl()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "youtubetrailerurl()",
+      "source_file": "frontend/src/lib/trailer.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_api_lists_usecreateinvitemutation",
+      "label": "useCreateInviteMutation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "usecreateinvitemutation()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L190"
+    },
+    {
+      "id": "frontend_src_api_lists_usecreatelistmutation",
+      "label": "useCreateListMutation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "usecreatelistmutation()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L115"
+    },
+    {
+      "id": "frontend_src_api_lists_usedeletelistmutation",
+      "label": "useDeleteListMutation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "usedeletelistmutation()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L140"
+    },
+    {
+      "id": "frontend_src_api_lists_uselistinvitesquery",
+      "label": "useListInvitesQuery()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "uselistinvitesquery()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L177"
     },
     {
       "id": "frontend_src_api_lists_uselistsquery",
@@ -1964,11 +2145,71 @@
       "_callable": true,
       "_origin": "ast",
       "community": 28,
-      "community_name": "ActiveListContext.tsx",
+      "community_name": "lists.ts",
       "file_type": "code",
       "norm_label": "uselistsquery()",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L102"
+      "source_location": "L105"
+    },
+    {
+      "id": "frontend_src_api_lists_useremovemembermutation",
+      "label": "useRemoveMemberMutation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "useremovemembermutation()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L165"
+    },
+    {
+      "id": "frontend_src_api_lists_userenamelistmutation",
+      "label": "useRenameListMutation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "userenamelistmutation()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L128"
+    },
+    {
+      "id": "frontend_src_api_lists_userevokeinvitemutation",
+      "label": "useRevokeInviteMutation()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "userevokeinvitemutation()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L203"
+    },
+    {
+      "id": "frontend_src_components_listsettingspanel_invitesharerow",
+      "label": "InviteShareRow()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "invitesharerow()",
+      "source_file": "frontend/src/components/ListSettingsPanel.tsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "frontend_src_components_listsettingspanel_listsettingscontent",
+      "label": "ListSettingsContent()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "listsettingscontent()",
+      "source_file": "frontend/src/components/ListSettingsPanel.tsx",
+      "source_location": "L50"
     },
     {
       "id": "frontend_src_state_activelistcontext_activelistprovider",
@@ -1976,7 +2217,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 28,
-      "community_name": "ActiveListContext.tsx",
+      "community_name": "lists.ts",
       "file_type": "code",
       "norm_label": "activelistprovider()",
       "source_file": "frontend/src/state/ActiveListContext.tsx",
@@ -1988,18 +2229,30 @@
       "_callable": true,
       "_origin": "ast",
       "community": 28,
-      "community_name": "ActiveListContext.tsx",
+      "community_name": "lists.ts",
       "file_type": "code",
       "norm_label": "readstored()",
       "source_file": "frontend/src/state/ActiveListContext.tsx",
       "source_location": "L10"
     },
     {
+      "id": "frontend_src_components_sortcontrol_sortcontrol",
+      "label": "SortControl()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 29,
+      "community_name": "SortControl.tsx",
+      "file_type": "code",
+      "norm_label": "sortcontrol()",
+      "source_file": "frontend/src/components/SortControl.tsx",
+      "source_location": "L16"
+    },
+    {
       "id": "frontend_src_components_filtersbar_filtersbar",
       "label": "FiltersBar()",
       "_callable": true,
       "_origin": "ast",
-      "community": 29,
+      "community": 30,
       "community_name": "MovieStatus",
       "file_type": "code",
       "norm_label": "filtersbar()",
@@ -2007,11 +2260,71 @@
       "source_location": "L14"
     },
     {
+      "id": "frontend_src_components_formatteddatepicker_formatteddatepicker",
+      "label": "FormattedDatePicker()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 31,
+      "community_name": "FormattedDatePicker.tsx",
+      "file_type": "code",
+      "norm_label": "formatteddatepicker()",
+      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "frontend_src_lib_watchdate_isotodmy",
+      "label": "isoToDmy()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 31,
+      "community_name": "FormattedDatePicker.tsx",
+      "file_type": "code",
+      "norm_label": "isotodmy()",
+      "source_file": "frontend/src/lib/watchDate.ts",
+      "source_location": "L2"
+    },
+    {
+      "id": "frontend_src_components_ratingstars_ratingstars",
+      "label": "RatingStars()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 32,
+      "community_name": "RatingStars.tsx",
+      "file_type": "code",
+      "norm_label": "ratingstars()",
+      "source_file": "frontend/src/components/RatingStars.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "frontend_src_lib_ratingstars_starfillfractions",
+      "label": "starFillFractions()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 32,
+      "community_name": "RatingStars.tsx",
+      "file_type": "code",
+      "norm_label": "starfillfractions()",
+      "source_file": "frontend/src/lib/ratingStars.ts",
+      "source_location": "L2"
+    },
+    {
+      "id": "frontend_src_components_avatar_avatar",
+      "label": "Avatar()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 33,
+      "community_name": "MobileProfileScreen.tsx",
+      "file_type": "code",
+      "norm_label": "avatar()",
+      "source_file": "frontend/src/components/Avatar.tsx",
+      "source_location": "L22"
+    },
+    {
       "id": "frontend_src_components_mobile_mobilebottomsheet_mobilebottomsheet",
       "label": "MobileBottomSheet()",
       "_callable": true,
       "_origin": "ast",
-      "community": 30,
+      "community": 33,
       "community_name": "MobileProfileScreen.tsx",
       "file_type": "code",
       "norm_label": "mobilebottomsheet()",
@@ -2019,40 +2332,100 @@
       "source_location": "L16"
     },
     {
+      "id": "frontend_src_lib_avatarcolor_avatarcolorforuser",
+      "label": "avatarColorForUser()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 33,
+      "community_name": "MobileProfileScreen.tsx",
+      "file_type": "code",
+      "norm_label": "avatarcolorforuser()",
+      "source_file": "frontend/src/lib/avatarColor.ts",
+      "source_location": "L15"
+    },
+    {
+      "id": "frontend_src_lib_avatarcolor_initialfor",
+      "label": "initialFor()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 33,
+      "community_name": "MobileProfileScreen.tsx",
+      "file_type": "code",
+      "norm_label": "initialfor()",
+      "source_file": "frontend/src/lib/avatarColor.ts",
+      "source_location": "L23"
+    },
+    {
+      "id": "frontend_src_components_listsettingspanel_listsettingspanel",
+      "label": "ListSettingsPanel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "MobileShell.tsx",
+      "file_type": "code",
+      "norm_label": "listsettingspanel()",
+      "source_file": "frontend/src/components/ListSettingsPanel.tsx",
+      "source_location": "L181"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobileshell_mobileshell",
+      "label": "MobileShell()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "MobileShell.tsx",
+      "file_type": "code",
+      "norm_label": "mobileshell()",
+      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
+      "source_location": "L30"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobileshell_readlegacysheet",
+      "label": "readLegacySheet()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "MobileShell.tsx",
+      "file_type": "code",
+      "norm_label": "readlegacysheet()",
+      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenu",
+      "label": "InteractiveMenu()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "MobileShell.tsx",
+      "file_type": "code",
+      "norm_label": "interactivemenu()",
+      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
+      "source_location": "L26"
+    },
+    {
       "id": "frontend_src_api_lists_fetchmoviespage",
       "label": "fetchMoviesPage()",
       "_callable": true,
       "_origin": "ast",
-      "community": 31,
-      "community_name": "MobileFiltersScreen",
+      "community": 5,
+      "community_name": "MobileFiltersScreen.tsx",
       "file_type": "code",
       "norm_label": "fetchmoviespage()",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L216"
+      "source_location": "L219"
     },
     {
       "id": "frontend_src_api_lists_usemoviesquery",
       "label": "useMoviesQuery()",
       "_callable": true,
       "_origin": "ast",
-      "community": 31,
-      "community_name": "MobileFiltersScreen",
+      "community": 5,
+      "community_name": "MobileFiltersScreen.tsx",
       "file_type": "code",
       "norm_label": "usemoviesquery()",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L238"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobilefiltersscreen_mobilefiltersscreen",
-      "label": "MobileFiltersScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 31,
-      "community_name": "MobileFiltersScreen",
-      "file_type": "code",
-      "norm_label": "mobilefiltersscreen()",
-      "source_file": "frontend/src/components/mobile/MobileFiltersScreen.tsx",
-      "source_location": "L28"
+      "source_location": "L241"
     },
     {
       "id": "frontend_src_components_mobile_filters_applyfilterscta_applyfilterscta",
@@ -2076,7 +2449,7 @@
       "file_type": "code",
       "norm_label": "filtersectioncard()",
       "source_file": "frontend/src/components/mobile/filters/FilterSectionCard.tsx",
-      "source_location": "L13"
+      "source_location": "L14"
     },
     {
       "id": "frontend_src_components_mobile_filters_genrecloud_chip",
@@ -2125,6 +2498,18 @@
       "norm_label": "segmentedcontrol()",
       "source_file": "frontend/src/components/mobile/filters/SegmentedControl.tsx",
       "source_location": "L16"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilefiltersscreen_mobilefiltersscreen",
+      "label": "MobileFiltersScreen()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "MobileFiltersScreen.tsx",
+      "file_type": "code",
+      "norm_label": "mobilefiltersscreen()",
+      "source_file": "frontend/src/components/mobile/MobileFiltersScreen.tsx",
+      "source_location": "L28"
     },
     {
       "id": "frontend_api_lib_google_buildgoogleauthurl",
@@ -2187,144 +2572,12 @@
       "source_location": "L24"
     },
     {
-      "id": "frontend_src_api_lists_errormessage",
-      "label": "errorMessage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "errormessage()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L92"
-    },
-    {
-      "id": "frontend_src_api_lists_usecreatemoviemutation",
-      "label": "useCreateMovieMutation()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "usecreatemoviemutation()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L298"
-    },
-    {
-      "id": "frontend_src_api_lists_usedeletemoviemutation",
-      "label": "useDeleteMovieMutation()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "usedeletemoviemutation()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L362"
-    },
-    {
-      "id": "frontend_src_api_lists_uselistmembersquery",
-      "label": "useListMembersQuery()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "uselistmembersquery()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L149"
-    },
-    {
-      "id": "frontend_src_api_lists_usesetratingmutation",
-      "label": "useSetRatingMutation()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "usesetratingmutation()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L337"
-    },
-    {
-      "id": "frontend_src_api_lists_useupdatemoviemutation",
-      "label": "useUpdateMovieMutation()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "useupdatemoviemutation()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L314"
-    },
-    {
-      "id": "frontend_src_api_search_search",
-      "label": "search()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "search()",
-      "source_file": "frontend/src/api/search.ts",
-      "source_location": "L21"
-    },
-    {
-      "id": "frontend_src_auth_authcontext_useauth",
-      "label": "useAuth()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "useauth()",
-      "source_file": "frontend/src/auth/AuthContext.tsx",
-      "source_location": "L83"
-    },
-    {
-      "id": "frontend_src_components_avatar_avatar",
-      "label": "Avatar()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "avatar()",
-      "source_file": "frontend/src/components/Avatar.tsx",
-      "source_location": "L22"
-    },
-    {
-      "id": "frontend_src_components_formatteddatepicker_formatteddatepicker",
-      "label": "FormattedDatePicker()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "formatteddatepicker()",
-      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
-      "source_location": "L9"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobilemoviesscreen_mobilemoviedetailsheet",
-      "label": "MobileMovieDetailSheet()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilemoviedetailsheet()",
-      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L249"
-    },
-    {
       "id": "frontend_src_components_mobile_mobilemovietile_displaytitle",
       "label": "displayTitle()",
       "_callable": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "displaytitle()",
       "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
@@ -2336,7 +2589,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "formatscore()",
       "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
@@ -2348,7 +2601,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "mobilemovietile()",
       "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
@@ -2360,83 +2613,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "tilepalette()",
       "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
       "source_location": "L28"
-    },
-    {
-      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_initialformstate",
-      "label": "initialFormState()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "initialformstate()",
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L44"
-    },
-    {
-      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_initialmetadata",
-      "label": "initialMetadata()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "initialmetadata()",
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L53"
-    },
-    {
-      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieform",
-      "label": "MobileMovieForm()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilemovieform()",
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L69"
-    },
-    {
-      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_ratingsfrommovie",
-      "label": "ratingsFromMovie()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "ratingsfrommovie()",
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L35"
-    },
-    {
-      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_ratingssummary",
-      "label": "ratingsSummary()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "ratingssummary()",
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L559"
-    },
-    {
-      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_truncate",
-      "label": "truncate()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "truncate()",
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L555"
     },
     {
       "id": "frontend_src_components_moviecard_displaytitle",
@@ -2444,7 +2625,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "displaytitle()",
       "source_file": "frontend/src/components/MovieCard.tsx",
@@ -2456,7 +2637,7 @@
       "_callable": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "moviecard()",
       "source_file": "frontend/src/components/MovieCard.tsx",
@@ -2468,59 +2649,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "watchdatelabel()",
       "source_file": "frontend/src/components/MovieCard.tsx",
       "source_location": "L17"
-    },
-    {
-      "id": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
-      "label": "MovieDetailsDrawer()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "moviedetailsdrawer()",
-      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "frontend_src_components_movieformmodal_formstatefrommovie",
-      "label": "formStateFromMovie()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "formstatefrommovie()",
-      "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L39"
-    },
-    {
-      "id": "frontend_src_components_movieformmodal_movieformmodal",
-      "label": "MovieFormModal()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "movieformmodal()",
-      "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L48"
-    },
-    {
-      "id": "frontend_src_components_movieformmodal_ratingsfrommovie",
-      "label": "ratingsFromMovie()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "ratingsfrommovie()",
-      "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L30"
     },
     {
       "id": "frontend_src_components_moviegrid_moviegrid",
@@ -2528,71 +2661,11 @@
       "_callable": true,
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "moviegrid()",
       "source_file": "frontend/src/components/MovieGrid.tsx",
       "source_location": "L13"
-    },
-    {
-      "id": "frontend_src_components_ratingstars_ratingstars",
-      "label": "RatingStars()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "ratingstars()",
-      "source_file": "frontend/src/components/RatingStars.tsx",
-      "source_location": "L8"
-    },
-    {
-      "id": "frontend_src_lib_avatarcolor_avatarcolorforuser",
-      "label": "avatarColorForUser()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "avatarcolorforuser()",
-      "source_file": "frontend/src/lib/avatarColor.ts",
-      "source_location": "L15"
-    },
-    {
-      "id": "frontend_src_lib_avatarcolor_initialfor",
-      "label": "initialFor()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "initialfor()",
-      "source_file": "frontend/src/lib/avatarColor.ts",
-      "source_location": "L23"
-    },
-    {
-      "id": "frontend_src_lib_ratingstars_starfillfractions",
-      "label": "starFillFractions()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "starfillfractions()",
-      "source_file": "frontend/src/lib/ratingStars.ts",
-      "source_location": "L2"
-    },
-    {
-      "id": "frontend_src_lib_watchdate_isotodmy",
-      "label": "isoToDmy()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "isotodmy()",
-      "source_file": "frontend/src/lib/watchDate.ts",
-      "source_location": "L2"
     },
     {
       "id": "frontend_api_index_handler",
@@ -2760,7 +2833,7 @@
       "file_type": "code",
       "norm_label": "datetoyyyymmdd()",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L580"
+      "source_location": "L586"
     },
     {
       "id": "frontend_api_lib_db_getsql",
@@ -2796,7 +2869,7 @@
       "file_type": "code",
       "norm_label": "rowtolistmovie()",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L587"
+      "source_location": "L593"
     },
     {
       "id": "frontend_api_lib_db_rowtomovie",
@@ -2808,7 +2881,7 @@
       "file_type": "code",
       "norm_label": "rowtomovie()",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L431"
+      "source_location": "L433"
     },
     {
       "id": "frontend_api_lib_db_rowtouser",
@@ -2833,6 +2906,18 @@
       "norm_label": "dispatchapirequest()",
       "source_file": "frontend/api/_lib/router.ts",
       "source_location": "L47"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_buildposterurl",
+      "label": "buildPosterUrl()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 9,
+      "community_name": "router.ts",
+      "file_type": "code",
+      "norm_label": "buildposterurl()",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L74"
     },
     {
       "id": "frontend_api_lib_types_apiresponse_json",
@@ -3264,7 +3349,7 @@
       "file_type": "code",
       "norm_label": "handler()",
       "source_file": "frontend/api/_routes/search/index.ts",
-      "source_location": "L31"
+      "source_location": "L32"
     },
     {
       "id": "frontend_package_devdependencies",
@@ -3835,6 +3920,28 @@
       "source_location": "L13"
     },
     {
+      "id": "frontend_src_state_moviesfilterscontext",
+      "label": "MoviesFiltersContext.tsx",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "moviesfilterscontext.tsx",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_state_moviesfilterscontext_moviesfilterscontext",
+      "label": "MoviesFiltersContext",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "moviesfilterscontext",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L45"
+    },
+    {
       "id": "frontend_tsconfig_api",
       "label": "tsconfig.api.json",
       "_origin": "ast",
@@ -4264,37 +4371,37 @@
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_api_lists",
-      "label": "lists.ts",
+      "id": "frontend_scripts_backfill_trailers",
+      "label": "backfill-trailers.mjs",
       "_origin": "ast",
       "community": 2,
-      "community_name": "lists.ts",
+      "community_name": "backfill-trailers.mjs",
       "file_type": "code",
-      "norm_label": "lists.ts",
-      "source_file": "frontend/src/api/lists.ts",
+      "norm_label": "backfill-trailers.mjs",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_api_lists_movies_page_size",
-      "label": "MOVIES_PAGE_SIZE",
+      "id": "frontend_scripts_backfill_trailers_dryrun",
+      "label": "dryRun",
       "_origin": "ast",
       "community": 2,
-      "community_name": "lists.ts",
+      "community_name": "backfill-trailers.mjs",
       "file_type": "code",
-      "norm_label": "movies_page_size",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L9"
+      "norm_label": "dryrun",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L24"
     },
     {
-      "id": "frontend_src_components_listsettingspanel",
-      "label": "ListSettingsPanel.tsx",
+      "id": "frontend_scripts_backfill_trailers_sql",
+      "label": "sql",
       "_origin": "ast",
       "community": 2,
-      "community_name": "lists.ts",
+      "community_name": "backfill-trailers.mjs",
       "file_type": "code",
-      "norm_label": "listsettingspanel.tsx",
-      "source_file": "frontend/src/components/ListSettingsPanel.tsx",
-      "source_location": "L1"
+      "norm_label": "sql",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L25"
     },
     {
       "id": "vercel",
@@ -4510,7 +4617,7 @@
       "label": "EmptyState.tsx",
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "emptystate.tsx",
       "source_file": "frontend/src/components/EmptyState.tsx",
@@ -4521,10 +4628,21 @@
       "label": "ListSwitcher.tsx",
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "listswitcher.tsx",
       "source_file": "frontend/src/components/ListSwitcher.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemoviesscreen",
+      "label": "MobileMoviesScreen.tsx",
+      "_origin": "ast",
+      "community": 24,
+      "community_name": "MobileMoviesScreen.tsx",
+      "file_type": "code",
+      "norm_label": "mobilemoviesscreen.tsx",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
       "source_location": "L1"
     },
     {
@@ -4532,7 +4650,7 @@
       "label": "MoviesPage.tsx",
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "moviespage.tsx",
       "source_file": "frontend/src/components/MoviesPage.tsx",
@@ -4543,7 +4661,7 @@
       "label": "SearchInput.tsx",
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "searchinput.tsx",
       "source_file": "frontend/src/components/SearchInput.tsx",
@@ -4554,7 +4672,7 @@
       "label": "useInfiniteScroll.ts",
       "_origin": "ast",
       "community": 24,
-      "community_name": "MoviesPage.tsx",
+      "community_name": "MobileMoviesScreen.tsx",
       "file_type": "code",
       "norm_label": "useinfinitescroll.ts",
       "source_file": "frontend/src/hooks/useInfiniteScroll.ts",
@@ -4572,99 +4690,121 @@
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_mobile_mobileshell",
-      "label": "MobileShell.tsx",
+      "id": "frontend_scripts_debug_trailer",
+      "label": "debug-trailer.mjs",
       "_origin": "ast",
       "community": 26,
-      "community_name": "MobileShell.tsx",
+      "community_name": "debug-trailer.mjs",
       "file_type": "code",
-      "norm_label": "mobileshell.tsx",
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
+      "norm_label": "debug-trailer.mjs",
+      "source_file": "frontend/scripts/debug-trailer.mjs",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_mobile_mobileshell_menuitems",
-      "label": "menuItems",
+      "id": "frontend_scripts_debug_trailer_contenttype",
+      "label": "contentType",
       "_origin": "ast",
       "community": 26,
-      "community_name": "MobileShell.tsx",
+      "community_name": "debug-trailer.mjs",
       "file_type": "code",
-      "norm_label": "menuitems",
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L214"
+      "norm_label": "contenttype",
+      "source_file": "frontend/scripts/debug-trailer.mjs",
+      "source_location": "L15"
     },
     {
-      "id": "frontend_src_components_mobile_mobileshell_taborder",
-      "label": "tabOrder",
+      "id": "frontend_src_api_search",
+      "label": "search.ts",
       "_origin": "ast",
-      "community": 26,
-      "community_name": "MobileShell.tsx",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
       "file_type": "code",
-      "norm_label": "taborder",
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L212"
-    },
-    {
-      "id": "frontend_src_components_ui_modern_mobile_menu",
-      "label": "modern-mobile-menu.tsx",
-      "_origin": "ast",
-      "community": 26,
-      "community_name": "MobileShell.tsx",
-      "file_type": "code",
-      "norm_label": "modern-mobile-menu.tsx",
-      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
+      "norm_label": "search.ts",
+      "source_file": "frontend/src/api/search.ts",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_sortcontrol",
-      "label": "SortControl.tsx",
+      "id": "frontend_src_components_mobile_movie_form_mobilemovieform",
+      "label": "MobileMovieForm.tsx",
       "_origin": "ast",
       "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
+      "community_name": "MobileMovieForm.tsx",
       "file_type": "code",
-      "norm_label": "sortcontrol.tsx",
-      "source_file": "frontend/src/components/SortControl.tsx",
+      "norm_label": "mobilemovieform.tsx",
+      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_sortcontrol_sort_by_options",
-      "label": "SORT_BY_OPTIONS",
+      "id": "frontend_src_components_moviedetailsdrawer",
+      "label": "MovieDetailsDrawer.tsx",
       "_origin": "ast",
       "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
+      "community_name": "MobileMovieForm.tsx",
       "file_type": "code",
-      "norm_label": "sort_by_options",
-      "source_file": "frontend/src/components/SortControl.tsx",
-      "source_location": "L10"
-    },
-    {
-      "id": "frontend_src_state_moviesfilterscontext",
-      "label": "MoviesFiltersContext.tsx",
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
-      "file_type": "code",
-      "norm_label": "moviesfilterscontext.tsx",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "norm_label": "moviedetailsdrawer.tsx",
+      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_state_moviesfilterscontext_moviesfilterscontext",
-      "label": "MoviesFiltersContext",
+      "id": "frontend_src_components_movieformmodal",
+      "label": "MovieFormModal.tsx",
       "_origin": "ast",
       "community": 27,
-      "community_name": "MoviesFiltersContext.tsx",
+      "community_name": "MobileMovieForm.tsx",
       "file_type": "code",
-      "norm_label": "moviesfilterscontext",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L45"
+      "norm_label": "movieformmodal.tsx",
+      "source_file": "frontend/src/components/MovieFormModal.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_lib_trailer",
+      "label": "trailer.ts",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "MobileMovieForm.tsx",
+      "file_type": "code",
+      "norm_label": "trailer.ts",
+      "source_file": "frontend/src/lib/trailer.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_api_lists",
+      "label": "lists.ts",
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "lists.ts",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_api_lists_movies_page_size",
+      "label": "MOVIES_PAGE_SIZE",
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "movies_page_size",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "frontend_src_components_listsettingspanel",
+      "label": "ListSettingsPanel.tsx",
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "listsettingspanel.tsx",
+      "source_file": "frontend/src/components/ListSettingsPanel.tsx",
+      "source_location": "L1"
     },
     {
       "id": "frontend_src_state_activelistcontext",
       "label": "ActiveListContext.tsx",
       "_origin": "ast",
       "community": 28,
-      "community_name": "ActiveListContext.tsx",
+      "community_name": "lists.ts",
       "file_type": "code",
       "norm_label": "activelistcontext.tsx",
       "source_file": "frontend/src/state/ActiveListContext.tsx",
@@ -4675,22 +4815,33 @@
       "label": "ActiveListContext",
       "_origin": "ast",
       "community": 28,
-      "community_name": "ActiveListContext.tsx",
+      "community_name": "lists.ts",
       "file_type": "code",
       "norm_label": "activelistcontext",
       "source_file": "frontend/src/state/ActiveListContext.tsx",
       "source_location": "L23"
     },
     {
-      "id": "frontend_src_components_filtersbar",
-      "label": "FiltersBar.tsx",
+      "id": "frontend_src_components_sortcontrol",
+      "label": "SortControl.tsx",
       "_origin": "ast",
       "community": 29,
-      "community_name": "MovieStatus",
+      "community_name": "SortControl.tsx",
       "file_type": "code",
-      "norm_label": "filtersbar.tsx",
-      "source_file": "frontend/src/components/FiltersBar.tsx",
+      "norm_label": "sortcontrol.tsx",
+      "source_file": "frontend/src/components/SortControl.tsx",
       "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_sortcontrol_sort_by_options",
+      "label": "SORT_BY_OPTIONS",
+      "_origin": "ast",
+      "community": 29,
+      "community_name": "SortControl.tsx",
+      "file_type": "code",
+      "norm_label": "sort_by_options",
+      "source_file": "frontend/src/components/SortControl.tsx",
+      "source_location": "L10"
     },
     {
       "id": "frontend_package",
@@ -5045,10 +5196,76 @@
       "source_location": "L18"
     },
     {
+      "id": "frontend_src_components_filtersbar",
+      "label": "FiltersBar.tsx",
+      "_origin": "ast",
+      "community": 30,
+      "community_name": "MovieStatus",
+      "file_type": "code",
+      "norm_label": "filtersbar.tsx",
+      "source_file": "frontend/src/components/FiltersBar.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_formatteddatepicker",
+      "label": "FormattedDatePicker.tsx",
+      "_origin": "ast",
+      "community": 31,
+      "community_name": "FormattedDatePicker.tsx",
+      "file_type": "code",
+      "norm_label": "formatteddatepicker.tsx",
+      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_lib_watchdate",
+      "label": "watchDate.ts",
+      "_origin": "ast",
+      "community": 31,
+      "community_name": "FormattedDatePicker.tsx",
+      "file_type": "code",
+      "norm_label": "watchdate.ts",
+      "source_file": "frontend/src/lib/watchDate.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_ratingstars",
+      "label": "RatingStars.tsx",
+      "_origin": "ast",
+      "community": 32,
+      "community_name": "RatingStars.tsx",
+      "file_type": "code",
+      "norm_label": "ratingstars.tsx",
+      "source_file": "frontend/src/components/RatingStars.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_lib_ratingstars",
+      "label": "ratingStars.ts",
+      "_origin": "ast",
+      "community": 32,
+      "community_name": "RatingStars.tsx",
+      "file_type": "code",
+      "norm_label": "ratingstars.ts",
+      "source_file": "frontend/src/lib/ratingStars.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_avatar",
+      "label": "Avatar.tsx",
+      "_origin": "ast",
+      "community": 33,
+      "community_name": "MobileProfileScreen.tsx",
+      "file_type": "code",
+      "norm_label": "avatar.tsx",
+      "source_file": "frontend/src/components/Avatar.tsx",
+      "source_location": "L1"
+    },
+    {
       "id": "frontend_src_components_mobile_mobilebottomsheet",
       "label": "MobileBottomSheet.tsx",
       "_origin": "ast",
-      "community": 30,
+      "community": 33,
       "community_name": "MobileProfileScreen.tsx",
       "file_type": "code",
       "norm_label": "mobilebottomsheet.tsx",
@@ -5059,11 +5276,55 @@
       "id": "frontend_src_components_mobile_mobileprofilescreen",
       "label": "MobileProfileScreen.tsx",
       "_origin": "ast",
-      "community": 30,
+      "community": 33,
       "community_name": "MobileProfileScreen.tsx",
       "file_type": "code",
       "norm_label": "mobileprofilescreen.tsx",
       "source_file": "frontend/src/components/mobile/MobileProfileScreen.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_lib_avatarcolor",
+      "label": "avatarColor.ts",
+      "_origin": "ast",
+      "community": 33,
+      "community_name": "MobileProfileScreen.tsx",
+      "file_type": "code",
+      "norm_label": "avatarcolor.ts",
+      "source_file": "frontend/src/lib/avatarColor.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_lib_avatarcolor_palette",
+      "label": "PALETTE",
+      "_origin": "ast",
+      "community": 33,
+      "community_name": "MobileProfileScreen.tsx",
+      "file_type": "code",
+      "norm_label": "palette",
+      "source_file": "frontend/src/lib/avatarColor.ts",
+      "source_location": "L4"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobileshell",
+      "label": "MobileShell.tsx",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "MobileShell.tsx",
+      "file_type": "code",
+      "norm_label": "mobileshell.tsx",
+      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_ui_modern_mobile_menu",
+      "label": "modern-mobile-menu.tsx",
+      "_origin": "ast",
+      "community": 34,
+      "community_name": "MobileShell.tsx",
+      "file_type": "code",
+      "norm_label": "modern-mobile-menu.tsx",
+      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
       "source_location": "L1"
     },
     {
@@ -5694,55 +5955,11 @@
       "source_location": "L25"
     },
     {
-      "id": "frontend_src_api_search",
-      "label": "search.ts",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "search.ts",
-      "source_file": "frontend/src/api/search.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_avatar",
-      "label": "Avatar.tsx",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "avatar.tsx",
-      "source_file": "frontend/src/components/Avatar.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_formatteddatepicker",
-      "label": "FormattedDatePicker.tsx",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "formatteddatepicker.tsx",
-      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobilemoviesscreen",
-      "label": "MobileMoviesScreen.tsx",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilemoviesscreen.tsx",
-      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L1"
-    },
-    {
       "id": "frontend_src_components_mobile_mobilemovietile",
       "label": "MobileMovieTile.tsx",
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "mobilemovietile.tsx",
       "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
@@ -5753,54 +5970,21 @@
       "label": "TILE_PALETTES",
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "tile_palettes",
       "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
       "source_location": "L13"
     },
     {
-      "id": "frontend_src_components_mobile_movie_form_mobilemovieform",
-      "label": "MobileMovieForm.tsx",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilemovieform.tsx",
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L1"
-    },
-    {
       "id": "frontend_src_components_moviecard",
       "label": "MovieCard.tsx",
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "moviecard.tsx",
       "source_file": "frontend/src/components/MovieCard.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_moviedetailsdrawer",
-      "label": "MovieDetailsDrawer.tsx",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "moviedetailsdrawer.tsx",
-      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_movieformmodal",
-      "label": "MovieFormModal.tsx",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "movieformmodal.tsx",
-      "source_file": "frontend/src/components/MovieFormModal.tsx",
       "source_location": "L1"
     },
     {
@@ -5808,65 +5992,10 @@
       "label": "MovieGrid.tsx",
       "_origin": "ast",
       "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "Movie",
       "file_type": "code",
       "norm_label": "moviegrid.tsx",
       "source_file": "frontend/src/components/MovieGrid.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_ratingstars",
-      "label": "RatingStars.tsx",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "ratingstars.tsx",
-      "source_file": "frontend/src/components/RatingStars.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_lib_avatarcolor",
-      "label": "avatarColor.ts",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "avatarcolor.ts",
-      "source_file": "frontend/src/lib/avatarColor.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_lib_avatarcolor_palette",
-      "label": "PALETTE",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "palette",
-      "source_file": "frontend/src/lib/avatarColor.ts",
-      "source_location": "L4"
-    },
-    {
-      "id": "frontend_src_lib_ratingstars",
-      "label": "ratingStars.ts",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "ratingstars.ts",
-      "source_file": "frontend/src/lib/ratingStars.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_lib_watchdate",
-      "label": "watchDate.ts",
-      "_origin": "ast",
-      "community": 8,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "watchdate.ts",
-      "source_file": "frontend/src/lib/watchDate.ts",
       "source_location": "L1"
     },
     {
@@ -5911,7 +6040,7 @@
       "file_type": "code",
       "norm_label": "catalogdb",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L447"
+      "source_location": "L450"
     },
     {
       "id": "frontend_api_lib_db_invitesdb",
@@ -5933,7 +6062,7 @@
       "file_type": "code",
       "norm_label": "listmoviesdb",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L606"
+      "source_location": "L612"
     },
     {
       "id": "frontend_api_lib_db_listsdb",
@@ -5955,7 +6084,7 @@
       "file_type": "code",
       "norm_label": "ratingsdb",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L835"
+      "source_location": "L841"
     },
     {
       "id": "frontend_api_lib_db_usersdb",
@@ -6333,7 +6462,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L588",
+      "source_location": "L594",
       "weight": 1.0
     },
     {
@@ -6345,7 +6474,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L590",
+      "source_location": "L596",
       "weight": 1.0
     },
     {
@@ -6417,7 +6546,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L53",
+      "source_location": "L92",
       "weight": 1.0
     },
     {
@@ -6429,7 +6558,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L124",
+      "source_location": "L168",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_api_lib_tmdb_getmoviedetails",
+      "target": "frontend_api_lib_tmdb_pickbesttrailerkey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L199",
       "weight": 1.0
     },
     {
@@ -6441,31 +6582,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L156",
+      "source_location": "L204",
       "weight": 1.0
     },
     {
-      "source": "frontend_api_lib_tmdb_searchmulti",
-      "target": "frontend_api_lib_tmdb_getmoviedetails",
+      "source": "frontend_api_lib_tmdb_gettvdetails",
+      "target": "frontend_api_lib_tmdb_pickbesttrailerkey",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L111",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_api_lib_tmdb_searchmulti",
-      "target": "frontend_api_lib_tmdb_gettvdetails",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L112",
+      "source_location": "L235",
       "weight": 1.0
     },
     {
@@ -6477,7 +6606,31 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L71",
+      "source_location": "L110",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_api_lib_tmdb_searchmulti",
+      "target": "frontend_api_lib_tmdb_getmoviedetails",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L151",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_api_lib_tmdb_searchmulti",
+      "target": "frontend_api_lib_tmdb_gettvdetails",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L152",
       "weight": 1.0
     },
     {
@@ -7125,7 +7278,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_routes/search/index.ts",
-      "source_location": "L36",
+      "source_location": "L37",
       "weight": 1.0
     },
     {
@@ -7137,7 +7290,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_routes/search/index.ts",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -7149,7 +7302,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_routes/search/index.ts",
-      "source_location": "L67",
+      "source_location": "L69",
       "weight": 1.0
     },
     {
@@ -7161,7 +7314,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_routes/search/index.ts",
-      "source_location": "L79",
+      "source_location": "L81",
       "weight": 1.0
     },
     {
@@ -7173,7 +7326,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/api/_routes/search/index.ts",
-      "source_location": "L89",
+      "source_location": "L92",
       "weight": 1.0
     },
     {
@@ -7309,6 +7462,66 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_scripts_backfill_trailers_fetchtrailerkey",
+      "target": "frontend_scripts_backfill_trailers_pickbesttrailerkey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L68",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_backfill_trailers_main",
+      "target": "frontend_scripts_backfill_trailers_sql",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L72",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_backfill_trailers_main",
+      "target": "frontend_scripts_backfill_trailers_fetchtrailerkey",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L84",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_backfill_trailers_main",
+      "target": "frontend_scripts_backfill_trailers_sleep",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L95",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_debug_trailer_main",
+      "target": "frontend_scripts_debug_trailer_authfetch",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/scripts/debug-trailer.mjs",
+      "source_location": "L35",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_scripts_migrate_main",
       "target": "frontend_scripts_migrate_sql",
       "relation": "calls",
@@ -7341,7 +7554,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L305",
+      "source_location": "L308",
       "weight": 1.0
     },
     {
@@ -7353,7 +7566,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L369",
+      "source_location": "L372",
       "weight": 1.0
     },
     {
@@ -7365,7 +7578,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L250",
+      "source_location": "L253",
       "weight": 1.0
     },
     {
@@ -7377,7 +7590,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L242",
+      "source_location": "L245",
       "weight": 1.0
     },
     {
@@ -7389,7 +7602,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L353",
+      "source_location": "L356",
       "weight": 1.0
     },
     {
@@ -7401,7 +7614,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L327",
+      "source_location": "L330",
       "weight": 1.0
     },
     {
@@ -7473,7 +7686,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/InvitePage.tsx",
-      "source_location": "L28",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -7485,7 +7698,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/InvitePage.tsx",
-      "source_location": "L29",
+      "source_location": "L72",
       "weight": 1.0
     },
     {
@@ -7497,7 +7710,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/InvitePage.tsx",
-      "source_location": "L30",
+      "source_location": "L73",
       "weight": 1.0
     },
     {
@@ -7509,7 +7722,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/InvitePage.tsx",
-      "source_location": "L31",
+      "source_location": "L74",
       "weight": 1.0
     },
     {
@@ -7749,7 +7962,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L262",
+      "source_location": "L289",
       "weight": 1.0
     },
     {
@@ -7761,7 +7974,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L263",
+      "source_location": "L290",
       "weight": 1.0
     },
     {
@@ -7773,7 +7986,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L274",
+      "source_location": "L301",
       "weight": 1.0
     },
     {
@@ -7785,7 +7998,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L275",
+      "source_location": "L302",
       "weight": 1.0
     },
     {
@@ -7797,7 +8010,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L276",
+      "source_location": "L303",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilemoviesscreen_mobilemoviedetailsheet",
+      "target": "frontend_src_lib_trailer_youtubetrailerurl",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L445",
       "weight": 1.0
     },
     {
@@ -7809,7 +8034,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L103",
+      "source_location": "L122",
       "weight": 1.0
     },
     {
@@ -7821,7 +8046,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L40",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -7833,7 +8058,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L54",
+      "source_location": "L56",
       "weight": 1.0
     },
     {
@@ -7845,7 +8070,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L83",
+      "source_location": "L85",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilemoviesscreen_mobilemoviesscreen",
+      "target": "frontend_src_api_lists_uselibrarystatsquery",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -7965,7 +8202,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L95",
+      "source_location": "L91",
       "weight": 1.0
     },
     {
@@ -7977,7 +8214,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L49",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -7989,31 +8226,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L158",
+      "source_location": "L161",
       "weight": 1.0
     },
     {
       "source": "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieform",
-      "target": "frontend_src_components_mobile_movie_form_mobilemovieform_truncate",
+      "target": "frontend_src_lib_trailer_youtubetrailerurl",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L240",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieform",
-      "target": "frontend_src_components_mobile_movie_form_mobilemovieform_ratingssummary",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L477",
+      "source_location": "L393",
       "weight": 1.0
     },
     {
@@ -8025,7 +8250,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L77",
+      "source_location": "L80",
       "weight": 1.0
     },
     {
@@ -8037,7 +8262,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L80",
+      "source_location": "L83",
       "weight": 1.0
     },
     {
@@ -8049,7 +8274,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L82",
+      "source_location": "L85",
       "weight": 1.0
     },
     {
@@ -8061,7 +8286,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L93",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -8073,7 +8298,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L94",
+      "source_location": "L97",
       "weight": 1.0
     },
     {
@@ -8085,7 +8310,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L95",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -8097,19 +8322,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L96",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_components_mobile_movie_form_mobilemovieform_ratingssummary",
-      "target": "frontend_src_lib_avatarcolor_initialfor",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L566",
+      "source_location": "L99",
       "weight": 1.0
     },
     {
@@ -8138,6 +8351,18 @@
     },
     {
       "source": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
+      "target": "frontend_src_lib_trailer_youtubetrailerurl",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
+      "source_location": "L133",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
       "target": "frontend_src_lib_ratingstars_starfillfractions",
       "relation": "calls",
       "_origin": "ast",
@@ -8145,24 +8370,12 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L144",
+      "source_location": "L163",
       "weight": 1.0
     },
     {
       "source": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
       "target": "frontend_src_auth_authcontext_useauth",
-      "relation": "calls",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "context": "call",
-      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L26",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
-      "target": "frontend_src_api_lists_uselistmembersquery",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8174,19 +8387,19 @@
     },
     {
       "source": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
-      "target": "frontend_src_api_lists_useupdatemoviemutation",
+      "target": "frontend_src_api_lists_uselistmembersquery",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L37",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
       "source": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
-      "target": "frontend_src_api_lists_usedeletemoviemutation",
+      "target": "frontend_src_api_lists_useupdatemoviemutation",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8198,7 +8411,7 @@
     },
     {
       "source": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
-      "target": "frontend_src_api_lists_usesetratingmutation",
+      "target": "frontend_src_api_lists_usedeletemoviemutation",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -8206,6 +8419,18 @@
       "context": "call",
       "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
       "source_location": "L39",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
+      "target": "frontend_src_api_lists_usesetratingmutation",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -8217,7 +8442,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L44",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -8229,7 +8454,19 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L159",
+      "source_location": "L161",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_movieformmodal_movieformmodal",
+      "target": "frontend_src_lib_trailer_youtubetrailerurl",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/MovieFormModal.tsx",
+      "source_location": "L281",
       "weight": 1.0
     },
     {
@@ -8241,7 +8478,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L49",
+      "source_location": "L50",
       "weight": 1.0
     },
     {
@@ -8253,7 +8490,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L51",
+      "source_location": "L52",
       "weight": 1.0
     },
     {
@@ -8265,7 +8502,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L75",
+      "source_location": "L77",
       "weight": 1.0
     },
     {
@@ -8277,7 +8514,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L76",
+      "source_location": "L78",
       "weight": 1.0
     },
     {
@@ -8289,7 +8526,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L77",
+      "source_location": "L79",
       "weight": 1.0
     },
     {
@@ -8301,7 +8538,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L78",
+      "source_location": "L80",
       "weight": 1.0
     },
     {
@@ -8385,7 +8622,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MoviesPage.tsx",
-      "source_location": "L75",
+      "source_location": "L89",
       "weight": 1.0
     },
     {
@@ -8469,7 +8706,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L30",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -8481,7 +8718,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L24",
+      "source_location": "L25",
       "weight": 1.0
     },
     {
@@ -8505,7 +8742,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L25",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -8517,7 +8754,7 @@
       "confidence_score": 1.0,
       "context": "field",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -10777,6 +11014,18 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_components_invitepage",
+      "target": "frontend_src_components_googleglyph_googleglyph",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/InvitePage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_components_listsettingspanel",
       "target": "frontend_src_auth_authcontext_useauth",
       "relation": "imports",
@@ -11157,7 +11406,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -11169,7 +11418,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -11181,7 +11430,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -11193,7 +11442,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -11205,7 +11454,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -11217,7 +11466,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -11229,7 +11478,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -11241,7 +11490,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -11253,7 +11502,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -11265,7 +11514,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -11277,7 +11526,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -11289,7 +11538,19 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L24",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilemoviesscreen",
+      "target": "frontend_src_lib_trailer_youtubetrailerurl",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -11307,6 +11568,18 @@
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
       "target": "frontend_src_api_lists_usedeletemoviemutation",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilemoviesscreen",
+      "target": "frontend_src_api_lists_uselibrarystatsquery",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11630,7 +11903,7 @@
     },
     {
       "source": "frontend_src_components_mobile_movie_form_mobilemovieform",
-      "target": "frontend_src_lib_avatarcolor_initialfor",
+      "target": "frontend_src_lib_trailer_youtubetrailerurl",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11674,6 +11947,18 @@
       "context": "import",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
       "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_movie_form_mobilemovieform",
+      "target": "frontend_src_components_mobile_mobilebottomsheet_mobilebottomsheet",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -11798,6 +12083,18 @@
     },
     {
       "source": "frontend_src_components_moviedetailsdrawer",
+      "target": "frontend_src_lib_trailer_youtubetrailerurl",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_moviedetailsdrawer",
       "target": "frontend_src_api_lists_movie",
       "relation": "imports",
       "_origin": "ast",
@@ -11906,7 +12203,7 @@
     },
     {
       "source": "frontend_src_components_movieformmodal",
-      "target": "frontend_src_components_avatar_avatar",
+      "target": "frontend_src_lib_trailer_youtubetrailerurl",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11914,6 +12211,18 @@
       "context": "import",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
       "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_movieformmodal",
+      "target": "frontend_src_components_avatar_avatar",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/MovieFormModal.tsx",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -13405,6 +13714,18 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_src_components_invitepage",
+      "target": "frontend_src_components_googleglyph",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/InvitePage.tsx",
+      "source_location": "L5",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_src_components_listsettingspanel",
       "target": "frontend_src_auth_authcontext",
       "relation": "imports_from",
@@ -13677,7 +13998,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -13689,7 +14010,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L14",
+      "source_location": "L15",
       "weight": 1.0
     },
     {
@@ -13701,7 +14022,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -13713,7 +14034,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L16",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -13725,7 +14046,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L17",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -13737,7 +14058,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L18",
+      "source_location": "L19",
       "weight": 1.0
     },
     {
@@ -13749,7 +14070,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -13761,7 +14082,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L20",
+      "source_location": "L21",
       "weight": 1.0
     },
     {
@@ -13773,7 +14094,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -13785,7 +14106,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L22",
+      "source_location": "L23",
       "weight": 1.0
     },
     {
@@ -13797,7 +14118,7 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -13809,7 +14130,19 @@
       "confidence_score": 1.0,
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L24",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilemoviesscreen",
+      "target": "frontend_src_lib_trailer",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L26",
       "weight": 1.0
     },
     {
@@ -14042,7 +14375,7 @@
     },
     {
       "source": "frontend_src_components_mobile_movie_form_mobilemovieform",
-      "target": "frontend_src_lib_avatarcolor",
+      "target": "frontend_src_lib_trailer",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14086,6 +14419,18 @@
       "context": "import",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
       "source_location": "L17",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_movie_form_mobilemovieform",
+      "target": "frontend_src_components_mobile_mobilebottomsheet",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -14150,6 +14495,18 @@
     },
     {
       "source": "frontend_src_components_moviedetailsdrawer",
+      "target": "frontend_src_lib_trailer",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_moviedetailsdrawer",
       "target": "frontend_src_api_lists",
       "relation": "imports_from",
       "_origin": "ast",
@@ -14198,7 +14555,7 @@
     },
     {
       "source": "frontend_src_components_movieformmodal",
-      "target": "frontend_src_components_avatar",
+      "target": "frontend_src_lib_trailer",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14206,6 +14563,18 @@
       "context": "import",
       "source_file": "frontend/src/components/MovieFormModal.tsx",
       "source_location": "L13",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_movieformmodal",
+      "target": "frontend_src_components_avatar",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/MovieFormModal.tsx",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -14792,7 +15161,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L417",
+      "source_location": "L418",
       "weight": 1.0
     },
     {
@@ -14803,7 +15172,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L431",
+      "source_location": "L433",
       "weight": 1.0
     },
     {
@@ -14814,7 +15183,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L447",
+      "source_location": "L450",
       "weight": 1.0
     },
     {
@@ -14847,7 +15216,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L562",
+      "source_location": "L568",
       "weight": 1.0
     },
     {
@@ -14858,7 +15227,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L572",
+      "source_location": "L578",
       "weight": 1.0
     },
     {
@@ -14869,7 +15238,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L580",
+      "source_location": "L586",
       "weight": 1.0
     },
     {
@@ -14880,7 +15249,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L587",
+      "source_location": "L593",
       "weight": 1.0
     },
     {
@@ -14891,7 +15260,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L606",
+      "source_location": "L612",
       "weight": 1.0
     },
     {
@@ -14902,7 +15271,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/db.ts",
-      "source_location": "L835",
+      "source_location": "L841",
       "weight": 1.0
     },
     {
@@ -15023,18 +15392,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L123",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_api_lib_tmdb",
-      "target": "frontend_api_lib_tmdb_gettvdetails",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L155",
+      "source_location": "L163",
       "weight": 1.0
     },
     {
@@ -15045,12 +15403,23 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
       "source": "frontend_api_lib_tmdb",
-      "target": "frontend_api_lib_tmdb_buildposterurl",
+      "target": "frontend_api_lib_tmdb_gettvdetails",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L203",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_api_lib_tmdb",
+      "target": "frontend_api_lib_tmdb_tmdbvideo",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -15061,35 +15430,13 @@
     },
     {
       "source": "frontend_api_lib_tmdb",
-      "target": "frontend_api_lib_tmdb_getapikey",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L43",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_api_lib_tmdb",
-      "target": "frontend_api_lib_tmdb_authfetch",
+      "target": "frontend_api_lib_tmdb_pickbesttrailerkey",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/tmdb.ts",
       "source_location": "L49",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_api_lib_tmdb",
-      "target": "frontend_api_lib_tmdb_searchmulti",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L59",
       "weight": 1.0
     },
     {
@@ -15105,6 +15452,39 @@
     },
     {
       "source": "frontend_api_lib_tmdb",
+      "target": "frontend_api_lib_tmdb_buildposterurl",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L74",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_api_lib_tmdb",
+      "target": "frontend_api_lib_tmdb_getapikey",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L82",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_api_lib_tmdb",
+      "target": "frontend_api_lib_tmdb_authfetch",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L88",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_api_lib_tmdb",
       "target": "frontend_api_lib_tmdb_tmdbsearchresult",
       "relation": "contains",
       "_origin": "ast",
@@ -15112,6 +15492,17 @@
       "confidence_score": 1.0,
       "source_file": "frontend/api/_lib/tmdb.ts",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_api_lib_tmdb",
+      "target": "frontend_api_lib_tmdb_searchmulti",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L98",
       "weight": 1.0
     },
     {
@@ -15595,7 +15986,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/api/_routes/search/index.ts",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -16171,6 +16562,72 @@
       "weight": 1.0
     },
     {
+      "source": "frontend_scripts_backfill_trailers",
+      "target": "frontend_scripts_backfill_trailers_dryrun",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L24",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_backfill_trailers",
+      "target": "frontend_scripts_backfill_trailers_sql",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L25",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_backfill_trailers",
+      "target": "frontend_scripts_backfill_trailers_sleep",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_backfill_trailers",
+      "target": "frontend_scripts_backfill_trailers_pickbesttrailerkey",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L36",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_backfill_trailers",
+      "target": "frontend_scripts_backfill_trailers_fetchtrailerkey",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L55",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_backfill_trailers",
+      "target": "frontend_scripts_backfill_trailers_main",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/scripts/backfill-trailers.mjs",
+      "source_location": "L71",
+      "weight": 1.0
+    },
+    {
       "source": "frontend_scripts_check_vercel_function_count",
       "target": "frontend_scripts_check_vercel_function_count_count_files",
       "relation": "contains",
@@ -16201,6 +16658,39 @@
       "confidence_score": 1.0,
       "source_file": "frontend/scripts/check-vercel-function-count.mjs",
       "source_location": "L8",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_debug_trailer",
+      "target": "frontend_scripts_debug_trailer_contenttype",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/scripts/debug-trailer.mjs",
+      "source_location": "L15",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_debug_trailer",
+      "target": "frontend_scripts_debug_trailer_authfetch",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/scripts/debug-trailer.mjs",
+      "source_location": "L23",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_scripts_debug_trailer",
+      "target": "frontend_scripts_debug_trailer_main",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/scripts/debug-trailer.mjs",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -16321,7 +16811,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L102",
+      "source_location": "L105",
       "weight": 1.0
     },
     {
@@ -16343,7 +16833,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L112",
+      "source_location": "L115",
       "weight": 1.0
     },
     {
@@ -16365,18 +16855,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L125",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_api_lists",
-      "target": "frontend_src_api_lists_usedeletelistmutation",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L137",
+      "source_location": "L128",
       "weight": 1.0
     },
     {
@@ -16392,13 +16871,24 @@
     },
     {
       "source": "frontend_src_api_lists",
+      "target": "frontend_src_api_lists_usedeletelistmutation",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L140",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_api_lists",
       "target": "frontend_src_api_lists_uselistmembersquery",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L149",
+      "source_location": "L152",
       "weight": 1.0
     },
     {
@@ -16409,7 +16899,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L162",
+      "source_location": "L165",
       "weight": 1.0
     },
     {
@@ -16420,7 +16910,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L174",
+      "source_location": "L177",
       "weight": 1.0
     },
     {
@@ -16431,7 +16921,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L187",
+      "source_location": "L190",
       "weight": 1.0
     },
     {
@@ -16442,7 +16932,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L200",
+      "source_location": "L203",
       "weight": 1.0
     },
     {
@@ -16453,7 +16943,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L216",
+      "source_location": "L219",
       "weight": 1.0
     },
     {
@@ -16475,7 +16965,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L238",
+      "source_location": "L241",
       "weight": 1.0
     },
     {
@@ -16486,7 +16976,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L246",
+      "source_location": "L249",
       "weight": 1.0
     },
     {
@@ -16497,7 +16987,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L257",
+      "source_location": "L260",
       "weight": 1.0
     },
     {
@@ -16508,7 +16998,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L259",
+      "source_location": "L262",
       "weight": 1.0
     },
     {
@@ -16519,7 +17009,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L272",
+      "source_location": "L275",
       "weight": 1.0
     },
     {
@@ -16530,18 +17020,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L286",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_api_lists",
-      "target": "frontend_src_api_lists_usecreatemoviemutation",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L298",
+      "source_location": "L289",
       "weight": 1.0
     },
     {
@@ -16557,13 +17036,24 @@
     },
     {
       "source": "frontend_src_api_lists",
+      "target": "frontend_src_api_lists_usecreatemoviemutation",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L301",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_api_lists",
       "target": "frontend_src_api_lists_useupdatemoviemutation",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L314",
+      "source_location": "L317",
       "weight": 1.0
     },
     {
@@ -16574,7 +17064,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L337",
+      "source_location": "L340",
       "weight": 1.0
     },
     {
@@ -16585,7 +17075,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L362",
+      "source_location": "L365",
       "weight": 1.0
     },
     {
@@ -16618,7 +17108,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L73",
+      "source_location": "L76",
       "weight": 1.0
     },
     {
@@ -16629,7 +17119,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L84",
+      "source_location": "L87",
       "weight": 1.0
     },
     {
@@ -16651,7 +17141,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L92",
+      "source_location": "L95",
       "weight": 1.0
     },
     {
@@ -16662,7 +17152,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/api/search.ts",
-      "source_location": "L21",
+      "source_location": "L22",
       "weight": 1.0
     },
     {
@@ -16794,7 +17284,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/EmptyState.tsx",
-      "source_location": "L6",
+      "source_location": "L12",
       "weight": 1.0
     },
     {
@@ -16860,7 +17350,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/InvitePage.tsx",
-      "source_location": "L27",
+      "source_location": "L70",
       "weight": 1.0
     },
     {
@@ -16871,7 +17361,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/InvitePage.tsx",
-      "source_location": "L7",
+      "source_location": "L8",
       "weight": 1.0
     },
     {
@@ -16992,7 +17482,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/filters/FilterSectionCard.tsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -17300,7 +17790,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L249",
+      "source_location": "L276",
       "weight": 1.0
     },
     {
@@ -17311,7 +17801,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L26",
+      "source_location": "L28",
       "weight": 1.0
     },
     {
@@ -17322,7 +17812,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L29",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -17333,7 +17823,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L39",
+      "source_location": "L41",
       "weight": 1.0
     },
     {
@@ -17459,28 +17949,6 @@
     },
     {
       "source": "frontend_src_components_mobile_mobileshell",
-      "target": "frontend_src_components_mobile_mobileshell_taborder",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L212",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_components_mobile_mobileshell",
-      "target": "frontend_src_components_mobile_mobileshell_menuitems",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L214",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_components_mobile_mobileshell",
       "target": "frontend_src_components_mobile_mobileshell_mobileshell",
       "relation": "contains",
       "_origin": "ast",
@@ -17498,7 +17966,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L19",
+      "source_location": "L20",
       "weight": 1.0
     },
     {
@@ -17509,7 +17977,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -17520,7 +17988,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L35",
+      "source_location": "L36",
       "weight": 1.0
     },
     {
@@ -17531,7 +17999,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L44",
+      "source_location": "L45",
       "weight": 1.0
     },
     {
@@ -17542,29 +18010,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L53",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_components_mobile_movie_form_mobilemovieform",
-      "target": "frontend_src_components_mobile_movie_form_mobilemovieform_truncate",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L555",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_components_mobile_movie_form_mobilemovieform",
-      "target": "frontend_src_components_mobile_movie_form_mobilemovieform_ratingssummary",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L559",
+      "source_location": "L54",
       "weight": 1.0
     },
     {
@@ -17575,7 +18021,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L69",
+      "source_location": "L71",
       "weight": 1.0
     },
     {
@@ -17641,7 +18087,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L13",
+      "source_location": "L14",
       "weight": 1.0
     },
     {
@@ -17652,7 +18098,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L15",
+      "source_location": "L16",
       "weight": 1.0
     },
     {
@@ -17663,7 +18109,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L23",
+      "source_location": "L24",
       "weight": 1.0
     },
     {
@@ -17674,7 +18120,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L30",
+      "source_location": "L31",
       "weight": 1.0
     },
     {
@@ -17685,7 +18131,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L39",
+      "source_location": "L40",
       "weight": 1.0
     },
     {
@@ -17696,7 +18142,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L48",
+      "source_location": "L49",
       "weight": 1.0
     },
     {
@@ -17972,6 +18418,17 @@
       "confidence_score": 1.0,
       "source_file": "frontend/src/lib/ratingStars.ts",
       "source_location": "L2",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_lib_trailer",
+      "target": "frontend_src_lib_trailer_youtubetrailerurl",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/lib/trailer.ts",
+      "source_location": "L3",
       "weight": 1.0
     },
     {
@@ -19221,7 +19678,7 @@
       "confidence_score": 0.8,
       "context": "call",
       "source_file": "frontend/api/_routes/search/index.ts",
-      "source_location": "L33",
+      "source_location": "L34",
       "weight": 1.0
     },
     {
@@ -19269,7 +19726,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L61",
+      "source_location": "L63",
       "weight": 1.0
     },
     {
@@ -19310,5 +19767,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "b1eca3febbc7b155c2f5d2a62b1ed8be1a168285"
+  "built_at_commit": "2629bd70a4137edc2bcc13ac5b668dbbd27d243f"
 }

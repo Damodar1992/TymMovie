@@ -14,6 +14,7 @@ export interface TmdbSearchResult {
   posterPath: string | null;
   tmdbRating: number | null;
   genres: string[] | null;
+  trailerKey: string | null;
 }
 
 export interface TmdbDetails {
@@ -25,6 +26,44 @@ export interface TmdbDetails {
   tmdbRating: number | null;
   genres: string[] | null;
   posterPath: string | null;
+  /** YouTube video id of the best available trailer, or null if TMDb has
+   *  none for this title (common for older/obscure titles). See
+   *  pickBestTrailerKey() below for the selection rule. */
+  trailerKey: string | null;
+}
+
+interface TmdbVideo {
+  key: string;
+  site: string;
+  type: string;
+  official: boolean;
+  published_at?: string;
+}
+
+/** Picks the single best trailer out of a TMDb `videos.results` array —
+ *  see the project's trailer-link-feature doc for the rationale: only
+ *  YouTube (we only ever link to YouTube), prefer type "Trailer" over
+ *  "Teaser"/"Clip"/etc., prefer official uploads, and among ties prefer
+ *  the most recently published. Returns null when nothing usable is
+ *  found — the UI simply hides the trailer button in that case. */
+export function pickBestTrailerKey(videos: TmdbVideo[] | undefined): string | null {
+  if (!Array.isArray(videos) || videos.length === 0) return null;
+  const youtube = videos.filter((v) => v.site === 'YouTube' && v.key);
+  if (youtube.length === 0) return null;
+
+  const byRecency = (a: TmdbVideo, b: TmdbVideo) =>
+    (b.published_at ?? '').localeCompare(a.published_at ?? '');
+
+  const pickOfType = (type: string): TmdbVideo | null => {
+    const ofType = youtube.filter((v) => v.type === type);
+    if (ofType.length === 0) return null;
+    const official = ofType.filter((v) => v.official);
+    const pool = official.length > 0 ? official : ofType;
+    return [...pool].sort(byRecency)[0] ?? null;
+  };
+
+  const best = pickOfType('Trailer') ?? pickOfType('Teaser');
+  return best?.key ?? null;
 }
 
 const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/';
@@ -94,6 +133,7 @@ export async function searchMulti(
         posterPath,
         tmdbRating: rating,
         genres: null,
+        trailerKey: null,
       } as TmdbSearchResult;
     });
 
@@ -110,7 +150,7 @@ export async function searchMulti(
           r.contentType === 'MOVIE'
             ? await getMovieDetails(r.tmdbId)
             : await getTvDetails(r.tmdbId);
-        return { ...r, genres: details.genres };
+        return { ...r, genres: details.genres, trailerKey: details.trailerKey };
       } catch {
         return { ...r, genres: null };
       }
@@ -121,7 +161,13 @@ export async function searchMulti(
 }
 
 export async function getMovieDetails(id: number): Promise<TmdbDetails> {
-  const res = await authFetch(`/movie/${id}?language=en-US`);
+  // append_to_response=videos folds the trailer lookup into this same
+  // request — no extra TMDb call, and it only ever runs once per title
+  // (see catalogDb.upsertFromTmdb call sites). include_video_language
+  // widens the videos list beyond just en-US-tagged entries.
+  const res = await authFetch(
+    `/movie/${id}?language=en-US&append_to_response=videos&include_video_language=en,uk,null`,
+  );
   if (!res.ok) throw new Error('Failed to load movie details');
   const d = (await res.json()) as {
     id: number;
@@ -131,6 +177,7 @@ export async function getMovieDetails(id: number): Promise<TmdbDetails> {
     vote_average?: number;
     genres?: { name: string }[];
     poster_path?: string;
+    videos?: { results?: TmdbVideo[] };
   };
   const releaseDate = d.release_date ?? '';
   const year =
@@ -149,11 +196,14 @@ export async function getMovieDetails(id: number): Promise<TmdbDetails> {
     tmdbRating: rating,
     genres,
     posterPath: d.poster_path ?? null,
+    trailerKey: pickBestTrailerKey(d.videos?.results),
   };
 }
 
 export async function getTvDetails(id: number): Promise<TmdbDetails> {
-  const res = await authFetch(`/tv/${id}?language=en-US`);
+  const res = await authFetch(
+    `/tv/${id}?language=en-US&append_to_response=videos&include_video_language=en,uk,null`,
+  );
   if (!res.ok) throw new Error('Failed to load TV details');
   const d = (await res.json()) as {
     id: number;
@@ -163,6 +213,7 @@ export async function getTvDetails(id: number): Promise<TmdbDetails> {
     vote_average?: number;
     genres?: { name: string }[];
     poster_path?: string;
+    videos?: { results?: TmdbVideo[] };
   };
   const firstAirDate = d.first_air_date ?? '';
   const year =
@@ -181,5 +232,6 @@ export async function getTvDetails(id: number): Promise<TmdbDetails> {
     tmdbRating: rating,
     genres,
     posterPath: d.poster_path ?? null,
+    trailerKey: pickBestTrailerKey(d.videos?.results),
   };
 }

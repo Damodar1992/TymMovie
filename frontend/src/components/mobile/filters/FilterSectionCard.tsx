@@ -7,6 +7,7 @@ interface FilterSectionCardProps {
   summary?: string;
   summaryHighlighted?: boolean;
   defaultOpen?: boolean;
+  hideHeaderMeta?: boolean;
   children: ReactNode;
 }
 
@@ -15,6 +16,7 @@ export function FilterSectionCard({
   summary,
   summaryHighlighted,
   defaultOpen = true,
+  hideHeaderMeta = false,
   children,
 }: FilterSectionCardProps) {
   const [open, setOpen] = useState(defaultOpen);
@@ -32,23 +34,25 @@ export function FilterSectionCard({
         <div className="fv-card-title-row">
           <h2 className="fv-card-title">{title}</h2>
         </div>
-        <div className="fv-card-title-row">
-          {summary ? (
+        {!hideHeaderMeta ? (
+          <div className="fv-card-title-row">
+            {summary ? (
+              <span
+                className={`fv-card-summary${
+                  summaryHighlighted ? ' fv-card-summary-active' : ''
+                }`}
+              >
+                {summary}
+              </span>
+            ) : null}
             <span
-              className={`fv-card-summary${
-                summaryHighlighted ? ' fv-card-summary-active' : ''
-              }`}
+              className={`fv-card-chevron${open ? ' open' : ''}`}
+              aria-hidden
             >
-              {summary}
+              <ChevronDown size={18} strokeWidth={2} />
             </span>
-          ) : null}
-          <span
-            className={`fv-card-chevron${open ? ' open' : ''}`}
-            aria-hidden
-          >
-            <ChevronDown size={18} strokeWidth={2} />
-          </span>
-        </div>
+          </div>
+        ) : null}
       </button>
 
       <AnimatePresence initial={false}>

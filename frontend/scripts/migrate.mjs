@@ -49,7 +49,7 @@ async function main() {
     console.log(`Applying ${file}...`);
     const contents = readFileSync(path.join(migrationsDir, file), 'utf8');
     for (const statement of splitStatements(contents)) {
-      await sql.query(statement);
+      await sql(statement);
     }
     await sql`INSERT INTO _migrations (id) VALUES (${file})`;
     console.log(`  done.`);

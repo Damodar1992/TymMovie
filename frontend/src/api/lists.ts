@@ -62,6 +62,9 @@ export interface Movie {
   genres: string[] | null;
   tmdbRating: number | null;
   releaseYear: number | null;
+  /** YouTube video id of the best available trailer, or null if TMDb has
+   *  none for this title. Build a link with youtubeTrailerUrl(). */
+  trailerKey: string | null;
   status: MovieStatus;
   watchDate: string | null;
   comment: string | null;

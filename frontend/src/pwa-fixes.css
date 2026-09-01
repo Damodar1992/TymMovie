@@ -148,17 +148,27 @@
   .mobile-bottom-sheet-body,
   .mobile-filters-sheet-body,
   .mobile-profile-sheet-body,
-  .mobile-list-settings-body {
+  .mobile-list-settings-body,
+  .mobile-movie-form-sheet-body {
     -webkit-overflow-scrolling: touch;
   }
 
-  .mobile-filters-sheet-body {
+  .mobile-filters-sheet-body,
+  .mobile-movie-form-sheet-body {
     padding-bottom: 20px;
+  }
+
+  .mobile-movie-form-sheet-body .mobile-movie-form {
+    min-height: 0;
+    max-height: none;
+    overflow: visible;
+    padding-bottom: 8px !important;
   }
 
   .mobile-bottom-sheet-footer,
   .mobile-filters-sheet > .fv-cta-wrap,
-  .mobile-filters-sheet > .mobile-bottom-sheet-footer {
+  .mobile-filters-sheet > .mobile-bottom-sheet-footer,
+  .mobile-movie-form-sheet > .mobile-bottom-sheet-footer {
     display: flex;
     align-items: stretch;
     gap: 10px;

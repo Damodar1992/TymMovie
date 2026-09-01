@@ -1,6 +1,6 @@
-import { useState, type FormEvent } from 'react';
-import { AnimatePresence, motion } from 'framer-motion';
-import { X, Search, Loader2 } from 'lucide-react';
+import { useId, useState, type FormEvent } from 'react';
+import { motion } from 'framer-motion';
+import { Search, Loader2, Play } from 'lucide-react';
 import {
   useCreateMovieMutation,
   useUpdateMovieMutation,
@@ -11,10 +11,11 @@ import {
 } from '../../../api/lists';
 import { search, type SearchResult } from '../../../api/search';
 import { useAuth } from '../../../auth/AuthContext';
-import { initialFor } from '../../../lib/avatarColor';
+import { youtubeTrailerUrl } from '../../../lib/trailer';
 import { Avatar } from '../../Avatar';
 import { FilterSectionCard } from '../filters/FilterSectionCard';
 import { SegmentedControl } from '../filters/SegmentedControl';
+import { MobileBottomSheet } from '../MobileBottomSheet';
 
 interface MobileMovieFormProps {
   open: boolean;
@@ -63,6 +64,7 @@ function initialMetadata(m: Movie | null): SearchResult | null {
     posterUrl: m.posterUrl,
     tmdbRating: m.tmdbRating,
     genres: m.genres,
+    trailerKey: m.trailerKey,
   };
 }
 
@@ -74,6 +76,7 @@ export function MobileMovieForm({
   initialMovie,
   onClose,
 }: MobileMovieFormProps) {
+  const formId = useId();
   const { user } = useAuth();
   const isEditing = Boolean(movieId);
 
@@ -182,64 +185,42 @@ export function MobileMovieForm({
     .sort((a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity));
 
   return (
-    <AnimatePresence>
-      {open ? (
-        <>
-          <motion.div
-            className="mobile-sheet-backdrop"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            onClick={onClose}
-          />
-          <motion.div
-            className="mobile-sheet-root"
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            exit={{ y: '100%' }}
-            transition={{ type: 'spring', stiffness: 280, damping: 32 }}
-            role="dialog"
-            aria-modal="true"
-            aria-label={isEditing ? 'Edit entry' : 'Add title'}
-          >
-            <header className="fv-header">
-              <button
-                type="button"
-                className="fv-header-cancel"
-                onClick={onClose}
-              >
-                Cancel
-              </button>
-
-              <h1 className="fv-header-title">
-                {isEditing ? 'Edit Entry' : 'Add Title'}
-              </h1>
-
-              <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                <button
-                  type="button"
-                  className="fv-header-btn fv-header-btn-icon"
-                  onClick={onClose}
-                  aria-label="Close"
-                >
-                  <X size={18} strokeWidth={2.2} />
-                </button>
-              </div>
-            </header>
-
-            <form
-              className="filters-v2 mobile-movie-form"
-              onSubmit={handleSubmit}
-              style={{ paddingTop: 8 }}
-            >
+    <MobileBottomSheet
+      open={open}
+      onClose={onClose}
+      title={isEditing ? 'Edit Entry' : 'Add Title'}
+      sheetClassName="mobile-movie-form-sheet"
+      bodyClassName="mobile-movie-form-sheet-body"
+      footer={
+        <button
+          type="submit"
+          form={formId}
+          className="mobile-sheet-footer-btn mobile-sheet-footer-btn--primary"
+          disabled={isSaving || (!isEditing && !metadataPreview)}
+        >
+          {isSaving ? (
+            <>
+              <Loader2
+                size={18}
+                strokeWidth={2.2}
+                className="fv-search-spinner"
+              />
+              Saving…
+            </>
+          ) : (
+            <span>{isEditing ? 'Save Changes' : 'Save Entry'}</span>
+          )}
+        </button>
+      }
+    >
+      <form
+        id={formId}
+        className="filters-v2 mobile-movie-form"
+        onSubmit={handleSubmit}
+      >
               {error ? <div className="fv-error-banner">{error}</div> : null}
 
-              <FilterSectionCard
-                title="Title"
-                summary={form.title ? truncate(form.title, 24) : 'Required'}
-                summaryHighlighted={Boolean(form.title)}
-              >
+              <FilterSectionCard title="Title" hideHeaderMeta>
                 <div className="fv-field">
                   <input
                     className="fv-input"
@@ -256,31 +237,32 @@ export function MobileMovieForm({
                 </div>
 
                 {!isEditing ? (
-                  <>
-                    <div className="fv-field">
-                      <span className="fv-field-label">Search language</span>
-                      <div className="fv-lang-row">
-                        <button
-                          type="button"
-                          className={`fv-lang-btn${searchLanguage === 'uk-UA' ? ' active' : ''}`}
-                          onClick={() => setSearchLanguage('uk-UA')}
-                          aria-pressed={searchLanguage === 'uk-UA'}
-                          aria-label="Search in Ukrainian"
-                          title="Ukrainian"
-                        >
-                          UA
-                        </button>
-                        <button
-                          type="button"
-                          className={`fv-lang-btn${searchLanguage === 'en-US' ? ' active' : ''}`}
-                          onClick={() => setSearchLanguage('en-US')}
-                          aria-pressed={searchLanguage === 'en-US'}
-                          aria-label="Search in English"
-                          title="English"
-                        >
-                          EN
-                        </button>
-                      </div>
+                  <div className="fv-search-toolbar">
+                    <div
+                      className="fv-lang-row"
+                      role="group"
+                      aria-label="Search language"
+                    >
+                      <button
+                        type="button"
+                        className={`fv-lang-btn${searchLanguage === 'uk-UA' ? ' active' : ''}`}
+                        onClick={() => setSearchLanguage('uk-UA')}
+                        aria-pressed={searchLanguage === 'uk-UA'}
+                        aria-label="Search in Ukrainian"
+                        title="Ukrainian"
+                      >
+                        UA
+                      </button>
+                      <button
+                        type="button"
+                        className={`fv-lang-btn${searchLanguage === 'en-US' ? ' active' : ''}`}
+                        onClick={() => setSearchLanguage('en-US')}
+                        aria-pressed={searchLanguage === 'en-US'}
+                        aria-label="Search in English"
+                        title="English"
+                      >
+                        EN
+                      </button>
                     </div>
 
                     <button
@@ -305,15 +287,12 @@ export function MobileMovieForm({
                         </>
                       )}
                     </button>
-                  </>
+                  </div>
                 ) : null}
               </FilterSectionCard>
 
               {!isEditing && results.length > 0 ? (
-                <FilterSectionCard
-                  title="Matches"
-                  summary={`${results.length} found`}
-                >
+                <FilterSectionCard title="Matches" hideHeaderMeta>
                   <SegmentedControl<'ALL' | 'MOVIE' | 'TV'>
                     name="result-type"
                     ariaLabel="Filter results by type"
@@ -360,12 +339,7 @@ export function MobileMovieForm({
               {metadataPreview ? (
                 <FilterSectionCard
                   title={isEditing ? 'Details' : 'Selected match'}
-                  summary={
-                    metadataPreview.contentType === 'MOVIE'
-                      ? 'Movie'
-                      : 'TV Series'
-                  }
-                  summaryHighlighted
+                  hideHeaderMeta
                 >
                   <div className="fv-meta-row">
                     <div className="fv-meta-poster">
@@ -414,18 +388,24 @@ export function MobileMovieForm({
                           ))}
                         </div>
                       ) : null}
+                      {metadataPreview.trailerKey ? (
+                        <a
+                          className="fv-meta-trailer"
+                          href={youtubeTrailerUrl(metadataPreview.trailerKey)}
+                          target="_blank"
+                          rel="noreferrer"
+                          aria-label="Watch trailer"
+                        >
+                          <Play size={14} strokeWidth={2.2} aria-hidden />
+                          Trailer
+                        </a>
+                      ) : null}
                     </div>
                   </div>
                 </FilterSectionCard>
               ) : null}
 
-              <FilterSectionCard
-                title="Status"
-                summary={
-                  form.status === 'WATCHED' ? 'Watched' : 'Want to watch'
-                }
-                summaryHighlighted
-              >
+              <FilterSectionCard title="Status" hideHeaderMeta>
                 <SegmentedControl<MovieStatus>
                   name="status"
                   ariaLabel="Status"
@@ -440,44 +420,26 @@ export function MobileMovieForm({
                 />
               </FilterSectionCard>
 
-              <FilterSectionCard
-                key={`watch-date-${form.status}`}
-                title="Watch date"
-                summary={
-                  form.status !== 'WATCHED'
-                    ? '—'
-                    : form.watchDate
-                      ? form.watchDate.slice(5).split('-').reverse().join('.')
-                      : 'Not set'
-                }
-                summaryHighlighted={
-                  form.status === 'WATCHED' && Boolean(form.watchDate)
-                }
-                defaultOpen={form.status === 'WATCHED'}
-              >
-                <div className="fv-field fv-field-date">
-                  <input
-                    className="fv-input"
-                    type="date"
-                    value={form.watchDate}
-                    onChange={(e) =>
-                      setForm((prev) => ({
-                        ...prev,
-                        watchDate: e.target.value,
-                      }))
-                    }
-                    disabled={form.status !== 'WATCHED'}
-                  />
-                </div>
-              </FilterSectionCard>
+              {form.status === 'WATCHED' ? (
+                <FilterSectionCard title="Watch date" defaultOpen hideHeaderMeta>
+                  <div className="fv-field fv-field-date">
+                    <input
+                      className="fv-input"
+                      type="date"
+                      value={form.watchDate}
+                      onChange={(e) =>
+                        setForm((prev) => ({
+                          ...prev,
+                          watchDate: e.target.value,
+                        }))
+                      }
+                    />
+                  </div>
+                </FilterSectionCard>
+              ) : null}
 
               {form.status === 'WATCHED' ? (
-                <FilterSectionCard
-                  title="Ratings"
-                  summary={ratingsSummary(form.ratings, members)}
-                  summaryHighlighted={Object.values(form.ratings).some(Boolean)}
-                  defaultOpen
-                >
+                <FilterSectionCard title="Ratings" defaultOpen hideHeaderMeta>
                   <div className="fv-rating-row fv-rating-row-dynamic">
                     {members.map((m) => {
                       const editable = canRateFor(m.userId);
@@ -517,53 +479,7 @@ export function MobileMovieForm({
                   </div>
                 </FilterSectionCard>
               ) : null}
-
-              <div className="fv-cta-wrap">
-                <motion.button
-                  type="submit"
-                  className="fv-cta"
-                  disabled={isSaving || (!isEditing && !metadataPreview)}
-                  whileTap={{ scale: 0.97 }}
-                  transition={{
-                    type: 'spring',
-                    stiffness: 360,
-                    damping: 22,
-                  }}
-                >
-                  {isSaving ? (
-                    <>
-                      <Loader2
-                        size={18}
-                        strokeWidth={2.2}
-                        className="fv-search-spinner"
-                      />
-                      Saving…
-                    </>
-                  ) : (
-                    <span>{isEditing ? 'Save Changes' : 'Save Entry'}</span>
-                  )}
-                </motion.button>
-              </div>
-            </form>
-          </motion.div>
-        </>
-      ) : null}
-    </AnimatePresence>
+      </form>
+    </MobileBottomSheet>
   );
-}
-
-function truncate(s: string, n: number) {
-  return s.length <= n ? s : `${s.slice(0, n - 1)}…`;
-}
-
-function ratingsSummary(
-  ratings: Record<string, string>,
-  members: { userId: string; name: string | null; email: string }[],
-) {
-  const parts: string[] = [];
-  for (const m of members) {
-    const v = ratings[m.userId];
-    if (v) parts.push(`${initialFor(m.name, m.email)} ${v}`);
-  }
-  return parts.length ? parts.join(' · ') : 'Not rated';
 }

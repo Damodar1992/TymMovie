@@ -1,5 +1,5 @@
-import { useEffect, useRef, useState } from 'react';
-import { Film, SlidersHorizontal, User } from 'lucide-react';
+import { useEffect, useMemo, useRef, useState } from 'react';
+import { Plus, SlidersHorizontal, User } from 'lucide-react';
 import { useActiveListSync } from '../../state/ActiveListContext';
 import {
   InteractiveMenu,
@@ -13,7 +13,7 @@ import { MobileProfileScreen } from './MobileProfileScreen';
 import { MobileMovieForm } from './movie-form/MobileMovieForm';
 import { IOSInstallHint } from './IOSInstallHint';
 
-export type MobileTab = 'movies' | 'filters' | 'profile';
+export type MobileTab = 'add' | 'filters' | 'profile';
 
 const TAB_STORAGE_KEY = 'tym-movies-mobile-tab';
 
@@ -38,52 +38,48 @@ export function MobileShell() {
   const [settingsOpen, setSettingsOpen] = useState(false);
   const shellRef = useRef<HTMLDivElement>(null);
 
-  const setTab = (t: MobileTab) => {
+  const tabOrder = useMemo<MobileTab[]>(
+    () => (canEdit ? ['add', 'filters', 'profile'] : ['filters', 'profile']),
+    [canEdit],
+  );
+
+  const menuItems = useMemo<InteractiveMenuItem[]>(
+    () =>
+      canEdit
+        ? [
+            { label: 'add', icon: Plus },
+            { label: 'filters', icon: SlidersHorizontal },
+            { label: 'profile', icon: User },
+          ]
+        : [
+            { label: 'filters', icon: SlidersHorizontal },
+            { label: 'profile', icon: User },
+          ],
+    [canEdit],
+  );
+
+  const openAddForm = () => {
+    if (!canEdit || !listId) return;
+    setFormInstance((n) => n + 1);
+    setIsFormOpen(true);
+  };
+
+  const setTab = (t: 'filters' | 'profile') => {
     if (t === 'filters') {
       setFiltersOpen(true);
       setProfileOpen(false);
-      try {
-        localStorage.setItem(TAB_STORAGE_KEY, 'movies');
-      } catch {
-        /* ignore */
-      }
       return;
     }
-    if (t === 'profile') {
-      setProfileOpen(true);
-      setFiltersOpen(false);
-      try {
-        localStorage.setItem(TAB_STORAGE_KEY, 'movies');
-      } catch {
-        /* ignore */
-      }
-      return;
-    }
+    setProfileOpen(true);
     setFiltersOpen(false);
-    setProfileOpen(false);
-    try {
-      localStorage.setItem(TAB_STORAGE_KEY, 'movies');
-    } catch {
-      /* ignore */
-    }
   };
 
   const closeFilters = () => {
     setFiltersOpen(false);
-    try {
-      localStorage.setItem(TAB_STORAGE_KEY, 'movies');
-    } catch {
-      /* ignore */
-    }
   };
 
   const closeProfile = () => {
     setProfileOpen(false);
-    try {
-      localStorage.setItem(TAB_STORAGE_KEY, 'movies');
-    } catch {
-      /* ignore */
-    }
   };
 
   const openListSettings = () => {
@@ -95,11 +91,6 @@ export function MobileShell() {
     const legacy = readLegacySheet();
     if (legacy === 'profile') setProfileOpen(true);
     if (legacy === 'filters') setFiltersOpen(true);
-    try {
-      localStorage.setItem(TAB_STORAGE_KEY, 'movies');
-    } catch {
-      /* ignore */
-    }
   }, []);
 
   useEffect(() => {
@@ -128,7 +119,7 @@ export function MobileShell() {
     ? tabOrder.indexOf('filters')
     : profileOpen
       ? tabOrder.indexOf('profile')
-      : tabOrder.indexOf('movies');
+      : -1;
 
   return (
     <div className="mobile-shell" ref={shellRef}>
@@ -147,22 +138,6 @@ export function MobileShell() {
           </div>
         )}
 
-        <div className="mobile-header-actions">
-          {canEdit ? (
-            <button
-              type="button"
-              className="mobile-header-icon-btn mobile-header-add-btn"
-              onClick={() => {
-                setFormInstance((n) => n + 1);
-                setIsFormOpen(true);
-              }}
-              aria-label="Add movie"
-            >
-              <img src="/add_movie_icon.svg" alt="" width={24} height={24} />
-              <span>Add</span>
-            </button>
-          ) : null}
-        </div>
       </header>
 
       <IOSInstallHint />
@@ -175,7 +150,14 @@ export function MobileShell() {
         items={menuItems}
         accentColor="#c8a8ff"
         activeIndex={menuActiveIndex}
-        onItemSelect={(idx) => setTab(tabOrder[idx])}
+        onItemSelect={(idx) => {
+          const tab = tabOrder[idx];
+          if (tab === 'add') {
+            openAddForm();
+            return;
+          }
+          setTab(tab);
+        }}
       />
 
       <MobileFiltersScreen open={filtersOpen} onApply={closeFilters} />
@@ -209,10 +191,3 @@ export function MobileShell() {
   );
 }
 
-const tabOrder: MobileTab[] = ['movies', 'filters', 'profile'];
-
-const menuItems: InteractiveMenuItem[] = [
-  { label: 'movies', icon: Film },
-  { label: 'filters', icon: SlidersHorizontal },
-  { label: 'profile', icon: User },
-];

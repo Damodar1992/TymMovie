@@ -16,6 +16,7 @@ export interface SearchResult {
   posterUrl: string | null;
   tmdbRating: number | null;
   genres: string[] | null;
+  trailerKey: string | null;
 }
 
 export async function search(

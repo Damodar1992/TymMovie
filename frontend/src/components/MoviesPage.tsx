@@ -67,6 +67,20 @@ export function MoviesPage() {
   );
   const total = data?.pages[0]?.total ?? 0;
 
+  const openAddMovie = useCallback(() => {
+    setEditingMovieId(null);
+    setEditingMovie(null);
+    setIsFormOpen(true);
+  }, []);
+
+  const hasActiveFilters = Boolean(
+    search.trim() || status || contentType || genres.length > 0,
+  );
+  const isCatalogEmpty =
+    items.length === 0 &&
+    !hasActiveFilters &&
+    (libraryStats?.total ?? total) === 0;
+
   const loadMore = useCallback(() => {
     if (!hasNextPage || isFetchingNextPage) return;
     void fetchNextPage();
@@ -188,11 +202,7 @@ export function MoviesPage() {
             <button
               className="desktop-add-movie"
               type="button"
-              onClick={() => {
-                setEditingMovieId(null);
-                setEditingMovie(null);
-                setIsFormOpen(true);
-              }}
+              onClick={openAddMovie}
             >
               + Add movie
             </button>
@@ -208,6 +218,14 @@ export function MoviesPage() {
 
       {listsLoading || isLoading ? (
         <EmptyState title="Loading movies..." description="Please wait." />
+      ) : isCatalogEmpty ? (
+        <EmptyState
+          variant="catalog"
+          eyebrow="Your list is empty"
+          title="Start with your first title."
+          description="Add a movie or series you want to watch — solo or together with people on this list."
+          action={canEdit ? { label: 'Add movie', onClick: openAddMovie } : undefined}
+        />
       ) : items.length === 0 ? (
         <EmptyState
           title="No titles found"

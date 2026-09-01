@@ -1,5 +1,5 @@
 import { useMemo, useState, type FormEvent } from 'react';
-import { Check, Search, Loader2 } from 'lucide-react';
+import { Check, Search, Loader2, Play } from 'lucide-react';
 import {
   useCreateMovieMutation,
   useUpdateMovieMutation,
@@ -10,6 +10,7 @@ import {
 } from '../api/lists';
 import { search, type SearchResult } from '../api/search';
 import { useAuth } from '../auth/AuthContext';
+import { youtubeTrailerUrl } from '../lib/trailer';
 import { Avatar } from './Avatar';
 
 interface MovieFormModalProps {
@@ -62,6 +63,7 @@ export function MovieFormModal({ listId, listRole, movieId, initialMovie, onClos
           posterUrl: initialMovie.posterUrl,
           tmdbRating: initialMovie.tmdbRating,
           genres: initialMovie.genres,
+          trailerKey: initialMovie.trailerKey,
         }
       : null,
   );
@@ -273,6 +275,18 @@ export function MovieFormModal({ listId, listRole, movieId, initialMovie, onClos
                     <p>{metadataPreview.title}</p>
                     <span>{metadataPreview.year ?? '—'} · TMDb {metadataPreview.tmdbRating?.toFixed(1) ?? '—'}</span>
                     <span>{metadataPreview.genres?.join(' · ') || '—'}</span>
+                    {metadataPreview.trailerKey ? (
+                      <a
+                        className="mfd-selected-trailer"
+                        href={youtubeTrailerUrl(metadataPreview.trailerKey)}
+                        target="_blank"
+                        rel="noreferrer"
+                        aria-label="Watch trailer"
+                      >
+                        <Play size={13} strokeWidth={2.2} aria-hidden />
+                        Trailer
+                      </a>
+                    ) : null}
                   </div>
                 </div>
               </section>
