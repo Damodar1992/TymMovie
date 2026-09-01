@@ -19,6 +19,7 @@ import { Avatar } from '../Avatar';
 import { RatingStars } from '../RatingStars';
 import { MovieCard } from '../MovieCard';
 import { MobileMovieTile } from './MobileMovieTile';
+import { MobileStatusFilter } from './MobileStatusFilter';
 import { MobileMovieForm } from './movie-form/MobileMovieForm';
 import { SearchInput } from '../SearchInput';
 import { EmptyState } from '../EmptyState';
@@ -131,11 +132,7 @@ export function MobileMoviesScreen() {
       </div>
 
       <div className="mobile-movies-toolbar">
-        <div className="mobile-status-chips" role="group" aria-label="Filter by status">
-          <button type="button" className={!status ? 'active' : ''} onClick={() => setStatus(undefined)}>All</button>
-          <button type="button" className={status === 'WANT_TO_WATCH' ? 'active' : ''} onClick={() => setStatus('WANT_TO_WATCH')}>Planned</button>
-          <button type="button" className={status === 'WATCHED' ? 'active' : ''} onClick={() => setStatus('WATCHED')}>Watched</button>
-        </div>
+        <MobileStatusFilter value={status} onChange={setStatus} />
 
         <div className="mobile-toolbar-toggles">
           <div className="mobile-lang-toggle" role="group" aria-label="Title language">

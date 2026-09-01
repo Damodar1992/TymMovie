@@ -180,9 +180,9 @@
     "semantic_hash": "0ca084e84d89c9bc35d38fbb9ac8ad45"
   },
   "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx": {
-    "mtime": 1788278142.626868,
-    "seen": 1788278262.049789,
-    "ast_hash": "28b4e809f7e77d78a1bdcd36efcdae36",
+    "mtime": 1788278453.1995094,
+    "seen": 1788278501.7486753,
+    "ast_hash": "947d34ba7d1700eb5659bfa7f2724add",
     "semantic_hash": ""
   },
   "frontend/src/components/ui/modern-mobile-menu.tsx": {
