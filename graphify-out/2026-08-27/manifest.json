@@ -1,0 +1,590 @@
+{
+  "frontend/eslint.config.js": {
+    "mtime": 1773341336.3221788,
+    "seen": 1787728515.9507005,
+    "ast_hash": "b8893da386a89dfd3672dad848f4ec7e",
+    "semantic_hash": "b8893da386a89dfd3672dad848f4ec7e"
+  },
+  "frontend/package.json": {
+    "mtime": 1787823154.3441727,
+    "seen": 1787834340.4194212,
+    "ast_hash": "4c53bb5c5fddbb81d64bed62807a31c5",
+    "semantic_hash": ""
+  },
+  "frontend/pwa-assets.config.ts": {
+    "mtime": 1785487869.9040847,
+    "seen": 1787728515.9507082,
+    "ast_hash": "d2b68c0dc2eaf126d3c0efce18913df7",
+    "semantic_hash": "d2b68c0dc2eaf126d3c0efce18913df7"
+  },
+  "frontend/src/App.tsx": {
+    "mtime": 1787745390.2831237,
+    "seen": 1787834340.4196541,
+    "ast_hash": "7a97481f4fd522cc1ccd0fc2f9030072",
+    "semantic_hash": ""
+  },
+  "frontend/src/api/client.ts": {
+    "mtime": 1773352385.964151,
+    "seen": 1787728515.95071,
+    "ast_hash": "23384f992201481c5acf15e78353510a",
+    "semantic_hash": "23384f992201481c5acf15e78353510a"
+  },
+  "frontend/src/api/movies.ts": {
+    "mtime": 1787834647.9196424,
+    "seen": 1787834715.5645194,
+    "ast_hash": "1944b6853b24cccc895cb3e56bc27b12",
+    "semantic_hash": ""
+  },
+  "frontend/src/auth/AuthContext.tsx": {
+    "mtime": 1787745390.3479202,
+    "seen": 1787834340.419843,
+    "ast_hash": "ccb4f122d0038cf70f375ac44a00530e",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/EmptyState.tsx": {
+    "mtime": 1773341422.7189903,
+    "seen": 1787728515.950712,
+    "ast_hash": "0135ba087b5547dbd16c447df5ad0151",
+    "semantic_hash": "0135ba087b5547dbd16c447df5ad0151"
+  },
+  "frontend/src/components/FiltersBar.tsx": {
+    "mtime": 1787736305.993751,
+    "seen": 1787736843.635645,
+    "ast_hash": "0f2b67cf9884ebadc71d52bbd5d3e414",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/LoginPage.tsx": {
+    "mtime": 1787745390.3709419,
+    "seen": 1787834340.4201014,
+    "ast_hash": "c733e954134d800e0b544e7398ac0132",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/MovieCard.tsx": {
+    "mtime": 1787735679.610374,
+    "seen": 1787736843.635647,
+    "ast_hash": "0d18739836e0ea85a11926d3c93792ce",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/MovieDetailsDrawer.tsx": {
+    "mtime": 1787834328.8557258,
+    "seen": 1787834340.4205546,
+    "ast_hash": "d624d26a77db961f0230dd37d04563be",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/MovieFormModal.tsx": {
+    "mtime": 1787745390.3970487,
+    "seen": 1787834340.4205573,
+    "ast_hash": "c0bc7d97bc19d5fd03c39559514c9179",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/MovieGrid.tsx": {
+    "mtime": 1787579877.141425,
+    "seen": 1787728515.9507167,
+    "ast_hash": "1f63055e7b34b37c4e755d7b461acb9e",
+    "semantic_hash": "1f63055e7b34b37c4e755d7b461acb9e"
+  },
+  "frontend/src/components/MoviesPage.tsx": {
+    "mtime": 1787745390.4264328,
+    "seen": 1787834340.4208786,
+    "ast_hash": "094b4f4a6561ec570e18632346d0371a",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/SearchInput.tsx": {
+    "mtime": 1773341405.3444214,
+    "seen": 1787728515.9507182,
+    "ast_hash": "d6e48d7cd4b65a1eedc20ce0482dadb7",
+    "semantic_hash": "d6e48d7cd4b65a1eedc20ce0482dadb7"
+  },
+  "frontend/src/components/SortControl.tsx": {
+    "mtime": 1787735956.8437493,
+    "seen": 1787736843.635653,
+    "ast_hash": "1d2762c160a835928d889b93092f436a",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/mobile/IOSInstallHint.tsx": {
+    "mtime": 1779797394.0169435,
+    "seen": 1787728515.9507196,
+    "ast_hash": "2b4c16a25f9f5ae53cb6d81dbf790735",
+    "semantic_hash": "2b4c16a25f9f5ae53cb6d81dbf790735"
+  },
+  "frontend/src/components/mobile/MobileApp.tsx": {
+    "mtime": 1779797394.1076002,
+    "seen": 1787728515.95072,
+    "ast_hash": "ef06f0f6fd97e7b46ba9292f7462b2ef",
+    "semantic_hash": "ef06f0f6fd97e7b46ba9292f7462b2ef"
+  },
+  "frontend/src/components/mobile/MobileFiltersScreen.tsx": {
+    "mtime": 1787745390.484091,
+    "seen": 1787834340.4213908,
+    "ast_hash": "746b2cef63c2872c98c96e63346ea902",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/mobile/MobileLoginPage.tsx": {
+    "mtime": 1787745390.514213,
+    "seen": 1787834340.4213922,
+    "ast_hash": "a58c533c2b915d6552291dfdc78ff706",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/mobile/MobileMovieTile.tsx": {
+    "mtime": 1787598300.4996865,
+    "seen": 1787728515.9507222,
+    "ast_hash": "ffae65cc5bdae76f854a3e6798c15439",
+    "semantic_hash": "ffae65cc5bdae76f854a3e6798c15439"
+  },
+  "frontend/src/components/mobile/MobileMoviesScreen.tsx": {
+    "mtime": 1787834322.8077962,
+    "seen": 1787834340.42153,
+    "ast_hash": "9835666146a88f4c12b8ba44be5bcefc",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/mobile/MobileProfileScreen.tsx": {
+    "mtime": 1787600460.0783727,
+    "seen": 1787728515.9507236,
+    "ast_hash": "11eb1d2d9988c105187435e6c09ac253",
+    "semantic_hash": "11eb1d2d9988c105187435e6c09ac253"
+  },
+  "frontend/src/components/mobile/MobileShell.tsx": {
+    "mtime": 1787673684.8580148,
+    "seen": 1787728515.9507244,
+    "ast_hash": "49ffbf1b6de506b1a8002a3eeae346de",
+    "semantic_hash": "49ffbf1b6de506b1a8002a3eeae346de"
+  },
+  "frontend/src/components/mobile/filters/ApplyFiltersCTA.tsx": {
+    "mtime": 1787597254.87516,
+    "seen": 1787728515.950725,
+    "ast_hash": "e90bef8b7fb103f0e007dd4a3a9f1fb8",
+    "semantic_hash": "e90bef8b7fb103f0e007dd4a3a9f1fb8"
+  },
+  "frontend/src/components/mobile/filters/FilterSectionCard.tsx": {
+    "mtime": 1779798956.3174808,
+    "seen": 1787728515.950726,
+    "ast_hash": "a2143f82857f152be3aa8d890ea0b54d",
+    "semantic_hash": "a2143f82857f152be3aa8d890ea0b54d"
+  },
+  "frontend/src/components/mobile/filters/FiltersHeader.tsx": {
+    "mtime": 1787670676.8665354,
+    "seen": 1787728515.950727,
+    "ast_hash": "cce7449da8fec72646b8413d60344455",
+    "semantic_hash": "cce7449da8fec72646b8413d60344455"
+  },
+  "frontend/src/components/mobile/filters/GenreCloud.tsx": {
+    "mtime": 1787670407.352181,
+    "seen": 1787728515.9507277,
+    "ast_hash": "df31c4075e5c1e9bb03bcd8c0291b3f9",
+    "semantic_hash": "df31c4075e5c1e9bb03bcd8c0291b3f9"
+  },
+  "frontend/src/components/mobile/filters/IconLabelPill.tsx": {
+    "mtime": 1779798964.2487876,
+    "seen": 1787728515.9507282,
+    "ast_hash": "9285d403c62218f467d46f3d4cd1b460",
+    "semantic_hash": "9285d403c62218f467d46f3d4cd1b460"
+  },
+  "frontend/src/components/mobile/filters/SegmentedControl.tsx": {
+    "mtime": 1779798960.860937,
+    "seen": 1787728515.950729,
+    "ast_hash": "381b7b270bb9ec95c28eea2107799ab6",
+    "semantic_hash": "381b7b270bb9ec95c28eea2107799ab6"
+  },
+  "frontend/src/components/mobile/filters/SortRadioCard.tsx": {
+    "mtime": 1779798979.0398495,
+    "seen": 1787728515.9507298,
+    "ast_hash": "0ca084e84d89c9bc35d38fbb9ac8ad45",
+    "semantic_hash": "0ca084e84d89c9bc35d38fbb9ac8ad45"
+  },
+  "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx": {
+    "mtime": 1787745390.568954,
+    "seen": 1787834340.4227633,
+    "ast_hash": "45b4de00780136cdf3d792fd2d8f365c",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/ui/modern-mobile-menu.tsx": {
+    "mtime": 1779798227.240435,
+    "seen": 1787728515.950731,
+    "ast_hash": "cb828737c81760d5f1d38e76db48f95a",
+    "semantic_hash": "cb828737c81760d5f1d38e76db48f95a"
+  },
+  "frontend/src/hooks/useInfiniteScroll.ts": {
+    "mtime": 1785487282.669449,
+    "seen": 1787728515.9507315,
+    "ast_hash": "a59c3443c8b5e6ea59cfd7aaa436591f",
+    "semantic_hash": "a59c3443c8b5e6ea59cfd7aaa436591f"
+  },
+  "frontend/src/hooks/useIsMobileLayout.ts": {
+    "mtime": 1779797269.1510274,
+    "seen": 1787728515.950732,
+    "ast_hash": "873dcd7f7826f398ebd9ae973f97987a",
+    "semantic_hash": "873dcd7f7826f398ebd9ae973f97987a"
+  },
+  "frontend/src/main.tsx": {
+    "mtime": 1787670102.8552406,
+    "seen": 1787728515.9507327,
+    "ast_hash": "67c4789950c682aacb9b5a99c9754830",
+    "semantic_hash": "67c4789950c682aacb9b5a99c9754830"
+  },
+  "frontend/src/state/MoviesFiltersContext.tsx": {
+    "mtime": 1787728227.2382205,
+    "seen": 1787728515.9507334,
+    "ast_hash": "259e85289fe6c26c927e560f10cd7dc5",
+    "semantic_hash": "259e85289fe6c26c927e560f10cd7dc5"
+  },
+  "frontend/src/vite-env.d.ts": {
+    "mtime": 1779797246.7722087,
+    "seen": 1787728515.9507341,
+    "ast_hash": "11ecfcbd6f7344db8ce9e9ae76e70a6c",
+    "semantic_hash": "11ecfcbd6f7344db8ce9e9ae76e70a6c"
+  },
+  "frontend/tsconfig.app.json": {
+    "mtime": 1773341336.3622491,
+    "seen": 1787728515.9507349,
+    "ast_hash": "1079e34c0d979ff4e9c96e544b296d8f",
+    "semantic_hash": "1079e34c0d979ff4e9c96e544b296d8f"
+  },
+  "frontend/tsconfig.json": {
+    "mtime": 1773341336.3682477,
+    "seen": 1787728515.9507356,
+    "ast_hash": "a3d39fa780ebff65444de257f291ce6c",
+    "semantic_hash": "a3d39fa780ebff65444de257f291ce6c"
+  },
+  "frontend/tsconfig.node.json": {
+    "mtime": 1773341336.3727577,
+    "seen": 1787728515.9507365,
+    "ast_hash": "eec85c9d7c6b599801557f1afd86672c",
+    "semantic_hash": "eec85c9d7c6b599801557f1afd86672c"
+  },
+  "frontend/vercel.json": {
+    "mtime": 1787834644.6821826,
+    "seen": 1787834715.5645566,
+    "ast_hash": "303c94e5f94c91fab13dcb830fde05c3",
+    "semantic_hash": ""
+  },
+  "frontend/vite.config.ts": {
+    "mtime": 1787745390.6610405,
+    "seen": 1787834340.4238582,
+    "ast_hash": "d1632022943a7ad1b5c98096393da94c",
+    "semantic_hash": ""
+  },
+  "frontend/public/login-background.mp4": {
+    "mtime": 1787602102.0991797,
+    "seen": 1787728515.950739,
+    "ast_hash": "65aa89740e64062d2f04a18b3d05af2b",
+    "semantic_hash": "65aa89740e64062d2f04a18b3d05af2b"
+  },
+  "frontend/public/spotlight-theater.mp4": {
+    "mtime": 1787602253.3423748,
+    "seen": 1787728515.9507396,
+    "ast_hash": "d219f26d8a58a296ac8bb4872842a4ee",
+    "semantic_hash": "d219f26d8a58a296ac8bb4872842a4ee"
+  },
+  "README.md": {
+    "mtime": 1787745389.7543747,
+    "seen": 1787834340.4238605,
+    "ast_hash": "63e46f645062fbfa55052ea150207832",
+    "semantic_hash": ""
+  },
+  "VERCEL.md": {
+    "mtime": 1787745389.7659369,
+    "seen": 1787834340.4238622,
+    "ast_hash": "b5c3ae84f5e0121f28e125ea2dbd6965",
+    "semantic_hash": ""
+  },
+  "frontend/README.md": {
+    "mtime": 1773341336.3849778,
+    "seen": 1787728674.0884006,
+    "ast_hash": "f6e3faf55d738cf2affe1b44195f27cf",
+    "semantic_hash": ""
+  },
+  "frontend/index.html": {
+    "mtime": 1779797237.1014905,
+    "seen": 1787728674.088402,
+    "ast_hash": "339d00d75f863ea9704e24f05fe296ed",
+    "semantic_hash": ""
+  },
+  "frontend/public/add_movie_icon.svg": {
+    "mtime": 1773421821.5547428,
+    "seen": 1787728674.0884032,
+    "ast_hash": "0113021bff9747f623c3055feb52ff1a",
+    "semantic_hash": ""
+  },
+  "frontend/public/apple-touch-icon-180x180.png": {
+    "mtime": 1787599400.4355013,
+    "seen": 1787728674.0884044,
+    "ast_hash": "cc11a824fc08381082325974cac3b9ff",
+    "semantic_hash": ""
+  },
+  "frontend/public/delete_filter.svg": {
+    "mtime": 1773422500.8501067,
+    "seen": 1787728674.0884058,
+    "ast_hash": "c385e3607f445289297a65f4a13e7791",
+    "semantic_hash": ""
+  },
+  "frontend/public/delete_filter1.svg": {
+    "mtime": 1773422108.6198711,
+    "seen": 1787728674.088407,
+    "ast_hash": "2d995e1800ae1c37e7f7651b37e48cb1",
+    "semantic_hash": ""
+  },
+  "frontend/public/favicon.svg": {
+    "mtime": 1787599379.369171,
+    "seen": 1787728674.0884082,
+    "ast_hash": "8c6310a728901a5c9acc4d0da0a8a8c7",
+    "semantic_hash": ""
+  },
+  "frontend/public/grid.svg": {
+    "mtime": 1774860208.6921966,
+    "seen": 1787728674.0884094,
+    "ast_hash": "0400d2837e50b1b92eced7fcffa93736",
+    "semantic_hash": ""
+  },
+  "frontend/public/icons.svg": {
+    "mtime": 1773341336.4715676,
+    "seen": 1787728674.0884106,
+    "ast_hash": "3b4fcfcf393eca4d264dca4a4663bc37",
+    "semantic_hash": ""
+  },
+  "frontend/public/list.svg": {
+    "mtime": 1774860239.7531695,
+    "seen": 1787728674.088412,
+    "ast_hash": "2526129057c70f6ccc438eefa0bc8674",
+    "semantic_hash": ""
+  },
+  "frontend/public/login-hero.jpg": {
+    "mtime": 1775300016.9978037,
+    "seen": 1787728674.0884135,
+    "ast_hash": "4bfc83fa3b65518ea159dfd69ea259d7",
+    "semantic_hash": ""
+  },
+  "frontend/public/logo 1.png": {
+    "mtime": 1773419990.347033,
+    "seen": 1787728674.0884147,
+    "ast_hash": "3f903a9241884026ea29382bd24ef3f1",
+    "semantic_hash": ""
+  },
+  "frontend/public/logo 2.png": {
+    "mtime": 1773420016.447585,
+    "seen": 1787728674.088416,
+    "ast_hash": "07fc84e0d5eacd67c4b65fced7c40ff3",
+    "semantic_hash": ""
+  },
+  "frontend/public/maskable-icon-512x512.png": {
+    "mtime": 1787599400.4221342,
+    "seen": 1787728674.0884173,
+    "ast_hash": "31ba33aef7dce2cd9f0d3ddc08bd8be0",
+    "semantic_hash": ""
+  },
+  "frontend/public/pwa-192x192.png": {
+    "mtime": 1787599400.317609,
+    "seen": 1787728674.0884185,
+    "ast_hash": "babf2696621e006c4020968611796404",
+    "semantic_hash": ""
+  },
+  "frontend/public/pwa-512x512.png": {
+    "mtime": 1787599400.3742945,
+    "seen": 1787728674.08842,
+    "ast_hash": "fe975f436c59ec41e3569d29a8b2ea2f",
+    "semantic_hash": ""
+  },
+  "frontend/public/pwa-64x64.png": {
+    "mtime": 1787599400.310091,
+    "seen": 1787728674.0884213,
+    "ast_hash": "c01371696468c4e9b2d136638b561115",
+    "semantic_hash": ""
+  },
+  "frontend/public/pwa-icon-source.png": {
+    "mtime": 1779803833.689,
+    "seen": 1787728674.0884225,
+    "ast_hash": "20cdc51f3cdc130cdd59b4e7116fe814",
+    "semantic_hash": ""
+  },
+  "frontend/public/pwa-icon-source.svg": {
+    "mtime": 1787599379.369171,
+    "seen": 1787728674.0884242,
+    "ast_hash": "9011bb7f3245cf7ab940396f41dd141c",
+    "semantic_hash": ""
+  },
+  "frontend/public/spotlight-poster.jpg": {
+    "mtime": 1787602253.4891338,
+    "seen": 1787728674.0884254,
+    "ast_hash": "bae5fcb79cb501674e6d2cd29b5e494d",
+    "semantic_hash": ""
+  },
+  "frontend/public/tymmovies-horizontal-logo.svg": {
+    "mtime": 1787599376.467352,
+    "seen": 1787728674.088427,
+    "ast_hash": "2e30a368f0af85114a1106096af66065",
+    "semantic_hash": ""
+  },
+  "frontend/public/tymmovies-mark.svg": {
+    "mtime": 1787599373.5403595,
+    "seen": 1787728674.0884283,
+    "ast_hash": "d3fcb9219d44fb46d61af046b45f1e20",
+    "semantic_hash": ""
+  },
+  "frontend/public/tymmovies_logo_clean.svg": {
+    "mtime": 1773400799.7251728,
+    "seen": 1787728674.0884295,
+    "ast_hash": "0166b7c194b645c7840cc29f08aafaa3",
+    "semantic_hash": ""
+  },
+  "frontend/public/tymmovies_logo_clean2.svg": {
+    "mtime": 1773399662.3963625,
+    "seen": 1787728674.088431,
+    "ast_hash": "27d239aee1af975413ac17ad01bf2de7",
+    "semantic_hash": ""
+  },
+  "frontend/src/assets/hero.png": {
+    "mtime": 1773341336.4137604,
+    "seen": 1787728674.088432,
+    "ast_hash": "5cf2b0762834cdddc0dd3ec1397b5011",
+    "semantic_hash": ""
+  },
+  "frontend/src/assets/react.svg": {
+    "mtime": 1773341336.4905891,
+    "seen": 1787728674.0884335,
+    "ast_hash": "f0402b67b6ce880f65666bb49e841696",
+    "semantic_hash": ""
+  },
+  "frontend/src/assets/vite.svg": {
+    "mtime": 1773341336.509106,
+    "seen": 1787728674.088435,
+    "ast_hash": "9960a24288958394ac50e57ff638b036",
+    "semantic_hash": ""
+  },
+  "frontend/schema.sql": {
+    "mtime": 1787745390.2289839,
+    "seen": 1787834715.5645156,
+    "ast_hash": "37fb422524c5a482320155eb9ee758ac",
+    "semantic_hash": ""
+  },
+  "Tym movies list of movies/movies.json": {
+    "mtime": 1787736963.4835968,
+    "seen": 1787834340.4191496,
+    "ast_hash": "169b12683fb37d62e134b4111ff70d4c",
+    "semantic_hash": ""
+  },
+  "frontend/api/_lib/auth.ts": {
+    "mtime": 1787750135.6969705,
+    "seen": 1787834340.419154,
+    "ast_hash": "359c1ded8453de10fb9b5627932299d3",
+    "semantic_hash": ""
+  },
+  "frontend/api/_lib/db.ts": {
+    "mtime": 1787745389.8467402,
+    "seen": 1787834340.419156,
+    "ast_hash": "b73f56a20777f0c35986fd4c68bbd1c9",
+    "semantic_hash": ""
+  },
+  "frontend/api/_lib/tmdb.ts": {
+    "mtime": 1787745389.8697624,
+    "seen": 1787834340.419157,
+    "ast_hash": "4450e2093be542274e47192ca92a296c",
+    "semantic_hash": ""
+  },
+  "frontend/api/_lib/types.ts": {
+    "mtime": 1787745389.8882935,
+    "seen": 1787834340.4191585,
+    "ast_hash": "e672dda77118a29805511df30fb536e4",
+    "semantic_hash": ""
+  },
+  "frontend/api/auth/guest.ts": {
+    "mtime": 1787750135.5974057,
+    "seen": 1787834340.4191594,
+    "ast_hash": "e33bcfe93acf927f914362cf7d130a3b",
+    "semantic_hash": ""
+  },
+  "frontend/api/auth/login.ts": {
+    "mtime": 1787750135.6079166,
+    "seen": 1787834340.4191601,
+    "ast_hash": "401ddf80e19a78b8627fa14f6767fe1c",
+    "semantic_hash": ""
+  },
+  "frontend/api/auth/logout.ts": {
+    "mtime": 1787750135.6180568,
+    "seen": 1787834340.4191608,
+    "ast_hash": "2134e1a4cedb87830ddec575b748ea10",
+    "semantic_hash": ""
+  },
+  "frontend/api/auth/session.ts": {
+    "mtime": 1787750135.6275673,
+    "seen": 1787834340.4191616,
+    "ast_hash": "c3aa7abbb01f1dd0d8cc0e751ebec052",
+    "semantic_hash": ""
+  },
+  "frontend/api/movies/genres.ts": {
+    "mtime": 1787750135.6376238,
+    "seen": 1787834340.4191644,
+    "ast_hash": "72eef2a57630b6d5b807de02ac5f18ad",
+    "semantic_hash": ""
+  },
+  "frontend/api/movies/index.ts": {
+    "mtime": 1787750135.6471367,
+    "seen": 1787834340.4191651,
+    "ast_hash": "b65b83611bc6013575bfc21e82e035cf",
+    "semantic_hash": ""
+  },
+  "frontend/api/movies/stats.ts": {
+    "mtime": 1787750135.6576376,
+    "seen": 1787834340.4191658,
+    "ast_hash": "9f41a3f2ba45159c03fdfb219a2ddb86",
+    "semantic_hash": ""
+  },
+  "frontend/api/tmdb/details.ts": {
+    "mtime": 1787750135.6796684,
+    "seen": 1787834340.4191668,
+    "ast_hash": "f0ab96b8658645d92ce7793490f31bc8",
+    "semantic_hash": ""
+  },
+  "frontend/api/tmdb/search.ts": {
+    "mtime": 1787750135.6887035,
+    "seen": 1787834340.4191675,
+    "ast_hash": "d5f17bb55301be639746747ccc925a1b",
+    "semantic_hash": ""
+  },
+  "frontend/dev-api-plugin.ts": {
+    "mtime": 1787834648.2148042,
+    "seen": 1787834715.5645075,
+    "ast_hash": "5052447af707068d295d1eb6d09b5452",
+    "semantic_hash": ""
+  },
+  "frontend/scripts/migrate.mjs": {
+    "mtime": 1787745390.2625885,
+    "seen": 1787834340.4196508,
+    "ast_hash": "02f5704e886c208d35894e3bd1845c01",
+    "semantic_hash": ""
+  },
+  "frontend/src/api/tmdb.ts": {
+    "mtime": 1787745390.3243928,
+    "seen": 1787834340.4198418,
+    "ast_hash": "2dbfdef6ed16be0e00f6f556fc27ee0d",
+    "semantic_hash": ""
+  },
+  "frontend/tsconfig.api.json": {
+    "mtime": 1787750149.674832,
+    "seen": 1787834340.4233577,
+    "ast_hash": "83a5e87f2d8098075ba15abc0797262e",
+    "semantic_hash": ""
+  },
+  "frontend/api/movies/item.ts": {
+    "mtime": 1787834643.9069006,
+    "seen": 1787834715.5645022,
+    "ast_hash": "c027c97c2da892161cd4ca2587f03532",
+    "semantic_hash": ""
+  },
+  "frontend/migrations/0001_create_movies_table.sql": {
+    "mtime": 1787745390.1562808,
+    "seen": 1787834715.5645099,
+    "ast_hash": "80d4bdc373940793090592b35e9484c9",
+    "semantic_hash": ""
+  },
+  "frontend/migrations/0002_add_title_ua.sql": {
+    "mtime": 1787745390.1793597,
+    "seen": 1787834715.564511,
+    "ast_hash": "2758b760226b686074b4fdaa9af753d6",
+    "semantic_hash": ""
+  },
+  "frontend/migrations/0003_add_comment_text.sql": {
+    "mtime": 1787745390.1967373,
+    "seen": 1787834715.5645118,
+    "ast_hash": "cdf50d146d4e50816dcf5cd191f6d479",
+    "semantic_hash": ""
+  }
+}

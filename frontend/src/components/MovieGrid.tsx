@@ -1,4 +1,4 @@
-import type { Movie } from '../api/movies';
+import type { Movie } from '../api/lists';
 import { MovieCard } from './MovieCard';
 
 type TitleLang = 'en' | 'ua';
@@ -15,7 +15,7 @@ export function MovieGrid({ movies, titleLang, onEdit, onSelect }: MovieGridProp
     <div className="movie-grid">
       {movies.map((movie) => (
         <MovieCard
-          key={movie.id}
+          key={movie.listMovieId}
           movie={movie}
           titleLang={titleLang}
           onEdit={onEdit}

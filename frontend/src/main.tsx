@@ -8,6 +8,7 @@ import './pwa-fixes.css';
 import App from './App.tsx';
 import { AuthProvider } from './auth/AuthContext';
 import { MoviesFiltersProvider } from './state/MoviesFiltersContext';
+import { ActiveListProvider } from './state/ActiveListContext';
 
 const queryClient = new QueryClient();
 
@@ -17,9 +18,11 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <MoviesFiltersProvider>
-          <App />
-        </MoviesFiltersProvider>
+        <ActiveListProvider>
+          <MoviesFiltersProvider>
+            <App />
+          </MoviesFiltersProvider>
+        </ActiveListProvider>
         <ReactQueryDevtools initialIsOpen={false} />
       </AuthProvider>
     </QueryClientProvider>

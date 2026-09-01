@@ -1,4 +1,4 @@
-import type { MoviesQueryParams } from '../api/movies';
+import type { MoviesQueryParams } from '../api/lists';
 
 interface SortControlProps {
   sortBy: MoviesQueryParams['sortBy'];
@@ -10,7 +10,7 @@ interface SortControlProps {
 const SORT_BY_OPTIONS: { value: MoviesQueryParams['sortBy']; label: string }[] = [
   { value: 'created_at', label: 'Created' },
   { value: 'watch_date', label: 'Watch date' },
-  { value: 'user_avg_rating', label: 'Rating' },
+  { value: 'rating', label: 'Rating' },
 ];
 
 export function SortControl({

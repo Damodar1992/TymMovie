@@ -4,22 +4,22 @@ import { X, Search, Loader2 } from 'lucide-react';
 import {
   useCreateMovieMutation,
   useUpdateMovieMutation,
+  useSetRatingMutation,
+  useListMembersQuery,
   type Movie,
   type MovieStatus,
-} from '../../../api/movies';
-import {
-  searchMulti,
-  getMovieDetails,
-  getTvDetails,
-  buildPosterUrl,
-  type TmdbSearchResult,
-} from '../../../api/tmdb';
+} from '../../../api/lists';
+import { search, type SearchResult } from '../../../api/search';
 import { useAuth } from '../../../auth/AuthContext';
+import { initialFor } from '../../../lib/avatarColor';
+import { Avatar } from '../../Avatar';
 import { FilterSectionCard } from '../filters/FilterSectionCard';
 import { SegmentedControl } from '../filters/SegmentedControl';
 
 interface MobileMovieFormProps {
   open: boolean;
+  listId: string;
+  listRole: 'owner' | 'member' | 'viewer';
   movieId: string | null;
   initialMovie: Movie | null;
   onClose: () => void;
@@ -29,145 +29,115 @@ interface FormState {
   title: string;
   status: MovieStatus;
   watchDate: string;
-  innaRating: string;
-  bogdanRating: string;
-  comment: string;
+  ratings: Record<string, string>;
 }
 
-interface MetadataPreview {
-  contentType: 'MOVIE' | 'TV';
-  tmdbId: number;
-  title: string;
-  originalTitle: string | null;
-  releaseYear: number | null;
-  posterUrl: string | null;
-  genres: string[] | null;
-  tmdbRating: number | null;
+function ratingsFromMovie(m: Movie | null): Record<string, string> {
+  if (!m) return {};
+  const out: Record<string, string> = {};
+  for (const r of m.ratings) {
+    if (r.rating != null) out[r.userId] = String(r.rating);
+  }
+  return out;
 }
 
 function initialFormState(m: Movie | null): FormState {
-  if (!m) {
-    return {
-      title: '',
-      status: 'WANT_TO_WATCH',
-      watchDate: '',
-      innaRating: '',
-      bogdanRating: '',
-      comment: '',
-    };
-  }
   return {
-    title: m.title ?? '',
-    status: m.status,
-    watchDate: m.watchDate ?? '',
-    innaRating:
-      m.innaRating !== null && m.innaRating !== undefined
-        ? String(m.innaRating)
-        : '',
-    bogdanRating:
-      m.bogdanRating !== null && m.bogdanRating !== undefined
-        ? String(m.bogdanRating)
-        : '',
-    comment: m.comment ?? '',
+    title: m?.title ?? '',
+    status: m?.status ?? 'WANT_TO_WATCH',
+    watchDate: m?.watchDate ?? '',
+    ratings: ratingsFromMovie(m),
   };
 }
 
-function initialMetadata(m: Movie | null): MetadataPreview | null {
+function initialMetadata(m: Movie | null): SearchResult | null {
   if (!m) return null;
   return {
+    movieId: m.id,
+    inCatalog: true,
+    tmdbId: m.tmdbId,
     contentType: m.contentType,
-    tmdbId: m.tmdbId ?? 0,
     title: m.title,
     originalTitle: m.originalTitle,
-    releaseYear: m.releaseYear,
-    posterUrl: m.posterUrl ?? null,
-    genres: m.genres ?? null,
-    tmdbRating: m.tmdbRating != null ? Number(m.tmdbRating) : null,
+    year: m.releaseYear,
+    posterUrl: m.posterUrl,
+    tmdbRating: m.tmdbRating,
+    genres: m.genres,
   };
 }
 
 export function MobileMovieForm({
   open,
+  listId,
+  listRole,
   movieId,
   initialMovie,
   onClose,
 }: MobileMovieFormProps) {
-  const { isReadOnly } = useAuth();
+  const { user } = useAuth();
   const isEditing = Boolean(movieId);
 
-  const [form, setForm] = useState<FormState>(() =>
-    initialFormState(initialMovie),
-  );
-  const [metadataPreview, setMetadataPreview] = useState<MetadataPreview | null>(
-    () => initialMetadata(initialMovie),
+  const [form, setForm] = useState<FormState>(() => initialFormState(initialMovie));
+  const [metadataPreview, setMetadataPreview] = useState<SearchResult | null>(() =>
+    initialMetadata(initialMovie),
   );
   const [error, setError] = useState<string | null>(null);
-  const [tmdbResults, setTmdbResults] = useState<TmdbSearchResult[]>([]);
-  const [tmdbTypeFilter, setTmdbTypeFilter] = useState<'ALL' | 'MOVIE' | 'TV'>(
-    'ALL',
-  );
+  const [results, setResults] = useState<SearchResult[]>([]);
+  const [typeFilter, setTypeFilter] = useState<'ALL' | 'MOVIE' | 'TV'>('ALL');
   const [isSearching, setIsSearching] = useState(false);
-  const [searchLanguage, setSearchLanguage] = useState<'uk-UA' | 'en-US'>(
-    'uk-UA',
-  );
-  const [selectedTmdbKey, setSelectedTmdbKey] = useState<string | null>(null);
-  const [selectedResultTitle, setSelectedResultTitle] = useState<string | null>(
-    null,
+  const [searchLanguage, setSearchLanguage] = useState<'uk-UA' | 'en-US'>('uk-UA');
+  const [selectedKey, setSelectedKey] = useState<string | null>(() =>
+    initialMovie ? `${initialMovie.contentType}-${initialMovie.tmdbId ?? initialMovie.id}` : null,
   );
 
+  const { data: members = [] } = useListMembersQuery(listId);
   const createMutation = useCreateMovieMutation();
   const updateMutation = useUpdateMovieMutation();
+  const setRatingMutation = useSetRatingMutation();
   const isSaving = createMutation.isPending || updateMutation.isPending;
+
+  const canRateFor = (targetUserId: string) => targetUserId === user?.id || listRole === 'owner';
+
+  const applyRatings = async (listMovieId: string) => {
+    for (const [userId, raw] of Object.entries(form.ratings)) {
+      if (!canRateFor(userId)) continue;
+      const rating = raw === '' ? null : Number.parseFloat(raw);
+      await setRatingMutation.mutateAsync({ listMovieId, userId, rating, listId });
+    }
+  };
 
   const handleSubmit = async (e?: FormEvent) => {
     e?.preventDefault();
-    if (isReadOnly) return;
     setError(null);
-
-    const innaRating =
-      form.innaRating === '' ? null : Number.parseFloat(form.innaRating);
-    const bogdanRating =
-      form.bogdanRating === '' ? null : Number.parseFloat(form.bogdanRating);
-    const comment = form.comment.trim() ? form.comment.trim() : null;
 
     try {
       if (isEditing && movieId) {
         await updateMutation.mutateAsync({
           id: movieId,
+          listId,
           payload: {
             status: form.status,
-            watchDate:
-              form.status === 'WATCHED' ? form.watchDate || null : null,
-            innaRating,
-            bogdanRating,
-            comment,
+            watchDate: form.status === 'WATCHED' ? form.watchDate || null : null,
           },
         });
+        if (form.status === 'WATCHED') await applyRatings(movieId);
       } else {
         if (!metadataPreview) {
-          setError('Please pick a match from TMDb before saving.');
+          setError('Please pick a match before saving.');
           return;
         }
-        const titleUaValue =
-          searchLanguage === 'uk-UA'
-            ? selectedResultTitle?.trim() ?? null
+        const myRating =
+          form.status === 'WATCHED' && user && form.ratings[user.id]
+            ? Number.parseFloat(form.ratings[user.id])
             : null;
         await createMutation.mutateAsync({
+          listId,
+          movieId: metadataPreview.inCatalog ? metadataPreview.movieId ?? undefined : undefined,
+          tmdbId: !metadataPreview.inCatalog ? metadataPreview.tmdbId ?? undefined : undefined,
           contentType: metadataPreview.contentType,
-          title: metadataPreview.title || form.title,
-          originalTitle: metadataPreview.originalTitle,
-          titleUa: titleUaValue,
-          tmdbId: metadataPreview.tmdbId,
-          posterUrl: metadataPreview.posterUrl,
-          genres: metadataPreview.genres,
-          tmdbRating: metadataPreview.tmdbRating,
-          releaseYear: metadataPreview.releaseYear,
           status: form.status,
-          watchDate:
-            form.status === 'WATCHED' ? form.watchDate || null : null,
-          innaRating,
-          bogdanRating,
-          comment,
+          watchDate: form.status === 'WATCHED' ? form.watchDate || null : null,
+          rating: myRating,
         });
       }
       onClose();
@@ -185,49 +155,30 @@ export function MobileMovieForm({
     try {
       setError(null);
       setIsSearching(true);
-      const results = await searchMulti(form.title.trim(), searchLanguage);
-      setTmdbResults(results);
-      setTmdbTypeFilter('ALL');
-      if (results.length === 0) {
-        setError('No matches found in TMDb.');
+      const found = await search(
+        form.title.trim(),
+        searchLanguage,
+        typeFilter === 'ALL' ? undefined : typeFilter,
+      );
+      setResults(found);
+      if (found.length === 0) {
+        setError('No matches found.');
       }
     } catch {
-      setError('Failed to load metadata from TMDb.');
+      setError('Search failed. Please try again.');
     } finally {
       setIsSearching(false);
     }
   };
 
-  const handleSelectTmdb = async (result: TmdbSearchResult) => {
-    try {
-      setError(null);
-      setSelectedTmdbKey(`${result.contentType}-${result.tmdbId}`);
-      const details =
-        result.contentType === 'MOVIE'
-          ? await getMovieDetails(result.tmdbId)
-          : await getTvDetails(result.tmdbId);
-      setSelectedResultTitle(result.title);
-      const posterUrl = await buildPosterUrl(details.posterPath, 'w342');
-      setMetadataPreview({
-        contentType: details.contentType,
-        tmdbId: details.tmdbId,
-        title: details.title,
-        originalTitle: details.originalTitle,
-        releaseYear: details.releaseYear,
-        posterUrl,
-        genres: details.genres,
-        tmdbRating: details.tmdbRating,
-      });
-      setForm((prev) => ({ ...prev, title: details.title || prev.title }));
-    } catch {
-      setError('Failed to load metadata from TMDb.');
-    }
+  const handleSelect = (result: SearchResult) => {
+    setMetadataPreview(result);
+    setSelectedKey(`${result.contentType}-${result.tmdbId ?? result.movieId}`);
+    setForm((prev) => ({ ...prev, title: result.title || prev.title }));
   };
 
-  const filteredTmdb = tmdbResults
-    .filter((r) =>
-      tmdbTypeFilter === 'ALL' ? true : r.contentType === tmdbTypeFilter,
-    )
+  const filteredResults = results
+    .filter((r) => (typeFilter === 'ALL' ? true : r.contentType === typeFilter))
     .sort((a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity));
 
   return (
@@ -335,7 +286,7 @@ export function MobileMovieForm({
                     <button
                       type="button"
                       className="fv-search-btn"
-                      onClick={handleSearch}
+                      onClick={() => void handleSearch()}
                       disabled={!form.title.trim() || isSearching}
                     >
                       {isSearching ? (
@@ -350,7 +301,7 @@ export function MobileMovieForm({
                       ) : (
                         <>
                           <Search size={16} strokeWidth={2} />
-                          Search in TMDb
+                          Search
                         </>
                       )}
                     </button>
@@ -358,16 +309,16 @@ export function MobileMovieForm({
                 ) : null}
               </FilterSectionCard>
 
-              {!isEditing && tmdbResults.length > 0 ? (
+              {!isEditing && results.length > 0 ? (
                 <FilterSectionCard
-                  title="Matches from TMDb"
-                  summary={`${tmdbResults.length} found`}
+                  title="Matches"
+                  summary={`${results.length} found`}
                 >
                   <SegmentedControl<'ALL' | 'MOVIE' | 'TV'>
-                    name="tmdb-type"
-                    ariaLabel="Filter TMDb results by type"
-                    value={tmdbTypeFilter}
-                    onChange={setTmdbTypeFilter}
+                    name="result-type"
+                    ariaLabel="Filter results by type"
+                    value={typeFilter}
+                    onChange={setTypeFilter}
                     options={[
                       { value: 'ALL', label: 'All' },
                       { value: 'MOVIE', label: 'Movies' },
@@ -375,15 +326,15 @@ export function MobileMovieForm({
                     ]}
                   />
                   <div className="fv-tmdb-results">
-                    {filteredTmdb.map((r) => {
-                      const key = `${r.contentType}-${r.tmdbId}`;
-                      const selected = key === selectedTmdbKey;
+                    {filteredResults.map((r) => {
+                      const key = `${r.contentType}-${r.tmdbId ?? r.movieId}`;
+                      const selected = key === selectedKey;
                       return (
                         <motion.button
                           key={key}
                           type="button"
                           className={`fv-tmdb-result${selected ? ' selected' : ''}`}
-                          onClick={() => handleSelectTmdb(r)}
+                          onClick={() => handleSelect(r)}
                           whileTap={{ scale: 0.985 }}
                           transition={{
                             type: 'spring',
@@ -397,6 +348,7 @@ export function MobileMovieForm({
                           </span>
                           <span className="fv-tmdb-result-meta">
                             {r.contentType === 'MOVIE' ? 'Movie' : 'TV Series'}
+                            {r.inCatalog ? ' · already in a list' : ''}
                           </span>
                         </motion.button>
                       );
@@ -441,7 +393,7 @@ export function MobileMovieForm({
                       <div className="fv-meta-row-line">
                         <span className="fv-meta-row-key">Year</span>
                         <span className="fv-meta-row-val">
-                          {metadataPreview.releaseYear ?? '—'}
+                          {metadataPreview.year ?? '—'}
                         </span>
                       </div>
                       <div className="fv-meta-row-line">
@@ -519,81 +471,58 @@ export function MobileMovieForm({
                 </div>
               </FilterSectionCard>
 
-              <FilterSectionCard
-                title="Ratings"
-                summary={ratingsSummary(form.innaRating, form.bogdanRating)}
-                summaryHighlighted={Boolean(
-                  form.innaRating || form.bogdanRating,
-                )}
-              >
-                <div className="fv-rating-row">
-                  <div className="fv-field">
-                    <span className="fv-field-label">Inna</span>
-                    <input
-                      className="fv-input"
-                      type="number"
-                      min={0}
-                      max={10}
-                      step={0.5}
-                      placeholder="0–10"
-                      value={form.innaRating}
-                      onChange={(e) =>
-                        setForm((prev) => ({
-                          ...prev,
-                          innaRating: e.target.value,
-                        }))
-                      }
-                      inputMode="decimal"
-                    />
+              {form.status === 'WATCHED' ? (
+                <FilterSectionCard
+                  title="Ratings"
+                  summary={ratingsSummary(form.ratings, members)}
+                  summaryHighlighted={Object.values(form.ratings).some(Boolean)}
+                  defaultOpen
+                >
+                  <div className="fv-rating-row fv-rating-row-dynamic">
+                    {members.map((m) => {
+                      const editable = canRateFor(m.userId);
+                      return (
+                        <div className="fv-field" key={m.userId}>
+                          <span className="fv-field-label fv-field-label-member">
+                            <Avatar
+                              userId={m.userId}
+                              name={m.name}
+                              email={m.email}
+                              avatarUrl={m.avatarUrl}
+                              className="movie-rating-avatar-dynamic"
+                            />
+                            {m.name ?? m.email}
+                            {m.userId === user?.id ? ' (you)' : ''}
+                          </span>
+                          <input
+                            className="fv-input"
+                            type="number"
+                            min={0}
+                            max={10}
+                            step={0.5}
+                            placeholder="0–10"
+                            disabled={!editable}
+                            value={form.ratings[m.userId] ?? ''}
+                            onChange={(e) =>
+                              setForm((prev) => ({
+                                ...prev,
+                                ratings: { ...prev.ratings, [m.userId]: e.target.value },
+                              }))
+                            }
+                            inputMode="decimal"
+                          />
+                        </div>
+                      );
+                    })}
                   </div>
-                  <div className="fv-field">
-                    <span className="fv-field-label">Bohdan</span>
-                    <input
-                      className="fv-input"
-                      type="number"
-                      min={0}
-                      max={10}
-                      step={0.5}
-                      placeholder="0–10"
-                      value={form.bogdanRating}
-                      onChange={(e) =>
-                        setForm((prev) => ({
-                          ...prev,
-                          bogdanRating: e.target.value,
-                        }))
-                      }
-                      inputMode="decimal"
-                    />
-                  </div>
-                </div>
-                {isEditing ? (
-                  <div className="fv-field">
-                    <span className="fv-field-label">Notes</span>
-                    <textarea
-                      className="fv-textarea"
-                      placeholder="Add a personal note about this title"
-                      value={form.comment}
-                      onChange={(e) =>
-                        setForm((prev) => ({
-                          ...prev,
-                          comment: e.target.value,
-                        }))
-                      }
-                      rows={4}
-                    />
-                  </div>
-                ) : null}
-              </FilterSectionCard>
+                </FilterSectionCard>
+              ) : null}
 
               <div className="fv-cta-wrap">
                 <motion.button
                   type="submit"
                   className="fv-cta"
-                  disabled={
-                    isReadOnly ||
-                    isSaving ||
-                    (!isEditing && !metadataPreview)
-                  }
+                  disabled={isSaving || (!isEditing && !metadataPreview)}
                   whileTap={{ scale: 0.97 }}
                   transition={{
                     type: 'spring',
@@ -627,10 +556,14 @@ function truncate(s: string, n: number) {
   return s.length <= n ? s : `${s.slice(0, n - 1)}…`;
 }
 
-function ratingsSummary(inna: string, bohdan: string) {
-  if (!inna && !bohdan) return 'Not rated';
+function ratingsSummary(
+  ratings: Record<string, string>,
+  members: { userId: string; name: string | null; email: string }[],
+) {
   const parts: string[] = [];
-  if (inna) parts.push(`I ${inna}`);
-  if (bohdan) parts.push(`B ${bohdan}`);
-  return parts.join(' · ');
+  for (const m of members) {
+    const v = ratings[m.userId];
+    if (v) parts.push(`${initialFor(m.name, m.email)} ${v}`);
+  }
+  return parts.length ? parts.join(' · ') : 'Not rated';
 }

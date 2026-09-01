@@ -78,9 +78,9 @@
     "semantic_hash": "d861d59e897634dbae43a7d292309f1e"
   },
   "frontend/src/components/MovieDetailsDrawer.tsx": {
-    "mtime": 1787728747.2629116,
-    "seen": 1787728755.8611684,
-    "ast_hash": "4f1c5c83def826194f278e29f5614245",
+    "mtime": 1787729215.0324752,
+    "seen": 1787729230.829993,
+    "ast_hash": "2e6d18376bc1ca1d267f64128dc9d185",
     "semantic_hash": ""
   },
   "frontend/src/components/MovieFormModal.tsx": {

@@ -1,5 +1,4 @@
 import type { ApiRequest, ApiResponse } from '../_lib/types.js';
-import { describeError } from '../_lib/types.js';
 import { clearSessionCookie } from '../_lib/auth.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
@@ -7,11 +6,6 @@ export default async function handler(req: ApiRequest, res: ApiResponse) {
     res.status(405).json({ error: 'Method not allowed' });
     return;
   }
-  try {
-    clearSessionCookie(res);
-    res.status(200).json({ mode: null });
-  } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: describeError(err, 'Internal error') });
-  }
+  clearSessionCookie(res);
+  res.status(204).end();
 }

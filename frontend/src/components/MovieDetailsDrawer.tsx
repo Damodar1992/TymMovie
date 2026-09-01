@@ -1,36 +1,69 @@
 import { useState } from 'react';
-import { useDeleteMovieMutation, useUpdateMovieMutation, type Movie } from '../api/movies';
+import {
+  useDeleteMovieMutation,
+  useUpdateMovieMutation,
+  useSetRatingMutation,
+  useListMembersQuery,
+  type Movie,
+} from '../api/lists';
+import { useAuth } from '../auth/AuthContext';
+import { Avatar } from './Avatar';
+import { starFillFractions } from '../lib/ratingStars';
 
-/** Map 0–10 score → 0–5 stars (2 pts = 1 star), including fractional fills. */
-function starFillFractions(score: number): number[] {
-  const total = Math.min(5, Math.max(0, score / 2));
-  return Array.from({ length: 5 }, (_, index) => {
-    const remaining = total - index;
-    if (remaining >= 1) return 1;
-    if (remaining <= 0) return 0;
-    return remaining;
-  });
-}
-
-export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie; titleLang: 'en' | 'ua'; onClose: () => void }) {
+export function MovieDetailsDrawer({
+  movie,
+  listId,
+  listRole,
+  titleLang,
+  onClose,
+}: {
+  movie: Movie;
+  listId: string;
+  listRole: 'owner' | 'member' | 'viewer';
+  titleLang: 'en' | 'ua';
+  onClose: () => void;
+}) {
+  const { user } = useAuth();
+  const { data: members = [] } = useListMembersQuery(listId);
   const title = titleLang === 'ua' && movie.titleUa?.trim() ? movie.titleUa : movie.title;
   const [status, setStatus] = useState(movie.status);
   const [watchDate, setWatchDate] = useState(movie.watchDate ?? '');
-  const [innaRating, setInnaRating] = useState(movie.innaRating?.toString() ?? '');
-  const [bogdanRating, setBogdanRating] = useState(movie.bogdanRating?.toString() ?? '');
+  const [ratings, setRatings] = useState<Record<string, string>>(() => {
+    const out: Record<string, string> = {};
+    for (const r of movie.ratings) if (r.rating != null) out[r.userId] = String(r.rating);
+    return out;
+  });
   const [comment, setComment] = useState(movie.comment ?? '');
   const updateMutation = useUpdateMovieMutation();
   const deleteMutation = useDeleteMovieMutation();
+  const setRatingMutation = useSetRatingMutation();
   const date = watchDate ? watchDate.slice(5).split('-').reverse().join('.') : null;
-  const innaValue = innaRating === '' ? null : Number(innaRating);
-  const bohdanValue = bogdanRating === '' ? null : Number(bogdanRating);
-  const ratings = [
-    ['T', 'TMDb', movie.tmdbRating, 'tmdb'],
-    ['I', 'Inna', Number.isFinite(innaValue) ? innaValue : null, 'inna'],
-    ['B', 'Bohdan', Number.isFinite(bohdanValue) ? bohdanValue : null, 'bohdan'],
-  ] as const;
-  const visibleRatings = ratings.filter(([, , value]) => value != null);
   const isWatched = status === 'WATCHED';
+  const canRateFor = (targetUserId: string) => targetUserId === user?.id || listRole === 'owner';
+
+  const visibleRatings = [
+    { key: 'tmdb', label: 'TMDb', value: movie.tmdbRating, tone: 'tmdb' as const },
+    ...members
+      .map((m) => ({
+        key: m.userId,
+        label: m.name ?? m.email,
+        value: ratings[m.userId] !== undefined ? Number(ratings[m.userId]) : null,
+        tone: 'member' as const,
+        userId: m.userId,
+        avatarUrl: m.avatarUrl,
+        name: m.name,
+        email: m.email,
+      }))
+      .filter((r) => r.value != null && Number.isFinite(r.value)),
+  ];
+
+  const applyRatings = async () => {
+    for (const [uid, raw] of Object.entries(ratings)) {
+      if (!canRateFor(uid)) continue;
+      const rating = raw === '' ? null : Number.parseFloat(raw);
+      await setRatingMutation.mutateAsync({ listMovieId: movie.listMovieId, userId: uid, rating, listId });
+    }
+  };
 
   const markAsWatched = () => {
     setStatus('WATCHED');
@@ -41,34 +74,27 @@ export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie
     setWatchDate('');
     if (movie.status === 'WATCHED') {
       await updateMutation.mutateAsync({
-        id: movie.id,
-        payload: {
-          status: 'WANT_TO_WATCH',
-          watchDate: null,
-          innaRating: innaRating ? Number(innaRating) : null,
-          bogdanRating: bogdanRating ? Number(bogdanRating) : null,
-          comment: comment.trim() || null,
-        },
+        id: movie.listMovieId,
+        listId,
+        payload: { status: 'WANT_TO_WATCH', watchDate: null, comment: comment.trim() || null },
       });
     }
   };
 
   const save = async () => {
     await updateMutation.mutateAsync({
-      id: movie.id,
-      payload: {
-        status: 'WATCHED',
-        watchDate: watchDate || null,
-        innaRating: innaRating ? Number(innaRating) : null,
-        bogdanRating: bogdanRating ? Number(bogdanRating) : null,
-        comment: comment.trim() || null,
-      },
+      id: movie.listMovieId,
+      listId,
+      payload: { status: 'WATCHED', watchDate: watchDate || null, comment: comment.trim() || null },
     });
+    await applyRatings();
     onClose();
   };
 
   const remove = () => {
-    if (window.confirm(`Delete ${title}?`)) deleteMutation.mutate(movie.id, { onSuccess: onClose });
+    if (window.confirm(`Delete ${title}?`)) {
+      deleteMutation.mutate({ id: movie.listMovieId, listId }, { onSuccess: onClose });
+    }
   };
 
   return (
@@ -90,7 +116,7 @@ export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie
             <h2>{title}</h2>
             <p>
               {movie.releaseYear ?? '—'}
-              {movie.userAvgRating != null ? ` · Tym ${movie.userAvgRating.toFixed(1)}` : ''}
+              {movie.avgRating != null ? ` · Tym ${movie.avgRating.toFixed(1)}` : ''}
               {date ? ` · ◍ ${date}` : ''}
             </p>
             <p>{movie.genres?.join(' · ')}</p>
@@ -104,21 +130,21 @@ export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie
           <>
             <h3>Ratings</h3>
             <div className="movie-drawer-ratings">
-              {visibleRatings.map(([initial, label, value, tone]) => {
-                const score = value as number;
+              {visibleRatings.map((r) => {
+                const score = r.value as number;
                 return (
-                  <div key={label}>
-                    <span className={tone}>{initial}</span>
-                    <strong>{label}</strong>
+                  <div key={r.key}>
+                    {r.tone === 'member' ? (
+                      <Avatar userId={r.key} name={r.name} email={r.email} avatarUrl={r.avatarUrl} />
+                    ) : (
+                      <img src="/tmdb-badge.svg" alt="TMDb" className="tmdb" />
+                    )}
+                    <strong>{r.label}</strong>
                     <i className="drawer-rating-stars" aria-hidden>
                       {starFillFractions(score).map((fill, index) => (
-                        <span
-                          key={index}
-                          className="drawer-rating-star"
-                          style={{ ['--star-fill' as string]: `${fill * 100}%` }}
-                        >
-                          <span className="drawer-rating-star-base">{'\u2605'}</span>
-                          <span className="drawer-rating-star-fill">{'\u2605'}</span>
+                        <span key={index} className="drawer-rating-star" style={{ ['--star-fill' as string]: `${fill * 100}%` }}>
+                          <span className="drawer-rating-star-base">{'★'}</span>
+                          <span className="drawer-rating-star-fill">{'★'}</span>
                         </span>
                       ))}
                     </i>
@@ -132,18 +158,12 @@ export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie
 
         <div className="movie-drawer-actions">
           {isWatched ? (
-            <button
-              type="button"
-              onClick={() => void markAsPlanned()}
-              disabled={updateMutation.isPending}
-            >
+            <button type="button" onClick={() => void markAsPlanned()} disabled={updateMutation.isPending}>
               Mark as planned
             </button>
           ) : (
             <>
-              <button type="button" onClick={markAsWatched}>
-                Mark as watched
-              </button>
+              <button type="button" onClick={markAsWatched}>Mark as watched</button>
               <button type="button" className="movie-drawer-delete" onClick={remove} disabled={deleteMutation.isPending}>
                 Delete entry
               </button>
@@ -163,17 +183,24 @@ export function MovieDetailsDrawer({ movie, titleLang, onClose }: { movie: Movie
             <section>
               <div>
                 <span>Ratings</span>
-                <b>{innaRating || '—'} · {bogdanRating || '—'}</b>
               </div>
               <div className="drawer-rating-inputs">
-                <label>
-                  Inna
-                  <input type="number" min="0" max="10" step=".5" value={innaRating} onChange={(event) => setInnaRating(event.target.value)} />
-                </label>
-                <label>
-                  Bohdan
-                  <input type="number" min="0" max="10" step=".5" value={bogdanRating} onChange={(event) => setBogdanRating(event.target.value)} />
-                </label>
+                {members.map((m) => (
+                  <label key={m.userId}>
+                    {m.name ?? m.email}
+                    <input
+                      type="number"
+                      min="0"
+                      max="10"
+                      step=".5"
+                      disabled={!canRateFor(m.userId)}
+                      value={ratings[m.userId] ?? ''}
+                      onChange={(event) =>
+                        setRatings((prev) => ({ ...prev, [m.userId]: event.target.value }))
+                      }
+                    />
+                  </label>
+                ))}
               </div>
             </section>
             <section>

@@ -27,6 +27,19 @@ export interface TmdbDetails {
   posterPath: string | null;
 }
 
+const TMDB_IMAGE_BASE = 'https://image.tmdb.org/t/p/';
+
+/** Builds a full poster URL from a TMDb poster_path — used server-side now
+ *  that caching a title into the `movies` catalog happens on the backend
+ *  (see api/_lib/db.ts upsertMovieFromTmdb), not just client-side. */
+export function buildPosterUrl(
+  posterPath: string | null,
+  size: 'w92' | 'w342' | 'w500' = 'w342',
+): string | null {
+  if (!posterPath) return null;
+  return `${TMDB_IMAGE_BASE}${size}${posterPath}`;
+}
+
 function getApiKey(): string {
   const key = process.env.TMDB_API_KEY;
   if (!key) throw new Error('TMDB_API_KEY is not set on the server');

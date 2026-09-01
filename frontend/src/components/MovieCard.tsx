@@ -1,4 +1,5 @@
-import type { Movie } from '../api/movies';
+import type { Movie } from '../api/lists';
+import { Avatar } from './Avatar';
 
 type TitleLang = 'en' | 'ua';
 
@@ -19,20 +20,11 @@ function watchDateLabel(date: string | null) {
   return month && day ? `${day}.${month}` : date;
 }
 
-function RatingChip({ label, value, tone }: { label: string; value: number | null; tone: string }) {
-  if (value == null) return null;
-  return (
-    <span className="movie-rating-chip">
-      <span className={`movie-rating-avatar movie-rating-avatar-${tone}`}>{label}</span>
-      <strong>{value.toFixed(1)}</strong>
-    </span>
-  );
-}
-
 export function MovieCard({ movie, titleLang, onEdit, onSelect }: MovieCardProps) {
   const title = displayTitle(movie, titleLang);
   const dateLabel = watchDateLabel(movie.watchDate);
   const statusClass = movie.status === 'WATCHED' ? 'is-watched' : 'is-planned';
+  const rated = movie.ratings.filter((r) => r.rating != null);
 
   return (
     <article className="movie-card movie-card-v2" onClick={() => onSelect?.(movie)}>
@@ -44,7 +36,7 @@ export function MovieCard({ movie, titleLang, onEdit, onSelect }: MovieCardProps
             <small>poster</small>
           </div>
         ) : null}
-        {movie.userAvgRating != null ? <span className="movie-score-badge">{movie.userAvgRating.toFixed(1)}</span> : null}
+        {movie.avgRating != null ? <span className="movie-score-badge">{movie.avgRating.toFixed(1)}</span> : null}
         <span className={`movie-status-dot ${statusClass}`} aria-label={movie.status === 'WATCHED' ? 'Watched' : 'Planned'} />
       </div>
 
@@ -57,10 +49,25 @@ export function MovieCard({ movie, titleLang, onEdit, onSelect }: MovieCardProps
         </div>
         <div className="movie-card-meta">
           <span>{movie.releaseYear ?? '—'}</span>
-          <div className="movie-rating-chips" aria-label="Ratings">
-            <RatingChip label="T" value={movie.tmdbRating} tone="tmdb" />
-            <RatingChip label="I" value={movie.innaRating} tone="inna" />
-            <RatingChip label="B" value={movie.bogdanRating} tone="bohdan" />
+          <div className="movie-rating-chips movie-rating-chips-dynamic" aria-label="Ratings">
+            {movie.tmdbRating != null ? (
+              <span className="movie-rating-chip">
+                <img src="/tmdb-badge.svg" alt="TMDb" className="movie-rating-avatar movie-rating-avatar-tmdb" />
+                <strong>{movie.tmdbRating.toFixed(1)}</strong>
+              </span>
+            ) : null}
+            {rated.map((r) => (
+              <span className="movie-rating-chip" key={r.userId}>
+                <Avatar
+                  userId={r.userId}
+                  name={r.userName}
+                  avatarUrl={r.avatarUrl}
+                  className="movie-rating-avatar-dynamic"
+                  title={r.userName ?? undefined}
+                />
+                <strong>{r.rating!.toFixed(1)}</strong>
+              </span>
+            ))}
           </div>
         </div>
         {movie.genres?.length ? <p className="movie-card-genres">{movie.genres.join(' · ')}</p> : null}

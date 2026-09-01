@@ -8,7 +8,7 @@ import {
   type ReactNode,
   type SetStateAction,
 } from 'react';
-import type { MovieStatus, MoviesQueryParams } from '../api/movies';
+import type { MovieStatus, MoviesQueryParams } from '../api/lists';
 
 export type TitleLang = 'en' | 'ua';
 

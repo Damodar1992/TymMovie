@@ -1,17 +1,20 @@
 import { useMemo, useState, type FormEvent } from 'react';
 import { Check, Search, Loader2 } from 'lucide-react';
-import { useCreateMovieMutation, useUpdateMovieMutation } from '../api/movies';
 import {
-  searchMulti,
-  getMovieDetails,
-  getTvDetails,
-  buildPosterUrl,
-  type TmdbSearchResult,
-} from '../api/tmdb';
-import type { Movie, MovieStatus } from '../api/movies';
+  useCreateMovieMutation,
+  useUpdateMovieMutation,
+  useSetRatingMutation,
+  useListMembersQuery,
+  type Movie,
+  type MovieStatus,
+} from '../api/lists';
+import { search, type SearchResult } from '../api/search';
 import { useAuth } from '../auth/AuthContext';
+import { Avatar } from './Avatar';
 
 interface MovieFormModalProps {
+  listId: string;
+  listRole: 'owner' | 'member' | 'viewer';
   movieId: string | null;
   initialMovie: Movie | null;
   onClose: () => void;
@@ -21,200 +24,151 @@ interface FormState {
   title: string;
   status: MovieStatus;
   watchDate: string;
-  innaRating: string;
-  bogdanRating: string;
+  ratings: Record<string, string>;
+}
+
+function ratingsFromMovie(m: Movie | null): Record<string, string> {
+  if (!m) return {};
+  const out: Record<string, string> = {};
+  for (const r of m.ratings) {
+    if (r.rating != null) out[r.userId] = String(r.rating);
+  }
+  return out;
 }
 
 function formStateFromMovie(m: Movie | null): FormState {
-  if (!m) {
-    return {
-      title: '',
-      status: 'WANT_TO_WATCH',
-      watchDate: '',
-      innaRating: '',
-      bogdanRating: '',
-    };
-  }
   return {
-    title: m.title ?? '',
-    status: m.status,
-    watchDate: m.watchDate ?? '',
-    innaRating:
-      m.innaRating !== null && m.innaRating !== undefined
-        ? String(m.innaRating)
-        : '',
-    bogdanRating:
-      m.bogdanRating !== null && m.bogdanRating !== undefined
-        ? String(m.bogdanRating)
-        : '',
+    title: m?.title ?? '',
+    status: m?.status ?? 'WANT_TO_WATCH',
+    watchDate: m?.watchDate ?? '',
+    ratings: ratingsFromMovie(m),
   };
 }
 
-function thumbUrl(posterPath: string | null): string | null {
-  return posterPath ? `https://image.tmdb.org/t/p/w92${posterPath}` : null;
-}
-
-export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModalProps) {
-  const { isReadOnly } = useAuth();
+export function MovieFormModal({ listId, listRole, movieId, initialMovie, onClose }: MovieFormModalProps) {
+  const { user } = useAuth();
   const isEditing = Boolean(movieId);
-  const [form, setForm] = useState<FormState>(() =>
-    formStateFromMovie(initialMovie),
-  );
-  const [metadataPreview, setMetadataPreview] = useState<{
-    contentType: 'MOVIE' | 'TV';
-    tmdbId: number;
-    title: string;
-    originalTitle: string | null;
-    releaseYear: number | null;
-    posterUrl: string | null;
-    genres: string[] | null;
-    tmdbRating: number | null;
-  } | null>(() =>
+  const [form, setForm] = useState<FormState>(() => formStateFromMovie(initialMovie));
+  const [metadataPreview, setMetadataPreview] = useState<SearchResult | null>(() =>
     initialMovie
       ? {
+          movieId: initialMovie.id,
+          inCatalog: true,
+          tmdbId: initialMovie.tmdbId,
           contentType: initialMovie.contentType,
-          tmdbId: initialMovie.tmdbId ?? 0,
           title: initialMovie.title,
           originalTitle: initialMovie.originalTitle,
-          releaseYear: initialMovie.releaseYear,
-          posterUrl: initialMovie.posterUrl ?? null,
-          genres: initialMovie.genres ?? null,
-          tmdbRating:
-            initialMovie.tmdbRating != null
-              ? Number(initialMovie.tmdbRating)
-              : null,
+          year: initialMovie.releaseYear,
+          posterUrl: initialMovie.posterUrl,
+          tmdbRating: initialMovie.tmdbRating,
+          genres: initialMovie.genres,
         }
       : null,
   );
   const [error, setError] = useState<string | null>(null);
-  const [tmdbResults, setTmdbResults] = useState<TmdbSearchResult[]>([]);
+  const [results, setResults] = useState<SearchResult[]>([]);
   const [isSearching, setIsSearching] = useState(false);
-  const [tmdbTypeFilter, setTmdbTypeFilter] = useState<'' | 'MOVIE' | 'TV'>('');
+  const [typeFilter, setTypeFilter] = useState<'' | 'MOVIE' | 'TV'>('');
   const [searchLanguage, setSearchLanguage] = useState<'uk-UA' | 'en-US'>('uk-UA');
-  const [selectedResultTitle, setSelectedResultTitle] = useState<string | null>(null);
   const [hasSearched, setHasSearched] = useState(false);
 
+  const { data: members = [] } = useListMembersQuery(listId);
   const createMutation = useCreateMovieMutation();
   const updateMutation = useUpdateMovieMutation();
+  const setRatingMutation = useSetRatingMutation();
+
+  const canRateFor = (targetUserId: string) => targetUserId === user?.id || listRole === 'owner';
 
   const selectedKey = metadataPreview
-    ? `${metadataPreview.contentType}-${metadataPreview.tmdbId}`
+    ? `${metadataPreview.contentType}-${metadataPreview.tmdbId ?? metadataPreview.movieId}`
     : null;
 
   const filteredResults = useMemo(
     () =>
-      tmdbResults
-        .filter((r) => (tmdbTypeFilter ? r.contentType === tmdbTypeFilter : true))
+      results
+        .filter((r) => (typeFilter ? r.contentType === typeFilter : true))
         .sort((a, b) => (b.year ?? -Infinity) - (a.year ?? -Infinity)),
-    [tmdbResults, tmdbTypeFilter],
+    [results, typeFilter],
   );
 
   const statusLabel = form.status === 'WATCHED' ? 'Watched' : 'Want to Watch';
-  const canSave =
-    !isReadOnly &&
-    !createMutation.isPending &&
-    !updateMutation.isPending &&
-    (isEditing || Boolean(metadataPreview));
+  const isSaving = createMutation.isPending || updateMutation.isPending;
+  const canSave = !isSaving && (isEditing || Boolean(metadataPreview));
+
+  const applyRatings = async (listMovieId: string) => {
+    const entries = Object.entries(form.ratings);
+    for (const [userId, raw] of entries) {
+      if (!canRateFor(userId)) continue;
+      const rating = raw === '' ? null : Number.parseFloat(raw);
+      await setRatingMutation.mutateAsync({ listMovieId, userId, rating, listId });
+    }
+  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setError(null);
-    if (isReadOnly) return;
-
-    const innaRating =
-      form.innaRating === '' ? null : Number.parseFloat(form.innaRating);
-    const bogdanRating =
-      form.bogdanRating === '' ? null : Number.parseFloat(form.bogdanRating);
 
     try {
       if (isEditing && movieId) {
         await updateMutation.mutateAsync({
           id: movieId,
+          listId,
           payload: {
             status: form.status,
             watchDate: form.status === 'WATCHED' ? form.watchDate || null : null,
-            innaRating,
-            bogdanRating,
           },
         });
+        if (form.status === 'WATCHED') await applyRatings(movieId);
       } else {
         if (!metadataPreview) {
-          setError('Please fetch metadata from TMDb before saving.');
+          setError('Please pick a match before saving.');
           return;
         }
-        const titleUaValue =
-          searchLanguage === 'uk-UA' ? selectedResultTitle?.trim() ?? null : null;
-        await createMutation.mutateAsync({
+        const myRating =
+          form.status === 'WATCHED' && user && form.ratings[user.id]
+            ? Number.parseFloat(form.ratings[user.id])
+            : null;
+        const created = await createMutation.mutateAsync({
+          listId,
+          movieId: metadataPreview.inCatalog ? metadataPreview.movieId ?? undefined : undefined,
+          tmdbId: !metadataPreview.inCatalog ? metadataPreview.tmdbId ?? undefined : undefined,
           contentType: metadataPreview.contentType,
-          title: metadataPreview.title || form.title,
-          originalTitle: metadataPreview.originalTitle,
-          titleUa: titleUaValue,
-          tmdbId: metadataPreview.tmdbId,
-          posterUrl: metadataPreview.posterUrl,
-          genres: metadataPreview.genres,
-          tmdbRating: metadataPreview.tmdbRating,
-          releaseYear: metadataPreview.releaseYear,
           status: form.status,
           watchDate: form.status === 'WATCHED' ? form.watchDate || null : null,
-          innaRating,
-          bogdanRating,
+          rating: myRating,
         });
+        // Owner filling in someone else's rating right away needs the new
+        // list_movies id, which the create response doesn't return here —
+        // the query cache is invalidated so it will show up on refresh;
+        // for others' ratings on a brand-new entry, editing it right after
+        // covers that case. (Your own rating above is already saved.)
+        void created;
       }
       onClose();
     } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError('Failed to save the movie. Please check the form and try again.');
-      }
+      setError(err instanceof Error ? err.message : 'Failed to save the movie.');
     }
   };
 
-  const handleSearchTmdb = async () => {
+  const handleSearch = async () => {
     if (!form.title.trim()) return;
     try {
       setError(null);
       setIsSearching(true);
       setHasSearched(true);
-      const results = await searchMulti(form.title.trim(), searchLanguage);
-      setTmdbResults(results);
-      setTmdbTypeFilter('');
-      if (results.length === 0) {
-        setError('No metadata found for this title.');
-      }
+      const found = await search(form.title.trim(), searchLanguage, typeFilter || undefined);
+      setResults(found);
+      if (found.length === 0) setError('No matches found.');
     } catch {
-      setError('Failed to load metadata from external API.');
+      setError('Search failed. Please try again.');
     } finally {
       setIsSearching(false);
     }
   };
 
-  const handleSelectTmdb = async (result: TmdbSearchResult) => {
-    try {
-      setError(null);
-      const details =
-        result.contentType === 'MOVIE'
-          ? await getMovieDetails(result.tmdbId)
-          : await getTvDetails(result.tmdbId);
-      setSelectedResultTitle(result.title);
-      const posterUrl = await buildPosterUrl(details.posterPath, 'w342');
-      setMetadataPreview({
-        contentType: details.contentType,
-        tmdbId: details.tmdbId,
-        title: details.title,
-        originalTitle: details.originalTitle,
-        releaseYear: details.releaseYear,
-        posterUrl,
-        genres: details.genres,
-        tmdbRating: details.tmdbRating,
-      });
-      setForm((prev) => ({
-        ...prev,
-        title: details.title || prev.title,
-      }));
-    } catch {
-      setError('Failed to load metadata from external API.');
-    }
+  const handleSelect = (result: SearchResult) => {
+    setMetadataPreview(result);
+    setForm((prev) => ({ ...prev, title: result.title || prev.title }));
   };
 
   return (
@@ -227,17 +181,8 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
         onClick={(event) => event.stopPropagation()}
       >
         <div className="movie-form-drawer-head">
-          <h2 className="movie-form-drawer-title">
-            {isEditing ? 'Edit entry' : 'Add title'}
-          </h2>
-          <button
-            type="button"
-            className="movie-form-drawer-close"
-            onClick={onClose}
-            aria-label="Close"
-          >
-            ×
-          </button>
+          <h2 className="movie-form-drawer-title">{isEditing ? 'Edit entry' : 'Add title'}</h2>
+          <button type="button" className="movie-form-drawer-close" onClick={onClose} aria-label="Close">×</button>
         </div>
 
         <form className="movie-form-drawer-body" onSubmit={handleSubmit}>
@@ -247,9 +192,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
             <section className="mfd-card">
               <div className="mfd-card-head">
                 <span>Title</span>
-                <b className={form.title.trim() ? 'is-ok' : ''}>
-                  {form.title.trim() ? 'Ready' : 'Required'}
-                </b>
+                <b className={form.title.trim() ? 'is-ok' : ''}>{form.title.trim() ? 'Ready' : 'Required'}</b>
               </div>
               <input
                 className="mfd-input"
@@ -257,9 +200,7 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
                 required
                 placeholder="Enter movie or TV show title"
                 value={form.title}
-                onChange={(e) =>
-                  setForm((prev) => ({ ...prev, title: e.target.value }))
-                }
+                onChange={(e) => setForm((prev) => ({ ...prev, title: e.target.value }))}
                 readOnly={isEditing}
                 aria-readonly={isEditing}
               />
@@ -269,97 +210,47 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
                   <div className="mfd-search-by">
                     <span>Search by</span>
                     <div className="mfd-pills" role="group" aria-label="Search language">
-                      <button
-                        type="button"
-                        className={searchLanguage === 'uk-UA' ? 'is-active' : undefined}
-                        onClick={() => setSearchLanguage('uk-UA')}
-                        aria-pressed={searchLanguage === 'uk-UA'}
-                      >
-                        UA
-                      </button>
-                      <button
-                        type="button"
-                        className={searchLanguage === 'en-US' ? 'is-active' : undefined}
-                        onClick={() => setSearchLanguage('en-US')}
-                        aria-pressed={searchLanguage === 'en-US'}
-                      >
-                        EN
-                      </button>
+                      <button type="button" className={searchLanguage === 'uk-UA' ? 'is-active' : undefined} onClick={() => setSearchLanguage('uk-UA')} aria-pressed={searchLanguage === 'uk-UA'}>UA</button>
+                      <button type="button" className={searchLanguage === 'en-US' ? 'is-active' : undefined} onClick={() => setSearchLanguage('en-US')} aria-pressed={searchLanguage === 'en-US'}>EN</button>
                     </div>
                   </div>
-                  <button
-                    type="button"
-                    className="mfd-search-btn"
-                    onClick={() => void handleSearchTmdb()}
-                    disabled={!form.title.trim() || isSearching}
-                  >
-                    {isSearching ? (
-                      <Loader2 size={16} className="mfd-spin" />
-                    ) : (
-                      <Search size={16} strokeWidth={2} />
-                    )}
-                    {isSearching ? 'Searching…' : 'Search in TMDb'}
+                  <button type="button" className="mfd-search-btn" onClick={() => void handleSearch()} disabled={!form.title.trim() || isSearching}>
+                    {isSearching ? <Loader2 size={16} className="mfd-spin" /> : <Search size={16} strokeWidth={2} />}
+                    {isSearching ? 'Searching…' : 'Search'}
                   </button>
                 </div>
               ) : null}
             </section>
 
-            {!isEditing && hasSearched && tmdbResults.length > 0 ? (
+            {!isEditing && hasSearched && results.length > 0 ? (
               <section className="mfd-card">
                 <div className="mfd-card-head">
-                  <span>Matches from TMDb</span>
-                  <b>{tmdbResults.length} found</b>
+                  <span>Matches</span>
+                  <b>{results.length} found</b>
                 </div>
                 <div className="mfd-pills mfd-pills-filter" role="group" aria-label="Filter by type">
-                  <button
-                    type="button"
-                    className={tmdbTypeFilter === '' ? 'is-active' : undefined}
-                    onClick={() => setTmdbTypeFilter('')}
-                    aria-pressed={tmdbTypeFilter === ''}
-                  >
-                    All
-                  </button>
-                  <button
-                    type="button"
-                    className={tmdbTypeFilter === 'MOVIE' ? 'is-active' : undefined}
-                    onClick={() => setTmdbTypeFilter('MOVIE')}
-                    aria-pressed={tmdbTypeFilter === 'MOVIE'}
-                  >
-                    Movies
-                  </button>
-                  <button
-                    type="button"
-                    className={tmdbTypeFilter === 'TV' ? 'is-active' : undefined}
-                    onClick={() => setTmdbTypeFilter('TV')}
-                    aria-pressed={tmdbTypeFilter === 'TV'}
-                  >
-                    TV
-                  </button>
+                  <button type="button" className={typeFilter === '' ? 'is-active' : undefined} onClick={() => setTypeFilter('')} aria-pressed={typeFilter === ''}>All</button>
+                  <button type="button" className={typeFilter === 'MOVIE' ? 'is-active' : undefined} onClick={() => setTypeFilter('MOVIE')} aria-pressed={typeFilter === 'MOVIE'}>Movies</button>
+                  <button type="button" className={typeFilter === 'TV' ? 'is-active' : undefined} onClick={() => setTypeFilter('TV')} aria-pressed={typeFilter === 'TV'}>TV</button>
                 </div>
                 <ul className="mfd-matches">
                   {filteredResults.map((r) => {
-                    const key = `${r.contentType}-${r.tmdbId}`;
+                    const key = `${r.contentType}-${r.tmdbId ?? r.movieId}`;
                     const selected = key === selectedKey;
-                    const poster = thumbUrl(r.posterPath);
                     return (
                       <li key={key}>
-                        <button
-                          type="button"
-                          className={`mfd-match${selected ? ' is-selected' : ''}`}
-                          onClick={() => void handleSelectTmdb(r)}
-                        >
+                        <button type="button" className={`mfd-match${selected ? ' is-selected' : ''}`} onClick={() => handleSelect(r)}>
                           <span className={`mfd-match-poster tone-${r.contentType.toLowerCase()}`}>
-                            {poster ? <img src={poster} alt="" loading="lazy" /> : null}
+                            {r.posterUrl ? <img src={r.posterUrl} alt="" loading="lazy" /> : null}
                           </span>
                           <span className="mfd-match-copy">
                             <strong>{r.title}</strong>
                             <em>
                               {r.year ?? '—'} · {r.contentType === 'MOVIE' ? 'Movie' : 'TV'}
+                              {r.inCatalog ? ' · already in a list' : ''}
                             </em>
                           </span>
-                          {selected ? (
-                            <Check className="mfd-match-check" size={18} strokeWidth={2.5} />
-                          ) : null}
+                          {selected ? <Check className="mfd-match-check" size={18} strokeWidth={2.5} /> : null}
                         </button>
                       </li>
                     );
@@ -372,24 +263,15 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
               <section className="mfd-card mfd-selected">
                 <div className="mfd-card-head">
                   <span>{isEditing ? 'Details' : 'Selected match'}</span>
-                  <b>
-                    {metadataPreview.contentType === 'MOVIE' ? 'Movie' : 'TV Series'}
-                  </b>
+                  <b>{metadataPreview.contentType === 'MOVIE' ? 'Movie' : 'TV Series'}</b>
                 </div>
                 <div className="mfd-selected-row">
                   <div className="mfd-selected-poster">
-                    {metadataPreview.posterUrl ? (
-                      <img src={metadataPreview.posterUrl} alt="" />
-                    ) : (
-                      <span>No poster</span>
-                    )}
+                    {metadataPreview.posterUrl ? <img src={metadataPreview.posterUrl} alt="" /> : <span>No poster</span>}
                   </div>
                   <div className="mfd-selected-meta">
                     <p>{metadataPreview.title}</p>
-                    <span>
-                      {metadataPreview.releaseYear ?? '—'} · TMDb{' '}
-                      {metadataPreview.tmdbRating?.toFixed(1) ?? '—'}
-                    </span>
+                    <span>{metadataPreview.year ?? '—'} · TMDb {metadataPreview.tmdbRating?.toFixed(1) ?? '—'}</span>
                     <span>{metadataPreview.genres?.join(' · ') || '—'}</span>
                   </div>
                 </div>
@@ -402,71 +284,53 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
                 <b>{statusLabel}</b>
               </div>
               <div className="mfd-status" role="group" aria-label="Status">
-                <button
-                  type="button"
-                  className={form.status === 'WATCHED' ? 'is-active' : undefined}
-                  onClick={() => setForm((prev) => ({ ...prev, status: 'WATCHED' }))}
-                  aria-pressed={form.status === 'WATCHED'}
-                >
-                  Watched
-                </button>
-                <button
-                  type="button"
-                  className={form.status === 'WANT_TO_WATCH' ? 'is-active' : undefined}
-                  onClick={() =>
-                    setForm((prev) => ({ ...prev, status: 'WANT_TO_WATCH' }))
-                  }
-                  aria-pressed={form.status === 'WANT_TO_WATCH'}
-                >
-                  Want to Watch
-                </button>
+                <button type="button" className={form.status === 'WATCHED' ? 'is-active' : undefined} onClick={() => setForm((prev) => ({ ...prev, status: 'WATCHED' }))} aria-pressed={form.status === 'WATCHED'}>Watched</button>
+                <button type="button" className={form.status === 'WANT_TO_WATCH' ? 'is-active' : undefined} onClick={() => setForm((prev) => ({ ...prev, status: 'WANT_TO_WATCH' }))} aria-pressed={form.status === 'WANT_TO_WATCH'}>Want to Watch</button>
               </div>
 
               {form.status === 'WATCHED' ? (
                 <>
                   <label className="mfd-field">
                     <span>Watch date</span>
-                    <input
-                      className="mfd-input"
-                      type="date"
-                      value={form.watchDate}
-                      onChange={(e) =>
-                        setForm((prev) => ({ ...prev, watchDate: e.target.value }))
-                      }
-                    />
+                    <input className="mfd-input" type="date" value={form.watchDate} onChange={(e) => setForm((prev) => ({ ...prev, watchDate: e.target.value }))} />
                   </label>
 
                   <div className="mfd-ratings">
-                    <label className="mfd-field">
-                      <span>Inna rating</span>
-                      <input
-                        className="mfd-input"
-                        type="number"
-                        min={0}
-                        max={10}
-                        step={0.5}
-                        placeholder="0-10"
-                        value={form.innaRating}
-                        onChange={(e) =>
-                          setForm((prev) => ({ ...prev, innaRating: e.target.value }))
-                        }
-                      />
-                    </label>
-                    <label className="mfd-field">
-                      <span>Bohdan rating</span>
-                      <input
-                        className="mfd-input"
-                        type="number"
-                        min={0}
-                        max={10}
-                        step={0.5}
-                        placeholder="0-10"
-                        value={form.bogdanRating}
-                        onChange={(e) =>
-                          setForm((prev) => ({ ...prev, bogdanRating: e.target.value }))
-                        }
-                      />
-                    </label>
+                    {members.map((m) => {
+                      const editable = canRateFor(m.userId);
+                      return (
+                        <label className="mfd-field" key={m.userId}>
+                          <span>
+                            <Avatar
+                              userId={m.userId}
+                              name={m.name}
+                              email={m.email}
+                              avatarUrl={m.avatarUrl}
+                              className="movie-rating-avatar-dynamic"
+                              style={{ marginRight: 6 }}
+                            />
+                            {m.name ?? m.email}
+                            {m.userId === user?.id ? ' (you)' : ''}
+                          </span>
+                          <input
+                            className="mfd-input"
+                            type="number"
+                            min={0}
+                            max={10}
+                            step={0.5}
+                            placeholder="0-10"
+                            disabled={!editable}
+                            value={form.ratings[m.userId] ?? ''}
+                            onChange={(e) =>
+                              setForm((prev) => ({
+                                ...prev,
+                                ratings: { ...prev.ratings, [m.userId]: e.target.value },
+                              }))
+                            }
+                          />
+                        </label>
+                      );
+                    })}
                   </div>
                 </>
               ) : null}
@@ -475,14 +339,10 @@ export function MovieFormModal({ movieId, initialMovie, onClose }: MovieFormModa
 
           <footer className="movie-form-drawer-footer">
             <p className="mfd-footer-hint">
-              {isEditing
-                ? 'Update status, date, or ratings'
-                : 'Pick a TMDb match to link artwork'}
+              {isEditing ? 'Update status, date, or ratings' : 'Pick a match to link artwork'}
             </p>
             <div className="mfd-footer-actions">
-              <button type="button" className="mfd-btn-cancel" onClick={onClose}>
-                Cancel
-              </button>
+              <button type="button" className="mfd-btn-cancel" onClick={onClose}>Cancel</button>
               <button type="submit" className="mfd-btn-save" disabled={!canSave}>
                 <Check size={16} strokeWidth={2.5} />
                 {isEditing ? 'Save changes' : 'Save entry'}

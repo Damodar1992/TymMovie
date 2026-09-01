@@ -1,5 +1,6 @@
 import type { CSSProperties } from 'react';
-import type { Movie } from '../../api/movies';
+import type { Movie } from '../../api/lists';
+import { Avatar } from '../Avatar';
 
 type TitleLang = 'en' | 'ua';
 
@@ -42,12 +43,13 @@ export function MobileMovieTile({
   onSelect,
 }: MobileMovieTileProps) {
   const title = displayTitle(movie, titleLang);
-  const [from, to] = tilePalette(movie.id);
+  const [from, to] = tilePalette(movie.listMovieId);
   const statusClass = movie.status === 'WATCHED' ? 'is-watched' : 'is-planned';
   const artStyle = {
     '--tile-from': from,
     '--tile-to': to,
   } as CSSProperties;
+  const rated = movie.ratings.filter((r) => r.rating != null);
 
   return (
     <article
@@ -68,7 +70,7 @@ export function MobileMovieTile({
           <img src={movie.posterUrl} alt="" loading="lazy" draggable={false} />
         ) : null}
         <div className="mobile-movie-tile-scrim" aria-hidden />
-        <span className="mobile-movie-tile-score">{formatScore(movie.userAvgRating)}</span>
+        <span className="mobile-movie-tile-score">{formatScore(movie.avgRating)}</span>
         <span
           className={`mobile-movie-tile-dot ${statusClass}`}
           aria-label={movie.status === 'WATCHED' ? 'Watched' : 'Planned'}
@@ -83,20 +85,23 @@ export function MobileMovieTile({
         <span className="mobile-movie-tile-year">{movie.releaseYear ?? '—'}</span>
         <div className="mobile-movie-tile-avatars" aria-label="Ratings">
           {movie.tmdbRating != null ? (
-            <span className="is-tmdb" title={`TMDB ${movie.tmdbRating.toFixed(1)}`}>
-              T
-            </span>
+            <img
+              src="/tmdb-badge.svg"
+              alt=""
+              className="is-tmdb"
+              title={`TMDB ${movie.tmdbRating.toFixed(1)}`}
+            />
           ) : null}
-          {movie.innaRating != null ? (
-            <span className="is-inna" title={`Inna ${movie.innaRating.toFixed(1)}`}>
-              I
-            </span>
-          ) : null}
-          {movie.bogdanRating != null ? (
-            <span className="is-bohdan" title={`Bohdan ${movie.bogdanRating.toFixed(1)}`}>
-              B
-            </span>
-          ) : null}
+          {rated.map((r) => (
+            <Avatar
+              key={r.userId}
+              userId={r.userId}
+              name={r.userName}
+              avatarUrl={r.avatarUrl}
+              style={{ color: '#14151a' }}
+              title={`${r.userName ?? 'Rated'} ${r.rating!.toFixed(1)}`}
+            />
+          ))}
         </div>
       </div>
     </article>

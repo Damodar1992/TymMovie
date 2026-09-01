@@ -1,10 +1,6 @@
 {
   "rewrites": [
     {
-      "source": "/api/movies/:id",
-      "destination": "/api/movies/item?id=:id"
-    },
-    {
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }

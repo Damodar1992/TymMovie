@@ -2,15 +2,26 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { createPortal } from 'react-dom';
 import { X } from 'lucide-react';
 import { motion, useDragControls } from 'framer-motion';
-import { useDeleteMovieMutation, useMoviesInfiniteQuery, useUpdateMovieMutation, type Movie } from '../../api/movies';
+import {
+  useDeleteMovieMutation,
+  useMoviesInfiniteQuery,
+  useUpdateMovieMutation,
+  useSetRatingMutation,
+  useListMembersQuery,
+  type Movie,
+} from '../../api/lists';
 import { useAuth } from '../../auth/AuthContext';
+import { useActiveListSync } from '../../state/ActiveListContext';
 import { useMoviesFilters } from '../../state/MoviesFiltersContext';
 import { useInfiniteScroll } from '../../hooks/useInfiniteScroll';
+import { Avatar } from '../Avatar';
+import { RatingStars } from '../RatingStars';
 import { MovieCard } from '../MovieCard';
 import { MobileMovieTile } from './MobileMovieTile';
 import { MobileMovieForm } from './movie-form/MobileMovieForm';
 import { SearchInput } from '../SearchInput';
 import { EmptyState } from '../EmptyState';
+import { FormattedDatePicker } from '../FormattedDatePicker';
 
 type MobileLayout = 'list' | 'grid';
 const MOBILE_LAYOUT_KEY = 'tym-movies-mobile-layout';
@@ -25,19 +36,10 @@ function readMobileLayout(): MobileLayout {
   return 'list';
 }
 
-function formatShortDate(value: string | null | undefined) {
-  if (!value) return null;
-  const parts = value.slice(0, 10).split('-');
-  if (parts.length < 3) return value;
-  return `${parts[2]}.${parts[1]}`;
-}
-
-function formatScore(value: number | null | undefined) {
-  return value != null && !Number.isNaN(value) ? value.toFixed(1) : '—';
-}
-
 export function MobileMoviesScreen() {
-  const { isReadOnly } = useAuth();
+  const { activeList } = useActiveListSync();
+  const listId = activeList?.id ?? null;
+  const canEdit = activeList ? activeList.role !== 'viewer' : false;
   const {
     search,
     setSearch,
@@ -48,6 +50,7 @@ export function MobileMoviesScreen() {
     sortBy,
     sortOrder,
     titleLang,
+    setTitleLang,
   } = useMoviesFilters();
 
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -78,6 +81,7 @@ export function MobileMoviesScreen() {
     hasNextPage,
     fetchNextPage,
   } = useMoviesInfiniteQuery({
+    listId,
     search: search || undefined,
     status,
     contentType,
@@ -114,7 +118,27 @@ export function MobileMoviesScreen() {
           <button type="button" className={status === 'WATCHED' ? 'active' : ''} onClick={() => setStatus('WATCHED')}>Watched</button>
         </div>
 
-        <div className="mobile-view-toggle" role="group" aria-label="View mode">
+        <div className="mobile-toolbar-toggles">
+          <div className="mobile-lang-toggle" role="group" aria-label="Title language">
+            <button
+              type="button"
+              className={titleLang === 'en' ? 'active' : ''}
+              onClick={() => setTitleLang('en')}
+              aria-pressed={titleLang === 'en'}
+            >
+              EN
+            </button>
+            <button
+              type="button"
+              className={titleLang === 'ua' ? 'active' : ''}
+              onClick={() => setTitleLang('ua')}
+              aria-pressed={titleLang === 'ua'}
+            >
+              UA
+            </button>
+          </div>
+
+          <div className="mobile-view-toggle" role="group" aria-label="View mode">
           <button
             type="button"
             className={layout === 'grid' ? 'active' : ''}
@@ -133,6 +157,7 @@ export function MobileMoviesScreen() {
           >
             <img src="/list.svg" alt="" width={16} height={16} />
           </button>
+        </div>
         </div>
       </div>
 
@@ -153,7 +178,7 @@ export function MobileMoviesScreen() {
             <div className="mobile-movie-grid">
               {items.map((movie) => (
                 <MobileMovieTile
-                  key={movie.id}
+                  key={movie.listMovieId}
                   movie={movie}
                   titleLang={titleLang}
                   onSelect={setSelectedMovie}
@@ -164,12 +189,12 @@ export function MobileMoviesScreen() {
             <div className="mobile-movie-list">
               {items.map((movie) => (
                 <MovieCard
-                  key={movie.id}
+                  key={movie.listMovieId}
                   movie={movie}
                   titleLang={titleLang}
                   onEdit={(m) => {
-                    if (isReadOnly) return;
-                    setEditingMovieId(m.id);
+                    if (!canEdit) return;
+                    setEditingMovieId(m.listMovieId);
                     setEditingMovie(m);
                     setIsFormOpen(true);
                   }}
@@ -193,10 +218,12 @@ export function MobileMoviesScreen() {
         </>
       )}
 
-      {!isReadOnly ? (
+      {canEdit && listId && activeList ? (
         <MobileMovieForm
           key={editingMovieId ?? 'new-edit'}
           open={isFormOpen}
+          listId={listId}
+          listRole={activeList.role}
           movieId={editingMovieId}
           initialMovie={editingMovie}
           onClose={() => {
@@ -206,9 +233,11 @@ export function MobileMoviesScreen() {
           }}
         />
       ) : null}
-      {selectedMovie ? (
+      {selectedMovie && listId && activeList ? (
         <MobileMovieDetailSheet
           movie={selectedMovie}
+          listId={listId}
+          listRole={activeList.role}
           titleLang={titleLang}
           onClose={() => setSelectedMovie(null)}
         />
@@ -217,31 +246,61 @@ export function MobileMoviesScreen() {
   );
 }
 
-function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; titleLang: 'en' | 'ua'; onClose: () => void }) {
-  const { isReadOnly } = useAuth();
+function MobileMovieDetailSheet({
+  movie,
+  listId,
+  listRole,
+  titleLang,
+  onClose,
+}: {
+  movie: Movie;
+  listId: string;
+  listRole: 'owner' | 'member' | 'viewer';
+  titleLang: 'en' | 'ua';
+  onClose: () => void;
+}) {
+  const { user } = useAuth();
+  const { data: members = [] } = useListMembersQuery(listId);
   const title = titleLang === 'ua' && movie.titleUa?.trim() ? movie.titleUa : movie.title;
   const [status, setStatus] = useState(movie.status);
   const [watchDate, setWatchDate] = useState(movie.watchDate ?? '');
-  const [innaRating, setInnaRating] = useState(movie.innaRating?.toString() ?? '');
-  const [bogdanRating, setBogdanRating] = useState(movie.bogdanRating?.toString() ?? '');
+  const [ratings, setRatings] = useState<Record<string, string>>(() => {
+    const out: Record<string, string> = {};
+    for (const r of movie.ratings) if (r.rating != null) out[r.userId] = String(r.rating);
+    return out;
+  });
   const [comment, setComment] = useState(movie.comment ?? '');
   const [error, setError] = useState<string | null>(null);
   const updateMutation = useUpdateMovieMutation();
   const deleteMutation = useDeleteMovieMutation();
+  const setRatingMutation = useSetRatingMutation();
   const dragControls = useDragControls();
   const isWatched = status === 'WATCHED';
-  const shortDate = formatShortDate(watchDate || movie.watchDate);
   const genres = movie.genres?.filter(Boolean) ?? [];
+  const canEdit = listRole !== 'viewer';
+  const canRateFor = (targetUserId: string) => targetUserId === user?.id || listRole === 'owner';
+
   const scoreCards = [
-    { label: 'TMDB', value: movie.tmdbRating },
-    { label: 'INNA', value: movie.innaRating },
-    { label: 'BOHDAN', value: movie.bogdanRating },
-  ] as const;
-  const ratingsSummary =
-    innaRating || bogdanRating
-      ? `Inna ${innaRating || '—'} · Bohdan ${bogdanRating || '—'}`
-      : '— · —';
-  const canEdit = !isReadOnly;
+    { key: 'tmdb', label: 'TMDb', value: movie.tmdbRating, kind: 'tmdb' as const },
+    ...members.map((m) => ({
+      key: m.userId,
+      label: m.name ?? m.email,
+      value: ratings[m.userId] !== undefined ? Number(ratings[m.userId]) : null,
+      kind: 'member' as const,
+      userId: m.userId,
+      name: m.name,
+      email: m.email,
+      avatarUrl: m.avatarUrl,
+    })),
+  ];
+
+  const applyRatings = async () => {
+    for (const [uid, raw] of Object.entries(ratings)) {
+      if (!canRateFor(uid)) continue;
+      const rating = raw === '' ? null : Number.parseFloat(raw);
+      await setRatingMutation.mutateAsync({ listMovieId: movie.listMovieId, userId: uid, rating, listId });
+    }
+  };
 
   const markAsWatched = () => {
     if (!canEdit) return;
@@ -257,14 +316,9 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
     if (movie.status === 'WATCHED') {
       try {
         await updateMutation.mutateAsync({
-          id: movie.id,
-          payload: {
-            status: 'WANT_TO_WATCH',
-            watchDate: null,
-            innaRating: innaRating ? Number(innaRating) : null,
-            bogdanRating: bogdanRating ? Number(bogdanRating) : null,
-            comment: comment.trim() || null,
-          },
+          id: movie.listMovieId,
+          listId,
+          payload: { status: 'WANT_TO_WATCH', watchDate: null, comment: comment.trim() || null },
         });
       } catch (err) {
         setError(err instanceof Error ? err.message : 'Failed to update');
@@ -274,21 +328,17 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
 
   const save = async () => {
     if (!canEdit) {
-      setError('Read-only mode: sign in as admin to save.');
+      setError('You do not have edit access to this list.');
       return;
     }
     setError(null);
     try {
       await updateMutation.mutateAsync({
-        id: movie.id,
-        payload: {
-          status: 'WATCHED',
-          watchDate: watchDate || null,
-          innaRating: innaRating ? Number(innaRating) : null,
-          bogdanRating: bogdanRating ? Number(bogdanRating) : null,
-          comment: comment.trim() || null,
-        },
+        id: movie.listMovieId,
+        listId,
+        payload: { status: 'WATCHED', watchDate: watchDate || null, comment: comment.trim() || null },
       });
+      await applyRatings();
       onClose();
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to save');
@@ -299,10 +349,13 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
     if (!canEdit) return;
     if (!window.confirm(`Delete ${title}?`)) return;
     setError(null);
-    deleteMutation.mutate(movie.id, {
-      onSuccess: onClose,
-      onError: (err) => setError(err instanceof Error ? err.message : 'Failed to delete'),
-    });
+    deleteMutation.mutate(
+      { id: movie.listMovieId, listId },
+      {
+        onSuccess: onClose,
+        onError: (err) => setError(err instanceof Error ? err.message : 'Failed to delete'),
+      },
+    );
   };
 
   const posterUrl = movie.posterUrl?.trim() || null;
@@ -363,11 +416,34 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
         </motion.header>
 
         <div className="mobile-detail-scroll">
+          <h3 className="mobile-detail-scores-title">Ratings</h3>
           <div className="mobile-detail-scores">
             {scoreCards.map((card) => (
-              <div key={card.label} className="mobile-detail-score-card">
-                <span>{card.label}</span>
-                <strong>{formatScore(card.value)}</strong>
+              <div key={card.key} className="mobile-detail-score-card">
+                {card.kind === 'tmdb' ? (
+                  <img
+                    src="/tmdb-badge.svg"
+                    alt=""
+                    className="mobile-detail-score-avatar mobile-detail-score-avatar-tmdb"
+                  />
+                ) : (
+                  <Avatar
+                    userId={card.userId}
+                    name={card.name}
+                    email={card.email}
+                    avatarUrl={card.avatarUrl}
+                    className="mobile-detail-score-avatar"
+                  />
+                )}
+                <strong className="mobile-detail-score-label">{card.label}</strong>
+                <div className="mobile-detail-score-rating">
+                  <RatingStars score={card.value} />
+                  <b>
+                    {card.value != null && !Number.isNaN(card.value)
+                      ? card.value.toFixed(1)
+                      : '—'}
+                  </b>
+                </div>
               </div>
             ))}
           </div>
@@ -395,50 +471,47 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
               <section className="mobile-detail-card">
                 <div className="mobile-detail-card-head">
                   <span>Watch date</span>
-                  <b>{shortDate ?? '—'}</b>
                 </div>
-                <input
-                  type="date"
-                  value={watchDate}
-                  onChange={(event) => setWatchDate(event.target.value)}
-                />
+                <FormattedDatePicker value={watchDate} onChange={setWatchDate} />
               </section>
 
               <section className="mobile-detail-card">
                 <div className="mobile-detail-card-head">
                   <span>Ratings</span>
-                  <b>{ratingsSummary}</b>
                 </div>
                 <div className="mobile-detail-rating-grid">
-                  <label>
-                    <span>Inna</span>
-                    <input
-                      type="number"
-                      min="0"
-                      max="10"
-                      step=".5"
-                      value={innaRating}
-                      onChange={(event) => setInnaRating(event.target.value)}
-                    />
-                  </label>
-                  <label>
-                    <span>Bohdan</span>
-                    <input
-                      type="number"
-                      min="0"
-                      max="10"
-                      step=".5"
-                      value={bogdanRating}
-                      onChange={(event) => setBogdanRating(event.target.value)}
-                    />
-                  </label>
+                  {members.map((m) => (
+                    <label key={m.userId}>
+                      <span className="mobile-detail-rating-label">
+                        <Avatar
+                          userId={m.userId}
+                          name={m.name}
+                          email={m.email}
+                          avatarUrl={m.avatarUrl}
+                          className="movie-rating-avatar-dynamic"
+                        />
+                        <span className="mobile-detail-rating-name">{m.name ?? m.email}</span>
+                      </span>
+                      <input
+                        type="number"
+                        min="0"
+                        max="10"
+                        step=".5"
+                        disabled={!canRateFor(m.userId)}
+                        value={ratings[m.userId] ?? ''}
+                        onChange={(event) =>
+                          setRatings((prev) => ({ ...prev, [m.userId]: event.target.value }))
+                        }
+                        inputMode="decimal"
+                      />
+                    </label>
+                  ))}
                 </div>
               </section>
 
               <section className="mobile-detail-card">
                 <div className="mobile-detail-card-head">
                   <span>Note</span>
-                  <b>{comment.trim() ? 'Added' : 'Empty'}</b>
                 </div>
                 <textarea
                   placeholder="Add a personal note about this title"
@@ -462,8 +535,8 @@ function MobileMovieDetailSheet({ movie, titleLang, onClose }: { movie: Movie; t
             </button>
           )}
 
-          {isReadOnly ? (
-            <p className="mobile-detail-readonly-hint">Sign in as admin to edit this title.</p>
+          {!canEdit ? (
+            <p className="mobile-detail-readonly-hint">You have read-only access to this list.</p>
           ) : null}
         </div>
 

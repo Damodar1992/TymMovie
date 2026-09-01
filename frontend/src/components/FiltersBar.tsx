@@ -1,5 +1,5 @@
 import { useEffect, useId, useState } from 'react';
-import type { MovieStatus } from '../api/movies';
+import type { MovieStatus } from '../api/lists';
 
 interface FiltersBarProps {
   status?: MovieStatus;

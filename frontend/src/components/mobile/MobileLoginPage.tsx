@@ -1,11 +1,6 @@
-import {
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-  type FormEvent,
-} from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAuth } from '../../auth/AuthContext';
+import { GoogleGlyph } from '../GoogleGlyph';
 
 function shouldSkipVideo(): boolean {
   if (typeof window === 'undefined') return true;
@@ -32,19 +27,22 @@ function prepareVideo(el: HTMLVideoElement) {
   el.playsInline = true;
   el.autoplay = true;
   el.loop = true;
+  // 20% slower than native playback for a calmer login atmosphere.
+  el.playbackRate = 0.64;
   el.setAttribute('muted', '');
   el.setAttribute('playsinline', '');
   el.setAttribute('webkit-playsinline', '');
   el.setAttribute('autoplay', '');
 }
 
+function readAuthError(): string | null {
+  if (typeof window === 'undefined') return null;
+  return new URLSearchParams(window.location.search).get('authError');
+}
+
 export function MobileLoginPage() {
-  const { login, loginAsGuest } = useAuth();
-  const [loginValue, setLoginValue] = useState('');
-  const [passwordValue, setPasswordValue] = useState('');
-  const [showPassword, setShowPassword] = useState(false);
-  const [error, setError] = useState<string | null>(null);
-  const [pending, setPending] = useState(false);
+  const { loginWithGoogle } = useAuth();
+  const [error] = useState<string | null>(readAuthError);
   const [skipVideo] = useState(shouldSkipVideo);
   const [videoPlaying, setVideoPlaying] = useState(false);
   const [useFallback, setUseFallback] = useState(skipVideo);
@@ -57,6 +55,7 @@ export function MobileLoginPage() {
     prepareVideo(el);
     try {
       await el.play();
+      el.playbackRate = 0.64;
       setVideoPlaying(true);
       return true;
     } catch {
@@ -126,24 +125,6 @@ export function MobileLoginPage() {
     };
   }, [attemptPlay, skipVideo]);
 
-  const canSubmit = loginValue.trim().length > 0 && passwordValue.length > 0;
-
-  const clearError = () => {
-    if (error) setError(null);
-  };
-
-  const handleSubmit = async (event: FormEvent) => {
-    event.preventDefault();
-    if (!canSubmit || pending) return;
-    setPending(true);
-    setError(null);
-    const ok = await login(loginValue.trim(), passwordValue);
-    if (!ok) {
-      setError('Wrong login or password.');
-      setPending(false);
-    }
-  };
-
   return (
     <div className={`mlogin${useFallback ? ' is-fallback' : ''}`}>
       <img
@@ -190,94 +171,28 @@ export function MobileLoginPage() {
           </div>
         </div>
 
-        <h1 className="mlogin-headline">Everything you meant to watch.</h1>
+        <h1 className="mlogin-headline">
+          Everything you want to watch.
+          <br />
+          All in one place.
+        </h1>
         <p className="mlogin-subhead">
-          One shared list for two people, with ratings that finally settle the
-          argument.
+          Share lists, compare ratings, and decide what to watch next -
+          together.
         </p>
 
-        <form className="mlogin-card" onSubmit={handleSubmit} noValidate>
-          <div className={`mlogin-fields${error ? ' has-error' : ''}`}>
-            <div className="mlogin-field">
-              <label className="visually-hidden" htmlFor="mlogin-login">
-                Login
-              </label>
-              <input
-                id="mlogin-login"
-                name="login"
-                type="text"
-                placeholder="Login"
-                value={loginValue}
-                onChange={(event) => {
-                  setLoginValue(event.target.value);
-                  clearError();
-                }}
-                autoComplete="username"
-                autoCapitalize="none"
-                spellCheck={false}
-                disabled={pending}
-              />
-            </div>
-
-            <div className="mlogin-field mlogin-field-password">
-              <label className="visually-hidden" htmlFor="mlogin-password">
-                Password
-              </label>
-              <input
-                id="mlogin-password"
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                placeholder="Password"
-                value={passwordValue}
-                onChange={(event) => {
-                  setPasswordValue(event.target.value);
-                  clearError();
-                }}
-                autoComplete="current-password"
-                disabled={pending}
-              />
-              <button
-                type="button"
-                className="mlogin-reveal"
-                onClick={() => setShowPassword((value) => !value)}
-                aria-pressed={showPassword}
-                aria-label={showPassword ? 'Hide password' : 'Show password'}
-                disabled={pending}
-              >
-                {showPassword ? 'hide' : 'show'}
-              </button>
-            </div>
-
-            {error ? <p className="mlogin-error">{error}</p> : null}
-          </div>
-
-          <button
-            type="submit"
-            className={`mlogin-primary${canSubmit || pending ? ' is-ready' : ''}`}
-            disabled={!canSubmit}
-            aria-disabled={!canSubmit || pending}
-            aria-busy={pending}
-          >
-            {pending ? 'Signing in…' : 'Sign in'}
-          </button>
-
-          <div className="mlogin-or" aria-hidden>
-            <span />
-            <em>or</em>
-            <span />
-          </div>
-
+        <div className="mlogin-card">
+          {error ? <p className="mlogin-error">Sign-in failed. Please try again.</p> : null}
           <button
             type="button"
-            className="mlogin-guest"
-            onClick={loginAsGuest}
-            disabled={pending}
+            className="mlogin-primary is-ready"
+            onClick={() => loginWithGoogle()}
           >
-            Continue as guest
+            <GoogleGlyph />
+            Continue with Google
           </button>
-
-          <p className="mlogin-footnote">Forgot the password? Ask the admin.</p>
-        </form>
+          <p className="mlogin-footnote">Anyone can sign in — you'll only see lists you own or were invited to.</p>
+        </div>
       </div>
     </div>
   );

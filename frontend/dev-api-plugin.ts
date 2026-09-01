@@ -107,25 +107,20 @@ const routes: {
   modulePath: string;
   params?: (match: RegExpMatchArray) => Record<string, string>;
 }[] = [
-  { methods: ['GET', 'POST'], pattern: /^\/api\/movies$/, modulePath: '/api/movies/index.ts' },
-  { methods: ['GET'], pattern: /^\/api\/movies\/stats$/, modulePath: '/api/movies/stats.ts' },
-  { methods: ['GET'], pattern: /^\/api\/movies\/genres$/, modulePath: '/api/movies/genres.ts' },
-  {
-    methods: ['GET', 'PATCH', 'DELETE'],
-    pattern: /^\/api\/movies\/item$/,
-    modulePath: '/api/movies/item.ts',
-  },
-  // Compat: same shape as the Vercel rewrite `/api/movies/:id` → item?id=
-  {
-    methods: ['GET', 'PATCH', 'DELETE'],
-    pattern: /^\/api\/movies\/([^/]+)$/,
-    modulePath: '/api/movies/item.ts',
-    params: (m) => ({ id: decodeURIComponent(m[1]) }),
-  },
-  { methods: ['GET'], pattern: /^\/api\/tmdb\/search$/, modulePath: '/api/tmdb/search.ts' },
-  { methods: ['GET'], pattern: /^\/api\/tmdb\/details$/, modulePath: '/api/tmdb/details.ts' },
-  { methods: ['POST'], pattern: /^\/api\/auth\/login$/, modulePath: '/api/auth/login.ts' },
-  { methods: ['POST'], pattern: /^\/api\/auth\/guest$/, modulePath: '/api/auth/guest.ts' },
+  { methods: ['GET', 'POST'], pattern: /^\/api\/lists$/, modulePath: '/api/lists/index.ts' },
+  { methods: ['GET', 'PATCH', 'DELETE'], pattern: /^\/api\/lists\/item$/, modulePath: '/api/lists/item.ts' },
+  { methods: ['GET', 'DELETE'], pattern: /^\/api\/lists\/members$/, modulePath: '/api/lists/members.ts' },
+  { methods: ['GET', 'POST', 'DELETE'], pattern: /^\/api\/lists\/invites$/, modulePath: '/api/lists/invites.ts' },
+  { methods: ['GET'], pattern: /^\/api\/invites\/preview$/, modulePath: '/api/invites/preview.ts' },
+  { methods: ['POST'], pattern: /^\/api\/invites\/accept$/, modulePath: '/api/invites/accept.ts' },
+  { methods: ['GET', 'POST'], pattern: /^\/api\/lists\/movies$/, modulePath: '/api/lists/movies/index.ts' },
+  { methods: ['GET', 'PATCH', 'DELETE'], pattern: /^\/api\/lists\/movies\/item$/, modulePath: '/api/lists/movies/item.ts' },
+  { methods: ['PATCH', 'PUT'], pattern: /^\/api\/lists\/movies\/rating$/, modulePath: '/api/lists/movies/rating.ts' },
+  { methods: ['GET'], pattern: /^\/api\/lists\/movies\/genres$/, modulePath: '/api/lists/movies/genres.ts' },
+  { methods: ['GET'], pattern: /^\/api\/lists\/movies\/stats$/, modulePath: '/api/lists/movies/stats.ts' },
+  { methods: ['GET'], pattern: /^\/api\/search$/, modulePath: '/api/search/index.ts' },
+  { methods: ['GET'], pattern: /^\/api\/auth\/google-start$/, modulePath: '/api/auth/google-start.ts' },
+  { methods: ['GET'], pattern: /^\/api\/auth\/google-callback$/, modulePath: '/api/auth/google-callback.ts' },
   { methods: ['POST'], pattern: /^\/api\/auth\/logout$/, modulePath: '/api/auth/logout.ts' },
   { methods: ['GET'], pattern: /^\/api\/auth\/session$/, modulePath: '/api/auth/session.ts' },
 ];

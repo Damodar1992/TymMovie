@@ -1,11 +1,12 @@
 import { useEffect, useRef, useState } from 'react';
-import { Film, MoreHorizontal, SlidersHorizontal, User } from 'lucide-react';
-import { useAuth } from '../../auth/AuthContext';
-import { useMoviesFilters } from '../../state/MoviesFiltersContext';
+import { Film, SlidersHorizontal, User } from 'lucide-react';
+import { useActiveListSync } from '../../state/ActiveListContext';
 import {
   InteractiveMenu,
   type InteractiveMenuItem,
 } from '../ui/modern-mobile-menu';
+import { ListSwitcher } from '../ListSwitcher';
+import { ListSettingsPanel } from '../ListSettingsPanel';
 import { MobileMoviesScreen } from './MobileMoviesScreen';
 import { MobileFiltersScreen } from './MobileFiltersScreen';
 import { MobileProfileScreen } from './MobileProfileScreen';
@@ -16,49 +17,41 @@ export type MobileTab = 'movies' | 'filters' | 'profile';
 
 const TAB_STORAGE_KEY = 'tym-movies-mobile-tab';
 
-function readTab(): MobileTab {
+function readLegacySheet(): 'filters' | 'profile' | null {
   try {
     const v = localStorage.getItem(TAB_STORAGE_KEY);
-    if (v === 'movies' || v === 'profile') return v;
-    // Legacy: filters used to be a tab page — open movies instead.
-    if (v === 'filters') return 'movies';
+    if (v === 'profile' || v === 'filters') return v;
   } catch {
     /* ignore */
   }
-  return 'movies';
-}
-
-function FunnelIcon() {
-  return (
-    <svg
-      width="22"
-      height="22"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.8"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden
-    >
-      <path d="M4 5h16l-6 8v5l-4 2v-7L4 5z" />
-    </svg>
-  );
+  return null;
 }
 
 export function MobileShell() {
-  const { isReadOnly } = useAuth();
-  const { status, contentType, genres } = useMoviesFilters();
-  const [tab, setTabState] = useState<MobileTab>(readTab);
+  const { activeList } = useActiveListSync();
+  const listId = activeList?.id ?? null;
+  const canEdit = activeList ? activeList.role !== 'viewer' : false;
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [profileOpen, setProfileOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [formInstance, setFormInstance] = useState(0);
+  const [settingsOpen, setSettingsOpen] = useState(false);
   const shellRef = useRef<HTMLDivElement>(null);
 
   const setTab = (t: MobileTab) => {
     if (t === 'filters') {
       setFiltersOpen(true);
-      setTabState('movies');
+      setProfileOpen(false);
+      try {
+        localStorage.setItem(TAB_STORAGE_KEY, 'movies');
+      } catch {
+        /* ignore */
+      }
+      return;
+    }
+    if (t === 'profile') {
+      setProfileOpen(true);
+      setFiltersOpen(false);
       try {
         localStorage.setItem(TAB_STORAGE_KEY, 'movies');
       } catch {
@@ -67,9 +60,9 @@ export function MobileShell() {
       return;
     }
     setFiltersOpen(false);
-    setTabState(t);
+    setProfileOpen(false);
     try {
-      localStorage.setItem(TAB_STORAGE_KEY, t);
+      localStorage.setItem(TAB_STORAGE_KEY, 'movies');
     } catch {
       /* ignore */
     }
@@ -77,13 +70,37 @@ export function MobileShell() {
 
   const closeFilters = () => {
     setFiltersOpen(false);
-    setTabState('movies');
     try {
       localStorage.setItem(TAB_STORAGE_KEY, 'movies');
     } catch {
       /* ignore */
     }
   };
+
+  const closeProfile = () => {
+    setProfileOpen(false);
+    try {
+      localStorage.setItem(TAB_STORAGE_KEY, 'movies');
+    } catch {
+      /* ignore */
+    }
+  };
+
+  const openListSettings = () => {
+    setProfileOpen(false);
+    setSettingsOpen(true);
+  };
+
+  useEffect(() => {
+    const legacy = readLegacySheet();
+    if (legacy === 'profile') setProfileOpen(true);
+    if (legacy === 'filters') setFiltersOpen(true);
+    try {
+      localStorage.setItem(TAB_STORAGE_KEY, 'movies');
+    } catch {
+      /* ignore */
+    }
+  }, []);
 
   useEffect(() => {
     const root = document.getElementById('root');
@@ -107,24 +124,18 @@ export function MobileShell() {
     return () => observer.disconnect();
   }, []);
 
-  const activeFiltersCount =
-    (status !== undefined ? 1 : 0) +
-    (contentType !== undefined ? 1 : 0) +
-    genres.length;
-
-  const titles: Record<'movies' | 'profile', string> = {
-    movies: 'TymMovies',
-    profile: 'Profile',
-  };
-
   const menuActiveIndex = filtersOpen
     ? tabOrder.indexOf('filters')
-    : tabOrder.indexOf(tab === 'filters' ? 'movies' : tab);
+    : profileOpen
+      ? tabOrder.indexOf('profile')
+      : tabOrder.indexOf('movies');
 
   return (
     <div className="mobile-shell" ref={shellRef}>
       <header className="mobile-header">
-        {tab === 'movies' ? (
+        {activeList ? (
+          <ListSwitcher onOpenSettings={openListSettings} />
+        ) : (
           <div className="mobile-header-brand" aria-label="TymMovies">
             <div className="mlogin-mark" aria-hidden>
               <span className="mlogin-mark-bar" />
@@ -134,35 +145,13 @@ export function MobileShell() {
               Tym<span>Movies</span>
             </div>
           </div>
-        ) : (
-          <h1 className="mobile-header-title">{titles.profile}</h1>
         )}
 
         <div className="mobile-header-actions">
-          {tab === 'movies' ? (
+          {canEdit ? (
             <button
               type="button"
-              className="mobile-header-icon-btn"
-              onClick={() => setFiltersOpen(true)}
-              aria-label={
-                activeFiltersCount > 0
-                  ? `Filters (${activeFiltersCount} active)`
-                  : 'Open filters'
-              }
-            >
-              <FunnelIcon />
-              {activeFiltersCount > 0 ? (
-                <span className="mobile-header-badge">
-                  {activeFiltersCount}
-                </span>
-              ) : null}
-            </button>
-          ) : null}
-
-          {tab === 'movies' && !isReadOnly ? (
-            <button
-              type="button"
-              className="mobile-header-icon-btn"
+              className="mobile-header-icon-btn mobile-header-add-btn"
               onClick={() => {
                 setFormInstance((n) => n + 1);
                 setIsFormOpen(true);
@@ -170,17 +159,7 @@ export function MobileShell() {
               aria-label="Add movie"
             >
               <img src="/add_movie_icon.svg" alt="" width={24} height={24} />
-            </button>
-          ) : null}
-
-          {tab === 'profile' ? (
-            <button
-              type="button"
-              className="mobile-header-icon-btn"
-              aria-label="More"
-              disabled
-            >
-              <MoreHorizontal size={18} strokeWidth={2.2} />
+              <span>Add</span>
             </button>
           ) : null}
         </div>
@@ -189,7 +168,7 @@ export function MobileShell() {
       <IOSInstallHint />
 
       <main className="mobile-content">
-        {tab === 'profile' ? <MobileProfileScreen /> : <MobileMoviesScreen />}
+        <MobileMoviesScreen />
       </main>
 
       <InteractiveMenu
@@ -201,13 +180,29 @@ export function MobileShell() {
 
       <MobileFiltersScreen open={filtersOpen} onApply={closeFilters} />
 
-      {!isReadOnly ? (
+      <MobileProfileScreen
+        open={profileOpen}
+        onClose={closeProfile}
+        onOpenListSettings={openListSettings}
+      />
+
+      {canEdit && listId && activeList ? (
         <MobileMovieForm
           key={`new-${formInstance}`}
           open={isFormOpen}
+          listId={listId}
+          listRole={activeList.role}
           movieId={null}
           initialMovie={null}
           onClose={() => setIsFormOpen(false)}
+        />
+      ) : null}
+
+      {settingsOpen && activeList ? (
+        <ListSettingsPanel
+          list={activeList}
+          onClose={() => setSettingsOpen(false)}
+          variant="sheet"
         />
       ) : null}
     </div>

@@ -1583,19 +1583,19 @@
       "file_type": "code",
       "norm_label": "moviedetailsdrawer()",
       "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L8"
+      "source_location": "L10"
     },
     {
-      "id": "frontend_src_components_moviedetailsdrawer_starfillpercent",
-      "label": "starFillPercent()",
+      "id": "frontend_src_components_moviedetailsdrawer_ratingstars",
+      "label": "ratingStars()",
       "_callable": true,
       "_origin": "ast",
       "community": 9,
       "community_name": "movies.ts",
       "file_type": "code",
-      "norm_label": "starfillpercent()",
+      "norm_label": "ratingstars()",
       "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L4"
+      "source_location": "L5"
     },
     {
       "id": "frontend_src_components_sortcontrol_sortcontrol",
@@ -4364,14 +4364,14 @@
     },
     {
       "source": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
-      "target": "frontend_src_components_moviedetailsdrawer_starfillpercent",
+      "target": "frontend_src_components_moviedetailsdrawer_ratingstars",
       "relation": "calls",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L106",
+      "source_location": "L104",
       "weight": 1.0
     },
     {
@@ -4383,7 +4383,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L15",
+      "source_location": "L17",
       "weight": 1.0
     },
     {
@@ -4395,7 +4395,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L16",
+      "source_location": "L18",
       "weight": 1.0
     },
     {
@@ -8718,24 +8718,24 @@
     },
     {
       "source": "frontend_src_components_moviedetailsdrawer",
-      "target": "frontend_src_components_moviedetailsdrawer_starfillpercent",
-      "relation": "contains",
-      "_origin": "ast",
-      "confidence": "EXTRACTED",
-      "confidence_score": 1.0,
-      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L4",
-      "weight": 1.0
-    },
-    {
-      "source": "frontend_src_components_moviedetailsdrawer",
       "target": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
       "relation": "contains",
       "_origin": "ast",
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
-      "source_location": "L8",
+      "source_location": "L10",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_moviedetailsdrawer",
+      "target": "frontend_src_components_moviedetailsdrawer_ratingstars",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/MovieDetailsDrawer.tsx",
+      "source_location": "L5",
       "weight": 1.0
     },
     {

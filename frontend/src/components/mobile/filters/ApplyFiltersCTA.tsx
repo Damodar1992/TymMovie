@@ -24,10 +24,10 @@ export function ApplyFiltersCTA({
     resultCount === 1 ? 'Show 1 film' : `Show ${resultCount} films`;
 
   return (
-    <div className="fv-cta-wrap">
+    <>
       <button
         type="button"
-        className="fv-cta-reset"
+        className="mobile-sheet-footer-btn mobile-sheet-footer-btn--secondary"
         onClick={onReset}
         disabled={activeCount === 0}
       >
@@ -36,7 +36,7 @@ export function ApplyFiltersCTA({
       <motion.button
         key={pulseKey}
         type="button"
-        className="fv-cta"
+        className="mobile-sheet-footer-btn mobile-sheet-footer-btn--primary"
         onClick={onApply}
         initial={{ scale: 0.985 }}
         animate={{ scale: 1 }}
@@ -44,8 +44,8 @@ export function ApplyFiltersCTA({
         transition={{ type: 'spring', stiffness: 360, damping: 22 }}
         aria-label={label}
       >
-        <span>{label}</span>
+        {label}
       </motion.button>
-    </div>
+    </>
   );
 }

@@ -1,6 +1,6 @@
 import { useCallback, useMemo, useState } from 'react';
-import { useGenresQuery, useLibraryStatsQuery, useMoviesInfiniteQuery } from '../api/movies';
-import type { Movie } from '../api/movies';
+import { useGenresQuery, useLibraryStatsQuery, useMoviesInfiniteQuery } from '../api/lists';
+import type { Movie } from '../api/lists';
 import { MovieGrid } from './MovieGrid';
 import { MovieFormModal } from './MovieFormModal';
 import { FiltersBar } from './FiltersBar';
@@ -8,12 +8,18 @@ import { SortControl } from './SortControl';
 import { SearchInput } from './SearchInput';
 import { EmptyState } from './EmptyState';
 import { MovieDetailsDrawer } from './MovieDetailsDrawer';
+import { ListSwitcher } from './ListSwitcher';
+import { ListSettingsPanel } from './ListSettingsPanel';
 import { useAuth } from '../auth/AuthContext';
 import { useMoviesFilters } from '../state/MoviesFiltersContext';
+import { useActiveListSync } from '../state/ActiveListContext';
 import { useInfiniteScroll } from '../hooks/useInfiniteScroll';
 
 export function MoviesPage() {
-  const { isReadOnly, logout } = useAuth();
+  const { logout } = useAuth();
+  const { activeList, isLoading: listsLoading } = useActiveListSync();
+  const listId = activeList?.id ?? null;
+  const canEdit = activeList ? activeList.role !== 'viewer' : false;
   const {
     search,
     setSearch,
@@ -34,6 +40,7 @@ export function MoviesPage() {
   const [editingMovieId, setEditingMovieId] = useState<string | null>(null);
   const [editingMovie, setEditingMovie] = useState<Movie | null>(null);
   const [selectedMovie, setSelectedMovie] = useState<Movie | null>(null);
+  const [settingsOpen, setSettingsOpen] = useState(false);
 
   const {
     data,
@@ -43,6 +50,7 @@ export function MoviesPage() {
     hasNextPage,
     fetchNextPage,
   } = useMoviesInfiniteQuery({
+    listId,
     search: search || undefined,
     status,
     contentType,
@@ -50,8 +58,8 @@ export function MoviesPage() {
     sortBy,
     sortOrder,
   });
-  const { data: libraryStats } = useLibraryStatsQuery();
-  const { data: availableGenres = [] } = useGenresQuery();
+  const { data: libraryStats } = useLibraryStatsQuery(listId);
+  const { data: availableGenres = [] } = useGenresQuery(listId);
 
   const items = useMemo(
     () => data?.pages.flatMap((page) => page.items) ?? [],
@@ -90,9 +98,7 @@ export function MoviesPage() {
           <SearchInput value={search} onChange={setSearch} />
         </div>
         <div className="header-actions desktop-header-actions">
-          <div className="desktop-members" aria-label="Three members">
-            <span>I</span><span>B</span><span>Y</span>
-          </div>
+          {activeList ? <ListSwitcher onOpenSettings={() => setSettingsOpen(true)} /> : null}
           <button
             className="chip"
             type="button"
@@ -178,7 +184,7 @@ export function MoviesPage() {
           >
             Watched <span>{libraryStats?.watched ?? 0}</span>
           </button>
-          {!isReadOnly && (
+          {canEdit && (
             <button
               className="desktop-add-movie"
               type="button"
@@ -200,7 +206,7 @@ export function MoviesPage() {
         </div>
       )}
 
-      {isLoading ? (
+      {listsLoading || isLoading ? (
         <EmptyState title="Loading movies..." description="Please wait." />
       ) : items.length === 0 ? (
         <EmptyState
@@ -213,8 +219,8 @@ export function MoviesPage() {
             movies={items}
             titleLang={titleLang}
             onEdit={(movie) => {
-              if (isReadOnly) return;
-              setEditingMovieId(movie.id);
+              if (!canEdit) return;
+              setEditingMovieId(movie.listMovieId);
               setEditingMovie(movie);
               setIsFormOpen(true);
             }}
@@ -235,8 +241,10 @@ export function MoviesPage() {
         </>
       )}
 
-      {!isReadOnly && isFormOpen && (
+      {canEdit && isFormOpen && listId && activeList && (
         <MovieFormModal
+          listId={listId}
+          listRole={activeList.role}
           movieId={editingMovieId}
           initialMovie={editingMovie}
           onClose={() => {
@@ -246,12 +254,17 @@ export function MoviesPage() {
           }}
         />
       )}
-      {selectedMovie && (
+      {selectedMovie && listId && activeList && (
         <MovieDetailsDrawer
           movie={selectedMovie}
+          listId={listId}
+          listRole={activeList.role}
           titleLang={titleLang}
           onClose={() => setSelectedMovie(null)}
         />
+      )}
+      {settingsOpen && activeList && (
+        <ListSettingsPanel list={activeList} onClose={() => setSettingsOpen(false)} />
       )}
     </div>
   );

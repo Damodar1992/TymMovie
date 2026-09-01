@@ -7,34 +7,47 @@ import {
   useState,
   type ReactNode,
 } from 'react';
-import { apiClient } from '../api/client';
+import { apiClient, apiBaseUrl } from '../api/client';
 
-export type AuthMode = 'admin' | 'guest' | null;
+export interface AuthUser {
+  id: string;
+  email: string;
+  name: string | null;
+  avatarUrl: string | null;
+}
 
 type AuthContextValue = {
-  mode: AuthMode;
+  user: AuthUser | null;
   /** True until the initial session check (GET /api/auth/session) resolves. */
   isLoading: boolean;
-  isReadOnly: boolean;
-  login: (login: string, password: string) => Promise<boolean>;
-  loginAsGuest: () => Promise<void>;
+  loginWithGoogle: (inviteToken?: string | null) => void;
   logout: () => Promise<void>;
+  refresh: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | null>(null);
 
 export function AuthProvider({ children }: { children: ReactNode }) {
-  const [mode, setMode] = useState<AuthMode>(null);
+  const [user, setUser] = useState<AuthUser | null>(null);
   const [isLoading, setIsLoading] = useState(true);
+
+  const refresh = useCallback(async () => {
+    try {
+      const { data } = await apiClient.get<AuthUser | null>('/auth/session');
+      setUser(data ?? null);
+    } catch {
+      setUser(null);
+    }
+  }, []);
 
   useEffect(() => {
     let cancelled = false;
     (async () => {
       try {
-        const { data } = await apiClient.get<{ mode: AuthMode }>('/auth/session');
-        if (!cancelled) setMode(data.mode);
+        const { data } = await apiClient.get<AuthUser | null>('/auth/session');
+        if (!cancelled) setUser(data ?? null);
       } catch {
-        if (!cancelled) setMode(null);
+        if (!cancelled) setUser(null);
       } finally {
         if (!cancelled) setIsLoading(false);
       }
@@ -44,42 +57,24 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     };
   }, []);
 
-  const login = useCallback(async (loginValue: string, passwordValue: string) => {
-    try {
-      const { data } = await apiClient.post<{ mode: AuthMode }>('/auth/login', {
-        login: loginValue,
-        password: passwordValue,
-      });
-      setMode(data.mode);
-      return true;
-    } catch {
-      return false;
-    }
-  }, []);
-
-  const loginAsGuest = useCallback(async () => {
-    const { data } = await apiClient.post<{ mode: AuthMode }>('/auth/guest');
-    setMode(data.mode);
+  const loginWithGoogle = useCallback((inviteToken?: string | null) => {
+    const url = inviteToken
+      ? `${apiBaseUrl}/auth/google-start?invite=${encodeURIComponent(inviteToken)}`
+      : `${apiBaseUrl}/auth/google-start`;
+    window.location.href = url;
   }, []);
 
   const logout = useCallback(async () => {
     try {
       await apiClient.post('/auth/logout');
     } finally {
-      setMode(null);
+      setUser(null);
     }
   }, []);
 
   const value = useMemo<AuthContextValue>(
-    () => ({
-      mode,
-      isLoading,
-      isReadOnly: mode === 'guest',
-      login,
-      loginAsGuest,
-      logout,
-    }),
-    [mode, isLoading, login, loginAsGuest, logout],
+    () => ({ user, isLoading, loginWithGoogle, logout, refresh }),
+    [user, isLoading, loginWithGoogle, logout, refresh],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
