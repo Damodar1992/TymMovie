@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types.js';
-import { setSessionCookie, verifyOAuthState } from '../_lib/auth.js';
-import { exchangeCodeForProfile } from '../_lib/google.js';
-import { usersDb, listsDb, invitesDb } from '../_lib/db.js';
+import type { ApiRequest, ApiResponse } from '../../_lib/types.js';
+import { setSessionCookie, verifyOAuthState } from '../../_lib/auth.js';
+import { exchangeCodeForProfile } from '../../_lib/google.js';
+import { usersDb, listsDb, invitesDb } from '../../_lib/db.js';
 
 function firstQueryValue(v: string | string[] | undefined): string | undefined {
   return Array.isArray(v) ? v[0] : v;

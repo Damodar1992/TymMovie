@@ -1,5 +1,5 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types.js';
-import { clearSessionCookie } from '../_lib/auth.js';
+import type { ApiRequest, ApiResponse } from '../../_lib/types.js';
+import { clearSessionCookie } from '../../_lib/auth.js';
 
 export default async function handler(req: ApiRequest, res: ApiResponse) {
   if (req.method !== 'POST') {

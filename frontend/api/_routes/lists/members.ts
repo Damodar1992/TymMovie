@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types.js';
-import { describeError } from '../_lib/types.js';
-import { requireUser } from '../_lib/auth.js';
-import { listsDb } from '../_lib/db.js';
+import type { ApiRequest, ApiResponse } from '../../_lib/types.js';
+import { describeError } from '../../_lib/types.js';
+import { requireUser } from '../../_lib/auth.js';
+import { listsDb } from '../../_lib/db.js';
 
 function firstQueryValue(v: string | string[] | undefined): string | undefined {
   return Array.isArray(v) ? v[0] : v;

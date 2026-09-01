@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types.js';
-import { readJsonBody, describeError } from '../_lib/types.js';
-import { requireUser } from '../_lib/auth.js';
-import { invitesDb } from '../_lib/db.js';
+import type { ApiRequest, ApiResponse } from '../../_lib/types.js';
+import { readJsonBody, describeError } from '../../_lib/types.js';
+import { requireUser } from '../../_lib/auth.js';
+import { invitesDb } from '../../_lib/db.js';
 
 interface AcceptInviteBody {
   token: string;

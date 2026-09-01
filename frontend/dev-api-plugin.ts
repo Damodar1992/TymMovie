@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { setDefaultResultOrder } from 'node:dns';
 import type { Plugin, ViteDevServer } from 'vite';
+import { apiRoutes } from './api/_lib/router';
 
 // Some Windows/home-router setups advertise IPv6 without it actually being
 // routable, which makes Node's fetch (used by both our TMDb proxy and the
@@ -97,33 +98,12 @@ function readRequestBody(req: import('node:http').IncomingMessage): Promise<stri
 }
 
 // --- routing -------------------------------------------------------------
-// Mirrors Vercel's filesystem-based /api routing for exactly the routes
-// this project has. Static paths are listed before the dynamic
-// /api/movies/:id pattern, matching Vercel's own static-beats-dynamic
-// precedence.
-const routes: {
-  methods: string[];
-  pattern: RegExp;
-  modulePath: string;
-  params?: (match: RegExpMatchArray) => Record<string, string>;
-}[] = [
-  { methods: ['GET', 'POST'], pattern: /^\/api\/lists$/, modulePath: '/api/lists/index.ts' },
-  { methods: ['GET', 'PATCH', 'DELETE'], pattern: /^\/api\/lists\/item$/, modulePath: '/api/lists/item.ts' },
-  { methods: ['GET', 'DELETE'], pattern: /^\/api\/lists\/members$/, modulePath: '/api/lists/members.ts' },
-  { methods: ['GET', 'POST', 'DELETE'], pattern: /^\/api\/lists\/invites$/, modulePath: '/api/lists/invites.ts' },
-  { methods: ['GET'], pattern: /^\/api\/invites\/preview$/, modulePath: '/api/invites/preview.ts' },
-  { methods: ['POST'], pattern: /^\/api\/invites\/accept$/, modulePath: '/api/invites/accept.ts' },
-  { methods: ['GET', 'POST'], pattern: /^\/api\/lists\/movies$/, modulePath: '/api/lists/movies/index.ts' },
-  { methods: ['GET', 'PATCH', 'DELETE'], pattern: /^\/api\/lists\/movies\/item$/, modulePath: '/api/lists/movies/item.ts' },
-  { methods: ['PATCH', 'PUT'], pattern: /^\/api\/lists\/movies\/rating$/, modulePath: '/api/lists/movies/rating.ts' },
-  { methods: ['GET'], pattern: /^\/api\/lists\/movies\/genres$/, modulePath: '/api/lists/movies/genres.ts' },
-  { methods: ['GET'], pattern: /^\/api\/lists\/movies\/stats$/, modulePath: '/api/lists/movies/stats.ts' },
-  { methods: ['GET'], pattern: /^\/api\/search$/, modulePath: '/api/search/index.ts' },
-  { methods: ['GET'], pattern: /^\/api\/auth\/google-start$/, modulePath: '/api/auth/google-start.ts' },
-  { methods: ['GET'], pattern: /^\/api\/auth\/google-callback$/, modulePath: '/api/auth/google-callback.ts' },
-  { methods: ['POST'], pattern: /^\/api\/auth\/logout$/, modulePath: '/api/auth/logout.ts' },
-  { methods: ['GET'], pattern: /^\/api\/auth\/session$/, modulePath: '/api/auth/session.ts' },
-];
+// Shared with production via api/_lib/router.ts. Vercel deploys a single
+// catch-all function (api/[[...path]].ts); local dev loads the same handlers
+// through Vite's ssrLoadModule.
+function toDevModulePath(modulePath: string): string {
+  return modulePath.replace(/^\.\.\//, '/api/').replace(/\.js$/, '.ts');
+}
 
 export function devApiPlugin(): Plugin {
   return {
@@ -138,7 +118,7 @@ export function devApiPlugin(): Plugin {
 
         const pathname = url.split('?')[0];
         const method = (req.method ?? 'GET').toUpperCase();
-        const route = routes.find((r) => r.pattern.test(pathname));
+        const route = apiRoutes.find((r) => r.pattern.test(pathname));
 
         if (!route) {
           res.statusCode = 404;
@@ -152,12 +132,9 @@ export function devApiPlugin(): Plugin {
         }
 
         try {
-          const match = pathname.match(route.pattern);
           const query: Record<string, string> = Object.fromEntries(
             new URL(url, 'http://localhost').searchParams,
           );
-          if (match && route.params) Object.assign(query, route.params(match));
-
           const bodyText =
             method === 'POST' || method === 'PATCH' ? await readRequestBody(req) : '';
 
@@ -168,7 +145,7 @@ export function devApiPlugin(): Plugin {
           });
           const apiRes = attachResponseHelpers(res);
 
-          const mod = await server.ssrLoadModule(route.modulePath);
+          const mod = await server.ssrLoadModule(toDevModulePath(route.modulePath));
           const handler = mod.default as (
             req: typeof apiReq,
             res: typeof apiRes,

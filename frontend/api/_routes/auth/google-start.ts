@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types.js';
-import { describeError } from '../_lib/types.js';
-import { createOAuthState } from '../_lib/auth.js';
-import { buildGoogleAuthUrl } from '../_lib/google.js';
+import type { ApiRequest, ApiResponse } from '../../_lib/types.js';
+import { describeError } from '../../_lib/types.js';
+import { createOAuthState } from '../../_lib/auth.js';
+import { buildGoogleAuthUrl } from '../../_lib/google.js';
 
 function firstQueryValue(v: string | string[] | undefined): string | undefined {
   return Array.isArray(v) ? v[0] : v;

@@ -1,9 +1,9 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types.js';
-import { describeError } from '../_lib/types.js';
-import { requireUser } from '../_lib/auth.js';
-import { catalogDb } from '../_lib/db.js';
-import { searchMulti } from '../_lib/tmdb.js';
-import { buildPosterUrl } from '../_lib/tmdb.js';
+import type { ApiRequest, ApiResponse } from '../../_lib/types.js';
+import { describeError } from '../../_lib/types.js';
+import { requireUser } from '../../_lib/auth.js';
+import { catalogDb } from '../../_lib/db.js';
+import { searchMulti } from '../../_lib/tmdb.js';
+import { buildPosterUrl } from '../../_lib/tmdb.js';
 
 /** Catalog-first search — see db-multi-user-architecture doc §6. We only
  *  ever call TMDb when the local catalog doesn't already have enough to

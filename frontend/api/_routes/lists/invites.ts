@@ -1,8 +1,8 @@
 import { randomBytes } from 'node:crypto';
-import type { ApiRequest, ApiResponse } from '../_lib/types.js';
-import { readJsonBody, describeError } from '../_lib/types.js';
-import { requireUser } from '../_lib/auth.js';
-import { listsDb, invitesDb, type ListRole } from '../_lib/db.js';
+import type { ApiRequest, ApiResponse } from '../../_lib/types.js';
+import { readJsonBody, describeError } from '../../_lib/types.js';
+import { requireUser } from '../../_lib/auth.js';
+import { listsDb, invitesDb, type ListRole } from '../../_lib/db.js';
 
 /** Owner-only management of a list's invite links. GET/POST take
  *  `?listId=`, DELETE (revoke) takes `?id=&listId=`. */

@@ -1,7 +1,7 @@
-import type { ApiRequest, ApiResponse } from '../_lib/types.js';
-import { readJsonBody, describeError } from '../_lib/types.js';
-import { requireUser } from '../_lib/auth.js';
-import { listsDb } from '../_lib/db.js';
+import type { ApiRequest, ApiResponse } from '../../_lib/types.js';
+import { readJsonBody, describeError } from '../../_lib/types.js';
+import { requireUser } from '../../_lib/auth.js';
+import { listsDb } from '../../_lib/db.js';
 
 /** Static file + `?id=` instead of a dynamic `[id].ts` route — see
  *  movies/item.ts (kept from the previous single-list version) for why:
