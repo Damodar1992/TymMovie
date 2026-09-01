@@ -2,6 +2,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import path from 'node:path';
 import { setDefaultResultOrder } from 'node:dns';
 import type { Plugin, ViteDevServer } from 'vite';
+import type { ApiRequest, ApiResponse } from './api/_lib/types';
 import { apiRoutes } from './api/_lib/router';
 
 // Some Windows/home-router setups advertise IPv6 without it actually being
@@ -99,11 +100,7 @@ function readRequestBody(req: import('node:http').IncomingMessage): Promise<stri
 
 // --- routing -------------------------------------------------------------
 // Shared with production via api/_lib/router.ts. Vercel deploys a single
-// catch-all function (api/[[...path]].ts); local dev loads the same handlers
-// through Vite's ssrLoadModule.
-function toDevModulePath(modulePath: string): string {
-  return modulePath.replace(/^\.\.\//, '/api/').replace(/\.js$/, '.ts');
-}
+// function (api/index.ts) with a vercel.json rewrite for all /api/* paths.
 
 export function devApiPlugin(): Plugin {
   return {
@@ -142,15 +139,10 @@ export function devApiPlugin(): Plugin {
             query,
             cookies: {},
             body: bodyText,
-          });
-          const apiRes = attachResponseHelpers(res);
+          }) as ApiRequest;
+          const apiRes = attachResponseHelpers(res) as ApiResponse;
 
-          const mod = await server.ssrLoadModule(toDevModulePath(route.modulePath));
-          const handler = mod.default as (
-            req: typeof apiReq,
-            res: typeof apiRes,
-          ) => Promise<void> | void;
-          await handler(apiReq, apiRes);
+          await route.handler(apiReq, apiRes);
         } catch (err) {
           console.error(`[dev-api-plugin] ${method} ${pathname} failed:`, err);
           if (!res.headersSent) {

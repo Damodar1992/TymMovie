@@ -1,28 +1,47 @@
 import type { ApiRequest, ApiResponse } from './types.js';
 
+import authGoogleCallback from '../_routes/auth/google-callback.js';
+import authGoogleStart from '../_routes/auth/google-start.js';
+import authLogout from '../_routes/auth/logout.js';
+import authSession from '../_routes/auth/session.js';
+import invitesAccept from '../_routes/invites/accept.js';
+import invitesPreview from '../_routes/invites/preview.js';
+import listsIndex from '../_routes/lists/index.js';
+import listsInvites from '../_routes/lists/invites.js';
+import listsItem from '../_routes/lists/item.js';
+import listsMembers from '../_routes/lists/members.js';
+import listsMoviesGenres from '../_routes/lists/movies/genres.js';
+import listsMoviesIndex from '../_routes/lists/movies/index.js';
+import listsMoviesItem from '../_routes/lists/movies/item.js';
+import listsMoviesRating from '../_routes/lists/movies/rating.js';
+import listsMoviesStats from '../_routes/lists/movies/stats.js';
+import searchIndex from '../_routes/search/index.js';
+
+export type ApiHandler = (req: ApiRequest, res: ApiResponse) => Promise<void> | void;
+
 export type ApiRoute = {
   methods: string[];
   pattern: RegExp;
-  modulePath: string;
+  handler: ApiHandler;
 };
 
 export const apiRoutes: ApiRoute[] = [
-  { methods: ['GET', 'POST'], pattern: /^\/api\/lists$/, modulePath: '../_routes/lists/index.js' },
-  { methods: ['GET', 'PATCH', 'DELETE'], pattern: /^\/api\/lists\/item$/, modulePath: '../_routes/lists/item.js' },
-  { methods: ['GET', 'DELETE'], pattern: /^\/api\/lists\/members$/, modulePath: '../_routes/lists/members.js' },
-  { methods: ['GET', 'POST', 'DELETE'], pattern: /^\/api\/lists\/invites$/, modulePath: '../_routes/lists/invites.js' },
-  { methods: ['GET'], pattern: /^\/api\/invites\/preview$/, modulePath: '../_routes/invites/preview.js' },
-  { methods: ['POST'], pattern: /^\/api\/invites\/accept$/, modulePath: '../_routes/invites/accept.js' },
-  { methods: ['GET', 'POST'], pattern: /^\/api\/lists\/movies$/, modulePath: '../_routes/lists/movies/index.js' },
-  { methods: ['GET', 'PATCH', 'DELETE'], pattern: /^\/api\/lists\/movies\/item$/, modulePath: '../_routes/lists/movies/item.js' },
-  { methods: ['PATCH', 'PUT'], pattern: /^\/api\/lists\/movies\/rating$/, modulePath: '../_routes/lists/movies/rating.js' },
-  { methods: ['GET'], pattern: /^\/api\/lists\/movies\/genres$/, modulePath: '../_routes/lists/movies/genres.js' },
-  { methods: ['GET'], pattern: /^\/api\/lists\/movies\/stats$/, modulePath: '../_routes/lists/movies/stats.js' },
-  { methods: ['GET'], pattern: /^\/api\/search$/, modulePath: '../_routes/search/index.js' },
-  { methods: ['GET'], pattern: /^\/api\/auth\/google-start$/, modulePath: '../_routes/auth/google-start.js' },
-  { methods: ['GET'], pattern: /^\/api\/auth\/google-callback$/, modulePath: '../_routes/auth/google-callback.js' },
-  { methods: ['POST'], pattern: /^\/api\/auth\/logout$/, modulePath: '../_routes/auth/logout.js' },
-  { methods: ['GET'], pattern: /^\/api\/auth\/session$/, modulePath: '../_routes/auth/session.js' },
+  { methods: ['GET', 'POST'], pattern: /^\/api\/lists$/, handler: listsIndex },
+  { methods: ['GET', 'PATCH', 'DELETE'], pattern: /^\/api\/lists\/item$/, handler: listsItem },
+  { methods: ['GET', 'DELETE'], pattern: /^\/api\/lists\/members$/, handler: listsMembers },
+  { methods: ['GET', 'POST', 'DELETE'], pattern: /^\/api\/lists\/invites$/, handler: listsInvites },
+  { methods: ['GET'], pattern: /^\/api\/invites\/preview$/, handler: invitesPreview },
+  { methods: ['POST'], pattern: /^\/api\/invites\/accept$/, handler: invitesAccept },
+  { methods: ['GET', 'POST'], pattern: /^\/api\/lists\/movies$/, handler: listsMoviesIndex },
+  { methods: ['GET', 'PATCH', 'DELETE'], pattern: /^\/api\/lists\/movies\/item$/, handler: listsMoviesItem },
+  { methods: ['PATCH', 'PUT'], pattern: /^\/api\/lists\/movies\/rating$/, handler: listsMoviesRating },
+  { methods: ['GET'], pattern: /^\/api\/lists\/movies\/genres$/, handler: listsMoviesGenres },
+  { methods: ['GET'], pattern: /^\/api\/lists\/movies\/stats$/, handler: listsMoviesStats },
+  { methods: ['GET'], pattern: /^\/api\/search$/, handler: searchIndex },
+  { methods: ['GET'], pattern: /^\/api\/auth\/google-start$/, handler: authGoogleStart },
+  { methods: ['GET'], pattern: /^\/api\/auth\/google-callback$/, handler: authGoogleCallback },
+  { methods: ['POST'], pattern: /^\/api\/auth\/logout$/, handler: authLogout },
+  { methods: ['GET'], pattern: /^\/api\/auth\/session$/, handler: authSession },
 ];
 
 export async function dispatchApiRequest(
@@ -41,7 +60,5 @@ export async function dispatchApiRequest(
     return;
   }
 
-  const mod = await import(route.modulePath);
-  const handler = mod.default as (request: ApiRequest, response: ApiResponse) => Promise<void> | void;
-  await handler(req, res);
+  await route.handler(req, res);
 }

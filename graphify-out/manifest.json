@@ -6,16 +6,10 @@
     "semantic_hash": "b8893da386a89dfd3672dad848f4ec7e"
   },
   "frontend/package.json": {
-    "mtime": 1787823154.3441727,
-    "seen": 1787834340.4194212,
-    "ast_hash": "4c53bb5c5fddbb81d64bed62807a31c5",
+    "mtime": 1788265199.2189114,
+    "seen": 1788265246.0009234,
+    "ast_hash": "45a73ad5e6611cca03814987c25d3a20",
     "semantic_hash": ""
-  },
-  "frontend/pwa-assets.config.ts": {
-    "mtime": 1785487869.9040847,
-    "seen": 1787728515.9507082,
-    "ast_hash": "d2b68c0dc2eaf126d3c0efce18913df7",
-    "semantic_hash": "d2b68c0dc2eaf126d3c0efce18913df7"
   },
   "frontend/src/App.tsx": {
     "mtime": 1788252881.7476926,
@@ -30,9 +24,9 @@
     "semantic_hash": ""
   },
   "frontend/src/auth/AuthContext.tsx": {
-    "mtime": 1788252769.2698636,
-    "seen": 1788259309.3936837,
-    "ast_hash": "24c3391b74755c18c681f85c039268f4",
+    "mtime": 1788262604.2098832,
+    "seen": 1788264198.9278688,
+    "ast_hash": "f2aa32bdb0321a88013aa66eb7dd389c",
     "semantic_hash": ""
   },
   "frontend/src/components/EmptyState.tsx": {
@@ -48,9 +42,9 @@
     "semantic_hash": ""
   },
   "frontend/src/components/LoginPage.tsx": {
-    "mtime": 1788252803.2467875,
-    "seen": 1788259309.3937829,
-    "ast_hash": "f54b95649a62ab457f593f29b0e05b4f",
+    "mtime": 1788262459.738057,
+    "seen": 1788264198.9285007,
+    "ast_hash": "fd2693341e1d0db3c30679ec84ff0341",
     "semantic_hash": ""
   },
   "frontend/src/components/MovieCard.tsx": {
@@ -108,15 +102,15 @@
     "semantic_hash": "ef06f0f6fd97e7b46ba9292f7462b2ef"
   },
   "frontend/src/components/mobile/MobileFiltersScreen.tsx": {
-    "mtime": 1788261076.06707,
-    "seen": 1788261091.105935,
-    "ast_hash": "039ce203879a7dd431cfcd315dd982f1",
+    "mtime": 1788261392.9061537,
+    "seen": 1788264198.929778,
+    "ast_hash": "6cbacdf8636d87f2e29b9a362eb44e19",
     "semantic_hash": ""
   },
   "frontend/src/components/mobile/MobileLoginPage.tsx": {
-    "mtime": 1788252834.7407472,
-    "seen": 1788259309.3940778,
-    "ast_hash": "0f8e4d1e1387e7720b4dd3f0ff769dc7",
+    "mtime": 1788262454.3579903,
+    "seen": 1788264198.92978,
+    "ast_hash": "3a8408168a688760180f347af9b2e64f",
     "semantic_hash": ""
   },
   "frontend/src/components/mobile/MobileMovieTile.tsx": {
@@ -126,28 +120,28 @@
     "semantic_hash": ""
   },
   "frontend/src/components/mobile/MobileMoviesScreen.tsx": {
-    "mtime": 1788260335.030093,
-    "seen": 1788260347.2074082,
-    "ast_hash": "6cbc76bdf156bccdca902e588eae0926",
+    "mtime": 1788261687.4019938,
+    "seen": 1788264198.9299467,
+    "ast_hash": "de81a8a286e2c2dd6c5f091256175bf3",
     "semantic_hash": ""
   },
   "frontend/src/components/mobile/MobileProfileScreen.tsx": {
-    "mtime": 1788257550.9764454,
-    "seen": 1788259309.3940809,
-    "ast_hash": "4375cd10b80022c34f0678ba8bd1712f",
+    "mtime": 1788263129.1909168,
+    "seen": 1788264198.9299483,
+    "ast_hash": "cc1472847b0d066b50f89ebdd533e940",
     "semantic_hash": ""
   },
   "frontend/src/components/mobile/MobileShell.tsx": {
-    "mtime": 1788253465.2533996,
-    "seen": 1788259309.3940816,
-    "ast_hash": "4a2faba1f5b3f44d622473fa190b88c2",
+    "mtime": 1788262099.4366386,
+    "seen": 1788264198.9299498,
+    "ast_hash": "20babcc2d2d30f0e1539e88f23095e5d",
     "semantic_hash": ""
   },
   "frontend/src/components/mobile/filters/ApplyFiltersCTA.tsx": {
-    "mtime": 1787597254.87516,
-    "seen": 1787728515.950725,
-    "ast_hash": "e90bef8b7fb103f0e007dd4a3a9f1fb8",
-    "semantic_hash": "e90bef8b7fb103f0e007dd4a3a9f1fb8"
+    "mtime": 1788262228.0620246,
+    "seen": 1788264198.929951,
+    "ast_hash": "59802ea4ab7bafebcc9df7afec24d174",
+    "semantic_hash": ""
   },
   "frontend/src/components/mobile/filters/FilterSectionCard.tsx": {
     "mtime": 1779798956.3174808,
@@ -210,9 +204,9 @@
     "semantic_hash": "873dcd7f7826f398ebd9ae973f97987a"
   },
   "frontend/src/main.tsx": {
-    "mtime": 1788252881.7739418,
-    "seen": 1788259309.395236,
-    "ast_hash": "4893003332b68c2e880320ae2329fcfa",
+    "mtime": 1788264764.059132,
+    "seen": 1788264785.4448822,
+    "ast_hash": "b1c8a0d252ea648cc625321e96fa6932",
     "semantic_hash": ""
   },
   "frontend/src/state/MoviesFiltersContext.tsx": {
@@ -246,15 +240,15 @@
     "semantic_hash": "eec85c9d7c6b599801557f1afd86672c"
   },
   "frontend/vercel.json": {
-    "mtime": 1788252588.8657763,
-    "seen": 1788259309.3957136,
-    "ast_hash": "217a7555e2881003895b86e7f6c87d08",
+    "mtime": 1788266404.6571095,
+    "seen": 1788266437.4778442,
+    "ast_hash": "7960f69aec0e095632d2d7ee28ded95f",
     "semantic_hash": ""
   },
   "frontend/vite.config.ts": {
-    "mtime": 1787745390.6610405,
-    "seen": 1787834340.4238582,
-    "ast_hash": "d1632022943a7ad1b5c98096393da94c",
+    "mtime": 1788264763.130937,
+    "seen": 1788264785.4448986,
+    "ast_hash": "9967e1c65c52a9360686f5d49fd42181",
     "semantic_hash": ""
   },
   "frontend/public/login-background.mp4": {
@@ -445,7 +439,7 @@
   },
   "frontend/schema.sql": {
     "mtime": 1787745390.2289839,
-    "seen": 1787834715.5645156,
+    "seen": 1788264198.9271626,
     "ast_hash": "",
     "semantic_hash": ""
   },
@@ -479,22 +473,10 @@
     "ast_hash": "e672dda77118a29805511df30fb536e4",
     "semantic_hash": ""
   },
-  "frontend/api/auth/logout.ts": {
-    "mtime": 1788252426.985263,
-    "seen": 1788259309.3932939,
-    "ast_hash": "76a80dbf8e80c2ba376fb4d736c5d653",
-    "semantic_hash": ""
-  },
-  "frontend/api/auth/session.ts": {
-    "mtime": 1788252426.9787247,
-    "seen": 1788259309.3932953,
-    "ast_hash": "b6cfea1f9cb804d1fe50db6efdd0e8cf",
-    "semantic_hash": ""
-  },
   "frontend/dev-api-plugin.ts": {
-    "mtime": 1788252604.6259072,
-    "seen": 1788259309.3933074,
-    "ast_hash": "418d223aa1973e506379f7df6068e4cc",
+    "mtime": 1788266420.142128,
+    "seen": 1788266437.4718714,
+    "ast_hash": "3c83a608473c0f9f740c7a46eb82e259",
     "semantic_hash": ""
   },
   "frontend/scripts/migrate.mjs": {
@@ -511,19 +493,19 @@
   },
   "frontend/migrations/0001_create_movies_table.sql": {
     "mtime": 1787745390.1562808,
-    "seen": 1787834715.5645099,
+    "seen": 1788264198.9270515,
     "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/migrations/0002_add_title_ua.sql": {
     "mtime": 1787745390.1793597,
-    "seen": 1787834715.564511,
+    "seen": 1788264198.9270535,
     "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/migrations/0003_add_comment_text.sql": {
     "mtime": 1787745390.1967373,
-    "seen": 1787834715.5645118,
+    "seen": 1788264198.9270554,
     "ast_hash": "",
     "semantic_hash": ""
   },
@@ -537,90 +519,6 @@
     "mtime": 1788251700.2737753,
     "seen": 1788259309.3931084,
     "ast_hash": "2f9891978d700f102cef2ee009351989",
-    "semantic_hash": ""
-  },
-  "frontend/api/auth/google-callback.ts": {
-    "mtime": 1788252426.9727244,
-    "seen": 1788259309.3932903,
-    "ast_hash": "f804a9513d1ecd522171b4fcfd1254a2",
-    "semantic_hash": ""
-  },
-  "frontend/api/auth/google-start.ts": {
-    "mtime": 1788252426.9645414,
-    "seen": 1788259309.3932917,
-    "ast_hash": "650d4dd4c4ac6595d0dc0640bb28de19",
-    "semantic_hash": ""
-  },
-  "frontend/api/invites/accept.ts": {
-    "mtime": 1788252495.9727147,
-    "seen": 1788259309.3932967,
-    "ast_hash": "5fe9cf97c3a0bae0d8133342e9386a20",
-    "semantic_hash": ""
-  },
-  "frontend/api/invites/preview.ts": {
-    "mtime": 1788252495.9656062,
-    "seen": 1788259309.3932977,
-    "ast_hash": "51e5bdc96eca2e421903c72a61b5b5c9",
-    "semantic_hash": ""
-  },
-  "frontend/api/lists/index.ts": {
-    "mtime": 1788252477.4164135,
-    "seen": 1788259309.3932984,
-    "ast_hash": "d410f1c683351e8a10f86eb2fb224654",
-    "semantic_hash": ""
-  },
-  "frontend/api/lists/invites.ts": {
-    "mtime": 1788252495.958501,
-    "seen": 1788259309.393299,
-    "ast_hash": "987cffe902e4bcecccfe44d325593f2c",
-    "semantic_hash": ""
-  },
-  "frontend/api/lists/item.ts": {
-    "mtime": 1788252477.4234276,
-    "seen": 1788259309.3933003,
-    "ast_hash": "a73cccb528528916f1f63d7178f08374",
-    "semantic_hash": ""
-  },
-  "frontend/api/lists/members.ts": {
-    "mtime": 1788252477.430451,
-    "seen": 1788259309.3933008,
-    "ast_hash": "689ff81ce6ae8167df361fc919012482",
-    "semantic_hash": ""
-  },
-  "frontend/api/lists/movies/genres.ts": {
-    "mtime": 1788252551.768571,
-    "seen": 1788259309.3933017,
-    "ast_hash": "75aa341502fcb5f3c2fc1dbbac8cc75e",
-    "semantic_hash": ""
-  },
-  "frontend/api/lists/movies/index.ts": {
-    "mtime": 1788252537.7853725,
-    "seen": 1788259309.3933024,
-    "ast_hash": "65aa7269518409f9686a934c99ef1d87",
-    "semantic_hash": ""
-  },
-  "frontend/api/lists/movies/item.ts": {
-    "mtime": 1788252537.7954757,
-    "seen": 1788259309.3933034,
-    "ast_hash": "1f1003b3b0168dbc744619f50ddc1f10",
-    "semantic_hash": ""
-  },
-  "frontend/api/lists/movies/rating.ts": {
-    "mtime": 1788252551.760555,
-    "seen": 1788259309.3933043,
-    "ast_hash": "83b330351d75ea0b535a20279a175c14",
-    "semantic_hash": ""
-  },
-  "frontend/api/lists/movies/stats.ts": {
-    "mtime": 1788252551.7765772,
-    "seen": 1788259309.393305,
-    "ast_hash": "dff1dd2ab3c11adaa3db34357c67ed67",
-    "semantic_hash": ""
-  },
-  "frontend/api/search/index.ts": {
-    "mtime": 1788252563.422745,
-    "seen": 1788259309.3933058,
-    "ast_hash": "092d4058b9ce48157ea9048a7cab142a",
     "semantic_hash": ""
   },
   "frontend/scripts/backfill-lists.mjs": {
@@ -660,9 +558,9 @@
     "semantic_hash": ""
   },
   "frontend/src/components/ListSettingsPanel.tsx": {
-    "mtime": 1788257534.817075,
-    "seen": 1788259309.393781,
-    "ast_hash": "739345f9506e81c3e2b76b41cb655b89",
+    "mtime": 1788263343.7960792,
+    "seen": 1788264198.9283974,
+    "ast_hash": "3020cbd2fdb5064b48af4c7a0e1e8fed",
     "semantic_hash": ""
   },
   "frontend/src/components/ListSwitcher.tsx": {
@@ -711,6 +609,186 @@
     "mtime": 1788260215.6359825,
     "seen": 1788260268.6454785,
     "ast_hash": "263c18ae23a7a0370239f8e7ea652f6c",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/GoogleGlyph.tsx": {
+    "mtime": 1788262452.6622434,
+    "seen": 1788264198.9282897,
+    "ast_hash": "1965200ac2586f590f31e0284efe7647",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/mobile/MobileBottomSheet.tsx": {
+    "mtime": 1788261316.5021584,
+    "seen": 1788264198.9297757,
+    "ast_hash": "25b84deaa2872fae1d77ef9bb43b3160",
+    "semantic_hash": ""
+  },
+  "frontend/migrations/0004_create_users.sql": {
+    "mtime": 1788251581.9973807,
+    "seen": 1788264453.4275374,
+    "ast_hash": "",
+    "semantic_hash": ""
+  },
+  "frontend/migrations/0005_create_lists.sql": {
+    "mtime": 1788251582.0052876,
+    "seen": 1788264453.4275393,
+    "ast_hash": "",
+    "semantic_hash": ""
+  },
+  "frontend/migrations/0006_create_list_members.sql": {
+    "mtime": 1788251582.0127945,
+    "seen": 1788264453.4275405,
+    "ast_hash": "",
+    "semantic_hash": ""
+  },
+  "frontend/migrations/0007_create_list_movies.sql": {
+    "mtime": 1788251582.0193062,
+    "seen": 1788264453.4275413,
+    "ast_hash": "",
+    "semantic_hash": ""
+  },
+  "frontend/migrations/0008_create_list_movie_ratings.sql": {
+    "mtime": 1788251582.0268328,
+    "seen": 1788264453.4275422,
+    "ast_hash": "",
+    "semantic_hash": ""
+  },
+  "frontend/migrations/0009_create_list_invites.sql": {
+    "mtime": 1788251582.0346038,
+    "seen": 1788264453.4275427,
+    "ast_hash": "",
+    "semantic_hash": ""
+  },
+  "frontend/scripts/manual-backfill-and-slim.sql": {
+    "mtime": 1788257795.2060885,
+    "seen": 1788264453.4275486,
+    "ast_hash": "",
+    "semantic_hash": ""
+  },
+  "frontend/scripts/manual-migrate-0001-0009.sql": {
+    "mtime": 1788255932.8091424,
+    "seen": 1788264453.4275494,
+    "ast_hash": "",
+    "semantic_hash": ""
+  },
+  "frontend/scripts/post-backfill-slim-movies.sql": {
+    "mtime": 1788257795.1980653,
+    "seen": 1788264453.4275515,
+    "ast_hash": "",
+    "semantic_hash": ""
+  },
+  "frontend/api/_lib/router.ts": {
+    "mtime": 1788266403.7363563,
+    "seen": 1788266437.4701958,
+    "ast_hash": "e4297e6d58423d2f816b0c1df483f3ae",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/auth/google-callback.ts": {
+    "mtime": 1788265162.996784,
+    "seen": 1788265246.0008957,
+    "ast_hash": "2adbff7adde0d04dce12ee6626c888f7",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/auth/google-start.ts": {
+    "mtime": 1788265162.355089,
+    "seen": 1788265246.0008967,
+    "ast_hash": "5a3abb72bb241c3a7f85eb26afe97b56",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/auth/logout.ts": {
+    "mtime": 1788265161.7956536,
+    "seen": 1788265246.0008981,
+    "ast_hash": "68cd035e5e4d6c2606c10ef1c810be14",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/auth/session.ts": {
+    "mtime": 1788265161.482817,
+    "seen": 1788265246.000899,
+    "ast_hash": "d095010b53304f8bfdc3c97d4ded352f",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/invites/accept.ts": {
+    "mtime": 1788265163.4009852,
+    "seen": 1788265246.0008998,
+    "ast_hash": "685a6a46332cfd586ef385aa35df61c1",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/invites/preview.ts": {
+    "mtime": 1788265163.932132,
+    "seen": 1788265246.0009005,
+    "ast_hash": "b39b21c90df19c911d6b5298bd3acfe5",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/lists/index.ts": {
+    "mtime": 1788265164.4780324,
+    "seen": 1788265246.0009017,
+    "ast_hash": "1d6cb2d41411d9c597293967f28f283e",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/lists/invites.ts": {
+    "mtime": 1788265152.4880817,
+    "seen": 1788265246.0009024,
+    "ast_hash": "19436034e2da71779dcf8135c4a4f989",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/lists/item.ts": {
+    "mtime": 1788265153.1662426,
+    "seen": 1788265246.0009031,
+    "ast_hash": "8146d0861503423a91d2b476cfd38a00",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/lists/members.ts": {
+    "mtime": 1788265154.9380636,
+    "seen": 1788265246.0009038,
+    "ast_hash": "c95c58de53b89d19f9f292536b580a6d",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/lists/movies/genres.ts": {
+    "mtime": 1788265165.0518851,
+    "seen": 1788265246.0009048,
+    "ast_hash": "4f9dbeeec4114f1b03a330391b88e917",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/lists/movies/index.ts": {
+    "mtime": 1788265165.6569252,
+    "seen": 1788265246.0009058,
+    "ast_hash": "b7f86f25900221e6f95e0a9b74cb121c",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/lists/movies/item.ts": {
+    "mtime": 1788265166.0727625,
+    "seen": 1788265246.0009062,
+    "ast_hash": "bbbccbad5422dd04ccac155d335f27ad",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/lists/movies/rating.ts": {
+    "mtime": 1788265166.5709126,
+    "seen": 1788265246.000907,
+    "ast_hash": "0e37cbaccc79f64a3b4a8ce92a504fe0",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/lists/movies/stats.ts": {
+    "mtime": 1788265167.1278484,
+    "seen": 1788265246.0009081,
+    "ast_hash": "c6d916b445082c3cd978419212213638",
+    "semantic_hash": ""
+  },
+  "frontend/api/_routes/search/index.ts": {
+    "mtime": 1788265155.0952294,
+    "seen": 1788265246.000909,
+    "ast_hash": "e3d782d11ddb859b713ae1c5c4485543",
+    "semantic_hash": ""
+  },
+  "frontend/scripts/check-vercel-function-count.mjs": {
+    "mtime": 1788266408.009513,
+    "seen": 1788266437.4721272,
+    "ast_hash": "4f0777613fef00680b472d931f384fd5",
+    "semantic_hash": ""
+  },
+  "frontend/api/index.ts": {
+    "mtime": 1788266393.630978,
+    "seen": 1788266437.4718697,
+    "ast_hash": "d79ea250c1078a5981b558ce39bd2a54",
     "semantic_hash": ""
   }
 }

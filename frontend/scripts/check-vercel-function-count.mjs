@@ -39,7 +39,7 @@ for (const file of files) {
 if (count > HOBBY_LIMIT) {
   console.error(
     `\nToo many API functions for Vercel Hobby (${count} > ${HOBBY_LIMIT}). ` +
-      'Use api/[[...path]].ts with handlers in api/_routes/.',
+      'Use api/index.ts with handlers in api/_routes/.',
   );
   process.exit(1);
 }
