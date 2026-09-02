@@ -1,16 +1,16 @@
-# Graph Report - TymMovies  (2026-09-01)
+# Graph Report - TymMovies  (2026-09-02)
 
 ## Corpus Check
-- 106 files · ~140,172 words
+- 109 files · ~141,451 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 537 nodes · 1156 edges · 26 communities (21 shown, 5 thin omitted)
+- 550 nodes · 1175 edges · 29 communities (24 shown, 5 thin omitted)
 - Extraction: 98% EXTRACTED · 2% INFERRED · 0% AMBIGUOUS · INFERRED: 27 edges (avg confidence: 0.81)
 - Token cost: 0 input · 0 output
 
 ## Graph Freshness
-- Built from commit: `155e7e89`
+- Built from commit: `b99cb733`
 - Run `git rev-parse HEAD` and compare to check if the graph is stale.
 - Run `graphify update .` after code changes (no API cost).
 
@@ -23,11 +23,13 @@
 - MobileFiltersScreen.tsx
 - google.ts
 - compilerOptions
+- Movie
 - router.ts
 - AuthContext.tsx
 - compilerOptions
 - SortRadioCard.tsx
 - tsconfig.json
+- tmdb.ts
 - vercel.json
 - check-vercel-function-count.mjs
 - dev-api-plugin.ts
@@ -35,10 +37,11 @@
 - React + TypeScript + Vite
 - migrate.mjs
 - backfill-lists.mjs
-- MobileMoviesScreen.tsx
+- MobileMovieForm.tsx
 - FiltersHeader.tsx
 - debug-trailer.mjs
 - lists.ts
+- backfill-title-ua.mjs
 
 ## God Nodes (most connected - your core abstractions)
 1. `describeError()` - 29 edges
@@ -53,21 +56,21 @@
 10. `compilerOptions` - 14 edges
 
 ## Surprising Connections (you probably didn't know these)
-- `FiltersBarProps` --references--> `MovieStatus`  [EXTRACTED]
-  frontend/src/components/FiltersBar.tsx → frontend/src/api/lists.ts
-- `FormState` --references--> `MovieStatus`  [EXTRACTED]
-  frontend/src/components/mobile/movie-form/MobileMovieForm.tsx → frontend/src/api/lists.ts
-- `FormState` --references--> `MovieStatus`  [EXTRACTED]
-  frontend/src/components/MovieFormModal.tsx → frontend/src/api/lists.ts
-- `MobileMovieTileProps` --references--> `Movie`  [EXTRACTED]
-  frontend/src/components/mobile/MobileMovieTile.tsx → frontend/src/api/lists.ts
-- `MobileMovieFormProps` --references--> `Movie`  [EXTRACTED]
-  frontend/src/components/mobile/movie-form/MobileMovieForm.tsx → frontend/src/api/lists.ts
+- `handler()` --calls--> `buildGoogleAuthUrl()`  [EXTRACTED]
+  frontend/api/_routes/auth/google-start.ts → frontend/api/_lib/google.ts
+- `handler()` --calls--> `exchangeCodeForProfile()`  [EXTRACTED]
+  frontend/api/_routes/auth/google-callback.ts → frontend/api/_lib/google.ts
+- `handler()` --calls--> `searchMulti()`  [EXTRACTED]
+  frontend/api/_routes/search/index.ts → frontend/api/_lib/tmdb.ts
+- `handlePost()` --calls--> `getMovieDetails()`  [EXTRACTED]
+  frontend/api/_routes/lists/movies/index.ts → frontend/api/_lib/tmdb.ts
+- `handlePost()` --calls--> `getTvDetails()`  [EXTRACTED]
+  frontend/api/_routes/lists/movies/index.ts → frontend/api/_lib/tmdb.ts
 
 ## Import Cycles
 - None detected.
 
-## Communities (26 total, 5 thin omitted)
+## Communities (29 total, 5 thin omitted)
 
 ### Community 0 - "devDependencies"
 Cohesion: 0.07
@@ -101,17 +104,25 @@ Nodes (6): buildGoogleAuthUrl(), exchangeCodeForProfile(), getClientId(), getCli
 Cohesion: 0.09
 Nodes (22): compilerOptions, allowImportingTsExtensions, erasableSyntaxOnly, lib, module, moduleDetection, moduleResolution, noEmit (+14 more)
 
+### Community 8 - "Movie"
+Cohesion: 0.12
+Nodes (23): Movie, Avatar(), AvatarProps, displayTitle(), formatScore(), MobileMovieTile(), MobileMovieTileProps, TILE_PALETTES (+15 more)
+
 ### Community 9 - "router.ts"
 Cohesion: 0.06
-Nodes (90): handler(), prepareRequest(), clearSessionCookie(), createOAuthState(), createSessionToken(), getAuthSecret(), getSession(), requireUser() (+82 more)
+Nodes (80): handler(), prepareRequest(), clearSessionCookie(), createOAuthState(), createSessionToken(), getAuthSecret(), getSession(), requireUser() (+72 more)
 
 ### Community 10 - "AuthContext.tsx"
-Cohesion: 0.10
-Nodes (26): apiBaseUrl, apiClient, InvitePreview, useAcceptInviteMutation(), useInvitePreviewQuery(), App(), AuthContext, AuthContextValue (+18 more)
+Cohesion: 0.08
+Nodes (34): apiBaseUrl, apiClient, InvitePreview, useAcceptInviteMutation(), useInvitePreviewQuery(), App(), AuthContext, AuthContextValue (+26 more)
 
 ### Community 11 - "compilerOptions"
 Cohesion: 0.11
 Nodes (18): compilerOptions, esModuleInterop, lib, module, moduleResolution, noEmit, noFallthroughCasesInSwitch, noUnusedLocals (+10 more)
+
+### Community 14 - "tmdb.ts"
+Cohesion: 0.33
+Nodes (10): authFetch(), getApiKey(), getMovieDetails(), getTvDetails(), pickBestTrailerKey(), searchMulti(), TmdbContentType, TmdbDetails (+2 more)
 
 ### Community 15 - "vercel.json"
 Cohesion: 0.33
@@ -133,32 +144,36 @@ Nodes (5): __dirname, main(), migrationsDir, splitStatements(), sql
 Cohesion: 0.44
 Nodes (8): args, ensureList(), ensureMember(), main(), sql, upsertListMovie(), upsertRating(), upsertUser()
 
-### Community 24 - "MobileMoviesScreen.tsx"
-Cohesion: 0.07
-Nodes (47): MoviesQueryParams, useGenresQuery(), useLibraryStatsQuery(), useListsQuery(), useMoviesInfiniteQuery(), AuthProvider(), EmptyState(), EmptyStateProps (+39 more)
+### Community 24 - "MobileMovieForm.tsx"
+Cohesion: 0.14
+Nodes (27): errorMessage(), MovieStatus, useCreateMovieMutation(), useDeleteMovieMutation(), useListMembersQuery(), useSetRatingMutation(), useUpdateMovieMutation(), search() (+19 more)
 
 ### Community 26 - "debug-trailer.mjs"
 Cohesion: 0.67
 Nodes (3): authFetch(), contentType, main()
 
 ### Community 27 - "lists.ts"
-Cohesion: 0.06
-Nodes (68): AddMoviePayload, errorMessage(), fetchMoviesPage(), Invite, LibraryStats, ListMember, ListRole, ListSummary (+60 more)
+Cohesion: 0.05
+Nodes (62): AddMoviePayload, fetchMoviesPage(), Invite, LibraryStats, ListMember, ListRole, ListSummary, MOVIES_PAGE_SIZE (+54 more)
+
+### Community 28 - "backfill-title-ua.mjs"
+Cohesion: 0.53
+Nodes (5): dryRun, fetchTitleUa(), main(), sleep(), sql
 
 ## Knowledge Gaps
-- **185 isolated node(s):** `UserRow`, `UserDto`, `ListDto`, `ListMemberDto`, `InviteDto` (+180 more)
+- **189 isolated node(s):** `UserRow`, `UserDto`, `ListDto`, `ListMemberDto`, `InviteDto` (+184 more)
   These have ≤1 connection - possible missing edges or undocumented components.
 - **5 thin communities (<3 nodes) omitted from report** — run `graphify query` to explore isolated nodes.
 
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `useAuth()` connect `lists.ts` to `MobileMoviesScreen.tsx`, `AuthContext.tsx`?**
+- **Why does `useAuth()` connect `lists.ts` to `MobileMovieForm.tsx`, `AuthContext.tsx`?**
   _High betweenness centrality (0.015) - this node is a cross-community bridge._
 - **Why does `devDependencies` connect `devDependencies` to `dependencies`?**
   _High betweenness centrality (0.008) - this node is a cross-community bridge._
 - **What connects `UserRow`, `UserDto`, `ListDto` to the rest of the system?**
-  _185 weakly-connected nodes found - possible documentation gaps or missing edges._
+  _189 weakly-connected nodes found - possible documentation gaps or missing edges._
 - **Should `devDependencies` be split into smaller, more focused modules?**
   _Cohesion score 0.07407407407407407 - nodes in this community are weakly interconnected._
 - **Should `dependencies` be split into smaller, more focused modules?**

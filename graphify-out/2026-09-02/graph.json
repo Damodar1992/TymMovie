@@ -43,6 +43,32 @@
       "source_location": "L12"
     },
     {
+      "id": "frontend_src_state_moviesfilterscontext_moviesfilterscontextvalue",
+      "label": "MoviesFiltersContextValue",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "moviesfilterscontextvalue",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L27"
+    },
+    {
+      "id": "frontend_src_state_moviesfilterscontext_titlelang",
+      "label": "TitleLang",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "titlelang",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L13"
+    },
+    {
       "id": "frontend_src_components_mobile_filters_sortradiocard_sortradiocardprops",
       "label": "SortRadioCardProps",
       "_callable": true,
@@ -56,95 +82,69 @@
       "source_location": "L4"
     },
     {
+      "id": "frontend_api_lib_tmdb_tmdbcontenttype",
+      "label": "TmdbContentType",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "tmdbcontenttype",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L7"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_tmdbdetails",
+      "label": "TmdbDetails",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "tmdbdetails",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L20"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_tmdbsearchresult",
+      "label": "TmdbSearchResult",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "tmdbsearchresult",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L9"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_tmdbvideo",
+      "label": "TmdbVideo",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "tmdbvideo",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L35"
+    },
+    {
       "id": "frontend_src_api_lists_moviesqueryparams",
       "label": "MoviesQueryParams",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "SortControl.tsx",
       "file_type": "code",
       "norm_label": "moviesqueryparams",
       "source_file": "frontend/src/api/lists.ts",
       "source_location": "L76"
-    },
-    {
-      "id": "frontend_src_components_emptystate_emptystateprops",
-      "label": "EmptyStateProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "emptystateprops",
-      "source_file": "frontend/src/components/EmptyState.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_formatteddatepicker_formatteddatepickerprops",
-      "label": "FormattedDatePickerProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "formatteddatepickerprops",
-      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
-      "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobilemoviesscreen_mobilelayout",
-      "label": "MobileLayout",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilelayout",
-      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L28"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobileprofilescreen_mobileprofilescreenprops",
-      "label": "MobileProfileScreenProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobileprofilescreenprops",
-      "source_file": "frontend/src/components/mobile/MobileProfileScreen.tsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobileshell_mobiletab",
-      "label": "MobileTab",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobiletab",
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "frontend_src_components_searchinput_searchinputprops",
-      "label": "SearchInputProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "searchinputprops",
-      "source_file": "frontend/src/components/SearchInput.tsx",
-      "source_location": "L3"
     },
     {
       "id": "frontend_src_components_sortcontrol_sortcontrolprops",
@@ -153,102 +153,11 @@
       "_callable_class": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "SortControl.tsx",
       "file_type": "code",
       "norm_label": "sortcontrolprops",
       "source_file": "frontend/src/components/SortControl.tsx",
       "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_components_ui_modern_mobile_menu_iconcomponenttype",
-      "label": "IconComponentType",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "iconcomponenttype",
-      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
-      "source_location": "L9"
-    },
-    {
-      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenuitem",
-      "label": "InteractiveMenuItem",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "interactivemenuitem",
-      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
-      "source_location": "L11"
-    },
-    {
-      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenuprops",
-      "label": "InteractiveMenuProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "interactivemenuprops",
-      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "frontend_src_hooks_useinfinitescroll_useinfinitescrolloptions",
-      "label": "UseInfiniteScrollOptions",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "useinfinitescrolloptions",
-      "source_file": "frontend/src/hooks/useInfiniteScroll.ts",
-      "source_location": "L3"
-    },
-    {
-      "id": "frontend_src_state_activelistcontext_activelistcontextvalue",
-      "label": "ActiveListContextValue",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "activelistcontextvalue",
-      "source_file": "frontend/src/state/ActiveListContext.tsx",
-      "source_location": "L18"
-    },
-    {
-      "id": "frontend_src_state_moviesfilterscontext_moviesfilterscontextvalue",
-      "label": "MoviesFiltersContextValue",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "moviesfilterscontextvalue",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L27"
-    },
-    {
-      "id": "frontend_src_state_moviesfilterscontext_titlelang",
-      "label": "TitleLang",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "titlelang",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L13"
     },
     {
       "id": "frontend_src_components_mobile_filters_filtersheader_filtersheaderprops",
@@ -342,19 +251,6 @@
       "source_location": "L14"
     },
     {
-      "id": "frontend_src_api_lists_movie",
-      "label": "Movie",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "movie",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L53"
-    },
-    {
       "id": "frontend_src_api_lists_moviespageresult",
       "label": "MoviesPageResult",
       "_callable": true,
@@ -433,6 +329,19 @@
       "source_location": "L4"
     },
     {
+      "id": "frontend_src_components_emptystate_emptystateprops",
+      "label": "EmptyStateProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "emptystateprops",
+      "source_file": "frontend/src/components/EmptyState.tsx",
+      "source_location": "L1"
+    },
+    {
       "id": "frontend_src_components_filtersbar_filtersbarprops",
       "label": "FiltersBarProps",
       "_callable": true,
@@ -446,30 +355,56 @@
       "source_location": "L4"
     },
     {
-      "id": "frontend_src_components_mobile_mobilemovietile_mobilemovietileprops",
-      "label": "MobileMovieTileProps",
+      "id": "frontend_src_components_mobile_mobilebottomsheet_mobilebottomsheetprops",
+      "label": "MobileBottomSheetProps",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "mobilemovietileprops",
-      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
-      "source_location": "L7"
+      "norm_label": "mobilebottomsheetprops",
+      "source_file": "frontend/src/components/mobile/MobileBottomSheet.tsx",
+      "source_location": "L5"
     },
     {
-      "id": "frontend_src_components_mobile_mobilemovietile_titlelang",
-      "label": "TitleLang",
+      "id": "frontend_src_components_mobile_mobilemoviesscreen_mobilelayout",
+      "label": "MobileLayout",
       "_callable": true,
       "_callable_class": true,
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "titlelang",
-      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
-      "source_location": "L5"
+      "norm_label": "mobilelayout",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L29"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobileprofilescreen_mobileprofilescreenprops",
+      "label": "MobileProfileScreenProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "mobileprofilescreenprops",
+      "source_file": "frontend/src/components/mobile/MobileProfileScreen.tsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobileshell_mobiletab",
+      "label": "MobileTab",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "mobiletab",
+      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
+      "source_location": "L16"
     },
     {
       "id": "frontend_src_components_mobile_movie_form_mobilemovieform_formstate",
@@ -485,45 +420,6 @@
       "source_location": "L29"
     },
     {
-      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieformprops",
-      "label": "MobileMovieFormProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "mobilemovieformprops",
-      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L20"
-    },
-    {
-      "id": "frontend_src_components_moviecard_moviecardprops",
-      "label": "MovieCardProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "moviecardprops",
-      "source_file": "frontend/src/components/MovieCard.tsx",
-      "source_location": "L6"
-    },
-    {
-      "id": "frontend_src_components_moviecard_titlelang",
-      "label": "TitleLang",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "titlelang",
-      "source_file": "frontend/src/components/MovieCard.tsx",
-      "source_location": "L4"
-    },
-    {
       "id": "frontend_src_components_movieformmodal_formstate",
       "label": "FormState",
       "_callable": true,
@@ -537,45 +433,6 @@
       "source_location": "L24"
     },
     {
-      "id": "frontend_src_components_movieformmodal_movieformmodalprops",
-      "label": "MovieFormModalProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "movieformmodalprops",
-      "source_file": "frontend/src/components/MovieFormModal.tsx",
-      "source_location": "L16"
-    },
-    {
-      "id": "frontend_src_components_moviegrid_moviegridprops",
-      "label": "MovieGridProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "moviegridprops",
-      "source_file": "frontend/src/components/MovieGrid.tsx",
-      "source_location": "L6"
-    },
-    {
-      "id": "frontend_src_components_moviegrid_titlelang",
-      "label": "TitleLang",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "titlelang",
-      "source_file": "frontend/src/components/MovieGrid.tsx",
-      "source_location": "L4"
-    },
-    {
       "id": "frontend_src_components_ratingstars_ratingstarsprops",
       "label": "RatingStarsProps",
       "_callable": true,
@@ -586,6 +443,123 @@
       "file_type": "code",
       "norm_label": "ratingstarsprops",
       "source_file": "frontend/src/components/RatingStars.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_components_searchinput_searchinputprops",
+      "label": "SearchInputProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "searchinputprops",
+      "source_file": "frontend/src/components/SearchInput.tsx",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_components_ui_modern_mobile_menu_iconcomponenttype",
+      "label": "IconComponentType",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "iconcomponenttype",
+      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenuitem",
+      "label": "InteractiveMenuItem",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "interactivemenuitem",
+      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
+      "source_location": "L11"
+    },
+    {
+      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenuprops",
+      "label": "InteractiveMenuProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "interactivemenuprops",
+      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "frontend_src_hooks_useinfinitescroll_useinfinitescrolloptions",
+      "label": "UseInfiniteScrollOptions",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "useinfinitescrolloptions",
+      "source_file": "frontend/src/hooks/useInfiniteScroll.ts",
+      "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_state_activelistcontext_activelistcontextvalue",
+      "label": "ActiveListContextValue",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "activelistcontextvalue",
+      "source_file": "frontend/src/state/ActiveListContext.tsx",
+      "source_location": "L18"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilestatusfilter_mobilestatusfilterprops",
+      "label": "MobileStatusFilterProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "MobileStatusFilter.tsx",
+      "file_type": "code",
+      "norm_label": "mobilestatusfilterprops",
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilestatusfilter_statusfilter",
+      "label": "StatusFilter",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "MobileStatusFilter.tsx",
+      "file_type": "code",
+      "norm_label": "statusfilter",
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "frontend_src_components_formatteddatepicker_formatteddatepickerprops",
+      "label": "FormattedDatePickerProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 29,
+      "community_name": "FormattedDatePicker.tsx",
+      "file_type": "code",
+      "norm_label": "formatteddatepickerprops",
+      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
       "source_location": "L3"
     },
     {
@@ -667,19 +641,6 @@
       "source_location": "L3"
     },
     {
-      "id": "frontend_src_components_mobile_mobilebottomsheet_mobilebottomsheetprops",
-      "label": "MobileBottomSheetProps",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "MobileFiltersScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilebottomsheetprops",
-      "source_file": "frontend/src/components/mobile/MobileBottomSheet.tsx",
-      "source_location": "L5"
-    },
-    {
       "id": "frontend_src_components_mobile_mobilefiltersscreen_mobilefiltersscreenprops",
       "label": "MobileFiltersScreenProps",
       "_callable": true,
@@ -743,6 +704,123 @@
       "norm_label": "googleprofile",
       "source_file": "frontend/api/_lib/google.ts",
       "source_location": "L43"
+    },
+    {
+      "id": "frontend_src_api_lists_movie",
+      "label": "Movie",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "movie",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L53"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemovietile_mobilemovietileprops",
+      "label": "MobileMovieTileProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "mobilemovietileprops",
+      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
+      "source_location": "L7"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemovietile_titlelang",
+      "label": "TitleLang",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "titlelang",
+      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
+      "source_location": "L5"
+    },
+    {
+      "id": "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieformprops",
+      "label": "MobileMovieFormProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "mobilemovieformprops",
+      "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
+      "source_location": "L20"
+    },
+    {
+      "id": "frontend_src_components_moviecard_moviecardprops",
+      "label": "MovieCardProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "moviecardprops",
+      "source_file": "frontend/src/components/MovieCard.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "frontend_src_components_moviecard_titlelang",
+      "label": "TitleLang",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "titlelang",
+      "source_file": "frontend/src/components/MovieCard.tsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "frontend_src_components_movieformmodal_movieformmodalprops",
+      "label": "MovieFormModalProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "movieformmodalprops",
+      "source_file": "frontend/src/components/MovieFormModal.tsx",
+      "source_location": "L16"
+    },
+    {
+      "id": "frontend_src_components_moviegrid_moviegridprops",
+      "label": "MovieGridProps",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "moviegridprops",
+      "source_file": "frontend/src/components/MovieGrid.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "frontend_src_components_moviegrid_titlelang",
+      "label": "TitleLang",
+      "_callable": true,
+      "_callable_class": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "titlelang",
+      "source_file": "frontend/src/components/MovieGrid.tsx",
+      "source_location": "L4"
     },
     {
       "id": "frontend_api_lib_db_invitedto",
@@ -899,58 +977,6 @@
       "norm_label": "apiroute",
       "source_file": "frontend/api/_lib/router.ts",
       "source_location": "L22"
-    },
-    {
-      "id": "frontend_api_lib_tmdb_tmdbcontenttype",
-      "label": "TmdbContentType",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "tmdbcontenttype",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L7"
-    },
-    {
-      "id": "frontend_api_lib_tmdb_tmdbdetails",
-      "label": "TmdbDetails",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "tmdbdetails",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L20"
-    },
-    {
-      "id": "frontend_api_lib_tmdb_tmdbsearchresult",
-      "label": "TmdbSearchResult",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "tmdbsearchresult",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L9"
-    },
-    {
-      "id": "frontend_api_lib_tmdb_tmdbvideo",
-      "label": "TmdbVideo",
-      "_callable": true,
-      "_callable_class": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "tmdbvideo",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L35"
     },
     {
       "id": "frontend_api_lib_types_apihandler",
@@ -1130,6 +1156,18 @@
       "norm_label": "app()",
       "source_file": "frontend/src/App.tsx",
       "source_location": "L11"
+    },
+    {
+      "id": "frontend_src_auth_authcontext_authprovider",
+      "label": "AuthProvider()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "authprovider()",
+      "source_file": "frontend/src/auth/AuthContext.tsx",
+      "source_location": "L30"
     },
     {
       "id": "frontend_src_components_googleglyph_googleglyph",
@@ -1336,6 +1374,42 @@
       "source_location": "L22"
     },
     {
+      "id": "frontend_src_state_activelistcontext_useactivelist",
+      "label": "useActiveList()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "useactivelist()",
+      "source_file": "frontend/src/state/ActiveListContext.tsx",
+      "source_location": "L45"
+    },
+    {
+      "id": "frontend_src_state_moviesfilterscontext_moviesfiltersprovider",
+      "label": "MoviesFiltersProvider()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "moviesfiltersprovider()",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L49"
+    },
+    {
+      "id": "frontend_src_state_moviesfilterscontext_readtitlelang",
+      "label": "readTitleLang()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "readtitlelang()",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L17"
+    },
+    {
       "id": "frontend_src_components_mobile_filters_sortradiocard_sortradiocard",
       "label": "SortRadioCard()",
       "_callable": true,
@@ -1346,6 +1420,78 @@
       "norm_label": "sortradiocard()",
       "source_file": "frontend/src/components/mobile/filters/SortRadioCard.tsx",
       "source_location": "L11"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_authfetch",
+      "label": "authFetch()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "authfetch()",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L88"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_getapikey",
+      "label": "getApiKey()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "getapikey()",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L82"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_getmoviedetails",
+      "label": "getMovieDetails()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "getmoviedetails()",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L163"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_gettvdetails",
+      "label": "getTvDetails()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "gettvdetails()",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L203"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_pickbesttrailerkey",
+      "label": "pickBestTrailerKey()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "pickbesttrailerkey()",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L49"
+    },
+    {
+      "id": "frontend_api_lib_tmdb_searchmulti",
+      "label": "searchMulti()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "searchmulti()",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L98"
     },
     {
       "id": "frontend_scripts_check_vercel_function_count_countdeployableapifunctions",
@@ -1564,340 +1710,16 @@
       "source_location": "L64"
     },
     {
-      "id": "frontend_src_api_lists_usegenresquery",
-      "label": "useGenresQuery()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "usegenresquery()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L275"
-    },
-    {
-      "id": "frontend_src_api_lists_uselibrarystatsquery",
-      "label": "useLibraryStatsQuery()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "uselibrarystatsquery()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L262"
-    },
-    {
-      "id": "frontend_src_api_lists_uselistsquery",
-      "label": "useListsQuery()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "uselistsquery()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L105"
-    },
-    {
-      "id": "frontend_src_api_lists_usemoviesinfinitequery",
-      "label": "useMoviesInfiniteQuery()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "usemoviesinfinitequery()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L249"
-    },
-    {
-      "id": "frontend_src_auth_authcontext_authprovider",
-      "label": "AuthProvider()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "authprovider()",
-      "source_file": "frontend/src/auth/AuthContext.tsx",
-      "source_location": "L30"
-    },
-    {
-      "id": "frontend_src_components_emptystate_emptystate",
-      "label": "EmptyState()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "emptystate()",
-      "source_file": "frontend/src/components/EmptyState.tsx",
-      "source_location": "L12"
-    },
-    {
-      "id": "frontend_src_components_formatteddatepicker_formatteddatepicker",
-      "label": "FormattedDatePicker()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "formatteddatepicker()",
-      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
-      "source_location": "L9"
-    },
-    {
-      "id": "frontend_src_components_listsettingspanel_listsettingspanel",
-      "label": "ListSettingsPanel()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "listsettingspanel()",
-      "source_file": "frontend/src/components/ListSettingsPanel.tsx",
-      "source_location": "L181"
-    },
-    {
-      "id": "frontend_src_components_listswitcher_listswitcher",
-      "label": "ListSwitcher()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "listswitcher()",
-      "source_file": "frontend/src/components/ListSwitcher.tsx",
-      "source_location": "L4"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobilefiltersscreen_mobilefiltersscreen",
-      "label": "MobileFiltersScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilefiltersscreen()",
-      "source_file": "frontend/src/components/mobile/MobileFiltersScreen.tsx",
-      "source_location": "L28"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobilemoviesscreen_mobilemoviesscreen",
-      "label": "MobileMoviesScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilemoviesscreen()",
-      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L41"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobilemoviesscreen_readmobilelayout",
-      "label": "readMobileLayout()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "readmobilelayout()",
-      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L31"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobileprofilescreen_mobileprofilescreen",
-      "label": "MobileProfileScreen()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobileprofilescreen()",
-      "source_file": "frontend/src/components/mobile/MobileProfileScreen.tsx",
-      "source_location": "L19"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobileshell_mobileshell",
-      "label": "MobileShell()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobileshell()",
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L30"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobileshell_readlegacysheet",
-      "label": "readLegacySheet()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "readlegacysheet()",
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L20"
-    },
-    {
-      "id": "frontend_src_components_moviespage_moviespage",
-      "label": "MoviesPage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "moviespage()",
-      "source_file": "frontend/src/components/MoviesPage.tsx",
-      "source_location": "L18"
-    },
-    {
-      "id": "frontend_src_components_searchinput_searchinput",
-      "label": "SearchInput()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "searchinput()",
-      "source_file": "frontend/src/components/SearchInput.tsx",
-      "source_location": "L8"
-    },
-    {
       "id": "frontend_src_components_sortcontrol_sortcontrol",
       "label": "SortControl()",
       "_callable": true,
       "_origin": "ast",
       "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "SortControl.tsx",
       "file_type": "code",
       "norm_label": "sortcontrol()",
       "source_file": "frontend/src/components/SortControl.tsx",
       "source_location": "L16"
-    },
-    {
-      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenu",
-      "label": "InteractiveMenu()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "interactivemenu()",
-      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
-      "source_location": "L26"
-    },
-    {
-      "id": "frontend_src_hooks_useinfinitescroll_useinfinitescroll",
-      "label": "useInfiniteScroll()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "useinfinitescroll()",
-      "source_file": "frontend/src/hooks/useInfiniteScroll.ts",
-      "source_location": "L13"
-    },
-    {
-      "id": "frontend_src_lib_watchdate_isotodmy",
-      "label": "isoToDmy()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "isotodmy()",
-      "source_file": "frontend/src/lib/watchDate.ts",
-      "source_location": "L2"
-    },
-    {
-      "id": "frontend_src_state_activelistcontext_activelistprovider",
-      "label": "ActiveListProvider()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "activelistprovider()",
-      "source_file": "frontend/src/state/ActiveListContext.tsx",
-      "source_location": "L25"
-    },
-    {
-      "id": "frontend_src_state_activelistcontext_readstored",
-      "label": "readStored()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "readstored()",
-      "source_file": "frontend/src/state/ActiveListContext.tsx",
-      "source_location": "L10"
-    },
-    {
-      "id": "frontend_src_state_activelistcontext_useactivelist",
-      "label": "useActiveList()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "useactivelist()",
-      "source_file": "frontend/src/state/ActiveListContext.tsx",
-      "source_location": "L45"
-    },
-    {
-      "id": "frontend_src_state_activelistcontext_useactivelistsync",
-      "label": "useActiveListSync()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "useactivelistsync()",
-      "source_file": "frontend/src/state/ActiveListContext.tsx",
-      "source_location": "L62"
-    },
-    {
-      "id": "frontend_src_state_moviesfilterscontext_moviesfiltersprovider",
-      "label": "MoviesFiltersProvider()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "moviesfiltersprovider()",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L49"
-    },
-    {
-      "id": "frontend_src_state_moviesfilterscontext_readtitlelang",
-      "label": "readTitleLang()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "readtitlelang()",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L17"
-    },
-    {
-      "id": "frontend_src_state_moviesfilterscontext_usemoviesfilters",
-      "label": "useMoviesFilters()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "usemoviesfilters()",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L113"
     },
     {
       "id": "frontend_src_components_mobile_filters_filtersheader_filtersheader",
@@ -1946,18 +1768,6 @@
       "norm_label": "errormessage()",
       "source_file": "frontend/src/api/lists.ts",
       "source_location": "L95"
-    },
-    {
-      "id": "frontend_src_api_lists_fetchmoviespage",
-      "label": "fetchMoviesPage()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "fetchmoviespage()",
-      "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L219"
     },
     {
       "id": "frontend_src_api_lists_usecreateinvitemutation",
@@ -2020,6 +1830,30 @@
       "source_location": "L365"
     },
     {
+      "id": "frontend_src_api_lists_usegenresquery",
+      "label": "useGenresQuery()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "usegenresquery()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L275"
+    },
+    {
+      "id": "frontend_src_api_lists_uselibrarystatsquery",
+      "label": "useLibraryStatsQuery()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "uselibrarystatsquery()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L262"
+    },
+    {
       "id": "frontend_src_api_lists_uselistinvitesquery",
       "label": "useListInvitesQuery()",
       "_callable": true,
@@ -2044,16 +1878,28 @@
       "source_location": "L152"
     },
     {
-      "id": "frontend_src_api_lists_usemoviesquery",
-      "label": "useMoviesQuery()",
+      "id": "frontend_src_api_lists_uselistsquery",
+      "label": "useListsQuery()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "usemoviesquery()",
+      "norm_label": "uselistsquery()",
       "source_file": "frontend/src/api/lists.ts",
-      "source_location": "L241"
+      "source_location": "L105"
+    },
+    {
+      "id": "frontend_src_api_lists_usemoviesinfinitequery",
+      "label": "useMoviesInfiniteQuery()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "usemoviesinfinitequery()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L249"
     },
     {
       "id": "frontend_src_api_lists_useremovemembermutation",
@@ -2152,6 +1998,18 @@
       "source_location": "L22"
     },
     {
+      "id": "frontend_src_components_emptystate_emptystate",
+      "label": "EmptyState()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "emptystate()",
+      "source_file": "frontend/src/components/EmptyState.tsx",
+      "source_location": "L12"
+    },
+    {
       "id": "frontend_src_components_filtersbar_filtersbar",
       "label": "FiltersBar()",
       "_callable": true,
@@ -2188,6 +2046,42 @@
       "source_location": "L50"
     },
     {
+      "id": "frontend_src_components_listsettingspanel_listsettingspanel",
+      "label": "ListSettingsPanel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "listsettingspanel()",
+      "source_file": "frontend/src/components/ListSettingsPanel.tsx",
+      "source_location": "L181"
+    },
+    {
+      "id": "frontend_src_components_listswitcher_listswitcher",
+      "label": "ListSwitcher()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "listswitcher()",
+      "source_file": "frontend/src/components/ListSwitcher.tsx",
+      "source_location": "L4"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilebottomsheet_mobilebottomsheet",
+      "label": "MobileBottomSheet()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "mobilebottomsheet()",
+      "source_file": "frontend/src/components/mobile/MobileBottomSheet.tsx",
+      "source_location": "L16"
+    },
+    {
       "id": "frontend_src_components_mobile_mobilemoviesscreen_mobilemoviedetailsheet",
       "label": "MobileMovieDetailSheet()",
       "_callable": true,
@@ -2197,55 +2091,67 @@
       "file_type": "code",
       "norm_label": "mobilemoviedetailsheet()",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L276"
+      "source_location": "L273"
     },
     {
-      "id": "frontend_src_components_mobile_mobilemovietile_displaytitle",
-      "label": "displayTitle()",
+      "id": "frontend_src_components_mobile_mobilemoviesscreen_mobilemoviesscreen",
+      "label": "MobileMoviesScreen()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "displaytitle()",
-      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
-      "source_location": "L24"
+      "norm_label": "mobilemoviesscreen()",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L42"
     },
     {
-      "id": "frontend_src_components_mobile_mobilemovietile_formatscore",
-      "label": "formatScore()",
+      "id": "frontend_src_components_mobile_mobilemoviesscreen_readmobilelayout",
+      "label": "readMobileLayout()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "formatscore()",
-      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
-      "source_location": "L36"
+      "norm_label": "readmobilelayout()",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L32"
     },
     {
-      "id": "frontend_src_components_mobile_mobilemovietile_mobilemovietile",
-      "label": "MobileMovieTile()",
+      "id": "frontend_src_components_mobile_mobileprofilescreen_mobileprofilescreen",
+      "label": "MobileProfileScreen()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "mobilemovietile()",
-      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
-      "source_location": "L40"
+      "norm_label": "mobileprofilescreen()",
+      "source_file": "frontend/src/components/mobile/MobileProfileScreen.tsx",
+      "source_location": "L19"
     },
     {
-      "id": "frontend_src_components_mobile_mobilemovietile_tilepalette",
-      "label": "tilePalette()",
+      "id": "frontend_src_components_mobile_mobileshell_mobileshell",
+      "label": "MobileShell()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "tilepalette()",
-      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
-      "source_location": "L28"
+      "norm_label": "mobileshell()",
+      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
+      "source_location": "L30"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobileshell_readlegacysheet",
+      "label": "readLegacySheet()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "readlegacysheet()",
+      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
+      "source_location": "L20"
     },
     {
       "id": "frontend_src_components_mobile_movie_form_mobilemovieform_initialformstate",
@@ -2296,42 +2202,6 @@
       "source_location": "L36"
     },
     {
-      "id": "frontend_src_components_moviecard_displaytitle",
-      "label": "displayTitle()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "displaytitle()",
-      "source_file": "frontend/src/components/MovieCard.tsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "frontend_src_components_moviecard_moviecard",
-      "label": "MovieCard()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "moviecard()",
-      "source_file": "frontend/src/components/MovieCard.tsx",
-      "source_location": "L23"
-    },
-    {
-      "id": "frontend_src_components_moviecard_watchdatelabel",
-      "label": "watchDateLabel()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "watchdatelabel()",
-      "source_file": "frontend/src/components/MovieCard.tsx",
-      "source_location": "L17"
-    },
-    {
       "id": "frontend_src_components_moviedetailsdrawer_moviedetailsdrawer",
       "label": "MovieDetailsDrawer()",
       "_callable": true,
@@ -2380,16 +2250,16 @@
       "source_location": "L31"
     },
     {
-      "id": "frontend_src_components_moviegrid_moviegrid",
-      "label": "MovieGrid()",
+      "id": "frontend_src_components_moviespage_moviespage",
+      "label": "MoviesPage()",
       "_callable": true,
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "moviegrid()",
-      "source_file": "frontend/src/components/MovieGrid.tsx",
-      "source_location": "L13"
+      "norm_label": "moviespage()",
+      "source_file": "frontend/src/components/MoviesPage.tsx",
+      "source_location": "L18"
     },
     {
       "id": "frontend_src_components_ratingstars_ratingstars",
@@ -2402,6 +2272,42 @@
       "norm_label": "ratingstars()",
       "source_file": "frontend/src/components/RatingStars.tsx",
       "source_location": "L8"
+    },
+    {
+      "id": "frontend_src_components_searchinput_searchinput",
+      "label": "SearchInput()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "searchinput()",
+      "source_file": "frontend/src/components/SearchInput.tsx",
+      "source_location": "L8"
+    },
+    {
+      "id": "frontend_src_components_ui_modern_mobile_menu_interactivemenu",
+      "label": "InteractiveMenu()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "interactivemenu()",
+      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
+      "source_location": "L26"
+    },
+    {
+      "id": "frontend_src_hooks_useinfinitescroll_useinfinitescroll",
+      "label": "useInfiniteScroll()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "useinfinitescroll()",
+      "source_file": "frontend/src/hooks/useInfiniteScroll.ts",
+      "source_location": "L13"
     },
     {
       "id": "frontend_src_lib_avatarcolor_avatarcolorforuser",
@@ -2450,6 +2356,126 @@
       "norm_label": "youtubetrailerurl()",
       "source_file": "frontend/src/lib/trailer.ts",
       "source_location": "L3"
+    },
+    {
+      "id": "frontend_src_state_activelistcontext_activelistprovider",
+      "label": "ActiveListProvider()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "activelistprovider()",
+      "source_file": "frontend/src/state/ActiveListContext.tsx",
+      "source_location": "L25"
+    },
+    {
+      "id": "frontend_src_state_activelistcontext_readstored",
+      "label": "readStored()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "readstored()",
+      "source_file": "frontend/src/state/ActiveListContext.tsx",
+      "source_location": "L10"
+    },
+    {
+      "id": "frontend_src_state_activelistcontext_useactivelistsync",
+      "label": "useActiveListSync()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "useactivelistsync()",
+      "source_file": "frontend/src/state/ActiveListContext.tsx",
+      "source_location": "L62"
+    },
+    {
+      "id": "frontend_src_state_moviesfilterscontext_usemoviesfilters",
+      "label": "useMoviesFilters()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "usemoviesfilters()",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L113"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilestatusfilter_mobilestatusfilter",
+      "label": "MobileStatusFilter()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "MobileStatusFilter.tsx",
+      "file_type": "code",
+      "norm_label": "mobilestatusfilter()",
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L21"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilestatusfilter_statuslabel",
+      "label": "statusLabel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "MobileStatusFilter.tsx",
+      "file_type": "code",
+      "norm_label": "statuslabel()",
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L12"
+    },
+    {
+      "id": "frontend_src_components_formatteddatepicker_formatteddatepicker",
+      "label": "FormattedDatePicker()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 29,
+      "community_name": "FormattedDatePicker.tsx",
+      "file_type": "code",
+      "norm_label": "formatteddatepicker()",
+      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
+      "source_location": "L9"
+    },
+    {
+      "id": "frontend_src_lib_watchdate_isotodmy",
+      "label": "isoToDmy()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 29,
+      "community_name": "FormattedDatePicker.tsx",
+      "file_type": "code",
+      "norm_label": "isotodmy()",
+      "source_file": "frontend/src/lib/watchDate.ts",
+      "source_location": "L2"
+    },
+    {
+      "id": "frontend_src_api_lists_fetchmoviespage",
+      "label": "fetchMoviesPage()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "MobileFiltersScreen.tsx",
+      "file_type": "code",
+      "norm_label": "fetchmoviespage()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L219"
+    },
+    {
+      "id": "frontend_src_api_lists_usemoviesquery",
+      "label": "useMoviesQuery()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 5,
+      "community_name": "MobileFiltersScreen.tsx",
+      "file_type": "code",
+      "norm_label": "usemoviesquery()",
+      "source_file": "frontend/src/api/lists.ts",
+      "source_location": "L241"
     },
     {
       "id": "frontend_src_components_mobile_filters_applyfilterscta_applyfilterscta",
@@ -2524,16 +2550,16 @@
       "source_location": "L16"
     },
     {
-      "id": "frontend_src_components_mobile_mobilebottomsheet_mobilebottomsheet",
-      "label": "MobileBottomSheet()",
+      "id": "frontend_src_components_mobile_mobilefiltersscreen_mobilefiltersscreen",
+      "label": "MobileFiltersScreen()",
       "_callable": true,
       "_origin": "ast",
       "community": 5,
       "community_name": "MobileFiltersScreen.tsx",
       "file_type": "code",
-      "norm_label": "mobilebottomsheet()",
-      "source_file": "frontend/src/components/mobile/MobileBottomSheet.tsx",
-      "source_location": "L16"
+      "norm_label": "mobilefiltersscreen()",
+      "source_file": "frontend/src/components/mobile/MobileFiltersScreen.tsx",
+      "source_location": "L28"
     },
     {
       "id": "frontend_api_lib_google_buildgoogleauthurl",
@@ -2594,6 +2620,102 @@
       "norm_label": "getredirecturi()",
       "source_file": "frontend/api/_lib/google.ts",
       "source_location": "L24"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemovietile_displaytitle",
+      "label": "displayTitle()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "displaytitle()",
+      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
+      "source_location": "L24"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemovietile_formatscore",
+      "label": "formatScore()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "formatscore()",
+      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
+      "source_location": "L36"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemovietile_mobilemovietile",
+      "label": "MobileMovieTile()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "mobilemovietile()",
+      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
+      "source_location": "L40"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemovietile_tilepalette",
+      "label": "tilePalette()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "tilepalette()",
+      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
+      "source_location": "L28"
+    },
+    {
+      "id": "frontend_src_components_moviecard_displaytitle",
+      "label": "displayTitle()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "displaytitle()",
+      "source_file": "frontend/src/components/MovieCard.tsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "frontend_src_components_moviecard_moviecard",
+      "label": "MovieCard()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "moviecard()",
+      "source_file": "frontend/src/components/MovieCard.tsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "frontend_src_components_moviecard_watchdatelabel",
+      "label": "watchDateLabel()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "watchdatelabel()",
+      "source_file": "frontend/src/components/MovieCard.tsx",
+      "source_location": "L17"
+    },
+    {
+      "id": "frontend_src_components_moviegrid_moviegrid",
+      "label": "MovieGrid()",
+      "_callable": true,
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "moviegrid()",
+      "source_file": "frontend/src/components/MovieGrid.tsx",
+      "source_location": "L13"
     },
     {
       "id": "frontend_api_index_handler",
@@ -2836,18 +2958,6 @@
       "source_location": "L47"
     },
     {
-      "id": "frontend_api_lib_tmdb_authfetch",
-      "label": "authFetch()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "authfetch()",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L88"
-    },
-    {
       "id": "frontend_api_lib_tmdb_buildposterurl",
       "label": "buildPosterUrl()",
       "_callable": true,
@@ -2858,66 +2968,6 @@
       "norm_label": "buildposterurl()",
       "source_file": "frontend/api/_lib/tmdb.ts",
       "source_location": "L74"
-    },
-    {
-      "id": "frontend_api_lib_tmdb_getapikey",
-      "label": "getApiKey()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "getapikey()",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L82"
-    },
-    {
-      "id": "frontend_api_lib_tmdb_getmoviedetails",
-      "label": "getMovieDetails()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "getmoviedetails()",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L163"
-    },
-    {
-      "id": "frontend_api_lib_tmdb_gettvdetails",
-      "label": "getTvDetails()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "gettvdetails()",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L203"
-    },
-    {
-      "id": "frontend_api_lib_tmdb_pickbesttrailerkey",
-      "label": "pickBestTrailerKey()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "pickbesttrailerkey()",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L49"
-    },
-    {
-      "id": "frontend_api_lib_tmdb_searchmulti",
-      "label": "searchMulti()",
-      "_callable": true,
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "searchmulti()",
-      "source_file": "frontend/api/_lib/tmdb.ts",
-      "source_location": "L98"
     },
     {
       "id": "frontend_api_lib_types_apiresponse_json",
@@ -3898,6 +3948,50 @@
       "source_location": "L1"
     },
     {
+      "id": "frontend_src_main",
+      "label": "main.tsx",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "main.tsx",
+      "source_file": "frontend/src/main.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_main_queryclient",
+      "label": "queryClient",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "queryclient",
+      "source_file": "frontend/src/main.tsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "frontend_src_state_moviesfilterscontext",
+      "label": "MoviesFiltersContext.tsx",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "moviesfilterscontext.tsx",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_state_moviesfilterscontext_moviesfilterscontext",
+      "label": "MoviesFiltersContext",
+      "_origin": "ast",
+      "community": 10,
+      "community_name": "AuthContext.tsx",
+      "file_type": "code",
+      "norm_label": "moviesfilterscontext",
+      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
+      "source_location": "L45"
+    },
+    {
       "id": "frontend_tsconfig_api",
       "label": "tsconfig.api.json",
       "_origin": "ast",
@@ -4149,6 +4243,17 @@
       "norm_label": "references",
       "source_file": "frontend/tsconfig.json",
       "source_location": "L3"
+    },
+    {
+      "id": "frontend_api_lib_tmdb",
+      "label": "tmdb.ts",
+      "_origin": "ast",
+      "community": 14,
+      "community_name": "tmdb.ts",
+      "file_type": "code",
+      "norm_label": "tmdb.ts",
+      "source_file": "frontend/api/_lib/tmdb.ts",
+      "source_location": "L1"
     },
     {
       "id": "frontend_vercel",
@@ -4547,99 +4652,11 @@
       "source_location": "L62"
     },
     {
-      "id": "frontend_src_components_emptystate",
-      "label": "EmptyState.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "emptystate.tsx",
-      "source_file": "frontend/src/components/EmptyState.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_formatteddatepicker",
-      "label": "FormattedDatePicker.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "formatteddatepicker.tsx",
-      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_listswitcher",
-      "label": "ListSwitcher.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "listswitcher.tsx",
-      "source_file": "frontend/src/components/ListSwitcher.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobilemoviesscreen",
-      "label": "MobileMoviesScreen.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilemoviesscreen.tsx",
-      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobileprofilescreen",
-      "label": "MobileProfileScreen.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobileprofilescreen.tsx",
-      "source_file": "frontend/src/components/mobile/MobileProfileScreen.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_mobile_mobileshell",
-      "label": "MobileShell.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobileshell.tsx",
-      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_moviespage",
-      "label": "MoviesPage.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "moviespage.tsx",
-      "source_file": "frontend/src/components/MoviesPage.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_searchinput",
-      "label": "SearchInput.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "searchinput.tsx",
-      "source_file": "frontend/src/components/SearchInput.tsx",
-      "source_location": "L1"
-    },
-    {
       "id": "frontend_src_components_sortcontrol",
       "label": "SortControl.tsx",
       "_origin": "ast",
       "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "SortControl.tsx",
       "file_type": "code",
       "norm_label": "sortcontrol.tsx",
       "source_file": "frontend/src/components/SortControl.tsx",
@@ -4650,110 +4667,11 @@
       "label": "SORT_BY_OPTIONS",
       "_origin": "ast",
       "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
+      "community_name": "SortControl.tsx",
       "file_type": "code",
       "norm_label": "sort_by_options",
       "source_file": "frontend/src/components/SortControl.tsx",
       "source_location": "L10"
-    },
-    {
-      "id": "frontend_src_components_ui_modern_mobile_menu",
-      "label": "modern-mobile-menu.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "modern-mobile-menu.tsx",
-      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_hooks_useinfinitescroll",
-      "label": "useInfiniteScroll.ts",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "useinfinitescroll.ts",
-      "source_file": "frontend/src/hooks/useInfiniteScroll.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_lib_watchdate",
-      "label": "watchDate.ts",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "watchdate.ts",
-      "source_file": "frontend/src/lib/watchDate.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_main",
-      "label": "main.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "main.tsx",
-      "source_file": "frontend/src/main.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_main_queryclient",
-      "label": "queryClient",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "queryclient",
-      "source_file": "frontend/src/main.tsx",
-      "source_location": "L13"
-    },
-    {
-      "id": "frontend_src_state_activelistcontext",
-      "label": "ActiveListContext.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "activelistcontext.tsx",
-      "source_file": "frontend/src/state/ActiveListContext.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_state_activelistcontext_activelistcontext",
-      "label": "ActiveListContext",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "activelistcontext",
-      "source_file": "frontend/src/state/ActiveListContext.tsx",
-      "source_location": "L23"
-    },
-    {
-      "id": "frontend_src_state_moviesfilterscontext",
-      "label": "MoviesFiltersContext.tsx",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "moviesfilterscontext.tsx",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_state_moviesfilterscontext_moviesfilterscontext",
-      "label": "MoviesFiltersContext",
-      "_origin": "ast",
-      "community": 24,
-      "community_name": "MobileMoviesScreen.tsx",
-      "file_type": "code",
-      "norm_label": "moviesfilterscontext",
-      "source_file": "frontend/src/state/MoviesFiltersContext.tsx",
-      "source_location": "L45"
     },
     {
       "id": "frontend_src_components_mobile_filters_filtersheader",
@@ -4833,6 +4751,17 @@
       "source_location": "L1"
     },
     {
+      "id": "frontend_src_components_emptystate",
+      "label": "EmptyState.tsx",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "emptystate.tsx",
+      "source_file": "frontend/src/components/EmptyState.tsx",
+      "source_location": "L1"
+    },
+    {
       "id": "frontend_src_components_filtersbar",
       "label": "FiltersBar.tsx",
       "_origin": "ast",
@@ -4855,26 +4784,59 @@
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_mobile_mobilemovietile",
-      "label": "MobileMovieTile.tsx",
+      "id": "frontend_src_components_listswitcher",
+      "label": "ListSwitcher.tsx",
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "mobilemovietile.tsx",
-      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
+      "norm_label": "listswitcher.tsx",
+      "source_file": "frontend/src/components/ListSwitcher.tsx",
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_mobile_mobilemovietile_tile_palettes",
-      "label": "TILE_PALETTES",
+      "id": "frontend_src_components_mobile_mobilebottomsheet",
+      "label": "MobileBottomSheet.tsx",
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "tile_palettes",
-      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
-      "source_location": "L13"
+      "norm_label": "mobilebottomsheet.tsx",
+      "source_file": "frontend/src/components/mobile/MobileBottomSheet.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemoviesscreen",
+      "label": "MobileMoviesScreen.tsx",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "mobilemoviesscreen.tsx",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobileprofilescreen",
+      "label": "MobileProfileScreen.tsx",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "mobileprofilescreen.tsx",
+      "source_file": "frontend/src/components/mobile/MobileProfileScreen.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobileshell",
+      "label": "MobileShell.tsx",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "mobileshell.tsx",
+      "source_file": "frontend/src/components/mobile/MobileShell.tsx",
+      "source_location": "L1"
     },
     {
       "id": "frontend_src_components_mobile_movie_form_mobilemovieform",
@@ -4885,17 +4847,6 @@
       "file_type": "code",
       "norm_label": "mobilemovieform.tsx",
       "source_file": "frontend/src/components/mobile/movie-form/MobileMovieForm.tsx",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_src_components_moviecard",
-      "label": "MovieCard.tsx",
-      "_origin": "ast",
-      "community": 27,
-      "community_name": "lists.ts",
-      "file_type": "code",
-      "norm_label": "moviecard.tsx",
-      "source_file": "frontend/src/components/MovieCard.tsx",
       "source_location": "L1"
     },
     {
@@ -4921,14 +4872,14 @@
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_moviegrid",
-      "label": "MovieGrid.tsx",
+      "id": "frontend_src_components_moviespage",
+      "label": "MoviesPage.tsx",
       "_origin": "ast",
       "community": 27,
       "community_name": "lists.ts",
       "file_type": "code",
-      "norm_label": "moviegrid.tsx",
-      "source_file": "frontend/src/components/MovieGrid.tsx",
+      "norm_label": "moviespage.tsx",
+      "source_file": "frontend/src/components/MoviesPage.tsx",
       "source_location": "L1"
     },
     {
@@ -4940,6 +4891,39 @@
       "file_type": "code",
       "norm_label": "ratingstars.tsx",
       "source_file": "frontend/src/components/RatingStars.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_searchinput",
+      "label": "SearchInput.tsx",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "searchinput.tsx",
+      "source_file": "frontend/src/components/SearchInput.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_ui_modern_mobile_menu",
+      "label": "modern-mobile-menu.tsx",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "modern-mobile-menu.tsx",
+      "source_file": "frontend/src/components/ui/modern-mobile-menu.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_hooks_useinfinitescroll",
+      "label": "useInfiniteScroll.ts",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "useinfinitescroll.ts",
+      "source_file": "frontend/src/hooks/useInfiniteScroll.ts",
       "source_location": "L1"
     },
     {
@@ -4984,6 +4968,72 @@
       "file_type": "code",
       "norm_label": "trailer.ts",
       "source_file": "frontend/src/lib/trailer.ts",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_state_activelistcontext",
+      "label": "ActiveListContext.tsx",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "activelistcontext.tsx",
+      "source_file": "frontend/src/state/ActiveListContext.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_state_activelistcontext_activelistcontext",
+      "label": "ActiveListContext",
+      "_origin": "ast",
+      "community": 27,
+      "community_name": "lists.ts",
+      "file_type": "code",
+      "norm_label": "activelistcontext",
+      "source_file": "frontend/src/state/ActiveListContext.tsx",
+      "source_location": "L23"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilestatusfilter",
+      "label": "MobileStatusFilter.tsx",
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "MobileStatusFilter.tsx",
+      "file_type": "code",
+      "norm_label": "mobilestatusfilter.tsx",
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilestatusfilter_options",
+      "label": "OPTIONS",
+      "_origin": "ast",
+      "community": 28,
+      "community_name": "MobileStatusFilter.tsx",
+      "file_type": "code",
+      "norm_label": "options",
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L6"
+    },
+    {
+      "id": "frontend_src_components_formatteddatepicker",
+      "label": "FormattedDatePicker.tsx",
+      "_origin": "ast",
+      "community": 29,
+      "community_name": "FormattedDatePicker.tsx",
+      "file_type": "code",
+      "norm_label": "formatteddatepicker.tsx",
+      "source_file": "frontend/src/components/FormattedDatePicker.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_lib_watchdate",
+      "label": "watchDate.ts",
+      "_origin": "ast",
+      "community": 29,
+      "community_name": "FormattedDatePicker.tsx",
+      "file_type": "code",
+      "norm_label": "watchdate.ts",
+      "source_file": "frontend/src/lib/watchDate.ts",
       "source_location": "L1"
     },
     {
@@ -5691,17 +5741,6 @@
       "source_location": "L1"
     },
     {
-      "id": "frontend_src_components_mobile_mobilebottomsheet",
-      "label": "MobileBottomSheet.tsx",
-      "_origin": "ast",
-      "community": 5,
-      "community_name": "MobileFiltersScreen.tsx",
-      "file_type": "code",
-      "norm_label": "mobilebottomsheet.tsx",
-      "source_file": "frontend/src/components/mobile/MobileBottomSheet.tsx",
-      "source_location": "L1"
-    },
-    {
       "id": "frontend_src_components_mobile_mobilefiltersscreen",
       "label": "MobileFiltersScreen.tsx",
       "_origin": "ast",
@@ -5977,6 +6016,50 @@
       "source_location": "L25"
     },
     {
+      "id": "frontend_src_components_mobile_mobilemovietile",
+      "label": "MobileMovieTile.tsx",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "mobilemovietile.tsx",
+      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_mobile_mobilemovietile_tile_palettes",
+      "label": "TILE_PALETTES",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "tile_palettes",
+      "source_file": "frontend/src/components/mobile/MobileMovieTile.tsx",
+      "source_location": "L13"
+    },
+    {
+      "id": "frontend_src_components_moviecard",
+      "label": "MovieCard.tsx",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "moviecard.tsx",
+      "source_file": "frontend/src/components/MovieCard.tsx",
+      "source_location": "L1"
+    },
+    {
+      "id": "frontend_src_components_moviegrid",
+      "label": "MovieGrid.tsx",
+      "_origin": "ast",
+      "community": 8,
+      "community_name": "Movie",
+      "file_type": "code",
+      "norm_label": "moviegrid.tsx",
+      "source_file": "frontend/src/components/MovieGrid.tsx",
+      "source_location": "L1"
+    },
+    {
       "id": "frontend_api_index",
       "label": "api/index.ts",
       "_origin": "ast",
@@ -6084,17 +6167,6 @@
       "file_type": "code",
       "norm_label": "router.ts",
       "source_file": "frontend/api/_lib/router.ts",
-      "source_location": "L1"
-    },
-    {
-      "id": "frontend_api_lib_tmdb",
-      "label": "tmdb.ts",
-      "_origin": "ast",
-      "community": 9,
-      "community_name": "router.ts",
-      "file_type": "code",
-      "norm_label": "tmdb.ts",
-      "source_file": "frontend/api/_lib/tmdb.ts",
       "source_location": "L1"
     },
     {
@@ -7951,7 +8023,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L289",
+      "source_location": "L286",
       "weight": 1.0
     },
     {
@@ -7963,7 +8035,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L290",
+      "source_location": "L287",
       "weight": 1.0
     },
     {
@@ -7975,7 +8047,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L301",
+      "source_location": "L298",
       "weight": 1.0
     },
     {
@@ -7987,7 +8059,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L302",
+      "source_location": "L299",
       "weight": 1.0
     },
     {
@@ -7999,7 +8071,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L303",
+      "source_location": "L300",
       "weight": 1.0
     },
     {
@@ -8011,7 +8083,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L445",
+      "source_location": "L442",
       "weight": 1.0
     },
     {
@@ -8023,7 +8095,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L122",
+      "source_location": "L123",
       "weight": 1.0
     },
     {
@@ -8035,7 +8107,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L42",
+      "source_location": "L43",
       "weight": 1.0
     },
     {
@@ -8047,7 +8119,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L56",
+      "source_location": "L57",
       "weight": 1.0
     },
     {
@@ -8059,7 +8131,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L85",
+      "source_location": "L86",
       "weight": 1.0
     },
     {
@@ -8071,7 +8143,7 @@
       "confidence_score": 1.0,
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L95",
+      "source_location": "L96",
       "weight": 1.0
     },
     {
@@ -8192,6 +8264,18 @@
       "context": "call",
       "source_file": "frontend/src/components/mobile/MobileShell.tsx",
       "source_location": "L91",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilestatusfilter_mobilestatusfilter",
+      "target": "frontend_src_components_mobile_mobilestatusfilter_statuslabel",
+      "relation": "calls",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "call",
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L44",
       "weight": 1.0
     },
     {
@@ -11484,7 +11568,7 @@
     },
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
-      "target": "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieform",
+      "target": "frontend_src_components_mobile_mobilestatusfilter_mobilestatusfilter",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11496,7 +11580,7 @@
     },
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
-      "target": "frontend_src_components_searchinput_searchinput",
+      "target": "frontend_src_components_mobile_movie_form_mobilemovieform_mobilemovieform",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11508,7 +11592,7 @@
     },
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
-      "target": "frontend_src_components_emptystate_emptystate",
+      "target": "frontend_src_components_searchinput_searchinput",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11520,7 +11604,7 @@
     },
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
-      "target": "frontend_src_components_formatteddatepicker_formatteddatepicker",
+      "target": "frontend_src_components_emptystate_emptystate",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11532,7 +11616,7 @@
     },
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
-      "target": "frontend_src_lib_trailer_youtubetrailerurl",
+      "target": "frontend_src_components_formatteddatepicker_formatteddatepicker",
       "relation": "imports",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -11540,6 +11624,18 @@
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
       "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilemoviesscreen",
+      "target": "frontend_src_lib_trailer_youtubetrailerurl",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -11852,6 +11948,18 @@
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileShell.tsx",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilestatusfilter",
+      "target": "frontend_src_api_lists_moviestatus",
+      "relation": "imports",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -14076,7 +14184,7 @@
     },
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
-      "target": "frontend_src_components_mobile_movie_form_mobilemovieform",
+      "target": "frontend_src_components_mobile_mobilestatusfilter",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14088,7 +14196,7 @@
     },
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
-      "target": "frontend_src_components_searchinput",
+      "target": "frontend_src_components_mobile_movie_form_mobilemovieform",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14100,7 +14208,7 @@
     },
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
-      "target": "frontend_src_components_emptystate",
+      "target": "frontend_src_components_searchinput",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14112,7 +14220,7 @@
     },
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
-      "target": "frontend_src_components_formatteddatepicker",
+      "target": "frontend_src_components_emptystate",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14124,7 +14232,7 @@
     },
     {
       "source": "frontend_src_components_mobile_mobilemoviesscreen",
-      "target": "frontend_src_lib_trailer",
+      "target": "frontend_src_components_formatteddatepicker",
       "relation": "imports_from",
       "_origin": "ast",
       "confidence": "EXTRACTED",
@@ -14132,6 +14240,18 @@
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
       "source_location": "L26",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilemoviesscreen",
+      "target": "frontend_src_lib_trailer",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
+      "source_location": "L27",
       "weight": 1.0
     },
     {
@@ -14336,6 +14456,18 @@
       "context": "import",
       "source_file": "frontend/src/components/mobile/MobileShell.tsx",
       "source_location": "L9",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilestatusfilter",
+      "target": "frontend_src_api_lists",
+      "relation": "imports_from",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "context": "import",
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L2",
       "weight": 1.0
     },
     {
@@ -17779,7 +17911,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L276",
+      "source_location": "L273",
       "weight": 1.0
     },
     {
@@ -17790,7 +17922,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L28",
+      "source_location": "L29",
       "weight": 1.0
     },
     {
@@ -17801,7 +17933,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L31",
+      "source_location": "L32",
       "weight": 1.0
     },
     {
@@ -17812,7 +17944,7 @@
       "confidence": "EXTRACTED",
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L41",
+      "source_location": "L42",
       "weight": 1.0
     },
     {
@@ -17945,6 +18077,61 @@
       "confidence_score": 1.0,
       "source_file": "frontend/src/components/mobile/MobileShell.tsx",
       "source_location": "L30",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilestatusfilter",
+      "target": "frontend_src_components_mobile_mobilestatusfilter_statuslabel",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L12",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilestatusfilter",
+      "target": "frontend_src_components_mobile_mobilestatusfilter_mobilestatusfilterprops",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L16",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilestatusfilter",
+      "target": "frontend_src_components_mobile_mobilestatusfilter_mobilestatusfilter",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L21",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilestatusfilter",
+      "target": "frontend_src_components_mobile_mobilestatusfilter_statusfilter",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L4",
+      "weight": 1.0
+    },
+    {
+      "source": "frontend_src_components_mobile_mobilestatusfilter",
+      "target": "frontend_src_components_mobile_mobilestatusfilter_options",
+      "relation": "contains",
+      "_origin": "ast",
+      "confidence": "EXTRACTED",
+      "confidence_score": 1.0,
+      "source_file": "frontend/src/components/mobile/MobileStatusFilter.tsx",
+      "source_location": "L6",
       "weight": 1.0
     },
     {
@@ -19706,7 +19893,7 @@
       "confidence_score": 0.85,
       "context": "argument",
       "source_file": "frontend/src/components/mobile/MobileMoviesScreen.tsx",
-      "source_location": "L63",
+      "source_location": "L64",
       "weight": 1.0
     },
     {
@@ -19747,5 +19934,5 @@
     }
   ],
   "hyperedges": [],
-  "built_at_commit": "155e7e896923cd2705ff7371666b5848accdbd88"
+  "built_at_commit": "b99cb73395b2ab3c4fcec325d7694bd51bf35a56"
 }

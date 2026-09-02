@@ -120,9 +120,9 @@
     "semantic_hash": ""
   },
   "frontend/src/components/mobile/MobileMoviesScreen.tsx": {
-    "mtime": 1788277550.330743,
-    "seen": 1788277903.0946405,
-    "ast_hash": "d4489c7a875e1da4c6b70097e1a90438",
+    "mtime": 1788279507.7658427,
+    "seen": 1788279579.5800169,
+    "ast_hash": "428254004527b8407ef3df03bd1a19cd",
     "semantic_hash": ""
   },
   "frontend/src/components/mobile/MobileProfileScreen.tsx": {
@@ -440,7 +440,7 @@
   "frontend/schema.sql": {
     "mtime": 1787745390.2289839,
     "seen": 1788278638.428906,
-    "ast_hash": "37fb422524c5a482320155eb9ee758ac",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "Tym movies list of movies/movies.json": {
@@ -456,15 +456,15 @@
     "semantic_hash": ""
   },
   "frontend/api/_lib/db.ts": {
-    "mtime": 1788276061.5201554,
-    "seen": 1788277903.0890849,
-    "ast_hash": "b2088d5b13991e591a8939ab59bd6ef8",
+    "mtime": 1788339119.1187909,
+    "seen": 1788339154.574503,
+    "ast_hash": "fe6d1130cfcfac9f31a860e295c2ae54",
     "semantic_hash": ""
   },
   "frontend/api/_lib/tmdb.ts": {
-    "mtime": 1788277687.4875588,
-    "seen": 1788277903.0892773,
-    "ast_hash": "e1b54be9d936b10097441b9b1c8d452c",
+    "mtime": 1788339117.4616659,
+    "seen": 1788339154.574826,
+    "ast_hash": "f81b12b93d068f68a01fa03e73edf153",
     "semantic_hash": ""
   },
   "frontend/api/_lib/types.ts": {
@@ -494,19 +494,19 @@
   "frontend/migrations/0001_create_movies_table.sql": {
     "mtime": 1787745390.1562808,
     "seen": 1788278638.4287484,
-    "ast_hash": "80d4bdc373940793090592b35e9484c9",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/migrations/0002_add_title_ua.sql": {
     "mtime": 1787745390.1793597,
     "seen": 1788278638.428751,
-    "ast_hash": "2758b760226b686074b4fdaa9af753d6",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/migrations/0003_add_comment_text.sql": {
     "mtime": 1787745390.1967373,
     "seen": 1788278638.4287536,
-    "ast_hash": "cdf50d146d4e50816dcf5cd191f6d479",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   ".serena/project.yml": {
@@ -626,55 +626,55 @@
   "frontend/migrations/0004_create_users.sql": {
     "mtime": 1788251581.9973807,
     "seen": 1788278638.4287558,
-    "ast_hash": "f3ae18f37ade2230559954a46e9ba287",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/migrations/0005_create_lists.sql": {
     "mtime": 1788251582.0052876,
     "seen": 1788278638.4287574,
-    "ast_hash": "e34a28594ce6752f5f67cc259a2242a5",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/migrations/0006_create_list_members.sql": {
     "mtime": 1788251582.0127945,
     "seen": 1788278638.428759,
-    "ast_hash": "4c6c51be43a3474c270e2cf48c6ded23",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/migrations/0007_create_list_movies.sql": {
     "mtime": 1788251582.0193062,
     "seen": 1788278638.4287608,
-    "ast_hash": "b66def4a531568e057b2d5426bc42dd5",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/migrations/0008_create_list_movie_ratings.sql": {
     "mtime": 1788251582.0268328,
     "seen": 1788278638.428763,
-    "ast_hash": "91352d64b520e4fe7333287a2a8caff3",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/migrations/0009_create_list_invites.sql": {
     "mtime": 1788251582.0346038,
     "seen": 1788278638.4287643,
-    "ast_hash": "76a6e30c2d2e30ad18bd44d332519948",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/scripts/manual-backfill-and-slim.sql": {
     "mtime": 1788257795.2060885,
     "seen": 1788278638.4307814,
-    "ast_hash": "723454549d69ccc24b7ff7656d95f113",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/scripts/manual-migrate-0001-0009.sql": {
     "mtime": 1788255932.8091424,
     "seen": 1788278638.430785,
-    "ast_hash": "67ff1ca98c9dfa3e93b027c5f72cd35e",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/scripts/post-backfill-slim-movies.sql": {
     "mtime": 1788257795.1980653,
     "seen": 1788278638.4311464,
-    "ast_hash": "7c6aa4f3ecc4d51cc2074bece4a4e125",
+    "ast_hash": "",
     "semantic_hash": ""
   },
   "frontend/api/_lib/router.ts": {
@@ -807,6 +807,24 @@
     "mtime": 1788273084.1834867,
     "seen": 1788277903.096018,
     "ast_hash": "2908223560d0fa6230274d061e1d6311",
+    "semantic_hash": ""
+  },
+  "frontend/migrations/0010_add_trailer_key.sql": {
+    "mtime": 1788273029.0268536,
+    "seen": 1788279579.5798726,
+    "ast_hash": "",
+    "semantic_hash": ""
+  },
+  "frontend/src/components/mobile/MobileStatusFilter.tsx": {
+    "mtime": 1788279504.930364,
+    "seen": 1788279579.5800228,
+    "ast_hash": "810810ae8b548c0a71c29f83e37ef185",
+    "semantic_hash": ""
+  },
+  "frontend/scripts/backfill-title-ua.mjs": {
+    "mtime": 1788339144.501884,
+    "seen": 1788339154.5785108,
+    "ast_hash": "bd36642c837f7564679a4f7cf519d65f",
     "semantic_hash": ""
   }
 }

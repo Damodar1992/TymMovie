@@ -3284,6 +3284,11 @@ p {
   .desktop-catalog-toolbar .toggle-chip, .desktop-catalog-toolbar .segmented-toggle-option { color:#9298a4; }
   .desktop-catalog-toolbar .toggle-chip-active, .desktop-catalog-toolbar .segmented-toggle-option[aria-pressed='true'] { background:rgb(255 255 255 / 14%); color:#fff; box-shadow:none; }
   .sort-order-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+    min-width: 118px;
     height: 34px;
     padding: 0 12px;
     border: 0;

@@ -494,13 +494,14 @@ export const catalogDb = {
     const sql = getSql();
     const title = details.title || details.originalTitle || 'Untitled';
     const rows = await sql(
-      `INSERT INTO movies (id, content_type, title, title_normalized, original_title, tmdb_id, poster_url, genres, tmdb_rating, release_year, trailer_key)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11)
+      `INSERT INTO movies (id, content_type, title, title_normalized, original_title, title_ua, tmdb_id, poster_url, genres, tmdb_rating, release_year, trailer_key)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
        ON CONFLICT (tmdb_id, content_type) DO UPDATE SET
          tmdb_rating = EXCLUDED.tmdb_rating,
          poster_url = EXCLUDED.poster_url,
          genres = EXCLUDED.genres,
          trailer_key = EXCLUDED.trailer_key,
+         title_ua = COALESCE(EXCLUDED.title_ua, movies.title_ua),
          updated_at = NOW()
        RETURNING ${MOVIE_COLS}`,
       [
@@ -509,6 +510,7 @@ export const catalogDb = {
         title,
         normalizeTitle(title),
         details.originalTitle,
+        details.titleUa,
         details.tmdbId,
         buildPosterUrl(details.posterPath, 'w342'),
         details.genres ? JSON.stringify(details.genres) : null,

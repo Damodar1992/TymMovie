@@ -22,6 +22,7 @@ export interface TmdbDetails {
   contentType: TmdbContentType;
   title: string;
   originalTitle: string | null;
+  titleUa: string | null;
   releaseYear: number | null;
   tmdbRating: number | null;
   genres: string[] | null;
@@ -165,11 +166,14 @@ export async function getMovieDetails(id: number): Promise<TmdbDetails> {
   // request — no extra TMDb call, and it only ever runs once per title
   // (see catalogDb.upsertFromTmdb call sites). include_video_language
   // widens the videos list beyond just en-US-tagged entries.
-  const res = await authFetch(
-    `/movie/${id}?language=en-US&append_to_response=videos&include_video_language=en,uk,null`,
-  );
-  if (!res.ok) throw new Error('Failed to load movie details');
-  const d = (await res.json()) as {
+  const [enRes, ukRes] = await Promise.all([
+    authFetch(
+      `/movie/${id}?language=en-US&append_to_response=videos&include_video_language=en,uk,null`,
+    ),
+    authFetch(`/movie/${id}?language=uk-UA`),
+  ]);
+  if (!enRes.ok) throw new Error('Failed to load movie details');
+  const d = (await enRes.json()) as {
     id: number;
     title?: string;
     original_title?: string;
@@ -179,6 +183,11 @@ export async function getMovieDetails(id: number): Promise<TmdbDetails> {
     poster_path?: string;
     videos?: { results?: TmdbVideo[] };
   };
+  let titleUa: string | null = null;
+  if (ukRes.ok) {
+    const uk = (await ukRes.json()) as { title?: string };
+    titleUa = uk.title?.trim() || null;
+  }
   const releaseDate = d.release_date ?? '';
   const year =
     typeof releaseDate === 'string' && releaseDate.length >= 4
@@ -192,6 +201,7 @@ export async function getMovieDetails(id: number): Promise<TmdbDetails> {
     contentType: 'MOVIE',
     title: d.title ?? '',
     originalTitle: d.original_title ?? d.title ?? null,
+    titleUa,
     releaseYear: year,
     tmdbRating: rating,
     genres,
@@ -201,11 +211,14 @@ export async function getMovieDetails(id: number): Promise<TmdbDetails> {
 }
 
 export async function getTvDetails(id: number): Promise<TmdbDetails> {
-  const res = await authFetch(
-    `/tv/${id}?language=en-US&append_to_response=videos&include_video_language=en,uk,null`,
-  );
-  if (!res.ok) throw new Error('Failed to load TV details');
-  const d = (await res.json()) as {
+  const [enRes, ukRes] = await Promise.all([
+    authFetch(
+      `/tv/${id}?language=en-US&append_to_response=videos&include_video_language=en,uk,null`,
+    ),
+    authFetch(`/tv/${id}?language=uk-UA`),
+  ]);
+  if (!enRes.ok) throw new Error('Failed to load TV details');
+  const d = (await enRes.json()) as {
     id: number;
     name?: string;
     original_name?: string;
@@ -215,6 +228,11 @@ export async function getTvDetails(id: number): Promise<TmdbDetails> {
     poster_path?: string;
     videos?: { results?: TmdbVideo[] };
   };
+  let titleUa: string | null = null;
+  if (ukRes.ok) {
+    const uk = (await ukRes.json()) as { name?: string };
+    titleUa = uk.name?.trim() || null;
+  }
   const firstAirDate = d.first_air_date ?? '';
   const year =
     typeof firstAirDate === 'string' && firstAirDate.length >= 4
@@ -228,6 +246,7 @@ export async function getTvDetails(id: number): Promise<TmdbDetails> {
     contentType: 'TV',
     title: d.name ?? '',
     originalTitle: d.original_name ?? d.name ?? null,
+    titleUa,
     releaseYear: year,
     tmdbRating: rating,
     genres,
